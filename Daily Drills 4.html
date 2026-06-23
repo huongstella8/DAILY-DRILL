@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Daily Drills 4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--lc:#2D6A4F;--ll:#D8F3DC;--bg:#F4F2EF;--hdr:#111;--rad:10px;--shadow:0 2px 8px rgba(0,0,0,.08)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:#1a1a1a;min-height:100vh}
+code,pre,.mono{font-family:'JetBrains Mono',monospace}
+
+/* HEADER */
+header{background:var(--hdr);color:#fff;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.brand{font-size:.7rem;font-weight:700;letter-spacing:.18em;opacity:.6;text-transform:uppercase}
+.hdr-title{font-size:1.1rem;font-weight:700;letter-spacing:.04em}
+.hdr-sub{font-size:.75rem;opacity:.55;margin-top:2px}
+.hdr-dl button{background:#fff;color:var(--hdr);border:none;padding:8px 18px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.hdr-dl button:hover{opacity:.85}
+
+/* LEVEL TABS */
+.lv-tabs{display:flex;gap:0;border-bottom:2px solid #ddd;padding:0 32px;background:#fff;position:sticky;top:0;z-index:50;overflow-x:auto}
+.lv-tab{padding:14px 22px;font-size:.82rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s;color:#666}
+.lv-tab.active{color:var(--lc);border-bottom-color:var(--lc)}
+.lv-tab:hover:not(.active){color:#333}
+
+/* LEVEL HERO */
+.hero{padding:28px 32px 20px;border-bottom:1px solid #e4e1db}
+.hero-row{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.hero-badge{background:var(--lc);color:#fff;padding:6px 14px;border-radius:20px;font-size:.75rem;font-weight:700;letter-spacing:.05em;white-space:nowrap}
+.hero-info{flex:1;min-width:220px}
+.hero-theme{font-size:1.25rem;font-weight:700;color:var(--lc);margin-bottom:4px}
+.hero-tagline{font-size:.88rem;color:#555;margin-bottom:10px}
+.hero-goal{font-size:.82rem;background:var(--ll);border-left:3px solid var(--lc);padding:10px 14px;border-radius:0 6px 6px 0;color:#333;line-height:1.6}
+.hero-time{font-size:.75rem;color:#888;margin-top:8px;font-weight:500}
+
+/* SECTION NAV */
+.sec-nav{display:flex;gap:8px;padding:16px 32px;overflow-x:auto;border-bottom:1px solid #e4e1db;background:#fff}
+.sec-btn{padding:6px 14px;border-radius:20px;border:1.5px solid #ddd;background:#fff;font-size:.78rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .15s;color:#555}
+.sec-btn.active{background:var(--lc);color:#fff;border-color:var(--lc)}
+.sec-btn:hover:not(.active){border-color:var(--lc);color:var(--lc)}
+
+/* MAIN CONTENT */
+.content{padding:28px 32px;max-width:900px}
+
+/* PROGRESS BAR */
+.prog-wrap{background:#eee;border-radius:20px;height:8px;margin-bottom:24px;overflow:hidden}
+.prog-bar{height:100%;border-radius:20px;background:var(--lc);transition:width .4s ease}
+.prog-label{font-size:.75rem;color:#888;margin-bottom:6px;font-weight:500}
+
+/* THEORY CARDS */
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:4px}
+.tc{background:#fff;border-radius:var(--rad);padding:16px 18px;border-top:4px solid var(--lc);box-shadow:var(--shadow)}
+.tc-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.tc-label{font-weight:700;font-size:.92rem;color:var(--hdr)}
+.tc-badge{background:var(--ll);color:var(--lc);font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.04em;text-transform:uppercase}
+.tc-examples{font-family:'JetBrains Mono',monospace;font-size:.78rem;background:#f8f8f6;padding:8px 10px;border-radius:6px;margin-bottom:8px;line-height:1.7;color:#333}
+.tc-rule{font-size:.8rem;color:#555;line-height:1.6}
+
+/* THEORY2 GROUPS */
+.t2-group{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:12px;border-left:4px solid var(--lc)}
+.t2-label{font-weight:700;font-size:.95rem;margin-bottom:8px;color:var(--lc)}
+.t2-verbs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.t2-verb{background:var(--ll);color:var(--lc);padding:3px 10px;border-radius:12px;font-size:.78rem;font-weight:600;font-family:'JetBrains Mono',monospace}
+.t2-memory{font-size:.8rem;color:#444;background:#f5f3f0;padding:8px 12px;border-radius:6px;margin-bottom:8px;line-height:1.5;font-style:italic}
+.t2-example{font-size:.82rem;color:#555;font-family:'JetBrains Mono',monospace;line-height:1.6}
+
+/* THEORY3 */
+.t3-pair{background:#fff;border-radius:var(--rad);padding:16px 18px;box-shadow:var(--shadow);margin-bottom:12px}
+.t3-spoken{font-size:.82rem;color:#888;text-decoration:line-through;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+.t3-academic{font-size:.85rem;color:#1a1a1a;font-weight:600;margin-bottom:8px;font-family:'JetBrains Mono',monospace;line-height:1.5}
+.t3-change{font-size:.78rem;color:var(--lc);background:var(--ll);padding:5px 10px;border-radius:6px}
+.t3-insight{background:var(--hdr);color:#fff;border-radius:var(--rad);padding:14px 18px;font-size:.83rem;line-height:1.65;margin-top:4px}
+
+/* THEORY4 */
+.t4-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.t4-card{background:#fff;border-radius:var(--rad);padding:16px 18px;box-shadow:var(--shadow);border-top:4px solid var(--lc)}
+.t4-label{font-weight:700;font-size:.9rem;margin-bottom:8px;color:var(--hdr)}
+.t4-desc{font-size:.8rem;color:#555;line-height:1.6;margin-bottom:10px}
+.t4-fix{font-size:.79rem;font-family:'JetBrains Mono',monospace;background:#f5f3f0;padding:8px 10px;border-radius:6px;color:#333;line-height:1.6}
+
+/* SPOT */
+.spot-item{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.spot-num{font-size:.72rem;font-weight:700;color:#999;letter-spacing:.05em;margin-bottom:8px;text-transform:uppercase}
+.spot-sentence{font-size:.95rem;line-height:1.7;margin-bottom:14px;color:#1a1a1a}
+.spot-sentence u{text-decoration:underline;text-decoration-color:var(--lc);text-underline-offset:3px;font-weight:600}
+.spot-choices{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.spot-choice{padding:8px 16px;border-radius:8px;border:2px solid #ddd;background:#fff;font-size:.83rem;cursor:pointer;font-weight:500;transition:all .15s}
+.spot-choice:hover:not(.locked){border-color:var(--lc);color:var(--lc)}
+.spot-choice.selected{border-color:var(--lc);background:var(--ll);color:var(--lc)}
+.spot-choice.correct{border-color:#2D6A4F;background:#D8F3DC;color:#2D6A4F}
+.spot-choice.wrong{border-color:#c0392b;background:#fde;color:#c0392b}
+.spot-feedback{display:none;margin-top:10px;border-radius:8px;padding:12px 14px;font-size:.82rem;line-height:1.6}
+.spot-feedback.show{display:block}
+.spot-feedback.ok{background:#D8F3DC;border-left:3px solid #2D6A4F}
+.spot-feedback.err{background:#fde8e8;border-left:3px solid #c0392b}
+.fb-rule{margin-top:6px;color:#444}
+.fb-tip{margin-top:6px;font-style:italic;color:#666;font-size:.79rem}
+.spot-check-btn{margin-top:10px;padding:7px 18px;background:var(--lc);color:#fff;border:none;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.spot-check-btn:hover{opacity:.85}
+.spot-check-btn:disabled{opacity:.5;cursor:default}
+.spot-score{margin-top:14px;padding:10px 14px;background:#f5f3f0;border-radius:8px;font-size:.83rem;font-weight:600}
+
+/* RUBRIC */
+.rub-toggle{background:none;border:1px solid #ddd;border-radius:6px;padding:5px 12px;font-size:.75rem;cursor:pointer;color:#777;margin-bottom:10px;transition:all .15s}
+.rub-toggle:hover{border-color:var(--lc);color:var(--lc)}
+.rub-table{display:none;width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:12px}
+.rub-table.show{display:table}
+.rub-table th{background:var(--lc);color:#fff;padding:7px 10px;text-align:left}
+.rub-table td{padding:7px 10px;border-bottom:1px solid #eee;vertical-align:top}
+.rub-table tr:last-child td{border-bottom:none}
+.rub-max{font-weight:700;color:var(--lc);text-align:center}
+
+/* FILL */
+.fill-item{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.fill-template{font-size:.95rem;line-height:1.7;margin-bottom:10px;color:#1a1a1a}
+.fill-base{display:inline-block;background:var(--ll);color:var(--lc);padding:2px 10px;border-radius:10px;font-size:.78rem;font-weight:700;margin-bottom:10px;font-family:'JetBrains Mono',monospace}
+.fill-input-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fill-input{border:2px solid #ddd;border-radius:8px;padding:8px 14px;font-size:.88rem;font-family:'JetBrains Mono',monospace;outline:none;transition:border-color .15s;min-width:180px}
+.fill-input:focus{border-color:var(--lc)}
+.fill-input.correct{border-color:#2D6A4F;background:#D8F3DC}
+.fill-input.wrong{border-color:#c0392b;background:#fde}
+.fill-btn{padding:8px 16px;background:var(--lc);color:#fff;border:none;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.fill-btn:hover{opacity:.85}
+.fill-btn:disabled{opacity:.5;cursor:default}
+.fill-feedback{display:none;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:.82rem;line-height:1.6}
+.fill-feedback.show{display:block}
+.fill-feedback.ok{background:#D8F3DC;border-left:3px solid #2D6A4F}
+.fill-feedback.err{background:#fde8e8;border-left:3px solid #c0392b}
+
+/* TRANSFORM */
+.tr-item{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.tr-spoken{font-size:.88rem;color:#777;font-style:italic;margin-bottom:8px;padding:8px 12px;background:#f5f3f0;border-radius:6px;font-family:'JetBrains Mono',monospace;line-height:1.5}
+.tr-hint{font-size:.78rem;color:var(--lc);background:var(--ll);padding:5px 10px;border-radius:6px;margin-bottom:10px;font-style:italic}
+.tr-textarea{width:100%;border:2px solid #ddd;border-radius:8px;padding:10px 14px;font-size:.85rem;font-family:'JetBrains Mono',monospace;resize:vertical;min-height:80px;outline:none;transition:border-color .15s;line-height:1.6}
+.tr-textarea:focus{border-color:var(--lc)}
+.tr-btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tr-save-btn,.tr-reveal-btn{padding:7px 16px;border:none;border-radius:6px;font-size:.79rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.tr-save-btn{background:var(--lc);color:#fff}
+.tr-reveal-btn{background:#f0f0f0;color:#555}
+.tr-save-btn:hover,.tr-reveal-btn:hover{opacity:.8}
+.tr-answer{display:none;margin-top:10px;background:#f5f3f0;border-radius:8px;padding:12px 14px;font-size:.82rem;line-height:1.65}
+.tr-answer.show{display:block}
+.tr-answer strong{color:var(--lc);display:block;margin-bottom:4px}
+.tr-principle{font-size:.78rem;color:#666;font-style:italic;margin-top:6px;padding-top:6px;border-top:1px solid #ddd}
+
+/* LOG */
+.log-item{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.log-prompt{font-size:.87rem;color:#333;line-height:1.65;margin-bottom:10px;font-weight:500}
+.log-textarea{width:100%;border:2px solid #ddd;border-radius:8px;padding:10px 14px;font-size:.85rem;font-family:'Inter',sans-serif;resize:vertical;min-height:80px;outline:none;transition:border-color .15s;line-height:1.6}
+.log-textarea:focus{border-color:var(--lc)}
+.log-save-btn{margin-top:8px;padding:7px 16px;background:var(--lc);color:#fff;border:none;border-radius:6px;font-size:.79rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.log-save-btn:hover{opacity:.85}
+.log-saved{display:none;margin-top:6px;font-size:.75rem;color:#2D6A4F;font-weight:600}
+.log-saved.show{display:block}
+.log-all-btn{margin-top:4px;padding:8px 20px;background:#1a1a1a;color:#fff;border:none;border-radius:6px;font-size:.82rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.log-all-btn:hover{opacity:.8}
+
+/* SCORE BADGE */
+.score-badge{display:inline-block;padding:3px 10px;border-radius:10px;font-size:.75rem;font-weight:700}
+.score-badge.good{background:#D8F3DC;color:#2D6A4F}
+.score-badge.mid{background:#fff3cd;color:#856404}
+.score-badge.low{background:#fde8e8;color:#c0392b}
+
+/* SECTION TITLE */
+.sec-title{font-size:1.1rem;font-weight:700;color:var(--hdr);margin-bottom:4px}
+.sec-sub{font-size:.82rem;color:#888;margin-bottom:18px}
+
+@media(max-width:600px){
+  header{padding:14px 18px}
+  .lv-tabs{padding:0 12px}
+  .hero,.sec-nav,.content{padding-left:14px;padding-right:14px}
+  .theory-grid,.t4-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Huong Stella Paradigm</div>
+    <div class="hdr-title">Day 4 &middot; Interactive Practice</div>
+    <div class="hdr-sub">Tense Accuracy</div>
+  </div>
+  <div class="hdr-dl"><button onclick="handleDownload()">&#8615; Download Report</button></div>
+</header>
+
+<div class="lv-tabs" id="lvTabs"></div>
+
+<div class="hero" id="hero"></div>
+<div class="sec-nav" id="secNav"></div>
+<div class="content" id="content"></div>
+
+<script>
+// ── STATE ──────────────────────────────────────────────────────────────
+let AL='a2b1', AS=0;
+const ST={choices:{}, inputs:{}, checked:{}, logs:{}};
+
+// ── DATA ───────────────────────────────────────────────────────────────
+const RUBRICS={
+  a2b1:{
+    spot:[
+      {criterion:"Error identified",max:1,desc:"Correctly selects the underlined error"},
+      {criterion:"Correction accurate",max:2,desc:"Provides the grammatically correct replacement"},
+      {criterion:"Rule applied",max:1,desc:"Can explain which tense rule was broken"}
+    ],
+    fill:[
+      {criterion:"Correct tense form",max:2,desc:"Uses present simple or continuous accurately"},
+      {criterion:"Spelling & form",max:1,desc:"Third-person -s, -ing ending correct"},
+      {criterion:"Context awareness",max:1,desc:"Chooses the tense that matches the time clue"}
+    ],
+    log:[
+      {criterion:"Error recorded",max:2,desc:"Identifies a real tense mistake from today"},
+      {criterion:"Rule explained",max:2,desc:"States why one tense is correct and the other is not"},
+      {criterion:"Original sentence",max:2,desc:"Writes a new correct sentence using the target tense"}
+    ]
+  },
+  b1b2:{
+    spot:[
+      {criterion:"Error identified",max:1,desc:"Selects the wrong tense form"},
+      {criterion:"Correction accurate",max:2,desc:"Supplies the correct past simple or present perfect form"},
+      {criterion:"Time signal noted",max:1,desc:"Identifies the time expression that determines the tense"}
+    ],
+    fill:[
+      {criterion:"Correct tense chosen",max:2,desc:"Accurately selects past simple or present perfect"},
+      {criterion:"Form accuracy",max:1,desc:"Irregular past participles spelled correctly"},
+      {criterion:"Signal word matched",max:1,desc:"Tense choice matches the time expression given"}
+    ],
+    log:[
+      {criterion:"Error recorded",max:2,desc:"Logs a genuine past simple/present perfect confusion"},
+      {criterion:"Distinction explained",max:2,desc:"Articulates when each tense is required"},
+      {criterion:"Original sentence pair",max:2,desc:"Writes one sentence in each tense to contrast them"}
+    ]
+  },
+  b2c1:{
+    spot:[
+      {criterion:"Error identified",max:1,desc:"Locates the tense error in the academic sentence"},
+      {criterion:"Correction accurate",max:2,desc:"Supplies the correct perfect aspect form"},
+      {criterion:"Academic justification",max:1,desc:"Explains why perfect aspect is required in this context"}
+    ],
+    fill:[
+      {criterion:"Perfect form correct",max:2,desc:"Has/have/had + past participle used accurately"},
+      {criterion:"Aspect distinction",max:1,desc:"Distinguishes simple past from perfect aspect correctly"},
+      {criterion:"Academic register",max:1,desc:"Form fits an academic sentence context"}
+    ],
+    transform:[
+      {criterion:"Tense upgraded",max:2,desc:"Converts simple past to perfect aspect where required"},
+      {criterion:"Meaning preserved",max:1,desc:"Academic sentence retains the original proposition"},
+      {criterion:"Register appropriate",max:1,desc:"Sentence reads as formal academic prose"}
+    ],
+    log:[
+      {criterion:"Error recorded",max:2,desc:"Identifies a real perfect aspect error in your writing"},
+      {criterion:"Principle stated",max:2,desc:"Explains when perfect aspect signals academic relevance"},
+      {criterion:"Revised sentence",max:2,desc:"Rewrites a sentence to use perfect aspect correctly"}
+    ]
+  },
+  c1c2:{
+    spot:[
+      {criterion:"Error identified",max:1,desc:"Pinpoints tense inconsistency or sequencing error"},
+      {criterion:"Correction accurate",max:2,desc:"Supplies the correct tense for the argument's logic"},
+      {criterion:"Discourse justification",max:1,desc:"Explains how the error disrupts argument flow"}
+    ],
+    fill:[
+      {criterion:"Correct tense sequence",max:2,desc:"Chooses the tense that maintains narrative/argument logic"},
+      {criterion:"Verb form accuracy",max:1,desc:"Complex tense forms (perfect, conditional perfect) correct"},
+      {criterion:"Rhetorical function",max:1,desc:"Tense choice serves the argumentative purpose"}
+    ],
+    transform:[
+      {criterion:"Tense architecture",max:2,desc:"Constructs a coherent multi-tense sequence"},
+      {criterion:"Logical precision",max:1,desc:"Tense choice makes causal/temporal logic explicit"},
+      {criterion:"C2 register",max:1,desc:"Sentence demonstrates C2-level syntactic sophistication"}
+    ],
+    log:[
+      {criterion:"Error pattern noted",max:2,desc:"Identifies a systemic tense sequencing problem in your writing"},
+      {criterion:"Rhetorical impact analysed",max:2,desc:"Explains how tense choice affects argument persuasiveness"},
+      {criterion:"Complex revision",max:2,desc:"Rewrites a multi-clause sentence with correct tense sequencing"}
+    ]
+  }
+};
+
+const LEVELS={
+  a2b1:{
+    label:"A2–B1",color:"#2D6A4F",light:"#D8F3DC",
+    theme:"Present Simple vs Continuous",
+    tagline:"Know when to use ‘-ing’ and when to use the base form.",
+    goal:"Today you will: (1) identify state verbs that never use -ing, (2) spot present tense errors in realistic sentences, (3) choose the correct tense form for five sentences.",
+    time:"10–15 min",
+    sections:[
+      {
+        title:"Warm-up: Tense Cards",
+        type:"theory",
+        cards:[
+          {label:"Present Simple",badge:"habit / fact",color:"#2D6A4F",
+           examples:"She teaches English every day.\nWater boils at 100°C.\nI usually wake up at 7 a.m.",
+           rule:"Use Present Simple for habits, routines, and permanent facts. Key signals: always, usually, often, sometimes, never, every day/week/year."},
+          {label:"Present Continuous",badge:"right now / temporary",color:"#1A4A7A",
+           examples:"She is teaching a class right now.\nI am staying with my cousin this week.\nLook — it is raining!",
+           rule:"Use Present Continuous for actions happening at the moment of speaking, or for temporary situations. Key signals: now, at the moment, currently, today, this week/month."},
+          {label:"State Verbs (never -ing!)",badge:"state",color:"#8B1A1A",
+           examples:"✗ I am knowing the answer.\n✓ I know the answer.\n✗ She is wanting some water.\n✓ She wants some water.",
+           rule:"State verbs describe conditions, not actions. They NEVER use -ing. Groups: mental (know, understand, believe, remember), emotional (love, hate, want, prefer), sense (see, hear), possession (have/own when meaning 'possess')."},
+          {label:"Tricky Verbs (two meanings!)",badge:"watch out",color:"#5A1A8A",
+           examples:"I think you are right. (opinion = state → simple)\nI am thinking about the problem. (active process → continuous)\nShe has a car. (own = state → simple)\nShe is having lunch. (eating = action → continuous)",
+           rule:"Some verbs change meaning: think, have, see, taste, smell. Ask: is this a state/condition, or an active ongoing process? States use simple; ongoing actions use continuous."}
+        ]
+      },
+      {
+        title:"Spot the Error",type:"spot",rubricKey:"spot",
+        items:[
+          {sentence:"My father is knowing three languages fluently.",
+           underlined:"is knowing",wrongWord:"is knowing",correctWord:"knows",
+           wrongType:"state verb + -ing",correctType:"present simple",
+           rule:"'Know' is a state verb expressing mental possession of knowledge. State verbs do not take the -ing form. Use present simple: 'My father knows three languages fluently.'",
+           tip:"Ask: can you physically 'do' this? You can't 'do' knowing — it's a state, not an action. No -ing for mental states."},
+          {sentence:"Look! The cat is sit on your laptop.",
+           underlined:"is sit",wrongWord:"is sit",correctWord:"is sitting",
+           wrongType:"missing -ing",correctType:"present continuous",
+           rule:"Present continuous = is/am/are + verb-ing. 'Sit' needs the -ing ending in continuous form. 'Is sit' has the auxiliary but is missing the -ing.",
+           tip:"Present continuous has TWO parts: auxiliary (is/am/are) + main verb-ing. If you see 'is/am/are', the next verb must end in -ing."},
+          {sentence:"She usually is going to the market on Sunday mornings.",
+           underlined:"is going",wrongWord:"is going",correctWord:"goes",
+           wrongType:"continuous for habit",correctType:"present simple",
+           rule:"'Usually' signals a habit or routine — present simple territory. Habitual frequency adverbs (always, usually, often, sometimes, never) do not pair with the continuous form.",
+           tip:"Spot the frequency word first. 'Usually' = habit = present simple. Only switch to continuous when you see 'now / at the moment / currently'."},
+          {sentence:"I am not understanding why he left without saying goodbye.",
+           underlined:"am not understanding",wrongWord:"am not understanding",correctWord:"do not understand",
+           wrongType:"state verb + -ing",correctType:"present simple negative",
+           rule:"'Understand' is a state verb (mental process). It does not take continuous form. Use 'don't/doesn't understand' for negation.",
+           tip:"Mental states — believe, know, understand, remember, forget — are nearly always simple. If you're tempted to add -ing to these, pause and ask: action or state?"},
+          {sentence:"The children play in the garden at the moment.",
+           underlined:"play",wrongWord:"play",correctWord:"are playing",
+           wrongType:"simple for in-progress action",correctType:"present continuous",
+           rule:"'At the moment' signals that something is happening right now, in progress. Present continuous (are playing) is required for an action currently in progress.",
+           tip:"'At the moment', 'right now', 'currently', 'look!', 'listen!' are red-flag signals for present continuous. Spot them → switch to is/am/are + -ing."},
+          {sentence:"Water consisting of hydrogen and oxygen atoms.",
+           underlined:"consisting",wrongWord:"consisting",correctWord:"consists",
+           wrongType:"participle instead of verb",correctType:"present simple (scientific fact)",
+           rule:"Scientific facts and permanent truths use present simple. 'Consisting' without an auxiliary is a participle, not a finite verb. Also, 'consist' is a state verb and never takes -ing as a main verb.",
+           tip:"For permanent facts, use present simple with a proper finite verb: 'Water consists of…'. If your sentence has no auxiliary, the main verb must be finite — check it ends in -s (third person singular) or is the base form."}
+        ]
+      },
+      {
+        title:"Fill in the Blank",type:"fill",rubricKey:"fill",
+        items:[
+          {template:"Listen! Someone ___ (knock) at the door.",
+           baseWord:"knock",answer:"is knocking",
+           targetType:"present continuous",hint:"present continuous: is/am/are + -ing",
+           explanation:"'Listen!' signals something is happening right now. Present continuous = is/am/are + verb-ing. Subject 'someone' is third person singular → 'is knocking'."},
+          {template:"My grandfather ___ (play) chess every evening after dinner.",
+           baseWord:"play",answer:"plays",
+           targetType:"present simple (habit)",hint:"habit — third-person singular -s",
+           explanation:"'Every evening' signals a regular habit. Present simple is required. Third-person singular subject (grandfather) → add -s: 'plays'."},
+          {template:"I ___ (think) this soup is too salty — can we add some water?",
+           baseWord:"think",answer:"think",
+           targetType:"state verb (opinion)",hint:"state verb — no -ing",
+           explanation:"Here 'think' expresses an opinion (a state), not an active thought process. State verbs use present simple: 'I think', not 'I am thinking'. First person → no -s."},
+          {template:"She ___ (manage) a new project this month, so she is very busy.",
+           baseWord:"manage",answer:"is managing",
+           targetType:"present continuous (temporary)",hint:"temporary situation — this month",
+           explanation:"'This month' signals a temporary ongoing situation. Present continuous is correct for something happening over a current but limited period: 'is managing'. Drop the -e before adding -ing."},
+          {template:"The River Mekong ___ (flow) through six countries before reaching the sea.",
+           baseWord:"flow",answer:"flows",
+           targetType:"present simple (permanent fact)",hint:"geographical fact",
+           explanation:"Geographical facts are permanent and unchanging — present simple is always used. Third-person singular: 'flows'."}
+        ]
+      },
+      {
+        title:"Error Log",type:"log",rubricKey:"log",
+        prompts:[
+          "Write one present tense error you noticed today — your own error or one from the exercises. Quote the wrong sentence and then write the corrected version.",
+          "Explain in your own words: what is the difference between 'I think' and 'I am thinking'? When does the meaning change, and why?",
+          "Write two original sentences about your daily routine — one in present simple (a habit) and one in present continuous (something happening right now or this week)."
+        ]
+      }
+    ]
+  },
+
+  b1b2:{
+    label:"B1+–B2",color:"#1A4A7A",light:"#D6E8F7",
+    theme:"Past Simple vs Present Perfect",
+    tagline:"Connect the past to the present — or keep it firmly in the past.",
+    goal:"Today you will: (1) distinguish past simple (finished, timed events) from present perfect (past with present relevance), (2) identify time expressions that signal each tense, (3) correct six tense errors in context.",
+    time:"15–20 min",
+    sections:[
+      {
+        title:"Warm-up: Tense Groups",type:"theory2",
+        groups:[
+          {label:"Past Simple — Closed Past",color:"#1A4A7A",
+           verbs:["visited","studied","wrote","discovered","finished","decided"],
+           memory:"Past simple = the door is closed. The event is over and we know (or can identify) WHEN it happened.",
+           example:"Marie Curie discovered radium in 1898. (specific year = door closed)"},
+          {label:"Present Perfect — Open Past",color:"#2D6A4F",
+           verbs:["have visited","has written","have just finished","have already decided","haven't seen","has ever been"],
+           memory:"Present perfect = the window is open. The past connects to now — we focus on the result or relevance, not the exact time.",
+           example:"Scientists have discovered new treatments for this disease. (result matters now — no specific time mentioned)"},
+          {label:"Time Signals — Your Sorting Clues",color:"#8B1A1A",
+           verbs:["yesterday → past simple","ago → past simple","last week/year → past simple","in 2010 → past simple","just → perfect","already → perfect","yet → perfect","ever/never → perfect","since → perfect","for (duration) → either"],
+           memory:"If you see a FINISHED time marker (yesterday, ago, in [year], last…), use past simple. If you see a RELEVANCE marker (just, already, yet, ever, since), use present perfect.",
+           example:"I saw him yesterday. (finished) → past simple | I have just seen him. (just happened, still relevant) → present perfect"}
+        ]
+      },
+      {
+        title:"Spot the Error",type:"spot",rubricKey:"spot",
+        items:[
+          {sentence:"I have visited my grandmother last weekend.",
+           underlined:"have visited",wrongWord:"have visited",correctWord:"visited",
+           wrongType:"present perfect + finished time",correctType:"past simple",
+           rule:"'Last weekend' is a finished, specific time reference. Present perfect cannot be used with finished time expressions. Use past simple: 'I visited my grandmother last weekend.'",
+           tip:"If you can answer 'exactly when?', use past simple. 'Last weekend' answers that question perfectly — so the door is closed → past simple."},
+          {sentence:"She already sent the report, so we can start the meeting.",
+           underlined:"already sent",wrongWord:"already sent",correctWord:"has already sent",
+           wrongType:"past simple with 'already'",correctType:"present perfect",
+           rule:"'Already' signals that an action has been completed with present relevance (we can now start the meeting). Present perfect is required: 'She has already sent the report.'",
+           tip:"'Already', 'just', and 'yet' are almost always paired with present perfect. See them → think have/has."},
+          {sentence:"Have you called him two hours ago?",
+           underlined:"Have you called",wrongWord:"Have you called",correctWord:"Did you call",
+           wrongType:"present perfect + specific past time",correctType:"past simple question",
+           rule:"'Two hours ago' is a specific finished time marker. Present perfect is incompatible with it. Use past simple: 'Did you call him two hours ago?'",
+           tip:"'Ago' means now minus X time — it names a fixed past point. Fixed point = past simple. 'Ago' and 'have/has' are enemies in the same clause."},
+          {sentence:"The government introduced new policies since 2020.",
+           underlined:"introduced",wrongWord:"introduced",correctWord:"has introduced",
+           wrongType:"past simple with 'since'",correctType:"present perfect",
+           rule:"'Since 2020' means from 2020 up to now — an open period. Present perfect is required for actions over an open period starting in the past: 'The government has introduced new policies since 2020.'",
+           tip:"'Since' + [point in time] = an open bridge from past to present = present perfect. 'Since' always needs have/has as its partner."},
+          {sentence:"I never tried sushi before — this is my first time.",
+           underlined:"I never tried",wrongWord:"tried",correctWord:"have never tried",
+           wrongType:"past simple with 'never' (life experience)",correctType:"present perfect",
+           rule:"'Never' here refers to the speaker's entire life experience up to now — an open time frame. Life experiences use present perfect: 'I have never tried sushi before.'",
+           tip:"'Ever' and 'never' in life-experience statements = present perfect. Ask: is the time frame their WHOLE LIFE so far? If yes → have/has."},
+          {sentence:"The results were not published yet, so we cannot draw conclusions.",
+           underlined:"were not published",wrongWord:"were not published",correctWord:"have not been published",
+           wrongType:"past simple with 'yet'",correctType:"present perfect passive",
+           rule:"'Yet' signals something expected but not completed — present relevance. Use present perfect (passive here because the results are published by someone): 'The results have not been published yet.'",
+           tip:"'Yet' in negative sentences = something still pending = present perfect. 'Not yet' is the present perfect's closest companion."}
+        ]
+      },
+      {
+        title:"Fill in the Blank",type:"fill",rubricKey:"fill",
+        items:[
+          {template:"The team ___ (win) the championship three times since 2015.",
+           baseWord:"win",answer:"has won",
+           targetType:"present perfect",hint:"since 2015 → open period to now",
+           explanation:"'Since 2015' opens a period from that year to now. Present perfect required: 'has won'. Third-person singular subject (the team) → has, not have. Irregular past participle: won."},
+          {template:"She ___ (graduate) from university in 2022 and then moved to Hanoi.",
+           baseWord:"graduate",answer:"graduated",
+           targetType:"past simple",hint:"in 2022 → finished, specific time",
+           explanation:"'In 2022' is a specific, finished past time. Past simple is required: 'graduated'. The sequence of finished events (graduated → moved) uses past simple throughout."},
+          {template:"___ you ever ___ (eat) at a Michelin-starred restaurant?",
+           baseWord:"eat",answer:"Have / eaten",
+           targetType:"present perfect (life experience)",hint:"ever → whole life so far",
+           explanation:"'Ever' in a question about experience refers to the person's entire life up to now. Present perfect question: 'Have you ever eaten...?' Irregular past participle of 'eat' = 'eaten'."},
+          {template:"The professor ___ (give) his lecture early this morning and then left the campus.",
+           baseWord:"give",answer:"gave",
+           targetType:"past simple",hint:"early this morning → finished event block",
+           explanation:"'Early this morning' is treated as a finished time block. The sequence (gave → left) describes closed past events, so past simple is correct. Irregular past: give → gave."},
+          {template:"I ___ (not / hear) from her since she moved abroad.",
+           baseWord:"hear",answer:"haven't heard",
+           targetType:"present perfect negative",hint:"since → open period from past to now",
+           explanation:"'Since she moved abroad' opens a period from that past point to now. The negative present perfect: 'haven't heard'. This expresses a gap in contact that continues to the present moment."}
+        ]
+      },
+      {
+        title:"Error Log",type:"log",rubricKey:"log",
+        prompts:[
+          "Write one sentence that confused you today — one where you were unsure whether to use past simple or present perfect. Correct it and explain your final choice.",
+          "In your own words, complete this rule: 'I use past simple when… and present perfect when…'. Then give one example sentence for each.",
+          "Write a short paragraph (3–4 sentences) about something you have done recently that is still relevant today. Use the present perfect at least twice."
+        ]
+      }
+    ]
+  },
+
+  b2c1:{
+    label:"B2+–C1",color:"#5A1A8A",light:"#EAD6F7",
+    theme:"Perfect Aspect in Academic Writing",
+    tagline:"Use the perfect aspect to anchor evidence, signal development, and show scholarly awareness.",
+    goal:"Today you will: (1) recognise how perfect aspect establishes academic relevance and temporal logic, (2) correct perfect aspect errors in academic sentences, (3) rewrite informal tense usage into academic perfect constructions.",
+    time:"20–25 min",
+    sections:[
+      {
+        title:"Warm-up: Academic Transformations",type:"theory3",
+        pairs:[
+          {spoken:"Lots of studies looked at this problem.",
+           academic:"Numerous studies have examined this problem, consistently identifying contextual factors as the primary variables.",
+           change:"Past simple → present perfect; vague 'lots' → 'numerous'; active result highlighted; academic verb 'examined' replaces 'looked at'"},
+          {spoken:"Researchers found out about this in the 1990s and since then they kept working on it.",
+           academic:"This phenomenon was first documented in the 1990s and has since attracted sustained scholarly attention.",
+           change:"'Found out' → passive + nominalisation; 'kept working on' → present perfect 'has attracted' bridges past to present; formal vocabulary throughout"},
+          {spoken:"Before they did the experiment, they already decided on the method.",
+           academic:"Prior to conducting the experiment, the researchers had established the methodological framework.",
+           change:"Past perfect (had established) for the action that preceded the experiment; 'decided' → 'established'; informal adverbs removed; subordination elevated"}
+        ],
+        insight:"In academic writing, the present perfect (have/has + past participle) signals that past research is still relevant to your current argument. The past perfect (had + past participle) sequences two past events — use it to show which action came first."
+      },
+      {
+        title:"Spot the Error",type:"spot",rubricKey:"spot",
+        items:[
+          {sentence:"Several researchers investigated the link between stress and productivity in the past decade.",
+           underlined:"investigated",wrongWord:"investigated",correctWord:"have investigated",
+           wrongType:"past simple for ongoing academic relevance",correctType:"present perfect",
+           rule:"'In the past decade' is an open period extending to now. When framing the academic literature as still relevant, use present perfect: 'have investigated'. Past simple implies the research is finished and no longer pertinent to current scholarship.",
+           tip:"Ask: 'Is this research still part of the living scholarly conversation?' If yes → present perfect. 'In the past decade/year/century' with living relevance = present perfect."},
+          {sentence:"By the time the policy was implemented, the researchers publish their findings.",
+           underlined:"publish",wrongWord:"publish",correctWord:"had published",
+           wrongType:"present simple after past 'by the time'",correctType:"past perfect",
+           rule:"'By the time + past event' requires past perfect for the earlier action. 'The researchers had published their findings' shows that publication preceded implementation.",
+           tip:"'By the time [past event], [earlier event]' — the earlier event uses past perfect (had + past participle). Which happened first? That verb gets 'had'."},
+          {sentence:"This paper has investigated the causes of urban poverty in 2018 and 2019.",
+           underlined:"has investigated",wrongWord:"has investigated",correctWord:"investigated",
+           wrongType:"present perfect with specific past dates",correctType:"past simple",
+           rule:"Specific years (2018 and 2019) are closed, finished time references. Present perfect cannot co-occur with specific past dates. Use past simple: 'This paper investigated…'",
+           tip:"Methodology sections describe what you did, when — use past simple. Literature reviews describe what has been found — use present perfect. Know which section you're writing."},
+          {sentence:"The evidence that we have collected so far are inconclusive.",
+           underlined:"are",wrongWord:"are",correctWord:"is",
+           wrongType:"subject-verb agreement error",correctType:"singular agreement",
+           rule:"The subject is 'the evidence' (singular, uncountable), not 'we'. The relative clause 'that we have collected so far' is a modifier. Verb must agree with the head noun 'evidence': 'The evidence… is inconclusive.'",
+           tip:"Bracket the relative clause mentally: 'The evidence [that we have collected so far] IS inconclusive.' The verb follows the head noun, not the nearest noun in the modifier."},
+          {sentence:"Prior research have shown that sleep deprivation significantly impairs cognitive function.",
+           underlined:"have shown",wrongWord:"have shown",correctWord:"has shown",
+           wrongType:"subject-verb agreement with mass noun",correctType:"has shown",
+           rule:"'Prior research' is a singular mass noun (like 'evidence', 'work', 'knowledge'). It takes a singular verb: 'has shown', not 'have shown'.",
+           tip:"Research / evidence / work / knowledge / literature = always singular in academic English. Never 'researches have shown' or 'evidences suggest'."},
+          {sentence:"Since the model was first proposed, scholars debated its predictive validity extensively.",
+           underlined:"debated",wrongWord:"debated",correctWord:"have debated",
+           wrongType:"past simple with 'since'",correctType:"present perfect",
+           rule:"'Since the model was first proposed' opens an ongoing period from that past point to now. Academic debates that continue into the present require present perfect: 'scholars have debated'.",
+           tip:"'Since' + [past event] = a period still open = present perfect. In literature reviews, debates don't stop — they are described as ongoing."}
+        ]
+      },
+      {
+        title:"Fill in the Blank",type:"fill",rubricKey:"fill",
+        items:[
+          {template:"To date, no study ___ (establish) a definitive causal relationship between the two variables.",
+           baseWord:"establish",answer:"has established",
+           targetType:"present perfect (academic relevance)",hint:"to date → open period to present",
+           explanation:"'To date' means up to now — an open period. Academic claims about what the field has or has not achieved use present perfect: 'has established'. Third-person singular subject → 'has'."},
+          {template:"Before the intervention ___ (begin), the control group ___ (receive) a placebo treatment.",
+           baseWord:"begin / receive",answer:"began / had received",
+           targetType:"past simple + past perfect (sequencing)",hint:"which came first — placebo or intervention?",
+           explanation:"The control group received the placebo BEFORE the intervention began. Earlier action = past perfect: 'had received'. The reference point event = past simple: 'began'."},
+          {template:"The framework ___ (apply) widely in economics since Arrow and Debreu formalised it in 1954.",
+           baseWord:"apply",answer:"has been applied",
+           targetType:"present perfect passive",hint:"since 1954 + passive voice",
+           explanation:"'Since 1954' opens an ongoing period. Passive is appropriate (the framework is acted upon by scholars). Present perfect passive: 'has been applied'."},
+          {template:"As this chapter ___ (demonstrate), the relationship between variables is non-linear.",
+           baseWord:"demonstrate",answer:"has demonstrated",
+           targetType:"present perfect (academic self-reference)",hint:"backward reference within the same document",
+           explanation:"When referring back to content presented earlier in the same document, present perfect is standard in academic prose: 'as this chapter has demonstrated'. It treats the earlier argument as still present and relevant."},
+          {template:"The dataset ___ (compile) over a period of five years before the analysis was conducted.",
+           baseWord:"compile",answer:"had been compiled",
+           targetType:"past perfect passive",hint:"before the analysis — which came first?",
+           explanation:"Compilation happened before the analysis — past perfect is required. Passive voice (the dataset was compiled by researchers): past perfect passive = 'had been compiled'."}
+        ]
+      },
+      {
+        title:"Transform: Academic Upgrade",type:"transform",rubricKey:"transform",
+        items:[
+          {spoken:"A lot of people studied this topic over the years.",
+           hint:"numerous scholars / have examined / over the past [X] years / body of research",
+           answer:"Numerous scholars have examined this topic over the past several decades, generating a substantial body of empirical evidence.\n\nAlternatively: A growing body of scholarship has examined this topic across multiple disciplinary contexts.",
+           keyChange:"'A lot of people' → 'Numerous scholars'; past simple → present perfect to signal ongoing relevance; formality of noun phrase elevated",
+           principle:"In literature reviews, use present perfect to position past research as still active in the scholarly conversation. Vague quantifiers become precise academic ones."},
+          {spoken:"They did the survey in 2021 and before that they already worked out what questions to use.",
+           hint:"the survey was administered / prior to which / the instrument had been developed / rigorous piloting",
+           answer:"The survey was administered in 2021, prior to which the research instrument had been developed through a rigorous piloting process.\n\nAlternatively: In 2021, the survey instrument — which had undergone extensive piloting — was administered to the target population.",
+           keyChange:"Passive voice for methodology; past perfect (had been developed) for the prior action; subordination replaces 'and before that'; formal vocabulary throughout",
+           principle:"Methodology sections use past simple for main actions and past perfect for actions that preceded them. Passive voice depersonalises the process, which is standard in academic writing."},
+          {spoken:"This shows that the old theory was wrong and the new one works better.",
+           hint:"the present findings suggest / prior accounts / have been superseded / greater explanatory power",
+           answer:"The present findings suggest that prior theoretical accounts have been superseded by a more robust explanatory framework.\n\nAlternatively: These results indicate that the established theoretical model has been demonstrably outperformed by the revised approach.",
+           keyChange:"'Shows' → 'suggest' (hedging); 'wrong' → 'have been superseded' (academic passive); 'works better' → 'demonstrate greater explanatory power'; present perfect used for current state of the field",
+           principle:"Academic argumentation hedges conclusions. Use 'suggest/indicate', formal vocabulary, and present perfect to describe the current state of knowledge without overstating certainty."}
+        ]
+      },
+      {
+        title:"Error Log",type:"log",rubricKey:"log",
+        prompts:[
+          "Find one sentence in your own academic writing (or in a text you have read recently) where the tense is unclear or inaccurate. Quote it, correct it, and explain why the tense you chose is more appropriate.",
+          "Explain the difference between 'Researchers studied this problem' and 'Researchers have studied this problem'. When would you choose each version in an academic paper, and in which section?",
+          "Write two academic sentences: one using present perfect to summarise a body of literature, and one using past perfect to sequence two past research events."
+        ]
+      }
+    ]
+  },
+
+  c1c2:{
+    label:"C1+–C2",color:"#8B1A1A",light:"#F5DADA",
+    theme:"Tense Sequencing in Complex Arguments",
+    tagline:"Command tense architecture to control argument logic, causality, and rhetorical force.",
+    goal:"Today you will: (1) diagnose tense sequencing errors that distort argumentative logic, (2) analyse how tense choice signals rhetorical stance, (3) reconstruct complex tense sequences for C2-level academic writing.",
+    time:"20–25 min",
+    sections:[
+      {
+        title:"Warm-up: Advanced Tense Strategies",type:"theory4",
+        cards:[
+          {label:"The Analytical Present",color:"#8B1A1A",
+           desc:"Academic commentary and textual analysis use present simple ('Smith argues', 'the data show', 'the graph reveals') even when the source was written in the past. This signals that the text or evidence is a live participant in the current argument.",
+           fix:"✗ 'Smith argued that inequality was structural.' (implies his argument is obsolete)\n✓ 'Smith argues that inequality is structural.' (his argument remains present in the field)"},
+          {label:"Narrative Past vs Analytical Present",color:"#5A1A8A",
+           desc:"A single paragraph may need BOTH tenses: past simple for historical events (what happened), and present simple for their analytical significance (what they mean). Mixing these intentionally signals sophistication; mixing them accidentally signals confusion.",
+           fix:"'The 2008 financial crisis revealed systemic failures (past event). These failures demonstrate (present analytical) that deregulation carries inherent structural risks.' — both tenses serving different functions in one argument."},
+          {label:"Conditional Perfect for Counterfactuals",color:"#1A4A7A",
+           desc:"'Would have + past participle' constructs counterfactual arguments — what would have happened under different conditions. This is essential for evaluation and policy analysis. Errors here collapse the hypothetical into the real.",
+           fix:"✗ 'If the intervention was earlier, fewer people would die.' (mixes real and hypothetical)\n✓ 'Had the intervention been implemented earlier, fewer lives would have been lost.' (inverted conditional, formal register)"},
+          {label:"Tense as Hedging Device",color:"#2D6A4F",
+           desc:"Epistemic distance can be created through tense: 'the results suggest' (present, confident) vs 'the results appeared to suggest' (past, more tentative) vs 'the results may have suggested' (modal + perfect, maximum hedge). Each signals a different level of commitment to the claim.",
+           fix:"Choose tense intentionally: in your results section, 'the analysis reveals' asserts directly. In your discussion, 'these patterns may have reflected broader societal shifts' hedges the interpretation — leaving room for alternative readings."}
+        ]
+      },
+      {
+        title:"Spot the Error",type:"spot",rubricKey:"spot",
+        items:[
+          {sentence:"Foucault argued that power is not possessed but exercised, and this insight remains central to critical discourse analysis, where scholars applied it to institutional settings.",
+           underlined:"scholars applied",wrongWord:"applied",correctWord:"have applied",
+           wrongType:"past simple for ongoing scholarly practice",correctType:"present perfect",
+           rule:"The sentence shifts from timeless analytical present ('remains central') to a claim about ongoing scholarly practice. 'Applied' wrongly closes the time frame. 'Have applied' sustains the present relevance and maintains tense coherence with 'remains'.",
+           tip:"When your main clause uses analytical present ('remains', 'is', 'demonstrates'), subordinate clauses describing current scholarly practice should use present perfect, not past simple."},
+          {sentence:"If the government would have invested in renewable energy a decade earlier, carbon emissions would have declined significantly by now.",
+           underlined:"would have invested",wrongWord:"would have invested",correctWord:"had invested",
+           wrongType:"'would have' in the if-clause",correctType:"past perfect in if-clause",
+           rule:"In third conditional sentences, 'would have' belongs in the result clause, NOT the if-clause. The if-clause takes past perfect: 'If the government had invested… emissions would have declined.'",
+           tip:"'Would' NEVER appears in an 'if' clause in standard conditionals. If you see 'if + would have', delete 'would' and keep 'had + past participle'. Or invert: 'Had the government invested…'"},
+          {sentence:"By the time the reform reached Parliament, its most radical provisions have been diluted beyond recognition.",
+           underlined:"have been diluted",wrongWord:"have been diluted",correctWord:"had been diluted",
+           wrongType:"present perfect in past sequencing context",correctType:"past perfect passive",
+           rule:"'By the time [past event: reached]' signals a past reference point. The earlier action must use past perfect: 'had been diluted'. Present perfect 'have been diluted' would suggest this extends to now, but the reference point is past.",
+           tip:"Draw a timeline: mark 'reform reached Parliament' (past). Then ask: what happened BEFORE that? That verb = past perfect. 'By the time + past verb' always triggers past perfect for the prior event."},
+          {sentence:"The author, whose previous work challenged postcolonial theory, presents here an argument that went further than anything published before.",
+           underlined:"went",wrongWord:"went",correctWord:"goes",
+           wrongType:"past simple for analytical claim about present text",correctType:"analytical present",
+           rule:"When analysing the content of a text currently being read, use present simple ('goes further', 'challenges', 'demonstrates'). The text exists permanently — its argument does not 'go' in the past.",
+           tip:"Ask: am I describing a historical event, or am I analysing a text's content? If analysing content → analytical present. The author may be dead, but the argument lives in the present tense."},
+          {sentence:"The data which were collected over three years clearly shows the trend is accelerating.",
+           underlined:"clearly shows",wrongWord:"shows",correctWord:"show",
+           wrongType:"subject-verb agreement: plural subject",correctType:"plural agreement",
+           rule:"'Data' is grammatically plural in academic British English (datum = singular, data = plural). The verb must agree: 'The data… clearly show'. Relative clause ('which were collected…') is a modifier, not the subject.",
+           tip:"In academic writing, always treat 'data' as plural: 'the data show', 'these data suggest', 'the data were collected'. If uncertain, use 'the results show' to sidestep the issue entirely."},
+          {sentence:"Having established the theoretical framework, the empirical evidence will now be evaluated.",
+           underlined:"will now be evaluated",wrongWord:"will now be evaluated",correctWord:"is now evaluated",
+           wrongType:"future simple for in-text signposting",correctType:"present simple (signposting)",
+           rule:"Academic signposting within a paper uses present simple, not future simple: 'the evidence is now examined', 'this section addresses'. 'Will be evaluated' implies a future time outside the text.",
+           tip:"Signposting verbs = present simple: 'this chapter examines', 'the analysis now turns to', 'the data are presented below'. Use future tense only for actual events in real time, not for moves within the current text."}
+        ]
+      },
+      {
+        title:"Fill in the Blank",type:"fill",rubricKey:"fill",
+        items:[
+          {template:"Smith (2019) ___ (contend) that institutional trust ___ (erode) steadily since the 2008 crisis.",
+           baseWord:"contend / erode",answer:"contends / has eroded",
+           targetType:"analytical present + present perfect",hint:"Smith's argument is alive; erosion began in 2008 and continues",
+           explanation:"'Contends' = analytical present (the author's argument is treated as permanently present). 'Has eroded' = present perfect, because erosion began at a past point (2008) and continues to now."},
+          {template:"___ the researchers ___ (account) for selection bias, the results ___ (be) far more reliable.",
+           baseWord:"account / be",answer:"Had / accounted / would have been",
+           targetType:"third conditional (past perfect + would have)",hint:"counterfactual past — if only they had…",
+           explanation:"Third conditional: if-clause = inverted past perfect (Had… accounted for), result clause = would have been. This constructs a counterfactual evaluation of the methodology."},
+          {template:"The model ___ (refine) considerably since its original formulation, yet fundamental tensions ___ (remain) unresolved.",
+           baseWord:"refine / remain",answer:"has been refined / remain",
+           targetType:"present perfect passive + present simple",hint:"refinement over time to now; tensions are current",
+           explanation:"'Has been refined' = present perfect passive for ongoing development. 'Remain' = present simple for a current persistent state. The contrast between improvement and lingering problems uses both."},
+          {template:"By the time the second edition ___ (publish), the author ___ (revise) three of the four core hypotheses.",
+           baseWord:"publish / revise",answer:"was published / had revised",
+           targetType:"past simple + past perfect (sequencing)",hint:"which came first — the revision or the publication?",
+           explanation:"The revision happened BEFORE the publication. Earlier past event = past perfect: 'had revised'. The publication is the reference point = past simple: 'was published'."},
+          {template:"While early accounts ___ (treat) this as a marginal phenomenon, subsequent empirical work ___ (compel) a fundamental reassessment.",
+           baseWord:"treat / compel",answer:"treated / has compelled",
+           targetType:"past simple + present perfect (narrative past → present relevance)",hint:"early accounts are closed history; reassessment is ongoing",
+           explanation:"'Treated' = past simple for the closed historical position of early scholarship. 'Has compelled' = present perfect because the reassessment is an ongoing, current state of the field."}
+        ]
+      },
+      {
+        title:"Transform: Rhetorical Precision",type:"transform",rubricKey:"transform",
+        items:[
+          {spoken:"If they did the study differently, the results would be different.",
+           hint:"Had the study been designed / would have yielded / methodological rigour / alternative outcomes",
+           answer:"Had the study been designed with greater methodological rigour, it would have yielded substantially different — and arguably more reliable — results.\n\nAlternatively: Had the researchers adopted a longitudinal rather than cross-sectional design, the findings would have demonstrated far greater ecological validity.",
+           keyChange:"'Did differently' → inverted third conditional with past perfect; 'results would be different' → 'would have yielded' (conditional perfect); evaluative framing added; register elevated throughout",
+           principle:"Counterfactual arguments use the inverted third conditional (Had + subject + past participle) for formality. Avoid 'If they had done' in favour of the inverted form in advanced academic writing."},
+          {spoken:"Researchers have been studying this for years and they still don't have a clear answer.",
+           hint:"Despite / sustained scholarly attention / spanning / no consensus has emerged / regarding",
+           answer:"Despite sustained scholarly attention spanning several decades, no consensus has emerged regarding the precise mechanisms underlying this phenomenon.\n\nAlternatively: Although the question has attracted considerable empirical investigation over the past several years, the literature remains divided on its central explanatory claims.",
+           keyChange:"'Have been studying' nominalised to 'scholarly attention spanning'; 'don't have a clear answer' → 'no consensus has emerged'; concessive structure ('despite/although') signals argumentative sophistication; present perfect preserved",
+           principle:"Nominalisation (converting verb phrases into noun phrases) compresses information and elevates register. 'Despite + noun phrase' signals a sophisticated concessive move that acknowledges effort while asserting failure."},
+          {spoken:"As I showed earlier, this idea doesn't work because the evidence contradicts it.",
+           hint:"as has been demonstrated / the proposition / is undermined / the weight of evidence",
+           answer:"As has been demonstrated in the preceding sections, this proposition is fundamentally undermined by the weight of empirical evidence.\n\nAlternatively: As the foregoing analysis has shown, the theoretical claim in question cannot be sustained in light of the contradictory empirical record.",
+           keyChange:"First-person 'I showed' → impersonal 'has been demonstrated' (present perfect passive); 'this idea doesn't work' → 'proposition is fundamentally undermined'; 'as' clause uses present perfect for backward reference",
+           principle:"Academic self-referencing avoids first person by using passive perfect constructions: 'as has been argued', 'as has been demonstrated'. This maintains objectivity and positions the argument as shared or established."}
+        ]
+      },
+      {
+        title:"Error Log",type:"log",rubricKey:"log",
+        prompts:[
+          "Identify a passage in your own writing where your tense sequencing is unclear or illogical. Quote it, mark the tense errors, and rewrite it with a corrected tense architecture. Explain each change you made.",
+          "Analyse this question: why does switching from 'Smith argued' to 'Smith argues' change the rhetorical effect of your sentence? Address: (a) what each tense implies about the status of the argument, and (b) which you would choose in a literature review and why.",
+          "Write a complex 3-sentence passage for an academic argument that includes: (1) a present perfect to describe the state of the field, (2) a past perfect to sequence an earlier event, and (3) an analytical present for your own interpretive claim. Label each tense choice."
+        ]
+      }
+    ]
+  }
+};
+
+// ── HELPERS ────────────────────────────────────────────────────────────
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>')}
+function badge(txt,bg,fg){return`<span class="tc-badge" style="background:${bg};color:${fg}">${esc(txt)}</span>`}
+function rubricHTML(rubKey){
+  const rows=RUBRICS[AL][rubKey];
+  if(!rows)return'';
+  const total=rows.reduce((a,r)=>a+r.max,0);
+  let html=`<button class="rub-toggle" onclick="togRub(this)">&#9776; Rubric (${total} pts)</button>
+  <table class="rub-table"><tr><th>Criterion</th><th>Max</th><th>Description</th></tr>`;
+  rows.forEach(r=>{html+=`<tr><td><strong>${esc(r.criterion)}</strong></td><td class="rub-max">${r.max}</td><td>${esc(r.desc)}</td></tr>`});
+  return html+`</table>`;
+}
+function togRub(btn){
+  const tbl=btn.nextElementSibling;
+  tbl.classList.toggle('show');
+  btn.textContent=tbl.classList.contains('show')?'× Hide Rubric':'☰ Rubric ('+tbl.querySelectorAll('tr').length-1+' criteria)';
+}
+function progHTML(secIdx){
+  return`<div class="prog-label" id="prog-label-${secIdx}">Progress</div>
+  <div class="prog-wrap"><div class="prog-bar" id="prog-bar-${secIdx}" style="width:0%"></div></div>`;
+}
+function updProg(secIdx,done,total){
+  const bar=document.getElementById('prog-bar-'+secIdx);
+  const lbl=document.getElementById('prog-label-'+secIdx);
+  if(bar){bar.style.width=total?Math.round(done/total*100)+'%':'0%'}
+  if(lbl){lbl.textContent=`Progress: ${done}/${total} completed`}
+}
+function scoreBadge(score,max){
+  const pct=max?score/max:0;
+  const cls=pct>=0.8?'good':pct>=0.5?'mid':'low';
+  return`<span class="score-badge ${cls}">${score}/${max}</span>`;
+}
+
+// ── RENDERERS ──────────────────────────────────────────────────────────
+function rTheory(sec){
+  let h='<div class="theory-grid">';
+  sec.cards.forEach(c=>{
+    h+=`<div class="tc" style="border-top-color:${c.color}">
+      <div class="tc-header"><span class="tc-label">${esc(c.label)}</span>${badge(c.badge,LEVELS[AL].light,LEVELS[AL].color)}</div>
+      <div class="tc-examples">${esc(c.examples)}</div>
+      <div class="tc-rule">${esc(c.rule)}</div>
+    </div>`;
+  });
+  return h+'</div>';
+}
+function rTheory2(sec){
+  let h='';
+  sec.groups.forEach(g=>{
+    h+=`<div class="t2-group" style="border-left-color:${g.color}">
+      <div class="t2-label" style="color:${g.color}">${esc(g.label)}</div>
+      <div class="t2-verbs">${g.verbs.map(v=>`<span class="t2-verb" style="background:${LEVELS[AL].light};color:${g.color}">${esc(v)}</span>`).join('')}</div>
+      <div class="t2-memory">${esc(g.memory)}</div>
+      <div class="t2-example">${esc(g.example)}</div>
+    </div>`;
+  });
+  return h;
+}
+function rTheory3(sec){
+  let h='';
+  sec.pairs.forEach(p=>{
+    h+=`<div class="t3-pair">
+      <div class="t3-spoken">✗ ${esc(p.spoken)}</div>
+      <div class="t3-academic">✓ ${esc(p.academic)}</div>
+      <div class="t3-change">💡 ${esc(p.change)}</div>
+    </div>`;
+  });
+  h+=`<div class="t3-insight">🎯 <strong>Key Insight:</strong> ${esc(sec.insight)}</div>`;
+  return h;
+}
+function rTheory4(sec){
+  let h='<div class="t4-grid">';
+  sec.cards.forEach(c=>{
+    h+=`<div class="t4-card" style="border-top-color:${c.color}">
+      <div class="t4-label">${esc(c.label)}</div>
+      <div class="t4-desc">${esc(c.desc)}</div>
+      <div class="t4-fix">${esc(c.fix)}</div>
+    </div>`;
+  });
+  return h+'</div>';
+}
+
+function rSpot(sec,secIdx){
+  const key=`${AL}_${secIdx}`;
+  let h=rubricHTML(sec.rubricKey)+progHTML(secIdx);
+  sec.items.forEach((it,i)=>{
+    const cid=`${key}_${i}`;
+    const sent=it.sentence.replace(it.underlined,`<u>${esc(it.underlined)}</u>`);
+    const choices=[it.wrongWord,it.correctWord].sort(()=>Math.random()-0.5);
+    h+=`<div class="spot-item" id="spot-wrap-${cid}">
+      <div class="spot-num">Item ${i+1} of ${sec.items.length}</div>
+      <div class="spot-sentence">${sent}</div>
+      <div class="spot-choices">
+        ${choices.map(ch=>`<button class="spot-choice" onclick="spotPick('${cid}','${esc(ch)}','${esc(it.correctWord)}')" id="sc-${cid}-${esc(ch)}">${esc(ch)}</button>`).join('')}
+      </div>
+      <div class="spot-feedback" id="sf-${cid}"></div>
+    </div>`;
+  });
+  const rub=RUBRICS[AL][sec.rubricKey];
+  const maxScore=rub?rub.reduce((a,r)=>a+r.max,0):0;
+  h+=`<button class="spot-check-btn" id="spot-btn-${key}" onclick="calcSpot('${key}',${sec.items.length},${maxScore})">Check All</button>
+  <div class="spot-score" id="spot-score-${key}" style="display:none"></div>`;
+  return h;
+}
+
+function rFill(sec,secIdx){
+  const key=`${AL}_${secIdx}`;
+  let h=rubricHTML(sec.rubricKey)+progHTML(secIdx);
+  sec.items.forEach((it,i)=>{
+    const cid=`${key}_${i}`;
+    h+=`<div class="fill-item">
+      <div class="fill-num" style="font-size:.72rem;font-weight:700;color:#999;margin-bottom:6px;text-transform:uppercase">Item ${i+1}</div>
+      <div class="fill-template">${esc(it.template)}</div>
+      <div class="fill-base">🔑 Base: ${esc(it.baseWord)}</div>
+      <div class="fill-input-row">
+        <input class="fill-input" id="fi-${cid}" placeholder="${esc(it.hint)}" oninput="ST.inputs['${cid}']=this.value"/>
+        <button class="fill-btn" id="fb-${cid}" onclick="fillChk('${cid}','${esc(it.answer)}','${esc(it.explanation)}')">Check</button>
+      </div>
+      <div class="fill-feedback" id="ff-${cid}"></div>
+    </div>`;
+  });
+  const rub=RUBRICS[AL][sec.rubricKey];
+  const maxScore=rub?rub.reduce((a,r)=>a+r.max,0):0;
+  h+=`<button class="spot-check-btn" id="fill-score-btn-${key}" onclick="calcFill('${key}',${sec.items.length},${maxScore})" style="margin-top:4px">Show Score</button>
+  <div class="spot-score" id="fill-score-${key}" style="display:none"></div>`;
+  return h;
+}
+
+function rTransform(sec,secIdx){
+  const key=`${AL}_${secIdx}`;
+  let h=rubricHTML(sec.rubricKey)+progHTML(secIdx);
+  sec.items.forEach((it,i)=>{
+    const cid=`${key}_${i}`;
+    h+=`<div class="tr-item">
+      <div class="spot-num">Item ${i+1}</div>
+      <div class="tr-spoken">“${esc(it.spoken)}”</div>
+      <div class="tr-hint">💡 Hint: ${esc(it.hint)}</div>
+      <textarea class="tr-textarea" id="tr-${cid}" placeholder="Write your academic version here…" oninput="ST.inputs['${cid}']=this.value"></textarea>
+      <div class="tr-btns">
+        <button class="tr-save-btn" onclick="saveTr('${cid}')">Save</button>
+        <button class="tr-reveal-btn" onclick="revealTr('${cid}','${esc(it.answer)}','${esc(it.keyChange)}','${esc(it.principle)}')">Reveal Model Answer</button>
+      </div>
+      <div class="tr-answer" id="tra-${cid}"></div>
+    </div>`;
+  });
+  return h;
+}
+
+function rLog(sec,secIdx){
+  const key=`${AL}_${secIdx}`;
+  let h=rubricHTML(sec.rubricKey);
+  sec.prompts.forEach((pr,i)=>{
+    const cid=`${key}_${i}`;
+    h+=`<div class="log-item">
+      <div class="log-prompt">${i+1}. ${esc(pr)}</div>
+      <textarea class="log-textarea" id="lt-${cid}" placeholder="Write your response here…" oninput="ST.logs['${cid}']=this.value"></textarea>
+      <button class="log-save-btn" onclick="saveLog('${cid}')">Save</button>
+      <div class="log-saved" id="ls-${cid}">✓ Saved</div>
+    </div>`;
+  });
+  h+=`<button class="log-all-btn" onclick="saveLogAll('${key}',${sec.prompts.length})">Save All Reflections</button>`;
+  return h;
+}
+
+function renderSec(secIdx){
+  const lv=LEVELS[AL];
+  const sec=lv.sections[secIdx];
+  AS=secIdx;
+  let html=`<div class="sec-title">${esc(sec.title)}</div>`;
+  if(sec.type==='theory'){html+=`<div class="sec-sub">Study these cards before attempting the exercises.</div>`+rTheory(sec)}
+  else if(sec.type==='theory2'){html+=`<div class="sec-sub">Review the verb groups and their memory rules.</div>`+rTheory2(sec)}
+  else if(sec.type==='theory3'){html+=`<div class="sec-sub">Study the spoken-to-academic transformations, then read the insight.</div>`+rTheory3(sec)}
+  else if(sec.type==='theory4'){html+=`<div class="sec-sub">Study each strategy and its application before practising.</div>`+rTheory4(sec)}
+  else if(sec.type==='spot'){html+=`<div class="sec-sub">Each sentence contains exactly one error. Choose the correct replacement.</div>`+rSpot(sec,secIdx)}
+  else if(sec.type==='fill'){html+=`<div class="sec-sub">Use the base word given to complete each sentence.</div>`+rFill(sec,secIdx)}
+  else if(sec.type==='transform'){html+=`<div class="sec-sub">Rewrite each informal sentence in formal academic English.</div>`+rTransform(sec,secIdx)}
+  else if(sec.type==='log'){html+=`<div class="sec-sub">Reflect on today’s learning. Your notes are saved for download.</div>`+rLog(sec,secIdx)}
+  document.getElementById('content').innerHTML=html;
+  document.querySelectorAll('.sec-btn').forEach((b,i)=>b.classList.toggle('active',i===secIdx));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── INTERACTIONS ───────────────────────────────────────────────────────
+function spotPick(cid,chosen,correct){
+  if(document.getElementById('spot-wrap-'+cid).querySelector('.locked'))return;
+  const btns=document.querySelectorAll(`[id^="sc-${cid}-"]`);
+  btns.forEach(b=>{
+    b.classList.remove('selected','correct','wrong');
+    b.classList.add('locked');
+  });
+  const chosenBtn=document.getElementById('sc-'+cid+'-'+chosen);
+  const isOk=chosen===correct;
+  if(chosenBtn){chosenBtn.classList.add(isOk?'correct':'wrong')}
+  if(!isOk){
+    const correctBtn=document.getElementById('sc-'+cid+'-'+correct);
+    if(correctBtn)correctBtn.classList.add('correct');
+  }
+  ST.choices[cid]=isOk;
+  const fb=document.getElementById('sf-'+cid);
+  const sec=LEVELS[AL].sections[AS];
+  const idx=parseInt(cid.split('_').pop());
+  const it=sec.items[idx];
+  fb.className='spot-feedback show '+(isOk?'ok':'err');
+  fb.innerHTML=`<strong>${isOk?'✓ Correct!':'✗ Incorrect — the correct answer is: '+esc(correct)}</strong>
+  <div class="fb-rule">📌 <em>Wrong type:</em> ${esc(it.wrongType)} → <em>Correct type:</em> ${esc(it.correctType)}<br>${esc(it.rule)}</div>
+  <div class="fb-tip">💡 Tip: ${esc(it.tip)}</div>`;
+}
+
+function calcSpot(key,total,maxScore){
+  let done=0,correct=0;
+  for(let i=0;i<total;i++){
+    const cid=`${key}_${i}`;
+    if(ST.choices[cid]!==undefined){done++;if(ST.choices[cid])correct++}
+  }
+  const pct=total?Math.round(done/total*100):0;
+  updProg(parseInt(key.split('_').pop()),done,total);
+  const sd=document.getElementById('spot-score-'+key);
+  sd.style.display='block';
+  sd.innerHTML=`Score: ${scoreBadge(correct,total)} | Completed: ${done}/${total}`;
+}
+
+function fillChk(cid,answer,explanation){
+  const inp=document.getElementById('fi-'+cid);
+  const val=(inp.value||'').trim().toLowerCase();
+  const ans=answer.toLowerCase();
+  const isOk=val===ans||val===ans.replace(/\s+\//g,' /').replace(/\/ /g,'/');
+  inp.classList.remove('correct','wrong');
+  inp.classList.add(isOk?'correct':'wrong');
+  document.getElementById('fb-'+cid).className='fill-feedback show '+(isOk?'ok':'err');
+  document.getElementById('fb-'+cid).innerHTML=`<strong>${isOk?'✓ Correct!':'✗ The answer is: <em>'+esc(answer)+'</em>'}</strong><br>${esc(explanation)}`;
+  ST.checked[cid]=isOk;
+  document.getElementById('fb-'+cid+'btn')||null;
+}
+
+function calcFill(key,total,maxScore){
+  let done=0,correct=0;
+  for(let i=0;i<total;i++){
+    const cid=`${key}_${i}`;
+    const inp=document.getElementById('fi-'+cid);
+    if(inp&&inp.value.trim()){done++;if(ST.checked[cid])correct++}
+  }
+  updProg(parseInt(key.split('_').pop()),done,total);
+  const sd=document.getElementById('fill-score-'+key);
+  sd.style.display='block';
+  sd.innerHTML=`Score: ${scoreBadge(correct,total)} | Completed: ${done}/${total}`;
+}
+
+function saveTr(cid){
+  const val=document.getElementById('tr-'+cid).value.trim();
+  ST.inputs[cid]=val;
+  alert(val?'✓ Response saved!':'Nothing to save — please write your answer first.');
+}
+
+function revealTr(cid,answer,keyChange,principle){
+  const div=document.getElementById('tra-'+cid);
+  div.className='tr-answer show';
+  div.innerHTML=`<strong>🎯 Model Answer:</strong>${esc(answer)}<br><br><strong>🔄 Key Change:</strong> ${esc(keyChange)}<div class="tr-principle">📌 Principle: ${esc(principle)}</div>`;
+}
+
+function saveLog(cid){
+  const val=document.getElementById('lt-'+cid).value.trim();
+  ST.logs[cid]=val;
+  const s=document.getElementById('ls-'+cid);
+  s.className='log-saved show';
+  setTimeout(()=>s.classList.remove('show'),2000);
+}
+
+function saveLogAll(key,total){
+  for(let i=0;i<total;i++){
+    const cid=`${key}_${i}`;
+    const el=document.getElementById('lt-'+cid);
+    if(el)ST.logs[cid]=el.value.trim();
+  }
+  alert('✓ All reflections saved. Use Download Report to export.');
+}
+
+// ── DOWNLOAD ───────────────────────────────────────────────────────────
+function handleDownload(){
+  const lv=LEVELS[AL];
+  const now=new Date();
+  let txt=`HUONG STELLA PARADIGM — Daily Drills Day 4\n`;
+  txt+=`Level: ${lv.label} | Theme: ${lv.theme}\n`;
+  txt+=`Date: ${now.toISOString().slice(0,10)}\n`;
+  txt+=`${'='.repeat(60)}\n\n`;
+
+  // Spot answers
+  lv.sections.forEach((sec,si)=>{
+    txt+=`SECTION: ${sec.title}\n${'-'.repeat(40)}\n`;
+    const key=`${AL}_${si}`;
+    if(sec.type==='spot'){
+      sec.items.forEach((it,i)=>{
+        const cid=`${key}_${i}`;
+        const ans=ST.choices[cid];
+        txt+=`Q${i+1}: ${it.sentence}\n`;
+        txt+=`  Your answer: ${ans===undefined?'(not attempted)':ans?'Correct ✓':'Incorrect ✗'}\n`;
+        txt+=`  Correct: ${it.correctWord}\n\n`;
+      });
+    } else if(sec.type==='fill'){
+      sec.items.forEach((it,i)=>{
+        const cid=`${key}_${i}`;
+        const inp=ST.inputs[cid]||'(blank)';
+        txt+=`Q${i+1}: ${it.template}\n`;
+        txt+=`  Your answer: ${inp}\n`;
+        txt+=`  Correct: ${it.answer}\n\n`;
+      });
+    } else if(sec.type==='transform'){
+      sec.items.forEach((it,i)=>{
+        const cid=`${key}_${i}`;
+        txt+=`Transform ${i+1}: ${it.spoken}\n`;
+        txt+=`  Your version: ${ST.inputs[cid]||'(not attempted)'}\n`;
+        txt+=`  Model: ${it.answer}\n\n`;
+      });
+    } else if(sec.type==='log'){
+      sec.prompts.forEach((pr,i)=>{
+        const cid=`${key}_${i}`;
+        txt+=`Reflection ${i+1}: ${pr}\n`;
+        txt+=`  ${ST.logs[cid]||'(not completed)'}\n\n`;
+      });
+    }
+    txt+='\n';
+  });
+
+  const blob=new Blob([txt],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`HuongStella_DailyDrill_Day4_`+AL+`_`+now.toISOString().slice(0,10)+`.txt`;
+  a.click();
+}
+
+// ── NAV & INIT ─────────────────────────────────────────────────────────
+function buildLvTabs(){
+  const el=document.getElementById('lvTabs');
+  el.innerHTML=Object.keys(LEVELS).map(k=>`<div class="lv-tab${k===AL?' active':''}" onclick="switchLv('${k}')" style="${k===AL?'color:'+LEVELS[k].color+';border-bottom-color:'+LEVELS[k].color:''}">${LEVELS[k].label}</div>`).join('');
+}
+
+function switchLv(lv){
+  AL=lv;AS=0;
+  ST.choices={};ST.inputs={};ST.checked={};ST.logs={};
+  applyLevel();
+  buildLvTabs();
+  buildSecNav();
+  renderSec(0);
+}
+
+function applyLevel(){
+  const lv=LEVELS[AL];
+  document.documentElement.style.setProperty('--lc',lv.color);
+  document.documentElement.style.setProperty('--ll',lv.light);
+  // Hero
+  document.getElementById('hero').innerHTML=`
+    <div class="hero-row">
+      <div class="hero-badge">${esc(lv.label)}</div>
+      <div class="hero-info">
+        <div class="hero-theme">${esc(lv.theme)}</div>
+        <div class="hero-tagline">${esc(lv.tagline)}</div>
+        <div class="hero-goal">${esc(lv.goal)}</div>
+        <div class="hero-time">⏱ Estimated time: ${esc(lv.time)}</div>
+      </div>
+    </div>`;
+}
+
+function buildSecNav(){
+  const lv=LEVELS[AL];
+  document.getElementById('secNav').innerHTML=lv.sections.map((s,i)=>`<button class="sec-btn${i===0?' active':''}" onclick="navSec(${i})">${esc(s.title)}</button>`).join('');
+}
+
+function navSec(i){
+  AS=i;
+  document.querySelectorAll('.sec-btn').forEach((b,j)=>b.classList.toggle('active',j===i));
+  renderSec(i);
+}
+
+function init(){
+  document.title='Daily Drills 4';
+  buildLvTabs();
+  applyLevel();
+  buildSecNav();
+  renderSec(0);
+}
+
+window.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>

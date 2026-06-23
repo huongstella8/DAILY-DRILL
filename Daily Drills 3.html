@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Daily Drills 3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--lc:#2D6A4F;--ll:#D8F3DC;--bg:#F4F2EF;--hdr:#111;--rad:10px;--shadow:0 2px 8px rgba(0,0,0,.08)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:#1a1a1a;min-height:100vh}
+code,pre,.mono{font-family:'JetBrains Mono',monospace}
+header{background:var(--hdr);color:#fff;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.brand{font-size:.7rem;font-weight:700;letter-spacing:.18em;opacity:.6;text-transform:uppercase}
+.hdr-title{font-size:1.1rem;font-weight:700;letter-spacing:.04em}
+.hdr-sub{font-size:.75rem;opacity:.55;margin-top:2px}
+.hdr-dl button{background:#fff;color:var(--hdr);border:none;padding:8px 18px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.hdr-dl button:hover{opacity:.85}
+.lv-tabs{display:flex;gap:0;border-bottom:2px solid #ddd;padding:0 32px;background:#fff;position:sticky;top:0;z-index:50;overflow-x:auto}
+.lv-tab{padding:14px 22px;font-size:.82rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s;color:#666}
+.lv-tab.active{color:var(--lc);border-bottom-color:var(--lc)}
+.lv-tab:hover:not(.active){color:#333}
+.hero{padding:28px 32px 20px;border-bottom:1px solid #e4e1db}
+.hero-row{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.hero-badge{background:var(--lc);color:#fff;padding:6px 14px;border-radius:20px;font-size:.75rem;font-weight:700;letter-spacing:.05em;white-space:nowrap}
+.hero-info{flex:1;min-width:220px}
+.hero-theme{font-size:1.25rem;font-weight:700;color:var(--lc);margin-bottom:4px}
+.hero-tagline{font-size:.88rem;color:#555;margin-bottom:10px}
+.hero-goal{font-size:.82rem;background:var(--ll);border-left:3px solid var(--lc);padding:10px 14px;border-radius:0 6px 6px 0;color:#333;line-height:1.6}
+.hero-time{font-size:.75rem;color:#888;margin-top:8px;font-weight:500}
+.sec-nav{display:flex;gap:8px;padding:16px 32px;overflow-x:auto;border-bottom:1px solid #e4e1db;background:#fff}
+.sec-btn{padding:6px 14px;border-radius:20px;border:1.5px solid #ddd;background:#fff;font-size:.78rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .15s;color:#555}
+.sec-btn.active{background:var(--lc);color:#fff;border-color:var(--lc)}
+.sec-btn:hover:not(.active){border-color:var(--lc);color:var(--lc)}
+.content{padding:28px 32px;max-width:900px}
+.prog-wrap{background:#eee;border-radius:20px;height:8px;margin-bottom:24px;overflow:hidden}
+.prog-bar{height:100%;border-radius:20px;background:var(--lc);transition:width .4s ease}
+.prog-label{font-size:.75rem;color:#888;margin-bottom:6px;font-weight:500}
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:4px}
+.tc{background:#fff;border-radius:var(--rad);padding:16px 18px;border-top:4px solid var(--lc);box-shadow:var(--shadow)}
+.tc-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.tc-label{font-weight:700;font-size:.92rem;color:var(--hdr)}
+.tc-badge{background:var(--ll);color:var(--lc);font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.04em;text-transform:uppercase}
+.tc-examples{font-family:'JetBrains Mono',monospace;font-size:.78rem;background:#f8f8f6;padding:8px 10px;border-radius:6px;margin-bottom:8px;line-height:1.7;color:#333}
+.tc-rule{font-size:.8rem;color:#555;line-height:1.6}
+.t2-group{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:12px;border-left:4px solid var(--lc)}
+.t2-label{font-weight:700;font-size:.95rem;margin-bottom:8px;color:var(--lc)}
+.t2-verbs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.t2-verb{background:var(--ll);color:var(--lc);padding:3px 10px;border-radius:12px;font-size:.78rem;font-weight:600;font-family:'JetBrains Mono',monospace}
+.t2-memory{font-size:.8rem;color:#444;background:#f5f3f0;padding:8px 12px;border-radius:6px;margin-bottom:8px;line-height:1.5;font-style:italic}
+.t2-example{font-size:.82rem;color:#555;font-family:'JetBrains Mono',monospace;line-height:1.6}
+.t3-pair{background:#fff;border-radius:var(--rad);padding:16px 18px;box-shadow:var(--shadow);margin-bottom:12px}
+.t3-spoken{font-size:.82rem;color:#888;text-decoration:line-through;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+.t3-academic{font-size:.85rem;color:#1a1a1a;font-weight:600;margin-bottom:8px;font-family:'JetBrains Mono',monospace;line-height:1.5}
+.t3-change{font-size:.78rem;color:var(--lc);background:var(--ll);padding:5px 10px;border-radius:6px}
+.t3-insight{background:var(--hdr);color:#fff;border-radius:var(--rad);padding:14px 18px;font-size:.83rem;line-height:1.65;margin-top:4px}
+.t4-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.t4-card{background:#fff;border-radius:var(--rad);padding:16px 18px;box-shadow:var(--shadow);border-top:4px solid var(--lc)}
+.t4-label{font-weight:700;font-size:.9rem;margin-bottom:8px;color:var(--hdr)}
+.t4-desc{font-size:.8rem;color:#555;line-height:1.6;margin-bottom:10px}
+.t4-fix{font-size:.79rem;font-family:'JetBrains Mono',monospace;background:#f5f3f0;padding:8px 10px;border-radius:6px;color:#333;line-height:1.6}
+.spot-item{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.spot-num{font-size:.72rem;font-weight:700;color:#999;letter-spacing:.05em;margin-bottom:8px;text-transform:uppercase}
+.spot-sentence{font-size:.95rem;line-height:1.7;margin-bottom:14px;color:#1a1a1a}
+.spot-sentence u{text-decoration:underline;text-decoration-color:var(--lc);text-underline-offset:3px;font-weight:600}
+.spot-choices{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.spot-choice{padding:8px 16px;border-radius:8px;border:2px solid #ddd;background:#fff;font-size:.83rem;cursor:pointer;font-weight:500;transition:all .15s}
+.spot-choice:hover:not(.locked){border-color:var(--lc);color:var(--lc)}
+.spot-choice.selected{border-color:var(--lc);background:var(--ll);color:var(--lc)}
+.spot-choice.correct{border-color:#2D6A4F;background:#D8F3DC;color:#2D6A4F}
+.spot-choice.wrong{border-color:#c0392b;background:#fde;color:#c0392b}
+.spot-feedback{display:none;margin-top:10px;border-radius:8px;padding:12px 14px;font-size:.82rem;line-height:1.6}
+.spot-feedback.show{display:block}
+.spot-feedback.ok{background:#D8F3DC;border-left:3px solid #2D6A4F}
+.spot-feedback.err{background:#fde8e8;border-left:3px solid #c0392b}
+.fb-rule{margin-top:6px;color:#444}
+.fb-tip{margin-top:6px;font-style:italic;color:#666;font-size:.79rem}
+.spot-check-btn{margin-top:10px;padding:7px 18px;background:var(--lc);color:#fff;border:none;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.spot-check-btn:hover{opacity:.85}
+.spot-score{margin-top:14px;padding:10px 14px;background:#f5f3f0;border-radius:8px;font-size:.83rem;font-weight:600}
+.rub-toggle{background:none;border:1px solid #ddd;border-radius:6px;padding:5px 12px;font-size:.75rem;cursor:pointer;color:#777;margin-bottom:10px;transition:all .15s}
+.rub-toggle:hover{border-color:var(--lc);color:var(--lc)}
+.rub-table{display:none;width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:12px}
+.rub-table.show{display:table}
+.rub-table th{background:var(--lc);color:#fff;padding:7px 10px;text-align:left}
+.rub-table td{padding:7px 10px;border-bottom:1px solid #eee;vertical-align:top}
+.rub-table tr:last-child td{border-bottom:none}
+.rub-max{font-weight:700;color:var(--lc);text-align:center}
+.fill-item{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.fill-template{font-size:.95rem;line-height:1.7;margin-bottom:10px;color:#1a1a1a}
+.fill-base{display:inline-block;background:var(--ll);color:var(--lc);padding:2px 10px;border-radius:10px;font-size:.78rem;font-weight:700;margin-bottom:10px;font-family:'JetBrains Mono',monospace}
+.fill-input-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fill-input{border:2px solid #ddd;border-radius:8px;padding:8px 14px;font-size:.88rem;font-family:'JetBrains Mono',monospace;outline:none;transition:border-color .15s;min-width:180px}
+.fill-input:focus{border-color:var(--lc)}
+.fill-input.correct{border-color:#2D6A4F;background:#D8F3DC}
+.fill-input.wrong{border-color:#c0392b;background:#fde}
+.fill-btn{padding:8px 16px;background:var(--lc);color:#fff;border:none;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.fill-btn:hover{opacity:.85}
+.fill-feedback{display:none;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:.82rem;line-height:1.6}
+.fill-feedback.show{display:block}
+.fill-feedback.ok{background:#D8F3DC;border-left:3px solid #2D6A4F}
+.fill-feedback.err{background:#fde8e8;border-left:3px solid #c0392b}
+.tr-item{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.tr-spoken{font-size:.88rem;color:#777;font-style:italic;margin-bottom:8px;padding:8px 12px;background:#f5f3f0;border-radius:6px;font-family:'JetBrains Mono',monospace;line-height:1.5}
+.tr-hint{font-size:.78rem;color:var(--lc);background:var(--ll);padding:5px 10px;border-radius:6px;margin-bottom:10px;font-style:italic}
+.tr-textarea{width:100%;border:2px solid #ddd;border-radius:8px;padding:10px 14px;font-size:.85rem;font-family:'JetBrains Mono',monospace;resize:vertical;min-height:80px;outline:none;transition:border-color .15s;line-height:1.6}
+.tr-textarea:focus{border-color:var(--lc)}
+.tr-btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tr-save-btn,.tr-reveal-btn{padding:7px 16px;border:none;border-radius:6px;font-size:.79rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.tr-save-btn{background:var(--lc);color:#fff}
+.tr-reveal-btn{background:#f0f0f0;color:#555}
+.tr-save-btn:hover,.tr-reveal-btn:hover{opacity:.8}
+.tr-answer{display:none;margin-top:10px;background:#f5f3f0;border-radius:8px;padding:12px 14px;font-size:.82rem;line-height:1.65}
+.tr-answer.show{display:block}
+.tr-answer strong{color:var(--lc);display:block;margin-bottom:4px}
+.tr-principle{font-size:.78rem;color:#666;font-style:italic;margin-top:6px;padding-top:6px;border-top:1px solid #ddd}
+.log-item{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.log-prompt{font-size:.87rem;color:#333;line-height:1.65;margin-bottom:10px;font-weight:500}
+.log-textarea{width:100%;border:2px solid #ddd;border-radius:8px;padding:10px 14px;font-size:.85rem;font-family:'Inter',sans-serif;resize:vertical;min-height:80px;outline:none;transition:border-color .15s;line-height:1.6}
+.log-textarea:focus{border-color:var(--lc)}
+.log-save-btn{margin-top:8px;padding:7px 16px;background:var(--lc);color:#fff;border:none;border-radius:6px;font-size:.79rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.log-save-btn:hover{opacity:.85}
+.log-saved{display:none;margin-top:6px;font-size:.75rem;color:#2D6A4F;font-weight:600}
+.log-saved.show{display:block}
+.log-all-btn{margin-top:4px;padding:8px 20px;background:#1a1a1a;color:#fff;border:none;border-radius:6px;font-size:.82rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.log-all-btn:hover{opacity:.8}
+.score-badge{display:inline-block;padding:3px 10px;border-radius:10px;font-size:.75rem;font-weight:700}
+.score-badge.good{background:#D8F3DC;color:#2D6A4F}
+.score-badge.mid{background:#fff3cd;color:#856404}
+.score-badge.low{background:#fde8e8;color:#c0392b}
+.sec-title{font-size:1.1rem;font-weight:700;color:var(--hdr);margin-bottom:4px}
+.sec-sub{font-size:.82rem;color:#888;margin-bottom:18px}
+@media(max-width:600px){
+  header{padding:14px 18px}
+  .lv-tabs{padding:0 12px}
+  .hero,.sec-nav,.content{padding-left:14px;padding-right:14px}
+  .theory-grid,.t4-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Huong Stella Paradigm</div>
+    <div class="hdr-title">Day 3 &middot; Interactive Practice</div>
+    <div class="hdr-sub">Articles, Prepositions &amp; Clauses</div>
+  </div>
+  <div class="hdr-dl"><button onclick="handleDownload()">&#8615; Download Report</button></div>
+</header>
+<div class="lv-tabs" id="lvTabs"></div>
+<div class="hero" id="hero"></div>
+<div class="sec-nav" id="secNav"></div>
+<div class="content" id="content"></div>
+
+<script>
+let AL='a2b1', AS=0;
+const ST={choices:{}, inputs:{}, checked:{}, logs:{}};
+
+const RUBRICS={
+  a2b1:{
+    spot:[
+      {criterion:"Error identified",max:1,desc:"Correctly selects the underlined article error"},
+      {criterion:"Correction accurate",max:2,desc:"Supplies the correct article (a/an/the/Ø)"},
+      {criterion:"Rule applied",max:1,desc:"Identifies which article rule was violated"}
+    ],
+    fill:[
+      {criterion:"Article chosen correctly",max:2,desc:"Selects a/an/the/Ø based on the noun and context"},
+      {criterion:"a vs an form",max:1,desc:"Chooses a or an based on the following sound, not spelling"},
+      {criterion:"Context awareness",max:1,desc:"Uses 'the' for specific and 'a/an' for first mention or generic"}
+    ],
+    log:[
+      {criterion:"Error recorded",max:2,desc:"Documents a real article error from today's practice"},
+      {criterion:"Rule stated",max:2,desc:"Explains which article rule applies and why"},
+      {criterion:"Original sentence",max:2,desc:"Writes a new sentence demonstrating correct article use"}
+    ]
+  },
+  b1b2:{
+    spot:[
+      {criterion:"Error identified",max:1,desc:"Selects the incorrect preposition"},
+      {criterion:"Correction accurate",max:2,desc:"Supplies the correct preposition for the collocation"},
+      {criterion:"Collocation named",max:1,desc:"Identifies the full verb/adj/noun + preposition pattern"}
+    ],
+    fill:[
+      {criterion:"Correct preposition",max:2,desc:"Supplies the exact preposition required by the collocation"},
+      {criterion:"Collocation awareness",max:1,desc:"Recognises the fixed phrase (not just guessing)"},
+      {criterion:"Register appropriate",max:1,desc:"Preposition fits both the collocation and the register"}
+    ],
+    log:[
+      {criterion:"Error recorded",max:2,desc:"Notes a preposition collocation you got wrong today"},
+      {criterion:"Pattern explained",max:2,desc:"States the full collocation and why that preposition is used"},
+      {criterion:"Original sentence",max:2,desc:"Writes a new sentence using the correct collocation"}
+    ]
+  },
+  b2c1:{
+    spot:[
+      {criterion:"Error identified",max:1,desc:"Locates the relative clause error"},
+      {criterion:"Correction accurate",max:2,desc:"Supplies the correct relative pronoun or reduced form"},
+      {criterion:"Clause type identified",max:1,desc:"Distinguishes defining from non-defining, or full from reduced"}
+    ],
+    fill:[
+      {criterion:"Relative pronoun correct",max:2,desc:"Selects who/which/that/whose/where or correct participle"},
+      {criterion:"Reduction applied",max:1,desc:"Reduces full relative clause to participle where appropriate"},
+      {criterion:"Defining/non-defining distinction",max:1,desc:"Adds commas for non-defining; omits them for defining"}
+    ],
+    transform:[
+      {criterion:"Clause reduced accurately",max:2,desc:"Converts full relative clause to participle or appositive"},
+      {criterion:"Meaning preserved",max:1,desc:"Reduced form retains the precise meaning of the original"},
+      {criterion:"Register elevated",max:1,desc:"Final sentence reads as formal academic prose"}
+    ],
+    log:[
+      {criterion:"Error recorded",max:2,desc:"Identifies a relative clause mistake from today's exercises"},
+      {criterion:"Reduction rule stated",max:2,desc:"Explains when and how to reduce a relative clause"},
+      {criterion:"Revised sentence",max:2,desc:"Rewrites a sentence with a correctly reduced relative clause"}
+    ]
+  },
+  c1c2:{
+    spot:[
+      {criterion:"Error identified",max:1,desc:"Pinpoints the cohesion or reference error"},
+      {criterion:"Correction accurate",max:2,desc:"Supplies a precise, unambiguous replacement"},
+      {criterion:"Discourse justification",max:1,desc:"Explains how the error disrupts cohesion or argument flow"}
+    ],
+    fill:[
+      {criterion:"Cohesive device correct",max:2,desc:"Selects the demonstrative, connector, or noun that maintains cohesion"},
+      {criterion:"Reference unambiguous",max:1,desc:"The chosen form clearly and unambiguously refers to the right antecedent"},
+      {criterion:"Register appropriate",max:1,desc:"Device fits academic register"}
+    ],
+    transform:[
+      {criterion:"Cohesion restructured",max:2,desc:"Eliminates weak reference or choppy connectors with a coherent structure"},
+      {criterion:"Logical flow preserved",max:1,desc:"Revised version conveys the same argument without ambiguity"},
+      {criterion:"C2 register",max:1,desc:"Sentence demonstrates C2-level syntactic and lexical control"}
+    ],
+    log:[
+      {criterion:"Error pattern noted",max:2,desc:"Identifies a cohesion problem in your own writing"},
+      {criterion:"Device analysed",max:2,desc:"Explains why the cohesive device you chose works better"},
+      {criterion:"Complex revision",max:2,desc:"Rewrites a passage with improved reference chains and connectors"}
+    ]
+  }
+};
+
+const LEVELS={
+  a2b1:{
+    label:"A2–B1",color:"#2D6A4F",light:"#D8F3DC",
+    theme:"Articles: a / an / the / Ø",
+    tagline:"Master the four article choices — and know when to use none at all.",
+    goal:"Today you will: (1) learn the four article rules with clear examples, (2) spot six article errors in realistic sentences, (3) choose the correct article for five fill-in sentences.",
+    time:"10–15 min",
+    sections:[
+      {
+        title:"Warm-up: Article Cards",
+        type:"theory",
+        cards:[
+          {label:"a / an — Indefinite",badge:"first mention / one of many",color:"#2D6A4F",
+           examples:"I saw a dog in the park. (first mention)\nShe is an engineer. (one of many engineers)\nan hour, an honest man (vowel SOUND, not spelling!)\na university, a useful tool (consonant SOUND /j/)",
+           rule:"Use a/an when: (1) it is the first time you mention something, (2) you mean one of many (not a specific one). Choose 'an' before a vowel SOUND — listen to the word, don't just look at the letter."},
+          {label:"the — Definite",badge:"specific / known / unique",color:"#1A4A7A",
+           examples:"I saw a dog. The dog was friendly. (second mention — now specific)\nPlease close the door. (both of us know which door)\nThe sun, the Moon, the President (only one exists)\nthe best, the tallest (superlatives)",
+           rule:"Use 'the' when: (1) it was mentioned before, (2) both speaker and listener know which specific one, (3) there is only one in the world, (4) after superlatives and ordinals (the first, the only)."},
+          {label:"Ø — Zero Article",badge:"generic / plural / abstract / proper",color:"#8B1A1A",
+           examples:"Dogs are loyal animals. (all dogs in general)\nI love music. (abstract noun)\nShe studies medicine. (field of study)\nWe went to school. / He is in hospital. (institution purpose)\nVietnam is a beautiful country. (proper noun)",
+           rule:"Use no article (Ø) when: (1) you mean a whole category in general (plural or uncountable nouns), (2) abstract nouns used generally (happiness, freedom), (3) proper nouns (people, countries, cities), (4) certain set phrases: go to school/university/bed/work/church."},
+          {label:"Common Traps",badge:"watch out",color:"#5A1A8A",
+           examples:"She plays the piano. (musical instruments → the)\nI had breakfast at 8. (meals → no article)\nHe went to hospital. (as a patient — institution use)\nHe drove to the hospital. (specific building — place use)\nAdvice, information, furniture → uncountable → no a/an",
+           rule:"Special rules: musical instruments always take 'the'. Meals (breakfast, lunch, dinner) never take an article. Uncountable nouns (advice, information, news, furniture, luggage) cannot take 'a/an'. Institutions (school, hospital, university, church) drop 'the' when referring to the purpose, not the physical place."}
+        ]
+      },
+      {
+        title:"Spot the Error",type:"spot",rubricKey:"spot",
+        items:[
+          {sentence:"She is a best student in her class.",
+           underlined:"a best",wrongWord:"a best",correctWord:"the best",
+           wrongType:"indefinite article with superlative",correctType:"definite article",
+           rule:"Superlatives (best, worst, tallest, most intelligent) always require 'the'. The superlative selects one specific item from a group — there is only one 'best', so it is definite.",
+           tip:"Superlative = 'the'. Every time. Ask yourself: is there only ONE thing described by this adjective? If yes → 'the'."},
+          {sentence:"Can you give me an advice about my job application?",
+           underlined:"an advice",wrongWord:"an advice",correctWord:"some advice",
+           wrongType:"article with uncountable noun",correctType:"zero article / some",
+           rule:"'Advice' is an uncountable noun — it has no plural form and cannot take 'a/an'. Use 'some advice' for an unspecified amount, or 'a piece of advice' if you mean one specific suggestion.",
+           tip:"Uncountable nouns never take a/an. Test: can you say 'two advices'? No — then it's uncountable. Common uncountable traps: advice, information, furniture, news, luggage, equipment."},
+          {sentence:"He plays guitar professionally in a local band.",
+           underlined:"plays guitar",wrongWord:"guitar",correctWord:"the guitar",
+           wrongType:"missing article with musical instrument",correctType:"definite article",
+           rule:"Musical instruments always take 'the' in English: play the piano, play the violin, play the guitar, play the drums. This is a fixed rule with no exceptions.",
+           tip:"Think of a musician 'mastering THE instrument'. Every instrument is 'the [instrument]' — the piano, the flute, the guitar. No article = wrong for instruments."},
+          {sentence:"The happiness is the most important thing in life.",
+           underlined:"The happiness",wrongWord:"The happiness",correctWord:"Happiness",
+           wrongType:"definite article with abstract noun used generally",correctType:"zero article",
+           rule:"Abstract nouns used in a general sense (happiness, freedom, love, knowledge, health) do not take 'the'. 'The happiness' would mean a specific happiness already mentioned — but here we mean happiness in general.",
+           tip:"Ask: am I talking about ALL of this thing in general, or ONE specific thing? General abstract nouns = no article. 'The happiness I felt yesterday' (specific) → 'the'. 'Happiness is important' (general) → no article."},
+          {sentence:"She told me a information that changed my life.",
+           underlined:"a information",wrongWord:"a information",correctWord:"some information",
+           wrongType:"article with uncountable noun",correctType:"some / no article",
+           rule:"'Information' is uncountable — it cannot take 'a'. Use 'some information', 'a piece of information', or just 'information'. Also: 'information' starts with a vowel sound — 'an information' would be the wrong form anyway.",
+           tip:"'Information', like 'advice' and 'news', is a false friend for Vietnamese learners who treat it as countable. Memorise: news/advice/information/knowledge = always uncountable = never 'a/an'."},
+          {sentence:"We had a lunch together and then visited the museum.",
+           underlined:"a lunch",wrongWord:"a lunch",correctWord:"lunch",
+           wrongType:"article with meal name",correctType:"zero article",
+           rule:"Meal names — breakfast, lunch, dinner, brunch, supper — never take an article when used generally: 'have breakfast', 'eat lunch', 'cook dinner'. Add 'the' only if you are referring to a specific, memorable meal: 'The dinner we had at that restaurant was extraordinary.'",
+           tip:"Meals = no article by default. Only add 'the' if you are recalling a specific meal that is already established in context. If in doubt → no article for meal names."}
+        ]
+      },
+      {
+        title:"Fill in the Blank",type:"fill",rubricKey:"fill",
+        items:[
+          {template:"She has been learning to play ___ violin for three years.",
+           baseWord:"a / an / the / Ø",answer:"the",
+           targetType:"definite article (musical instrument)",hint:"think: which article goes with instruments?",
+           explanation:"Musical instruments always take 'the' in English: 'play the violin', 'play the piano'. This is a fixed convention — no other article is used."},
+          {template:"I noticed ___ old envelope tucked under the mat.",
+           baseWord:"a / an",answer:"an",
+           targetType:"indefinite article before vowel sound",hint:"what sound does 'old' start with?",
+           explanation:"'Old' begins with the vowel sound /ɒ/. Even though the article refers to 'envelope', we choose a/an based on the NEXT word's sound. Before a vowel sound → 'an'."},
+          {template:"Have you ever been to ___ France?",
+           baseWord:"a / an / the / Ø",answer:"Ø",
+           targetType:"zero article with country name",hint:"countries are proper nouns",
+           explanation:"Country names are proper nouns and take no article: 'France', 'Vietnam', 'Japan'. Exceptions: countries that are plural ('the Philippines', 'the Netherlands') or named as a union/republic ('the USA', 'the UK')."},
+          {template:"___ evidence presented in the report was later disputed.",
+           baseWord:"a / an / the / Ø",answer:"The",
+           targetType:"definite article (specific evidence)",hint:"specific evidence referred to in a specific report",
+           explanation:"'The evidence' is specific — it refers to particular evidence in a specific report (already identified). When a noun is made specific by a following phrase ('presented in the report'), use 'the'."},
+          {template:"My brother is studying ___ law at university.",
+           baseWord:"a / an / the / Ø",answer:"Ø",
+           targetType:"zero article (field of study)",hint:"fields of study take no article",
+           explanation:"Fields of study — law, medicine, history, engineering, philosophy — are used without an article when speaking in general: 'study law', 'study medicine'. Compare: 'the law of gravity' (specific law → 'the')."}
+        ]
+      },
+      {
+        title:"Error Log",type:"log",rubricKey:"log",
+        prompts:[
+          "Write one article error you made today — the wrong sentence and the corrected version. Then state the rule in your own words.",
+          "Explain the difference between 'I went to school' and 'I went to the school'. What does each sentence mean? Why does the article change the meaning?",
+          "Write three original sentences: one using 'a/an' correctly, one using 'the' correctly, and one correctly using no article (Ø). Label each one."
+        ]
+      }
+    ]
+  },
+
+  b1b2:{
+    label:"B1+–B2",color:"#1A4A7A",light:"#D6E8F7",
+    theme:"Preposition Collocations II",
+    tagline:"Fix your prepositions — they are fixed partners, not free choices.",
+    goal:"Today you will: (1) memorise three groups of fixed verb, adjective, and noun + preposition collocations, (2) identify preposition errors in realistic sentences, (3) complete five sentences with the correct preposition.",
+    time:"15–20 min",
+    sections:[
+      {
+        title:"Warm-up: Collocation Groups",type:"theory2",
+        groups:[
+          {label:"Verb + Preposition",color:"#1A4A7A",
+           verbs:["depend on","result in","result from","consist of","contribute to","lead to","focus on","apply for","refer to","apologise for"],
+           memory:"These verbs are married to their prepositions — you cannot substitute another. 'Depend on' not 'depend of'. Learn them as single units.",
+           example:"Poor diet can result in serious health problems. / The committee focused on reducing costs."},
+          {label:"Adjective + Preposition",color:"#2D6A4F",
+           verbs:["responsible for","capable of","aware of","familiar with","relevant to","similar to","different from","satisfied with","afraid of","enthusiastic about"],
+           memory:"Adjective + preposition pairs are notoriously unpredictable — 'similar TO' but 'different FROM', 'satisfied WITH' but 'pleased WITH' (same!). Memorise as chunks, not logic.",
+           example:"Are you aware of the risks? / This approach is similar to the one used in the previous study."},
+          {label:"Noun + Preposition",color:"#8B1A1A",
+           verbs:["reason for","increase in","attitude towards","solution to","effect on","comparison with","research into","demand for","approach to","interest in"],
+           memory:"Noun collocations are equally fixed: 'solution TO' not 'solution OF'; 'increase IN' not 'increase OF'. In academic writing, these noun phrases appear constantly.",
+           example:"There has been a significant increase in online learning. / Researchers proposed a solution to the problem of data scarcity."}
+        ]
+      },
+      {
+        title:"Spot the Error",type:"spot",rubricKey:"spot",
+        items:[
+          {sentence:"The success of the project depends of many external factors.",
+           underlined:"depends of",wrongWord:"of",correctWord:"on",
+           wrongType:"wrong preposition: depend of",correctType:"depend on",
+           rule:"'Depend' always collocates with 'on'. 'Depend of' is a direct translation error from Vietnamese/French ('dépendre de'). The fixed collocation is: depend on something / someone.",
+           tip:"Say 'depend ON something' — think of standing ON a foundation. You rely ON what supports you. 'On' is the only preposition that works here."},
+          {sentence:"She is very responsible of managing the entire department.",
+           underlined:"responsible of",wrongWord:"of",correctWord:"for",
+           wrongType:"wrong preposition: responsible of",correctType:"responsible for",
+           rule:"The fixed collocation is 'responsible FOR something'. This is non-negotiable — no other preposition works. 'Responsible of' is a common Vietnamese learner error influenced by 'có trách nhiệm về'.",
+           tip:"'Responsible FOR' — you are accountable FOR an outcome. Think: you answer FOR what happened. 'For' always follows 'responsible'."},
+          {sentence:"The new regulations resulted of a sharp decline in imports.",
+           underlined:"resulted of",wrongWord:"of",correctWord:"in",
+           wrongType:"wrong preposition: result of",correctType:"result in",
+           rule:"'Result in' = to cause an outcome (the result follows). 'Result from' = to be caused by something (the cause follows). 'Result of' is not a verb collocation — 'result of' can only be used when 'result' is a NOUN: 'the result of the test'.",
+           tip:"Verb: 'The cause results IN the effect.' / 'The effect results FROM the cause.' Noun: 'the result OF something.' Get clear on whether 'result' is a verb or noun first."},
+          {sentence:"He is very familiar to this neighbourhood after living here for ten years.",
+           underlined:"familiar to",wrongWord:"to",correctWord:"with",
+           wrongType:"wrong preposition: familiar to",correctType:"familiar with",
+           rule:"The fixed collocation is 'familiar WITH something/someone'. 'Familiar to' means 'recognisable to' (this face is familiar to me). 'Familiar WITH' means 'having knowledge of' (I am familiar with this area).",
+           tip:"Think: 'familiar WITH' = you know it well, like a close friend (WITH implies closeness/knowledge). 'This is familiar TO me' = I recognise it. Know which meaning you intend."},
+          {sentence:"There has been a significant increase of social media use among teenagers.",
+           underlined:"increase of",wrongWord:"of",correctWord:"in",
+           wrongType:"wrong preposition: increase of",correctType:"increase in",
+           rule:"The noun collocation is 'increase IN something'. Use 'in' when the noun refers to a quantity or level that rises: 'an increase in prices', 'a rise in temperatures'. 'Increase of' is only used when followed by a percentage or amount: 'an increase of 20%'.",
+           tip:"'Increase IN [what is changing]' vs 'increase OF [the amount it changed by]'. Test: can you say 'grew by' instead of 'of'? If yes → use 'of'. If the thing itself is what increased → 'in'."},
+          {sentence:"The researchers focused in the relationship between diet and cognitive performance.",
+           underlined:"focused in",wrongWord:"in",correctWord:"on",
+           wrongType:"wrong preposition: focus in",correctType:"focus on",
+           rule:"'Focus on something' is the fixed collocation. 'Focus in' does not exist as a verb phrase in standard English. 'In' is a common substitution error — possibly influenced by 'concentrate in' (which is also wrong — it's 'concentrate on').",
+           tip:"'Focus ON' — think of a camera lens focusing ON its subject. The object is always preceded by 'on'. Similarly: 'concentrate on', 'work on', 'depend on' all use 'on'."}
+        ]
+      },
+      {
+        title:"Fill in the Blank",type:"fill",rubricKey:"fill",
+        items:[
+          {template:"The rapid growth of e-commerce has contributed ___ a dramatic rise in delivery vehicle emissions.",
+           baseWord:"contribute + preposition",answer:"to",
+           targetType:"contribute to",hint:"verb + preposition: contribute ___",
+           explanation:"'Contribute to' is the fixed collocation: something adds to, or plays a part in, a result. Always 'to', never 'in' or 'for'."},
+          {template:"Are you fully aware ___ the potential side effects of this medication?",
+           baseWord:"aware + preposition",answer:"of",
+           targetType:"aware of",hint:"adjective + preposition: aware ___",
+           explanation:"'Aware of' is the fixed collocation: you have knowledge OF something. Always 'of', never 'about' or 'with'."},
+          {template:"The team proposed an innovative solution ___ the problem of coastal erosion.",
+           baseWord:"solution + preposition",answer:"to",
+           targetType:"solution to",hint:"noun + preposition: solution ___",
+           explanation:"'Solution to a problem' is the fixed noun collocation. Think: you find a solution TO something that needs solving. Never 'solution of' or 'solution for' in standard academic English."},
+          {template:"The experiment consisted ___ three stages: preparation, execution, and analysis.",
+           baseWord:"consist + preposition",answer:"of",
+           targetType:"consist of",hint:"verb + preposition: consist ___",
+           explanation:"'Consist of' means 'to be made up of'. It is the only preposition that follows 'consist' in this meaning. Never 'consist in' or 'consist from'."},
+          {template:"Her positive attitude ___ feedback helped her improve rapidly.",
+           baseWord:"attitude + preposition",answer:"towards",
+           targetType:"attitude towards",hint:"noun + preposition: attitude ___",
+           explanation:"'Attitude towards/toward something' is the fixed collocation. 'Towards' (British) and 'toward' (American) are both acceptable. Never 'attitude to' or 'attitude about' in formal academic writing."}
+        ]
+      },
+      {
+        title:"Error Log",type:"log",rubricKey:"log",
+        prompts:[
+          "Write one preposition collocation error you made today or often make. State the wrong form and the correct form, and write a sentence using the correct collocation.",
+          "Choose three collocations from today's warm-up groups that you did not already know. Write one sentence for each to help you remember them.",
+          "Explain in your own words: why can't you use 'result of' as a verb phrase? Give an example of the correct use of 'result of' as a noun phrase and 'result in' / 'result from' as verb phrases."
+        ]
+      }
+    ]
+  },
+
+  b2c1:{
+    label:"B2+–C1",color:"#5A1A8A",light:"#EAD6F7",
+    theme:"Relative Clauses & Clause Reduction",
+    tagline:"Compress relative clauses into participles and appositives for tighter academic prose.",
+    goal:"Today you will: (1) learn how to reduce full relative clauses to participial phrases and appositives, (2) identify relative clause errors in academic sentences, (3) rewrite sentences with more concise, compressed clause structures.",
+    time:"20–25 min",
+    sections:[
+      {
+        title:"Warm-up: Clause Reduction",type:"theory3",
+        pairs:[
+          {spoken:"The scientists who are working on this project are from Vietnam.",
+           academic:"The scientists working on this project are based in Vietnam.",
+           change:"'who are' deleted — present participle 'working' remains; subject complement 'are from' → 'are based in' (more precise and formal)"},
+          {spoken:"The data that were collected during the experiment show a clear trend.",
+           academic:"The data collected during the experiment demonstrate a clear trend.",
+           change:"'that were' deleted — passive past participle 'collected' remains; 'show' → 'demonstrate' (academic register); reduction works because the relative clause was passive"},
+          {spoken:"Darwin, who was a British naturalist, published his theory in 1859.",
+           academic:"Darwin, a British naturalist, published his theory in 1859.",
+           change:"Non-defining relative clause 'who was' → appositive noun phrase (remove 'who was', keep the noun phrase in commas)"}
+        ],
+        insight:"Academic writing prefers reduced relative clauses over full ones: delete 'who/which/that is/are/was/were' and retain the participle (active: verb-ing; passive: past participle). For non-defining clauses with 'to be', drop the entire relative phrase and use an appositive noun phrase instead. This compresses information, removes redundant words, and creates a denser, more authoritative style."
+      },
+      {
+        title:"Spot the Error",type:"spot",rubricKey:"spot",
+        items:[
+          {sentence:"The report which it was submitted last week contains several formatting errors.",
+           underlined:"which it was",wrongWord:"which it was",correctWord:"which was",
+           wrongType:"double subject in relative clause",correctType:"relative pronoun as subject",
+           rule:"'Which' already functions as the subject of the relative clause. Adding 'it' creates a double subject, which is grammatically incorrect in English. The sentence needs either 'which was submitted' (full clause) or 'submitted' (reduced).",
+           tip:"In English, a relative clause can only have ONE subject. 'Which' or 'it' — never both. This is a direct transfer error from Vietnamese (where cái mà/mà + pronoun is common). Drop 'it'."},
+          {sentence:"The students who they failed the midterm exam were required to attend extra sessions.",
+           underlined:"who they",wrongWord:"who they",correctWord:"who",
+           wrongType:"double subject: who + they",correctType:"relative pronoun as subject",
+           rule:"'Who' is the subject of the relative clause 'who failed the midterm exam'. Adding 'they' creates an illegal double subject. Use 'who' alone: 'the students who failed the midterm exam'.",
+           tip:"Same rule as the 'which it' error: relative pronouns (who, which, that) already serve as subjects. Adding a personal pronoun (he, she, they, it) is a Vietnamese-influenced error — don't do it."},
+          {sentence:"This is the region where researchers have been conducting fieldwork in for the past decade.",
+           underlined:"where … in",wrongWord:"in",correctWord:"Ø (delete 'in')",
+           wrongType:"stranded preposition with 'where'",correctType:"'where' already contains 'in which'",
+           rule:"'Where' is equivalent to 'in which'. You cannot use 'where' AND a separate preposition 'in' — it would mean 'in which … in'. Delete the redundant 'in': 'the region where researchers have been conducting fieldwork for the past decade.'",
+           tip:"'Where' = 'in/at which'. 'Where I grew up in' = 'in which I grew up in' — doubled preposition. If you use 'where', delete any following preposition of location."},
+          {sentence:"The methods what we used were adapted from frameworks developed in the 1980s.",
+           underlined:"what",wrongWord:"what",correctWord:"that",
+           wrongType:"'what' used as relative pronoun",correctType:"'that' (defining relative pronoun)",
+           rule:"'What' cannot function as a relative pronoun in standard English. It is an interrogative pronoun or a free relative ('what I mean is…'). In relative clauses modifying a noun, use 'that', 'which', or omit the pronoun entirely (object position).",
+           tip:"Test: can you replace the word with 'that'? If yes, the word is a relative pronoun — so use 'that' or 'which', never 'what'. 'The methods what we used' → 'The methods that we used' or 'The methods we used'."},
+          {sentence:"The research, which focus on urban poverty, has been funded by three international organisations.",
+           underlined:"which focus",wrongWord:"focus",correctWord:"focuses",
+           wrongType:"subject-verb agreement in relative clause",correctType:"focuses (singular)",
+           rule:"'The research' is singular. In a non-defining relative clause, 'which' refers to 'the research', so the verb must be singular: 'which focuses on urban poverty'. The verb in a relative clause agrees with its antecedent (the noun it refers to).",
+           tip:"To check agreement in a relative clause, mentally replace 'which' with the noun it refers to: 'the research focuses' → singular. 'The researchers focus' → plural. Always identify the antecedent."},
+          {sentence:"The participants whom were selected for the study had no prior experience with the task.",
+           underlined:"whom",wrongWord:"whom",correctWord:"who",
+           wrongType:"'whom' used as subject of relative clause",correctType:"'who' (subject)",
+           rule:"'Who' is used as the subject of a relative clause; 'whom' is the object. Here, the relative pronoun is the subject of 'were selected': 'who were selected'. 'Whom' would be correct if the pronoun were the object: 'the participants whom we selected'.",
+           tip:"Swap test: replace 'who/whom' with 'he' or 'him'. 'He was selected' (subject → who) or 'we selected him' (object → whom). If 'he' fits → use 'who'. If 'him' fits → use 'whom'."}
+        ]
+      },
+      {
+        title:"Fill in the Blank",type:"fill",rubricKey:"fill",
+        items:[
+          {template:"The data ___ during the fieldwork phase revealed unexpected patterns.",
+           baseWord:"collect (reduce to past participle)",answer:"collected",
+           targetType:"reduced passive relative clause",hint:"what is the reduced form of 'that were collected'?",
+           explanation:"Full form: 'data that were collected'. Reduced form: delete 'that were', keep past participle 'collected'. Passive past participle is used to reduce a passive relative clause."},
+          {template:"This is the mechanism ___ which the virus enters the host cell.",
+           baseWord:"through / by / in",answer:"through",
+           targetType:"preposition + which",hint:"how does the virus enter — through, by, or in the mechanism?",
+           explanation:"The virus enters VIA the mechanism — 'through which' (= by means of which). This formal relative construction uses preposition + 'which' to maintain academic register. 'Through which' = 'through it'."},
+          {template:"The committee, ___ members represent twelve countries, meets every six months.",
+           baseWord:"whose / which / who",answer:"whose",
+           targetType:"possessive relative pronoun",hint:"the members BELONG TO the committee",
+           explanation:"'Whose' is the possessive relative pronoun, meaning 'of which' or 'belonging to'. 'The committee whose members represent twelve countries' = the committee's members represent twelve countries."},
+          {template:"The only variable ___ the researchers could not control was ambient temperature.",
+           baseWord:"that / which",answer:"that",
+           targetType:"'that' after 'only' (defining)",hint:"after 'the only', which relative pronoun is preferred?",
+           explanation:"After superlatives ('the most'), ordinals ('the first'), and exclusives ('the only', 'the same'), 'that' is strongly preferred over 'which' in defining relative clauses. 'The only variable that…' is standard academic English."},
+          {template:"The population ___ in this study was restricted to adults aged 18–65 with no prior medical conditions.",
+           baseWord:"examine (reduce to past participle)",answer:"examined",
+           targetType:"reduced passive relative clause",hint:"reduce 'that was examined' to a single word",
+           explanation:"Full form: 'the population that was examined'. Reduced form: 'the population examined'. The passive past participle 'examined' replaces the full passive relative clause. This is standard in academic writing for concision."}
+        ]
+      },
+      {
+        title:"Transform: Academic Upgrade",type:"transform",rubricKey:"transform",
+        items:[
+          {spoken:"The students who are studying abroad often face challenges with culture shock.",
+           hint:"students studying abroad / frequently encounter / challenges related to / cultural adjustment",
+           answer:"Students studying abroad frequently encounter challenges related to cultural adjustment.\n\nAlternatively: Students who study abroad are often confronted with significant difficulties associated with cultural adaptation.",
+           keyChange:"'who are studying' → reduced to 'studying' (present participle); 'often' → 'frequently'; 'face challenges with culture shock' → 'encounter challenges related to cultural adjustment' (formal, precise)",
+           principle:"Reduce active relative clauses by deleting 'who/which/that is/are' and retaining the present participle. This tightens the sentence without losing any meaning."},
+          {spoken:"The report that was written by the committee last year was very long and detailed.",
+           hint:"the report submitted / the committee's report / comprised / in considerable detail",
+           answer:"The report submitted by the committee last year comprised over 150 pages of detailed analysis.\n\nAlternatively: The committee's report, published last year, was extensive in both scope and detail.",
+           keyChange:"'that was written' → reduced to 'submitted' (more precise passive participle); 'very long and detailed' → 'comprised over 150 pages of detailed analysis' (specific, formal); possessive noun phrase alternative",
+           principle:"Passive relative clauses reduce to past participles: 'that was written' → 'written' (or 'submitted' for greater precision). Avoid vague intensifiers like 'very long' — quantify or qualify specifically in academic prose."},
+          {spoken:"Piaget, who was a Swiss psychologist, developed his theory of cognitive development in the early 20th century.",
+           hint:"Piaget, a Swiss psychologist, / formulated / cognitive development / foundational",
+           answer:"Piaget, a Swiss psychologist, formulated his theory of cognitive development in the early twentieth century.\n\nAlternatively: Piaget — a Swiss psychologist whose work proved foundational to developmental psychology — formulated his theory of cognitive development in the early twentieth century.",
+           keyChange:"'who was a Swiss psychologist' → appositive 'a Swiss psychologist' (drop 'who was'); 'developed' → 'formulated' (more precise academic verb); numbers written out in formal academic prose",
+           principle:"Non-defining relative clauses with 'to be' (who was, which is, that were) can always be compressed into appositives. Remove 'who/which was' and retain only the noun phrase in commas."}
+        ]
+      },
+      {
+        title:"Error Log",type:"log",rubricKey:"log",
+        prompts:[
+          "Write one relative clause error you made today. Give the wrong version and the corrected version, and explain what type of error it was (double subject, wrong pronoun, agreement error, etc.).",
+          "Explain in your own words: when can you reduce a relative clause to a participle? What are the conditions that must be true before you can delete 'who/which/that was/were'?",
+          "Take one sentence from an essay you have written and try to reduce its relative clause to a participle or appositive. Write both the original and the reduced version."
+        ]
+      }
+    ]
+  },
+
+  c1c2:{
+    label:"C1+–C2",color:"#8B1A1A",light:"#F5DADA",
+    theme:"Cohesion & Referencing I",
+    tagline:"Build watertight reference chains — every 'this', 'they', and 'it' must earn its place.",
+    goal:"Today you will: (1) master four advanced cohesive reference strategies, (2) identify and correct reference ambiguity and connector misuse in academic text, (3) revise passages for tight, unambiguous cohesion.",
+    time:"20–25 min",
+    sections:[
+      {
+        title:"Warm-up: Cohesion Strategies",type:"theory4",
+        cards:[
+          {label:"Demonstrative + Noun (Never Bare)",color:"#8B1A1A",
+           desc:"In academic writing, 'this', 'these', 'that', and 'those' should almost never stand alone — they must be followed by a noun that labels the referent. Bare demonstratives are ambiguous: 'This suggests that…' — what is 'this'? The finding? The data? The argument?",
+           fix:"✗ 'The model predicted the outcome accurately. This is important.'\n✓ 'The model predicted the outcome accurately. This predictive accuracy is important.'\n\nThe noun you add ('predictive accuracy') labels and evaluates the referent simultaneously — a double gain."},
+          {label:"Pronoun Reference: Resolve or Replace",color:"#5A1A8A",
+           desc:"'It', 'they', 'he', 'she', and 'this' must have an unambiguous, named antecedent. When the grammatical antecedent is not a human or a specific named entity, or when two possible referents exist, replace the pronoun with an explicit noun phrase.",
+           fix:"✗ 'Research into diet has expanded rapidly. They now know that inflammation is a key factor.'\n→ 'They' has no human antecedent ('research' is not a group of people).\n✓ 'Research into diet has expanded rapidly. Scientists now know that inflammation is a key factor.'"},
+          {label:"Connectors: Direction Matters",color:"#1A4A7A",
+           desc:"Cohesive connectors signal the logical relationship between clauses. Using the wrong connector — especially 'furthermore' where 'however' belongs — is not just a style problem; it actively misleads the reader about your argument's logic. Always ask: does the second clause ADD, CONTRAST, CAUSE, or CONCEDE?",
+           fix:"ADD: furthermore, moreover, in addition\nCONTRAST: however, by contrast, in contrast, nevertheless\nCONCEDE: although, while, even though, admittedly\nCAUSE: consequently, therefore, as a result, hence\n\n✗ 'The experimental group improved. Furthermore, the control group showed no change.'\n✓ 'The experimental group improved. By contrast, the control group showed no change.'"},
+          {label:"'Such' as Cohesive Compression",color:"#2D6A4F",
+           desc:"'Such + noun phrase' is a sophisticated cohesive device that refers back to something just described while adding an evaluative or categorical label. It is more formal and concise than repeating the full noun phrase or using a bare demonstrative.",
+           fix:"✗ 'The intervention required participants to meditate for 20 minutes daily. This was time-consuming.'\n✓ 'The intervention required participants to meditate for 20 minutes daily. Such a commitment proved demanding for many participants.'\n\n'Such a commitment' refers back to the meditation requirement while adding an evaluation ('demanding')."}
+        ]
+      },
+      {
+        title:"Spot the Error",type:"spot",rubricKey:"spot",
+        items:[
+          {sentence:"The policy reduced emissions by 30% in the first year. This is significant for future planning.",
+           underlined:"This is",wrongWord:"This",correctWord:"This reduction",
+           wrongType:"bare demonstrative without noun",correctType:"demonstrative + labelling noun",
+           rule:"'This' alone is ambiguous: it could refer to the policy, the reduction, the percentage, or the achievement of the target. Adding 'reduction' ('This reduction is significant') anchors the reference and names precisely what is being evaluated.",
+           tip:"The Academic Noun Test: replace 'this' with 'this X' — what is X? If you can name it, add it. The noun you add should be the most accurate label for the referent. Bare 'this' = ambiguous = edit it."},
+          {sentence:"Educational inequality has worsened over the past decade. They must address this urgently.",
+           underlined:"They must",wrongWord:"They",correctWord:"Policymakers must",
+           wrongType:"pronoun with no human antecedent",correctType:"explicit noun phrase",
+           rule:"'They' must refer to a specific, named group of people. 'Educational inequality' is an abstract phenomenon, not a group of people — so 'they' has no valid antecedent. Replace with 'Policymakers', 'Governments', or 'Education authorities'.",
+           tip:"Before writing 'they', ask: 'they' = who, exactly, in the previous sentence? If you can't point to a named human group, you must use a noun phrase. 'They' without a referent is one of the most common C1-level cohesion errors."},
+          {sentence:"The experimental group showed significant cognitive improvement. Furthermore, the control group demonstrated no measurable change.",
+           underlined:"Furthermore",wrongWord:"Furthermore",correctWord:"By contrast",
+           wrongType:"additive connector for contrastive relationship",correctType:"contrastive connector",
+           rule:"'Furthermore' signals that the second clause adds more of the same information in the same direction. But experimental improvement vs control group showing no change is a CONTRAST, not an addition. 'By contrast' or 'In contrast' correctly signals the oppositional relationship.",
+           tip:"Direction test: does the second clause go WITH the first (same direction → furthermore/moreover) or AGAINST it (opposite → however/by contrast)? Draw an arrow: same direction = +, opposite = ÷. Getting this wrong corrupts your argument's logic."},
+          {sentence:"The study employed two novel methodologies. This methodology was subsequently validated through peer review.",
+           underlined:"This methodology",wrongWord:"This",correctWord:"These methodologies",
+           wrongType:"singular demonstrative for plural referent",correctType:"These methodologies",
+           rule:"'Two novel methodologies' is plural. The referring expression must also be plural: 'These methodologies'. Using 'This methodology' (singular) suggests only one methodology was used, contradicting the previous sentence.",
+           tip:"Demonstrative agreement: 'this/that' = singular, 'these/those' = plural. Count the referent noun in the preceding sentence. If it's plural, you need 'these/those'. If singular, 'this/that'. Mismatch = broken cohesion."},
+          {sentence:"The former approach prioritises standardisation, while the latter emphasises flexibility and contextual adaptation — factors which it must be balanced carefully.",
+           underlined:"which it must be",wrongWord:"it",correctWord:"which must be",
+           wrongType:"redundant 'it' in relative clause",correctType:"relative pronoun as subject",
+           rule:"'Which' already serves as the subject of the relative clause. Adding 'it' creates an illegal double subject: 'which it must be balanced' is ungrammatical. Use 'which must be balanced' or restructure: 'factors that require careful balancing'.",
+           tip:"In relative clauses, 'which', 'who', and 'that' are the subjects — no additional pronoun is needed. If you find 'which it', 'who he', or 'that they', delete the personal pronoun every time."},
+          {sentence:"'The former' and 'the latter' can only refer to two items. However, researchers proposed three frameworks: an experimental, a quasi-experimental, and an observational approach. The former was deemed most rigorous.",
+           underlined:"The former",wrongWord:"The former",correctWord:"The experimental approach",
+           wrongType:"'the former' used after more than two referents",correctType:"explicit noun phrase",
+           rule:"'The former' and 'the latter' can ONLY be used when exactly two items were mentioned. With three items (experimental, quasi-experimental, observational), 'the former' is ambiguous. Use the explicit noun phrase: 'The experimental approach'.",
+           tip:"'The former / the latter' = exactly two. Three or more items? Use ordinals ('the first', 'the second') or repeat the noun phrase. If in doubt, repeat the noun — clarity always beats elegance in academic writing."}
+        ]
+      },
+      {
+        title:"Fill in the Blank",type:"fill",rubricKey:"fill",
+        items:[
+          {template:"The government introduced sweeping austerity measures in 2010. ___ decision proved deeply divisive across the political spectrum.",
+           baseWord:"This / These / Such a",answer:"This",
+           targetType:"demonstrative + noun (singular referent)",hint:"one decision was introduced — singular or plural?",
+           explanation:"'Austerity measures' is plural but 'decision' (the labelling noun) is singular. 'This decision' = 'This [one, identifiable] decision'. The demonstrative + noun structure labels and anchors the reference precisely."},
+          {template:"Prior studies identified a link between air quality and respiratory illness; ___, recent meta-analyses have confirmed the relationship is causal.",
+           baseWord:"however / furthermore / moreover",answer:"furthermore",
+           targetType:"additive connector (building on same direction)",hint:"does the second clause add to or contrast with the first?",
+           explanation:"The second clause confirms and extends the claim of the first — it goes in the same direction (link → causal confirmation). 'Furthermore' is correct for additive, same-direction information. 'However' would imply a contradiction."},
+          {template:"The new model accounts for individual variation in response rates. ___ flexibility makes it significantly more applicable across diverse research contexts.",
+           baseWord:"Such / This / These",answer:"Such",
+           targetType:"'such' as cohesive evaluative device",hint:"'such + noun' = refers back + evaluates",
+           explanation:"'Such flexibility' refers back to the model's capacity for variation while adding an evaluative label ('flexibility'). 'Such + noun' is a formal academic cohesion device that simultaneously references and characterises. More elegant than 'This flexibility' though both are acceptable."},
+          {template:"The experiment yielded several results that contradicted the team's initial hypotheses. ___ findings prompted a fundamental reconsideration of the theoretical framework.",
+           baseWord:"This / These / Such",answer:"These",
+           targetType:"plural demonstrative + noun",hint:"'several results' — singular or plural?",
+           explanation:"'Several results' is plural. The corresponding demonstrative must be plural: 'These findings'. 'These' → plural. The noun 'findings' is a formal synonym for 'results', creating lexical variation while maintaining reference."},
+          {template:"The review examined income inequality, educational access, and healthcare provision. ___ three dimensions were found to be deeply interconnected.",
+           baseWord:"This / These / Those",answer:"These",
+           targetType:"plural demonstrative (cataphoric list)",hint:"how many dimensions were mentioned?",
+           explanation:"'Three dimensions' is plural → 'These three dimensions'. Here 'these' refers back to the three previously listed items (anaphoric reference). 'These three' also functions as a summary, grouping the items for the next analytical move."}
+        ]
+      },
+      {
+        title:"Transform: Cohesion Restructure",type:"transform",rubricKey:"transform",
+        items:[
+          {spoken:"The data show that pollution is rising. This is a serious problem for the environment.",
+           hint:"These findings indicate / a worrying trend / the implications of which / warrant urgent attention",
+           answer:"The data indicate a worrying upward trend in pollution levels — one with serious implications for environmental sustainability and public health.\n\nAlternatively: These findings point to a sustained deterioration in air quality, the consequences of which demand urgent policy intervention.",
+           keyChange:"'This is a serious problem' eliminated by integrating the evaluation into the main clause; 'trend' names the referent precisely; relative clause 'the consequences of which' replaces bare 'this'; register elevated throughout",
+           principle:"When 'this is a serious/important/interesting X', restructure: integrate the evaluation into the main clause ('a worrying X', 'a significant X') or subordinate it ('the implications of which are considerable'). Both strategies eliminate the weak bare demonstrative."},
+          {spoken:"Researchers studied the effects of social media on sleep. They found many negative effects. They published their results in 2022.",
+           hint:"A 2022 study / documented / a range of detrimental effects / associated with / prolonged social media use",
+           answer:"A 2022 study documented a range of detrimental effects associated with prolonged social media use on sleep quality.\n\nAlternatively: In 2022, researchers published findings identifying numerous adverse effects of extended social media engagement on sleep architecture.",
+           keyChange:"Three choppy sentences merged into one via nominalisation and subordination; 'they' (twice) replaced with specific reference 'a 2022 study' and 'researchers'; 'many negative effects' → 'a range of detrimental effects' (precise, formal); lexical variation ('prolonged' for 'a lot of')",
+           principle:"Repetitive 'they' with vague antecedents is eliminated by: (1) nominalising the research event ('a 2022 study'), (2) subordinating secondary information ('documented X associated with Y'), and (3) replacing vague quantifiers with formal alternatives."},
+          {spoken:"The new policy has some good points and some bad points. Furthermore, it is also quite expensive to run.",
+           hint:"While / notable advantages / it is not without / significant drawbacks / chief among which / the considerable implementation costs",
+           answer:"While the policy offers several notable advantages, it is not without significant drawbacks — chief among which is its considerable implementation cost.\n\nAlternatively: The policy presents genuine advantages alongside substantial challenges; not least among the latter is its prohibitive cost of implementation.",
+           keyChange:"'Good and bad points' → 'advantages' and 'drawbacks' (lexical precision); 'Furthermore' → integrated concessive structure 'while…'; 'quite expensive' → 'considerable implementation cost'; 'the latter' used correctly for TWO referents (advantages vs drawbacks)",
+           principle:"Replace 'good/bad' with specific evaluative nouns ('advantages', 'drawbacks', 'merits', 'limitations'). Encode contrast within a single sentence using 'while', 'although', or 'not without' rather than using a connector between two sentences — this creates tighter, more sophisticated cohesion."}
+        ]
+      },
+      {
+        title:"Error Log",type:"log",rubricKey:"log",
+        prompts:[
+          "Identify a paragraph in your own writing where you used 'this', 'they', or 'it' ambiguously. Quote the paragraph, underline the problematic pronouns or demonstratives, and rewrite it with precise reference chains.",
+          "Analyse this sentence: 'The results were inconclusive. Furthermore, the methodology had several flaws.' Is 'furthermore' the right connector? What is the logical relationship between the two clauses? Rewrite using a more precise connector and explain your choice.",
+          "Write a 4-sentence academic passage on any topic. You must include: (1) a demonstrative + noun reference ('This finding…' or 'These results…'), (2) the word 'such' used as a cohesive device, and (3) one correct use of a contrastive connector. Label each device."
+        ]
+      }
+    ]
+  }
+};
+
+// ── HELPERS ────────────────────────────────────────────────────────────
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>')}
+function badge(txt,bg,fg){return`<span class="tc-badge" style="background:${bg};color:${fg}">${esc(txt)}</span>`}
+function rubricHTML(rubKey){
+  const rows=RUBRICS[AL][rubKey];
+  if(!rows)return'';
+  const total=rows.reduce((a,r)=>a+r.max,0);
+  let html=`<button class="rub-toggle" onclick="togRub(this)">&#9776; Rubric (${total} pts)</button>
+  <table class="rub-table"><tr><th>Criterion</th><th>Max</th><th>Description</th></tr>`;
+  rows.forEach(r=>{html+=`<tr><td><strong>${esc(r.criterion)}</strong></td><td class="rub-max">${r.max}</td><td>${esc(r.desc)}</td></tr>`});
+  return html+`</table>`;
+}
+function togRub(btn){
+  const tbl=btn.nextElementSibling;
+  tbl.classList.toggle('show');
+  btn.textContent=tbl.classList.contains('show')?'× Hide Rubric':'☰ Show Rubric';
+}
+function progHTML(secIdx){
+  return`<div class="prog-label" id="prog-label-${secIdx}">Progress</div>
+  <div class="prog-wrap"><div class="prog-bar" id="prog-bar-${secIdx}" style="width:0%"></div></div>`;
+}
+function updProg(secIdx,done,total){
+  const bar=document.getElementById('prog-bar-'+secIdx);
+  const lbl=document.getElementById('prog-label-'+secIdx);
+  if(bar){bar.style.width=total?Math.round(done/total*100)+'%':'0%'}
+  if(lbl){lbl.textContent=`Progress: ${done}/${total} completed`}
+}
+function scoreBadge(score,max){
+  const pct=max?score/max:0;
+  const cls=pct>=0.8?'good':pct>=0.5?'mid':'low';
+  return`<span class="score-badge ${cls}">${score}/${max}</span>`;
+}
+
+// ── RENDERERS ──────────────────────────────────────────────────────────
+function rTheory(sec){
+  let h='<div class="theory-grid">';
+  sec.cards.forEach(c=>{
+    h+=`<div class="tc" style="border-top-color:${c.color}">
+      <div class="tc-header"><span class="tc-label">${esc(c.label)}</span>${badge(c.badge,LEVELS[AL].light,LEVELS[AL].color)}</div>
+      <div class="tc-examples">${esc(c.examples)}</div>
+      <div class="tc-rule">${esc(c.rule)}</div>
+    </div>`;
+  });
+  return h+'</div>';
+}
+function rTheory2(sec){
+  let h='';
+  sec.groups.forEach(g=>{
+    h+=`<div class="t2-group" style="border-left-color:${g.color}">
+      <div class="t2-label" style="color:${g.color}">${esc(g.label)}</div>
+      <div class="t2-verbs">${g.verbs.map(v=>`<span class="t2-verb" style="background:${LEVELS[AL].light};color:${g.color}">${esc(v)}</span>`).join('')}</div>
+      <div class="t2-memory">${esc(g.memory)}</div>
+      <div class="t2-example">${esc(g.example)}</div>
+    </div>`;
+  });
+  return h;
+}
+function rTheory3(sec){
+  let h='';
+  sec.pairs.forEach(p=>{
+    h+=`<div class="t3-pair">
+      <div class="t3-spoken">✗ ${esc(p.spoken)}</div>
+      <div class="t3-academic">✓ ${esc(p.academic)}</div>
+      <div class="t3-change">💡 ${esc(p.change)}</div>
+    </div>`;
+  });
+  h+=`<div class="t3-insight">🎯 <strong>Key Insight:</strong> ${esc(sec.insight)}</div>`;
+  return h;
+}
+function rTheory4(sec){
+  let h='<div class="t4-grid">';
+  sec.cards.forEach(c=>{
+    h+=`<div class="t4-card" style="border-top-color:${c.color}">
+      <div class="t4-label">${esc(c.label)}</div>
+      <div class="t4-desc">${esc(c.desc)}</div>
+      <div class="t4-fix">${esc(c.fix)}</div>
+    </div>`;
+  });
+  return h+'</div>';
+}
+
+function rSpot(sec,secIdx){
+  const key=`${AL}_${secIdx}`;
+  let h=rubricHTML(sec.rubricKey)+progHTML(secIdx);
+  sec.items.forEach((it,i)=>{
+    const cid=`${key}_${i}`;
+    const sent=it.sentence.replace(it.underlined,`<u>${esc(it.underlined)}</u>`);
+    const choices=[it.wrongWord,it.correctWord].sort(()=>Math.random()-0.5);
+    h+=`<div class="spot-item" id="spot-wrap-${cid}">
+      <div class="spot-num">Item ${i+1} of ${sec.items.length}</div>
+      <div class="spot-sentence">${sent}</div>
+      <div class="spot-choices">
+        ${choices.map(ch=>`<button class="spot-choice" onclick="spotPick('${cid}','${esc(ch)}','${esc(it.correctWord)}')" id="sc-${cid}-${esc(ch)}">${esc(ch)}</button>`).join('')}
+      </div>
+      <div class="spot-feedback" id="sf-${cid}"></div>
+    </div>`;
+  });
+  const rub=RUBRICS[AL][sec.rubricKey];
+  const maxScore=rub?rub.reduce((a,r)=>a+r.max,0):0;
+  h+=`<button class="spot-check-btn" id="spot-btn-${key}" onclick="calcSpot('${key}',${sec.items.length},${maxScore})">Check All</button>
+  <div class="spot-score" id="spot-score-${key}" style="display:none"></div>`;
+  return h;
+}
+
+function rFill(sec,secIdx){
+  const key=`${AL}_${secIdx}`;
+  let h=rubricHTML(sec.rubricKey)+progHTML(secIdx);
+  sec.items.forEach((it,i)=>{
+    const cid=`${key}_${i}`;
+    h+=`<div class="fill-item">
+      <div class="fill-num" style="font-size:.72rem;font-weight:700;color:#999;margin-bottom:6px;text-transform:uppercase">Item ${i+1}</div>
+      <div class="fill-template">${esc(it.template)}</div>
+      <div class="fill-base">🔑 ${esc(it.baseWord)}</div>
+      <div class="fill-input-row">
+        <input class="fill-input" id="fi-${cid}" placeholder="${esc(it.hint)}" oninput="ST.inputs['${cid}']=this.value"/>
+        <button class="fill-btn" id="fb-${cid}" onclick="fillChk('${cid}','${esc(it.answer)}','${esc(it.explanation)}')">Check</button>
+      </div>
+      <div class="fill-feedback" id="ff-${cid}"></div>
+    </div>`;
+  });
+  const rub=RUBRICS[AL][sec.rubricKey];
+  const maxScore=rub?rub.reduce((a,r)=>a+r.max,0):0;
+  h+=`<button class="spot-check-btn" id="fill-score-btn-${key}" onclick="calcFill('${key}',${sec.items.length},${maxScore})" style="margin-top:4px">Show Score</button>
+  <div class="spot-score" id="fill-score-${key}" style="display:none"></div>`;
+  return h;
+}
+
+function rTransform(sec,secIdx){
+  const key=`${AL}_${secIdx}`;
+  let h=rubricHTML(sec.rubricKey)+progHTML(secIdx);
+  sec.items.forEach((it,i)=>{
+    const cid=`${key}_${i}`;
+    h+=`<div class="tr-item">
+      <div class="spot-num">Item ${i+1}</div>
+      <div class="tr-spoken">"${esc(it.spoken)}"</div>
+      <div class="tr-hint">💡 Hint: ${esc(it.hint)}</div>
+      <textarea class="tr-textarea" id="tr-${cid}" placeholder="Write your academic version here…" oninput="ST.inputs['${cid}']=this.value"></textarea>
+      <div class="tr-btns">
+        <button class="tr-save-btn" onclick="saveTr('${cid}')">Save</button>
+        <button class="tr-reveal-btn" onclick="revealTr('${cid}','${esc(it.answer)}','${esc(it.keyChange)}','${esc(it.principle)}')">Reveal Model Answer</button>
+      </div>
+      <div class="tr-answer" id="tra-${cid}"></div>
+    </div>`;
+  });
+  return h;
+}
+
+function rLog(sec,secIdx){
+  const key=`${AL}_${secIdx}`;
+  let h=rubricHTML(sec.rubricKey);
+  sec.prompts.forEach((pr,i)=>{
+    const cid=`${key}_${i}`;
+    h+=`<div class="log-item">
+      <div class="log-prompt">${i+1}. ${esc(pr)}</div>
+      <textarea class="log-textarea" id="lt-${cid}" placeholder="Write your response here…" oninput="ST.logs['${cid}']=this.value"></textarea>
+      <button class="log-save-btn" onclick="saveLog('${cid}')">Save</button>
+      <div class="log-saved" id="ls-${cid}">✓ Saved</div>
+    </div>`;
+  });
+  h+=`<button class="log-all-btn" onclick="saveLogAll('${key}',${sec.prompts.length})">Save All Reflections</button>`;
+  return h;
+}
+
+function renderSec(secIdx){
+  const lv=LEVELS[AL];
+  const sec=lv.sections[secIdx];
+  AS=secIdx;
+  let html=`<div class="sec-title">${esc(sec.title)}</div>`;
+  if(sec.type==='theory'){html+=`<div class="sec-sub">Study these cards before attempting the exercises.</div>`+rTheory(sec)}
+  else if(sec.type==='theory2'){html+=`<div class="sec-sub">Review the collocation groups and their memory rules.</div>`+rTheory2(sec)}
+  else if(sec.type==='theory3'){html+=`<div class="sec-sub">Study the clause reduction examples, then read the key insight.</div>`+rTheory3(sec)}
+  else if(sec.type==='theory4'){html+=`<div class="sec-sub">Study each cohesion strategy and its application before practising.</div>`+rTheory4(sec)}
+  else if(sec.type==='spot'){html+=`<div class="sec-sub">Each sentence contains exactly one error. Choose the correct replacement.</div>`+rSpot(sec,secIdx)}
+  else if(sec.type==='fill'){html+=`<div class="sec-sub">Use the prompt given to complete each sentence.</div>`+rFill(sec,secIdx)}
+  else if(sec.type==='transform'){html+=`<div class="sec-sub">Rewrite each sentence in formal academic English using the hint.</div>`+rTransform(sec,secIdx)}
+  else if(sec.type==='log'){html+=`<div class="sec-sub">Reflect on today's learning. Your notes are saved for download.</div>`+rLog(sec,secIdx)}
+  document.getElementById('content').innerHTML=html;
+  document.querySelectorAll('.sec-btn').forEach((b,i)=>b.classList.toggle('active',i===secIdx));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── INTERACTIONS ───────────────────────────────────────────────────────
+function spotPick(cid,chosen,correct){
+  if(document.getElementById('spot-wrap-'+cid).querySelector('.locked'))return;
+  const btns=document.querySelectorAll(`[id^="sc-${cid}-"]`);
+  btns.forEach(b=>{b.classList.remove('selected','correct','wrong');b.classList.add('locked')});
+  const chosenBtn=document.getElementById('sc-'+cid+'-'+chosen);
+  const isOk=chosen===correct;
+  if(chosenBtn){chosenBtn.classList.add(isOk?'correct':'wrong')}
+  if(!isOk){const cb=document.getElementById('sc-'+cid+'-'+correct);if(cb)cb.classList.add('correct')}
+  ST.choices[cid]=isOk;
+  const fb=document.getElementById('sf-'+cid);
+  const sec=LEVELS[AL].sections[AS];
+  const idx=parseInt(cid.split('_').pop());
+  const it=sec.items[idx];
+  fb.className='spot-feedback show '+(isOk?'ok':'err');
+  fb.innerHTML=`<strong>${isOk?'✓ Correct!':'✗ Incorrect — the correct answer is: '+esc(correct)}</strong>
+  <div class="fb-rule">📌 <em>${esc(it.wrongType)}</em> → <em>${esc(it.correctType)}</em><br>${esc(it.rule)}</div>
+  <div class="fb-tip">💡 Tip: ${esc(it.tip)}</div>`;
+}
+
+function calcSpot(key,total,maxScore){
+  let done=0,correct=0;
+  for(let i=0;i<total;i++){const cid=`${key}_${i}`;if(ST.choices[cid]!==undefined){done++;if(ST.choices[cid])correct++}}
+  updProg(parseInt(key.split('_').pop()),done,total);
+  const sd=document.getElementById('spot-score-'+key);
+  sd.style.display='block';
+  sd.innerHTML=`Score: ${scoreBadge(correct,total)} | Completed: ${done}/${total}`;
+}
+
+function fillChk(cid,answer,explanation){
+  const inp=document.getElementById('fi-'+cid);
+  const val=(inp.value||'').trim().toLowerCase();
+  const ans=answer.toLowerCase();
+  const alts=ans.split('/').map(a=>a.trim());
+  const isOk=alts.some(a=>val===a||val===a.replace(/\s+/g,' '));
+  inp.classList.remove('correct','wrong');
+  inp.classList.add(isOk?'correct':'wrong');
+  document.getElementById('ff-'+cid).className='fill-feedback show '+(isOk?'ok':'err');
+  document.getElementById('ff-'+cid).innerHTML=`<strong>${isOk?'✓ Correct!':'✗ The answer is: <em>'+esc(answer)+'</em>'}</strong><br>${esc(explanation)}`;
+  ST.checked[cid]=isOk;
+}
+
+function calcFill(key,total,maxScore){
+  let done=0,correct=0;
+  for(let i=0;i<total;i++){const cid=`${key}_${i}`;const inp=document.getElementById('fi-'+cid);if(inp&&inp.value.trim()){done++;if(ST.checked[cid])correct++}}
+  updProg(parseInt(key.split('_').pop()),done,total);
+  const sd=document.getElementById('fill-score-'+key);
+  sd.style.display='block';
+  sd.innerHTML=`Score: ${scoreBadge(correct,total)} | Completed: ${done}/${total}`;
+}
+
+function saveTr(cid){
+  const val=document.getElementById('tr-'+cid).value.trim();
+  ST.inputs[cid]=val;
+  alert(val?'✓ Response saved!':'Nothing to save — please write your answer first.');
+}
+
+function revealTr(cid,answer,keyChange,principle){
+  const div=document.getElementById('tra-'+cid);
+  div.className='tr-answer show';
+  div.innerHTML=`<strong>🎯 Model Answer:</strong>${esc(answer)}<br><br><strong>🔄 Key Change:</strong> ${esc(keyChange)}<div class="tr-principle">📌 Principle: ${esc(principle)}</div>`;
+}
+
+function saveLog(cid){
+  const val=document.getElementById('lt-'+cid).value.trim();
+  ST.logs[cid]=val;
+  const s=document.getElementById('ls-'+cid);
+  s.className='log-saved show';
+  setTimeout(()=>s.classList.remove('show'),2000);
+}
+
+function saveLogAll(key,total){
+  for(let i=0;i<total;i++){const cid=`${key}_${i}`;const el=document.getElementById('lt-'+cid);if(el)ST.logs[cid]=el.value.trim()}
+  alert('✓ All reflections saved. Use Download Report to export.');
+}
+
+function handleDownload(){
+  const lv=LEVELS[AL];
+  const now=new Date();
+  let txt=`HUONG STELLA PARADIGM — Daily Drills Day 3\n`;
+  txt+=`Level: ${lv.label} | Theme: ${lv.theme}\n`;
+  txt+=`Date: ${now.toISOString().slice(0,10)}\n`;
+  txt+=`${'='.repeat(60)}\n\n`;
+  lv.sections.forEach((sec,si)=>{
+    txt+=`SECTION: ${sec.title}\n${'-'.repeat(40)}\n`;
+    const key=`${AL}_${si}`;
+    if(sec.type==='spot'){
+      sec.items.forEach((it,i)=>{
+        const cid=`${key}_${i}`;
+        const ans=ST.choices[cid];
+        txt+=`Q${i+1}: ${it.sentence}\n`;
+        txt+=`  Your answer: ${ans===undefined?'(not attempted)':ans?'Correct ✓':'Incorrect ✗'}\n`;
+        txt+=`  Correct: ${it.correctWord}\n\n`;
+      });
+    } else if(sec.type==='fill'){
+      sec.items.forEach((it,i)=>{
+        const cid=`${key}_${i}`;
+        txt+=`Q${i+1}: ${it.template}\n`;
+        txt+=`  Your answer: ${ST.inputs[cid]||'(blank)'}\n`;
+        txt+=`  Correct: ${it.answer}\n\n`;
+      });
+    } else if(sec.type==='transform'){
+      sec.items.forEach((it,i)=>{
+        const cid=`${key}_${i}`;
+        txt+=`Transform ${i+1}: ${it.spoken}\n`;
+        txt+=`  Your version: ${ST.inputs[cid]||'(not attempted)'}\n`;
+        txt+=`  Model: ${it.answer}\n\n`;
+      });
+    } else if(sec.type==='log'){
+      sec.prompts.forEach((pr,i)=>{
+        const cid=`${key}_${i}`;
+        txt+=`Reflection ${i+1}: ${pr}\n`;
+        txt+=`  ${ST.logs[cid]||'(not completed)'}\n\n`;
+      });
+    }
+    txt+='\n';
+  });
+  const blob=new Blob([txt],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`HuongStella_DailyDrill_Day3_`+AL+`_`+now.toISOString().slice(0,10)+`.txt`;
+  a.click();
+}
+
+// ── NAV & INIT ─────────────────────────────────────────────────────────
+function buildLvTabs(){
+  document.getElementById('lvTabs').innerHTML=Object.keys(LEVELS).map(k=>`<div class="lv-tab${k===AL?' active':''}" onclick="switchLv('${k}')" style="${k===AL?'color:'+LEVELS[k].color+';border-bottom-color:'+LEVELS[k].color:''}">${LEVELS[k].label}</div>`).join('');
+}
+
+function switchLv(lv){
+  AL=lv;AS=0;
+  ST.choices={};ST.inputs={};ST.checked={};ST.logs={};
+  applyLevel();buildLvTabs();buildSecNav();renderSec(0);
+}
+
+function applyLevel(){
+  const lv=LEVELS[AL];
+  document.documentElement.style.setProperty('--lc',lv.color);
+  document.documentElement.style.setProperty('--ll',lv.light);
+  document.getElementById('hero').innerHTML=`
+    <div class="hero-row">
+      <div class="hero-badge">${esc(lv.label)}</div>
+      <div class="hero-info">
+        <div class="hero-theme">${esc(lv.theme)}</div>
+        <div class="hero-tagline">${esc(lv.tagline)}</div>
+        <div class="hero-goal">${esc(lv.goal)}</div>
+        <div class="hero-time">⏱ Estimated time: ${esc(lv.time)}</div>
+      </div>
+    </div>`;
+}
+
+function buildSecNav(){
+  document.getElementById('secNav').innerHTML=LEVELS[AL].sections.map((s,i)=>`<button class="sec-btn${i===0?' active':''}" onclick="navSec(${i})">${esc(s.title)}</button>`).join('');
+}
+
+function navSec(i){
+  AS=i;
+  document.querySelectorAll('.sec-btn').forEach((b,j)=>b.classList.toggle('active',j===i));
+  renderSec(i);
+}
+
+function init(){
+  document.title='Daily Drills 3';
+  buildLvTabs();applyLevel();buildSecNav();renderSec(0);
+}
+
+window.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>

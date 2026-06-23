@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Drills 7</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#F4F2EF;color:#1A1A1A;min-height:100vh}
+button,textarea,input{font-family:'Inter',sans-serif}
+button{cursor:pointer}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+#app-header{background:#111;border-bottom:3px solid var(--lc,#2D6A4F);transition:border-color .3s}
+.header-inner{max-width:740px;margin:0 auto;padding:16px 20px 0}
+.brand-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.logo-mark{display:flex;align-items:center;gap:10px}
+.logo-text-main{font-size:13px;font-weight:900;color:#fff;line-height:1.1}
+.logo-text-sub{font-size:9px;font-weight:700;color:#E8C84A;letter-spacing:3px;text-transform:uppercase}
+.brand-right{text-align:right}
+.brand-right .dd-title{font-size:17px;font-weight:900;color:#fff;letter-spacing:-.5px}
+.brand-right .dd-sub{font-size:10px;color:#E8C84A;letter-spacing:2px;text-transform:uppercase}
+.lesson-label{font-size:11px;letter-spacing:3px;color:#555;text-transform:uppercase;margin-bottom:3px}
+.lesson-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:3px}
+.lesson-meta{font-size:12px;color:#888;margin-bottom:14px}
+.level-tabs{display:flex}
+.level-tab{padding:8px 18px;border:none;border-bottom:3px solid transparent;background:none;color:#555;font-weight:500;font-size:13px;transition:all .2s}
+.level-tab.active{border-bottom-color:var(--lc);color:var(--lc);font-weight:700}
+.main-body{max-width:740px;margin:0 auto;padding:20px 20px 16px}
+.goal-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap}
+.goal-box{flex:1;border-radius:12px;padding:12px 16px;min-width:240px;border:1px solid rgba(0,0,0,.08)}
+.goal-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.goal-text{font-size:12px;color:#333;line-height:1.6}
+.dl-btn{background:var(--lc);color:#fff;border:none;border-radius:12px;padding:12px 18px;font-size:12px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:110px;transition:opacity .2s}
+.dl-btn:hover{opacity:.88}
+.dl-btn .ic{font-size:20px}
+.dl-btn .sb{font-size:10px;opacity:.8}
+.sec-nav{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:2px}
+.sec-tab{padding:7px 14px;border-radius:20px;border:1.5px solid #DDD;background:#fff;color:#555;font-size:12px;font-weight:500;white-space:nowrap;transition:all .2s}
+.sec-tab.active{background:var(--lc);border-color:var(--lc);color:#fff;font-weight:700}
+.sec-title{font-size:16px;font-weight:800;color:#1A1A1A;margin-bottom:2px}
+.sec-subtitle{font-size:13px;color:#666;margin-bottom:18px}
+.theory-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.th-card{background:#fff;border-radius:12px;border:1.5px solid rgba(0,0,0,.08);padding:14px 16px}
+.th-head{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.tbadge{border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+.th-rule{font-size:12px;color:#555;margin-bottom:6px;line-height:1.5}
+.th-ex{font-size:11px;color:#888;font-style:italic;font-family:'JetBrains Mono',monospace}
+.g-card{background:#fff;border-radius:12px;padding:14px 18px;margin-bottom:10px}
+.g-title{font-weight:800;font-size:14px;margin-bottom:8px}
+.verbs-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.v-chip{border-radius:6px;padding:2px 10px;font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:600}
+.g-mem{font-size:12px;color:#666;margin-bottom:6px;font-style:italic}
+.g-ex{font-size:12px;color:#333;background:#F7F6F3;border-radius:6px;padding:6px 10px;font-family:'JetBrains Mono',monospace}
+.pair-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;overflow:hidden;margin-bottom:10px}
+.pair-sp{padding:12px 16px;border-left:3px solid #CCC}
+.pair-sp-lbl{font-size:10px;color:#999;margin-bottom:3px;font-weight:700;letter-spacing:1px}
+.pair-sp-txt{font-size:13px;color:#555;font-style:italic}
+.pair-ac{padding:12px 16px;border-left:3px solid var(--lc)}
+.pair-ac-lbl{font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:3px}
+.pair-ac-txt{font-size:13px;font-weight:600;color:#222}
+.pair-chg{font-size:11px;color:#888;margin-top:4px;font-family:'JetBrains Mono',monospace}
+.insight{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;color:#fff}
+.rub-toggle{display:flex;align-items:center;gap:8px;background:none;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;margin-bottom:12px;color:var(--lc)}
+.rub-panel{border-radius:10px;padding:12px 16px;margin-bottom:16px;display:none}
+.rub-panel.open{display:block}
+.rub-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid rgba(0,0,0,.08)}
+.rub-row:last-child{padding-bottom:0;margin-bottom:0;border-bottom:none}
+.rub-crit{font-size:13px;font-weight:700;margin-bottom:2px}
+.rub-desc{font-size:11px;color:#666}
+.rub-pts{color:#fff;border-radius:6px;padding:2px 10px;font-size:12px;font-weight:800;white-space:nowrap;background:var(--lc)}
+.prog-wrap{margin-bottom:12px}
+.prog-bg{background:#E8E5E0;border-radius:99px;height:5px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;transition:width .4s;background:var(--lc)}
+.prog-lbl{font-size:11px;color:#999;margin-top:3px}
+.spot-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:12px;overflow:hidden;transition:border-color .2s}
+.spot-num{font-size:11px;color:#999;margin-bottom:6px;font-weight:600;letter-spacing:1px}
+.spot-top{padding:14px 18px 10px}
+.spot-sen{font-size:15px;color:#1A1A1A;line-height:1.7}
+.ul-word{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#AAA}
+.ul-word.revealed{text-decoration-color:#CC3333;color:#CC3333;font-weight:700}
+.spot-acts{padding:0 18px 14px;display:flex;gap:8px;align-items:center}
+.spot-acts span{font-size:12px;color:#777}
+.btn-wrong{background:#FEE2E2;border:1px solid #FCA5A5;color:#CC3333;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700}
+.btn-right{background:#DCFCE7;border:1px solid #86EFAC;color:#1A7A3A;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700}
+.spot-ans{border-top:1px solid rgba(0,0,0,.08);padding:12px 18px;display:none}
+.spot-ans.open{display:block}
+.ans-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.wrong-wd{font-size:12px;color:#CC3333;text-decoration:line-through;font-style:italic}
+.corr-wd{font-size:13px;color:#1A7A3A;font-weight:700}
+.arr{color:#999}
+.ans-rule{font-size:12px;color:#444;margin-bottom:8px;line-height:1.5}
+.ans-tip{background:#fff;border-radius:6px;padding:6px 10px;font-size:12px;font-style:italic}
+.sc-inline{margin-top:8px;font-size:12px;font-weight:700;display:none}
+.sc-inline.good{color:#1A7A3A}
+.sc-inline.bad{color:#CC3333}
+.warn-miss{font-size:12px;color:#CC3333;font-weight:600;margin-top:6px;display:none}
+.fill-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:12px;overflow:hidden}
+.fill-card.ok{border-color:#22C55E}
+.fill-card.no{border-color:#EF4444}
+.fill-body{padding:14px 18px}
+.fill-base{font-size:11px;color:#999;margin-bottom:8px;font-weight:600;letter-spacing:1px}
+.fill-tmpl{font-size:14px;color:#1A1A1A;line-height:1.8;margin-bottom:12px}
+.fill-irow{display:flex;gap:8px;align-items:center}
+.fill-inp{flex:1;padding:8px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:14px;outline:none;transition:border-color .2s}
+.fill-inp.ok{background:#F0FDF4;border-color:#22C55E}
+.fill-inp.no{background:#FEF2F2;border-color:#EF4444}
+.fill-chk{background:var(--lc);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700}
+.fill-ic{font-size:20px}
+.fill-ans{border-top:1px solid rgba(0,0,0,.08);padding:10px 18px;display:none}
+.fill-ans.open{display:block}
+.fill-ca{font-size:13px;font-weight:700;color:#1A7A3A;margin-bottom:4px}
+.fill-expl{font-size:12px;color:#444;line-height:1.5}
+.tr-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:14px;overflow:hidden}
+.tr-body{padding:14px 18px}
+.tr-num{font-size:11px;color:#999;margin-bottom:8px;font-weight:600;letter-spacing:1px}
+.tr-spoken{background:#F5F3F0;border-radius:8px;padding:10px 14px;font-size:14px;color:#444;margin-bottom:12px;font-style:italic;border-left:3px solid #CCC}
+.tr-hint{font-size:12px;color:#777;margin-bottom:10px}
+.tr-ta{width:100%;padding:8px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:13px;resize:vertical;outline:none;line-height:1.6;transition:border-color .2s}
+.tr-reveal{background:var(--lc);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;margin-top:8px}
+.tr-ans{border-top:1px solid rgba(0,0,0,.08);padding:12px 18px;display:none}
+.tr-ans.open{display:block}
+.model-lbl{font-size:12px;font-weight:700;color:#999;margin-bottom:4px}
+.model-txt{font-size:13px;color:#1A1A1A;font-weight:600;line-height:1.6;margin-bottom:8px}
+.kc-chip{background:#fff;border-radius:6px;padding:4px 10px;font-size:11px;display:inline-block;margin-bottom:6px}
+.princ{font-size:12px;color:#555;font-style:italic;line-height:1.5}
+.log-note{background:#FFFBEB;border:1px solid #FCD34D;border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#92400E}
+.log-prompt{margin-bottom:14px}
+.log-lbl{display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:6px}
+.log-ta{width:100%;padding:10px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:13px;resize:vertical;outline:none;line-height:1.6;transition:border-color .2s}
+.log-save{border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:700;color:#fff;background:var(--lc);transition:background .2s}
+.score-badge{background:#fff;border-radius:12px;padding:14px 20px;text-align:center;margin-bottom:16px;margin-top:4px;border:2px solid var(--lc)}
+.score-badge .slbl{font-size:11px;color:#999;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.score-badge .snum{font-size:32px;font-weight:900;color:var(--lc)}
+.score-badge .snum .den{font-size:16px;font-weight:400;color:#999}
+.score-badge .sgrade{font-size:13px;font-weight:700;margin-top:2px}
+.score-cta{background:var(--lc);color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:800;width:100%;margin-top:4px;display:none}
+.warn-box{background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#92400E}
+.sec-nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:20px;border-top:1px solid #E2DDD8}
+.nav-btn{border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;border:none}
+.nav-prev{background:#fff;border:1.5px solid #DDD;color:#333}
+.nav-prev:disabled{color:#CCC}
+.nav-next{background:var(--lc);color:#fff;font-weight:700}
+.nav-next:disabled{background:#E8E5E0;color:#AAA}
+.nav-cnt{font-size:12px;color:#999}
+#app-footer{background:#1A1A1A;border-top:1px solid #2A2A2A;padding:24px 20px}
+.footer-inner{max-width:740px;margin:0 auto}
+.disc-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+.ai-badge{background:#2A2A2A;border:1px solid rgba(232,200,74,.3);border-radius:8px;padding:6px 10px;font-size:11px;color:#E8C84A;font-weight:800;letter-spacing:1px;white-space:nowrap}
+.disc-txt{font-size:12px;color:#666;line-height:1.7}
+.disc-txt strong{color:#AAA}
+.disc-txt .bn{color:#E8C84A}
+.footer-bot{border-top:1px solid #2A2A2A;padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-logo{display:flex;align-items:center;gap:8px}
+.footer-copy{font-size:11px;color:#444}
+@media(max-width:520px){.theory-grid{grid-template-columns:1fr}.goal-row{flex-direction:column}.dl-btn{width:100%;flex-direction:row}.brand-row{flex-direction:column;gap:10px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header id="app-header">
+<div class="header-inner">
+  <div class="brand-row">
+    <div class="logo-mark">
+      <div><div class="logo-text-main">HUONG STELLA PARADIGM</div></div>
+    </div>
+  </div>
+  <div class="lesson-label">Day 7 · Interactive Practice</div>
+  <div class="lesson-title" id="hdr-theme"></div>
+  <div class="lesson-meta" id="hdr-meta"></div>
+  <div class="level-tabs" id="level-tabs"></div>
+</div>
+</header>
+<main>
+<div class="main-body">
+  <div class="goal-row">
+    <div class="goal-box" id="goal-box">
+      <div class="goal-label" id="goal-label">Today's Objectives</div>
+      <div class="goal-text" id="goal-text"></div>
+    </div>
+    <button class="dl-btn" onclick="handleDownload()">
+      <span class="ic">&#x2B07;&#xFE0F;</span><span>Download Report</span><span class="sb">Your answers + Model answers</span>
+    </button>
+  </div>
+  <div class="sec-nav" id="sec-nav"></div>
+  <div class="sec-title" id="sec-title"></div>
+  <div class="sec-subtitle" id="sec-sub"></div>
+  <div id="sec-content"></div>
+  <div class="sec-nav-row">
+    <button class="nav-btn nav-prev" id="btn-prev" onclick="navSec(-1)">&#x2190; Previous</button>
+    <span class="nav-cnt" id="nav-cnt"></span>
+    <button class="nav-btn nav-next" id="btn-next" onclick="navSec(1)">Next &#x2192;</button>
+  </div>
+</div>
+</main>
+<footer id="app-footer">
+<div class="footer-inner">
+  <div class="disc-row">
+    <div class="ai-badge">AI-ASSISTED</div>
+    <div class="disc-txt">
+      This material is produced with AI support as part of the <span class="bn">Huong Stella Paradigm</span> academic programme. Content has been reviewed against pedagogical standards; however, learners are advised to <strong>cross-reference with authoritative sources</strong> and <strong>consult their instructor</strong> for clarification. Auto-scoring is indicative only and does not replace teacher assessment.
+    </div>
+  </div>
+  <div class="footer-bot">
+    <div class="footer-logo">
+      <span style="font-size:12px;color:#888;font-weight:700;letter-spacing:.5px">HUONG STELLA PARADIGM</span>
+      <span style="font-size:11px;color:#444">· Daily Drills</span>
+    </div>
+  </div>
+</div>
+</footer>
+<script>
+const RUBRICS={
+a2b1:{
+spot:[
+{criterion:"Identify the modal error correctly",max:1,desc:"Name the wrong modal form and state the type of error: extra 'to', wrong modal meaning, inflected modal, or double modal"},
+{criterion:"Explain the modal rule that was violated",max:2,desc:"State which modal requires which form, why 'to' cannot follow it, or why the semantic meaning is wrong in context"},
+{criterion:"Supply the correct modal form accurately",max:1,desc:"Write the correct replacement without spelling or form error"}
+],
+fill:[
+{criterion:"Select the correct modal for the context",max:1,desc:"Choose between the two options based on meaning: ability, obligation, advice, prohibition, or no obligation"},
+{criterion:"Justify the modal choice in one sentence",max:2,desc:"Explain why this modal — not the alternative — is correct in this specific context: meaning, register, and real-world implication"},
+{criterion:"Grammatical accuracy",max:1,desc:"No spelling or form errors in the answer"}
+],
+log:[
+{criterion:"Articulate both sides of the chosen modal contrast in your own words",max:2,desc:"Explain both modals clearly — not copied from the lesson; paraphrased with your own example"},
+{criterion:"Produce three sentences demonstrating must, mustn't, and don't have to with clearly different meanings",max:2,desc:"The three sentences must show three genuinely different real-world situations — not minor paraphrases of each other"},
+{criterion:"Memory strategy is specific, personal, and testable",max:2,desc:"Not 'I will try to remember' — provide a diagnostic question or mnemonic that you can apply to any new sentence"}
+]
+},
+b1b2:{
+spot:[
+{criterion:"Identify the wrong modal form or expression",max:1,desc:"State the specific error type: wrong tense of modal, missing auxiliary, semantic confusion (mustn't vs can't for deduction), or extra 'to'"},
+{criterion:"Supply the correct modal expression in full",max:2,desc:"Provide the complete corrected phrase — not just 'use must have' but write the full corrected sentence fragment"},
+{criterion:"Explain the logical or temporal reasoning behind the correction",max:1,desc:"State why this modal fits: the timeframe (past vs present), the certainty level, and the type of evidence available"}
+],
+fill:[
+{criterion:"Select the correct modal for the deduction or speculation",max:2,desc:"Choose based on certainty level (confident vs uncertain) and polarity (positive vs negative deduction)"},
+{criterion:"Grammatical accuracy of the full modal phrase",max:1,desc:"Correct modal + have + past participle, or modal + be/base verb — no form errors anywhere"},
+{criterion:"Natural, idiomatic expression",max:1,desc:"The completed phrase sounds like authentic academic or everyday English, not a forced grammar exercise"}
+],
+log:[
+{criterion:"Three deduction sentences clearly distinguish must be, can't be, and might be",max:2,desc:"Each sentence creates a clear logical inference from named evidence — not generic filler sentences"},
+{criterion:"Past deduction sentences use the correct form: modal + have + past participle",max:2,desc:"Both sentences are grammatically complete and semantically distinct — not paraphrases of each other"},
+{criterion:"Error record is specific: wrong form, correct form, rule in own words",max:2,desc:"The explanation goes beyond repeating the rule — it identifies WHY you made the error and what test you will apply next time"}
+]
+},
+b2c1:{
+spot:[
+{criterion:"Identify the modal error or register failure precisely",max:1,desc:"Name the specific problem: overclaiming ('will/proves'), passive missing 'be', extra 'to', inflected verb after modal, or wrong complementation"},
+{criterion:"Provide a register-appropriate academic replacement",max:2,desc:"The replacement must be natural in formal academic writing, at the correct epistemic level — not just 'more formal' but specifically hedged"},
+{criterion:"Explain the epistemic, grammatical, or register issue clearly",max:2,desc:"Address why the original fails: which rule is violated, what certainty is being wrongly claimed, and what the corrected version achieves"}
+],
+transform:[
+{criterion:"Modal hedging is grammatically accurate throughout",max:2,desc:"May/might/could + base verb; passive with 'be'; progressive where needed — every modal construction is formally correct"},
+{criterion:"Transformed sentence is genuinely academic in register",max:2,desc:"No informal vocabulary; evidence-centred impersonal phrasing; no 'we can see', 'it's clear', or 'obviously'"},
+{criterion:"Modal certainty level matches the evidence presented in context",max:2,desc:"Neither overclaiming (will/proves) nor over-hedging into vacuousness — the modal reflects the precise strength of the claim"},
+{criterion:"Concise and precise — hedging qualifies without destroying the claim",max:2,desc:"Every word earns its place; the transformed sentence makes a real claim with appropriate qualification, not a non-claim"}
+],
+log:[
+{criterion:"Paragraph deploys at least three distinct modal hedging devices",max:3,desc:"Uses a range: modal verbs (may/might/could), epistemic phrases (it appears that, the evidence suggests), and evidential expressions"},
+{criterion:"Reflection identifies a specific modal misuse from previous writing or today's exercises",max:2,desc:"Names the original modal, explains the epistemic problem, and provides the correct alternative with reasoning"},
+{criterion:"Three future-use examples are specific and deployment-ready",max:2,desc:"Not vague commitments ('I will use may more') but actual example sentences demonstrating the structure in use"}
+]
+},
+c1c2:{
+spot:[
+{criterion:"Diagnose the argumentative, grammatical, or epistemic failure at discourse level",max:2,desc:"Go beyond 'wrong modal' — name the rhetorical problem: triple absolutism, double modal, deontic/epistemic confusion, or wrong complementation with its logical consequence"},
+{criterion:"Propose a corrected or restructured version with explicit commentary",max:3,desc:"The correction is not just grammatically right — it is genuinely improved in argumentative force, epistemic precision, and rhetorical sophistication"},
+{criterion:"Explain the discourse-level consequence of the original error",max:2,desc:"How does this error mislead the reader, undermine the argument's credibility, or create an unintended logical claim?"}
+],
+transform:[
+{criterion:"Modal deployment reflects C2-level epistemic and deontic precision",max:3,desc:"Deontic vs epistemic distinction deliberately maintained; certainty gradient calibrated to the evidence implied by context"},
+{criterion:"Argumentative structure is coherent and the modal choice carries logical force",max:3,desc:"The modal is not decorative — it determines the logical relationship between the claim and the evidence or normative stance"},
+{criterion:"Lexical sophistication — every word choice is precise and register-appropriate",max:2,desc:"No generic synonyms, no vague intensifiers; hedging does not collapse into evasion; the academic voice is sustained throughout"},
+{criterion:"The transformed sentence could appear in a high-quality academic or policy publication",max:2,desc:"Apply the strict publication test: would this pass peer review or policy scrutiny without further editing?"}
+],
+log:[
+{criterion:"Policy paragraph deploys at least three modals with correctly annotated deontic/epistemic functions",max:3,desc:"Annotations reflect genuine understanding of the distinction — not labelled by guesswork but by logical analysis of each modal's function"},
+{criterion:"Reflection identifies a specific modal that changed the argumentative force of a claim",max:3,desc:"Analysis specifies HOW the modal mattered — not 'it sounds more academic' but the precise logical relationship the modal created or destroyed"},
+{criterion:"Self-generated alternative transform is at genuine C2 argumentative level",max:2,desc:"Not a minor paraphrase of the model — demonstrates an independent rhetorical strategy that the learner can name and repeat"}
+]
+}
+};
+
+const LEVELS={
+a2b1:{label:"A2–B1",color:"#2D6A4F",light:"#D8F3DC",theme:"Modal Verbs — Day 7",tagline:"Can, could, must, should — form, meaning, and the mustn't/don't have to trap",goal:"Today you will: master modal verb forms (no 'to', no -s) → understand the key meanings of can/could/must/should → distinguish mustn't from don't have to → record in your error log.",time:"10–15 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (2 min)",subtitle:"4 modal concepts — form and meaning",type:"theory",
+content:[
+{label:"can / could",badge:"ability/request",color:"#2D6A4F",examples:"I can swim. Could you help me? She could ride a bike at age four.",rule:"can = present ability or permission. could = past ability, polite request, or weaker possibility. NEVER add 'to' after them: 'can swim', not 'can to swim'."},
+{label:"must / have to",badge:"obligation",color:"#1A4A7A",examples:"You must wear a seatbelt. I have to finish this by Friday.",rule:"Both express strong obligation. must = internal/personal rule. have to = external law or rule. BUT: must not = forbidden. don't have to = not necessary (opposite meaning!)."},
+{label:"should / ought to",badge:"advice",color:"#5A1A8A",examples:"You should see a doctor. We ought to leave early.",rule:"Both give advice or a recommendation. should is more common. NEVER write 'should to' — modal + base verb only. shouldn't = not a good idea (not forbidden)."},
+{label:"mustn't vs don't have to",badge:"negatives!",color:"#8B1A1A",examples:"You mustn't smoke here. You don't have to come early.",rule:"mustn't = FORBIDDEN (strong prohibition). don't have to = NOT NECESSARY (neutral, optional). These have opposite real-world meanings. This is the most important modal contrast at A2–B1."}
+]},
+{id:"spot",title:"🔍 Part 1 — Spot the Error (4 min)",subtitle:"6 sentences — every sentence contains an error. Identify it.",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"She cans speak three languages and has lived abroad for many years.",underlined:"cans",wrongWord:"cans",correctWord:"can",wrongType:"modal + -s (third person)",correctType:"modal base form (no inflection)",rule:"Modal verbs NEVER take -s in the third person. We say 'She can', not 'She cans'. This applies to all modals: can, could, must, should, will, would, may, might.",tip:"Modals are 100% invariable — they never change for person or number. If you are tempted to write 'cans', 'musts', or 'shoulds', stop immediately. There is no such form in English."},
+{sentence:"You must to register for the exam at least two weeks before the test date.",underlined:"must to",wrongWord:"must to",correctWord:"must",wrongType:"must + to (wrong)",correctType:"must + base verb (no 'to')",rule:"Modal verbs are followed by the base form of the verb with no 'to'. The structure is: modal + BASE VERB. 'Must to register' is incorrect — the correct form is 'must register'.",tip:"The only modal-like expression that keeps 'to' is 'ought to'. All others (can, could, must, should, will, would, may, might) go directly to the base verb — no 'to' anywhere."},
+{sentence:"We should to reduce our plastic consumption to help protect the ocean environment.",underlined:"should to",wrongWord:"should to",correctWord:"should",wrongType:"should + to (wrong)",correctType:"should + base verb",rule:"'Should' is a modal verb and is always followed by the base form with no 'to'. 'Should to reduce' is incorrect; the correct form is 'should reduce'.",tip:"Apply the 'ought to' test: only 'ought to' keeps the 'to'. For every other modal — especially 'should', which learners often pair with 'to' — remove it immediately after the modal."},
+{sentence:"He mustn't go to work today — his contract says attendance is entirely optional on public holidays.",underlined:"mustn't",wrongWord:"mustn't",correctWord:"doesn't have to",wrongType:"mustn't (prohibition — wrong meaning here)",correctType:"doesn't have to (no obligation)",rule:"'Mustn't' means it is FORBIDDEN — not allowed. But the context says attendance is 'optional', meaning not necessary. Use 'doesn't have to'. These two negatives have opposite meanings — this is the single most important modal contrast.",tip:"Quick test: Would the person be in trouble for doing it? Yes → mustn't. No → don't have to. Here, going to work on a holiday is OPTIONAL, not forbidden. 'Mustn't' would mean he is not permitted to go at all."},
+{sentence:"Can you could show me how to use this application before the training session starts?",underlined:"Can you could",wrongWord:"Can you could",correctWord:"Could you",wrongType:"double modal (can + could)",correctType:"single modal (could = polite request)",rule:"English does not allow two modal verbs in a row. 'Can you could' is ungrammatical. For polite requests, use 'could' alone: 'Could you show me…?' 'Could' is also more polite than 'can' in requests.",tip:"For requests: 'Could you…?' is more polite than 'Can you…?'. Choose exactly one modal. Never combine: 'can will', 'might could', 'should must' — all ungrammatical. One request, one modal."},
+{sentence:"The children don't must bring their own equipment; the school will provide everything needed.",underlined:"don't must",wrongWord:"don't must",correctWord:"don't have to",wrongType:"don't must (wrong negation of obligation)",correctType:"don't have to (no obligation)",rule:"'Must' cannot be negated with 'do/don't'. To say something is not necessary (no obligation), use 'don't have to' or 'needn't'. 'Mustn't' (from 'must not') is the only negative form of 'must' itself, and it means prohibition.",tip:"No-obligation formula: don't/doesn't have to. Never 'don't must', 'doesn't must'. The 'do' operator cannot go before a modal. Modals are their own sentence operators."}
+]},
+{id:"fill",title:"✏️ Part 2 — Choose the Correct Modal (4 min)",subtitle:"Fill in the correct modal from the pair given",type:"fill",rubricKey:"fill",
+items:[
+{template:"You ___ wear a helmet when riding a motorbike. It is the law and highly dangerous without one. (must / should)",baseWord:"must/should",answer:"must",targetType:"must (legal obligation)",hint:"Is this a law or just advice?",explanation:"'must' = legal obligation — you have no choice. 'should' = advice — it is recommended but optional. A law requires 'must', not 'should'."},
+{template:"___ you please close the window? It is quite cold in here. (Can / Could)",baseWord:"Can/Could",answer:"Could",targetType:"could (polite request)",hint:"Which sounds more polite in a formal or considerate request?",explanation:"'Could' is more polite than 'can' for requests. Both are grammatically correct, but 'could' is the preferred form in polite or formal situations where you do not want to sound demanding."},
+{template:"Visitors ___ feed the animals in the wildlife sanctuary; it disrupts their natural diet and causes harm. (mustn't / don't have to)",baseWord:"mustn't/don't have to",answer:"mustn't",targetType:"mustn't (prohibition)",hint:"Is feeding the animals forbidden or just not necessary?",explanation:"'mustn't' = prohibition — it is not allowed. 'don't have to' would mean it is optional, which is the wrong meaning here. Feeding the animals is explicitly forbidden."},
+{template:"He ___ play the guitar when he was young, but he has not practised for many years. (can / could)",baseWord:"can/could",answer:"could",targetType:"could (past ability)",hint:"Is this about the present or the past?",explanation:"'could' = past ability — something someone was able to do at an earlier time. 'can' = present ability. The phrase 'when he was young' signals a past context, so 'could' is correct."},
+{template:"We ___ submit the draft today — the deadline has been extended to next Wednesday. (mustn't / don't have to)",baseWord:"mustn't/don't have to",answer:"don't have to",targetType:"don't have to (no obligation)",hint:"The deadline is extended — is submission forbidden today or just not required?",explanation:"'don't have to' = no obligation; it is not necessary. The deadline extension means today's submission is not required — not that it is forbidden. 'mustn't' would mean the opposite."}
+]},
+{id:"errorlog",title:"📓 Error Log — Day 7 (2 min)",subtitle:"Record and consolidate your modal learning",type:"log",rubricKey:"log",
+prompts:[
+"Which modal contrast do you find hardest — can/could, must/have to, or mustn't/don't have to? Write the rule for BOTH words in your own words (not copied):",
+"Write three original sentences: one using 'must', one using 'mustn't', and one using 'don't have to'. Each must show a clearly different real-world situation:",
+"What personal memory trick will you use to keep 'mustn't' and 'don't have to' apart? Write it here and test it with one new example:"
+]}
+]},
+
+b1b2:{label:"B1+–B2",color:"#1A4A7A",light:"#D6E8F7",theme:"Deduction & Speculation — Day 7",tagline:"Modal verbs for logical inference: must/can't/might/may + present and past",goal:"Today you will: use must/can't for confident deduction → use might/may/could for speculation → form correct past deduction with modal + have + pp → record and practise.",time:"15–20 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"The deduction system — present and past modal inference",type:"theory2",
+groups:[
+{label:"Confident deduction — present",color:"#1A4A7A",verbs:["must be","must be doing","can't be","can't possibly be","can't be doing"],memory:"High certainty from evidence you can observe: must = almost certain positive; can't = almost certain negative. These are not guesses — they are logical conclusions.",example:"She's been studying since 6 AM. She must be exhausted by now. That can't be her car — she doesn't drive."},
+{label:"Speculation — present / future",color:"#5A2D82",verbs:["might be","may be","could be","might not be","may not be"],memory:"Weaker than must/can't — you are guessing, not concluding. Might/may/could are near-equal for present speculation. Use them when you lack sufficient evidence to be certain.",example:"He's not answering. He might be in a meeting. The parcel could be delayed — I'm not sure yet."},
+{label:"Deduction about the past",color:"#2D6A1A",verbs:["must have + pp","can't have + pp","might have + pp","may have + pp","could have + pp","should have + pp"],memory:"Past deduction = modal + HAVE + PAST PARTICIPLE. The past meaning comes from 'have + pp', NOT from the modal itself. The modal stays in its base form.",example:"She looks rested. She must have slept well. He's not here — he might have left early. That can't have been the right answer."}
+]},
+{id:"spot",title:"🔍 Part 1 — Deduction Errors (5 min)",subtitle:"6 sentences — every sentence contains an error in modal deduction or speculation",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"The light is on in her room. She must sleep right now and didn't hear the doorbell.",underlined:"must sleep",wrongWord:"must sleep",correctWord:"must be sleeping",wrongType:"must + base (wrong for ongoing present action)",correctType:"must be + -ing (present deduction about ongoing action)",rule:"When deducing about what someone is CURRENTLY DOING (an ongoing action), use 'must be + -ing'. 'Must sleep' would mean 'is required to sleep', not 'is probably sleeping right now'. Ongoing action → must be doing.",tip:"Deduction about NOW with an action verb → must be + -ing / can't be + -ing. Deduction about a STATE → must be (adj/noun). Is the action in progress? Add 'be' + -ing. Is it a fact/condition? Just 'must be'."},
+{sentence:"He scored full marks on every test this term. He must be studied incredibly hard all year.",underlined:"must be studied",wrongWord:"must be studied",correctWord:"must have studied",wrongType:"must be + pp (passive — wrong for past deduction)",correctType:"must have + pp (past deduction)",rule:"Deduction about the past uses: must + HAVE + past participle. 'Must be studied' creates a passive sentence meaning 'he is required to be studied by someone', which is absurd here. Past deduction = must have + pp.",tip:"Timeline test: is the deduction about the PAST? → must have + pp. About NOW? → must be / must be + -ing. 'Must be studied' = passive voice (someone studies him). Not what you mean. 'Must have studied' = past deduction."},
+{sentence:"I'm not sure where she went. She may left without saying goodbye to anyone at the party.",underlined:"may left",wrongWord:"may left",correctWord:"may have left",wrongType:"may + past tense (wrong — modals never take a past tense verb)",correctType:"may have + past participle",rule:"Modal + past tense verb is always wrong. Modals are followed by the base form or 'have + past participle'. 'May left' puts a past tense verb after 'may', which is not permitted in standard English.",tip:"NEVER put a past tense verb directly after a modal. Present: may leave. Past deduction: may have left. The past-tense form of a main verb is never used directly after a modal — never 'might went', 'could said', 'must saw'."},
+{sentence:"This solution mustn't be correct — the result is completely different from what we expected.",underlined:"mustn't be correct",wrongWord:"mustn't be correct",correctWord:"can't be correct",wrongType:"mustn't (prohibition — wrong for negative deduction)",correctType:"can't be (negative logical deduction)",rule:"'Mustn't' = prohibition (you are not allowed to do something). For negative DEDUCTION (I am logically certain this is NOT the case), use 'can't be'. 'The solution mustn't be correct' means 'it is forbidden for the solution to be correct' — an absurd meaning.",tip:"Deduction test: substitute 'it is impossible that'. If that paraphrase works → use 'can't be'. 'It is impossible that this solution is correct' ✓ → 'can't be correct'. 'Mustn't' ALWAYS signals prohibition, NEVER deduction."},
+{sentence:"They should arrive by now — we arranged to meet here at six and it's already half past seven.",underlined:"should arrive",wrongWord:"should arrive",correctWord:"should have arrived",wrongType:"should + base (present expectation — wrong when time has passed)",correctType:"should have + pp (past expectation unfulfilled)",rule:"'Should have + past participle' is used when we EXPECTED something to happen in the past but it did not (or we're not sure). 'Should arrive' refers to future expectation. Since the meeting time of 6 PM has already passed, use 'should have arrived'.",tip:"Expectation tense test: is the expected time in the PAST? → should have + pp (expressing surprise or disappointment). Still in the future? → should + base (prediction). It's 7:30; the meeting was at 6 → past → 'should have arrived'."},
+{sentence:"The explanation given in the textbook might not to make sense to complete beginners without prior knowledge.",underlined:"might not to make",wrongWord:"might not to make",correctWord:"might not make",wrongType:"might not + to-infinitive (wrong — no 'to' after modals)",correctType:"might not + base verb",rule:"Modals are followed by the base verb — no 'to'. 'Might not to make' incorrectly inserts 'to'. The correct form is 'might not make'. This 'to' error is one of the most frequent modal mistakes among Vietnamese learners.",tip:"After ANY standard modal (might, may, could, should, must, can, will, would), the next word is ALWAYS the base form — no exceptions. 'Might not to make' → delete 'to' → 'might not make'. Run this check on every modal you write."}
+]},
+{id:"fill",title:"✏️ Part 2 — Complete the Deduction (5 min)",subtitle:"Fill in the correct modal expression for the deduction or speculation",type:"fill",rubricKey:"fill",
+items:[
+{template:"There is nobody answering the door. They ___ be out shopping at this time of day. (must / can)",baseWord:"must/can",answer:"must",targetType:"must be (confident positive deduction)",hint:"Strong conclusion from clear evidence — they are not answering",explanation:"'must be' = confident positive deduction (I'm almost certain this is the case). 'can be' is not standard for confident deductive inference in British English. Use 'can' for ability/permission, not deduction."},
+{template:"She answered every question correctly without hesitation. She ___ revised for weeks before the exam. (must have / should have)",baseWord:"must have/should have",answer:"must have",targetType:"must have + pp (confident past deduction)",hint:"Confident conclusion about what definitely happened in the past",explanation:"'must have revised' = confident past deduction (I'm almost certain she did this). 'should have revised' = criticism or advice (she ought to have revised but perhaps didn't). These are very different meanings."},
+{template:"I can't find my phone anywhere. It ___ be in my bag or perhaps on the kitchen counter. (might / must)",baseWord:"might/must",answer:"might",targetType:"might be (uncertain speculation)",hint:"'I can't find it' = uncertain — which modal fits?",explanation:"'might be' = uncertain speculation (I'm not sure which location). 'must be' = confident deduction (I'm almost certain). The speaker explicitly doesn't know, so 'might' is correct."},
+{template:"He looks pale and can barely keep his eyes open. He ___ slept well last night at all. (can't have / must have)",baseWord:"can't have/must have",answer:"can't have",targetType:"can't have + pp (confident negative past deduction)",hint:"His appearance is bad — what logical conclusion does that support about last night?",explanation:"'can't have slept well' = confident negative past deduction (I'm almost certain he did NOT sleep well). 'must have slept well' would mean the opposite. The visual evidence points clearly to poor sleep."},
+{template:"That ___ be the right building — the address says it's on the south side and this one clearly faces north. (can't / might not)",baseWord:"can't/might not",answer:"can't",targetType:"can't be (certain negative deduction from contradictory evidence)",hint:"The compass directions directly contradict each other — how certain are you?",explanation:"'can't be' = logically impossible (I'm almost certain this is NOT the case). 'might not be' would suggest mere uncertainty. The directional contradiction is concrete, factual evidence — warranting the stronger 'can't', not the weaker 'might not'."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (4 min)",subtitle:"Practise deduction sentences and record your learning",type:"log",rubricKey:"log",
+prompts:[
+"Write one sentence for each: must be, can't be, might be. All three should be deductions about the SAME situation (e.g. why a friend hasn't arrived yet). Include the evidence that leads to each deduction:",
+"Write one sentence using 'must have + past participle' and one using 'can't have + past participle'. State the evidence that leads to each conclusion:",
+"Record the one modal deduction error you found hardest today. Write: the wrong form → the correct form → the rule in your own words → the test you will apply next time:"
+]}
+]},
+
+b2c1:{label:"B2+–C1",color:"#5A1A8A",light:"#EAD6F7",theme:"Modal Verbs in Academic Hedging — Day 7",tagline:"Calibrating epistemic certainty with modals in formal academic writing",goal:"Today you will: understand why 'will' overclaims in academic writing → replace certainty with calibrated hedging → transform unhedged sentences into academically appropriate prose → practise in a written paragraph.",time:"20–25 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"From spoken certainty to academic hedging — three transformations",type:"theory3",
+pairs:[
+{spoken:"We're sure this drug reduces inflammation.",academic:"The available evidence strongly suggests that this compound may exert an anti-inflammatory effect, though the precise mechanism of action has yet to be fully established.",change:"Certainty replaced with evidence-backed suggestion ('strongly suggests'); 'may exert' hedges the claim; scope limitation added ('has yet to be fully established')"},
+{spoken:"This will cause problems for communities in the region.",academic:"This intervention could potentially give rise to a range of unintended consequences for affected communities, a possibility that warrants careful consideration in the design phase.",change:"'will cause' → 'could potentially give rise to'; 'problems' → 'unintended consequences'; 'warrants careful consideration' signals recommendation without overclaiming"},
+{spoken:"Governments must do more — this is urgent.",academic:"The scale of the problem would appear to necessitate a more proactive governmental response, though the precise form such intervention should take remains a matter of substantive policy debate.",change:"'must do more' → 'would appear to necessitate' (epistemic distancing); urgency distributed across 'the scale of the problem'; concession added with 'though...remains a matter of debate'"}
+],
+insight:"In academic writing, modal choice is not about politeness — it is about epistemic honesty. 'Will' asserts certainty you rarely possess; 'may/might/could' allow you to present findings without overstating your evidence. Every modal carries an implicit claim about how strong your evidence is. Choose accordingly."},
+{id:"spot",title:"🔍 Part 1 — Modal & Register Errors (5 min)",subtitle:"6 sentences — each contains a modal form error or epistemic register failure",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"The findings will demonstrate conclusively that early intervention reduces the long-term cost of treatment for all patients.",underlined:"will demonstrate conclusively",wrongWord:"will demonstrate conclusively",correctWord:"appear to suggest / would appear to indicate",wrongType:"will + overclaiming (inappropriate certainty for empirical findings)",correctType:"hedged modal: appear to suggest / may indicate",rule:"In academic writing, 'will' asserts certainty about future facts — inappropriate for empirical findings. Findings 'suggest', 'indicate', or 'appear to show'. Use 'may', 'would appear to', or 'appear to suggest' to calibrate the epistemic claim to the actual strength of the evidence.",tip:"Before writing 'will', ask: do I have near-certain evidence for this? For research findings, the answer is almost never yes. Substitute: 'may suggest', 'appear to indicate', 'would appear to support the view that'. Reserve 'will' for mathematical or logical entailments."},
+{sentence:"This finding should considered alongside previous studies before any policy recommendations are made.",underlined:"should considered",wrongWord:"should considered",correctWord:"should be considered",wrongType:"modal + past participle (missing 'be' in passive)",correctType:"should be + past participle (full passive with modal)",rule:"Passive voice with a modal requires: modal + BE + past participle. 'Should considered' omits 'be', producing an ungrammatical fragment. The correct form: 'should be considered'.",tip:"Passive + modal formula: [modal] + BE + [past participle]. Every time. 'Should be considered', 'may be argued', 'could be interpreted', 'must be acknowledged'. Scan each passive modal you write: is 'be' present?"},
+{sentence:"The data can proves that parental involvement has a measurable positive effect on reading attainment in primary schools.",underlined:"can proves",wrongWord:"can proves",correctWord:"may suggest / appear to indicate",wrongType:"can + inflected verb AND epistemic overclaiming",correctType:"hedged modal + base verb",rule:"Two errors: (1) Modals always take the base verb — 'proves' should be 'prove'. (2) 'Can prove' is epistemically too strong for academic reporting. Data 'suggest', 'indicate', or 'point to'; they rarely 'prove' anything in empirical social or medical science.",tip:"Two-step check: (1) Modal + base verb only (no -s). (2) Reserve 'prove' for mathematics and formal logic. In social science and medicine, prefer 'demonstrate', 'indicate', or 'suggest'. Even 'demonstrate' is stronger than 'suggest' — choose based on your evidence base."},
+{sentence:"The policy may has unintended consequences for lower-income households that policymakers must acknowledges in any impact assessment.",underlined:"may has... must acknowledges",wrongWord:"may has... must acknowledges",correctWord:"may have... must acknowledge",wrongType:"modal + inflected verb (-s after modal)",correctType:"modal + base verb (no inflection)",rule:"Modals are ALWAYS followed by the base form — no -s, no -ed, no -ing on the main verb (except with progressive 'be + -ing'). 'May has' and 'must acknowledges' both incorrectly inflect the verb after the modal. This error appears across all levels.",tip:"After each modal you write, check the VERY NEXT WORD. It must be in the base form. 'May has' → has = inflected → wrong → 'may have'. 'Must acknowledges' → acknowledges = inflected → wrong → 'must acknowledge'. This is a mechanical check you can always run."},
+{sentence:"It is possible to the effectiveness of this approach varies significantly by cultural and socioeconomic context.",underlined:"It is possible to the effectiveness",wrongWord:"possible to the effectiveness",correctWord:"possible that the effectiveness",wrongType:"possible to + noun phrase (wrong complementation)",correctType:"possible that + clause (correct complementation for a proposition)",rule:"'It is possible' + a proposition uses a that-clause: 'It is possible that X varies'. The structure 'possible to + noun phrase' is incorrect here. 'It is possible to + infinitive' is a different structure meaning an action can be performed (e.g. 'It is possible to reduce costs').",tip:"Complementation diagnostic: 'possible + TO + infinitive' = an action is doable. 'possible + THAT + clause' = a situation might be true. Here the subject is a whole proposition (the effectiveness varies) → use 'that'. 'Possible to' followed by a noun or that-clause = wrong."},
+{sentence:"Researchers must to acknowledge the methodological limitations of their study in the discussion section of any published article.",underlined:"must to acknowledge",wrongWord:"must to acknowledge",correctWord:"must acknowledge / are required to acknowledge",wrongType:"must + to-infinitive (wrong form)",correctType:"must + base verb",rule:"'Must' is followed directly by the base verb, not by 'to + infinitive'. 'Must to acknowledge' is a very frequent error, especially for learners who know 'have to' and 'need to' — expressions that do require 'to'. 'Must' never does.",tip:"Only these expressions need 'to': have TO do, need TO do, want TO do, ought TO do. 'Must', 'can', 'should', 'may', 'might', 'will', 'would' — all go directly to the base verb. Write: 'must acknowledge', not 'must to acknowledge'."}
+]},
+{id:"transform",title:"✏️ Part 2 — Hedged Academic Transformation (8 min)",subtitle:"Transform informal or unhedged sentences into appropriately calibrated academic prose",type:"transform",rubricKey:"transform",
+items:[
+{spoken:"Scientists are certain that this compound prevents the growth of cancer cells.",hint:"there is compelling evidence to suggest... / may inhibit... / under laboratory conditions / has yet to be validated in clinical settings",answer:"There is compelling evidence to suggest that this compound may inhibit the proliferation of cancer cells, though these findings derive primarily from in vitro studies and require validation in clinical settings before definitive conclusions can be drawn. / The compound appears to exert an inhibitory effect on the growth of cancer cells under laboratory conditions, a finding that warrants further investigation across a broader range of tumour types and patient populations.",keyChange:"'Scientists are certain' → 'There is compelling evidence to suggest' (evidence-centred, impersonal); 'prevents' → 'may inhibit' (hedged); scope qualification added: 'in vitro studies', 'require validation'; 'cancer cells' → 'proliferation of cancer cells' (more precise)",principle:"Never assign certainty to empirical findings without a robust, replicated evidential base. Replace 'certain' + 'will/does' with 'evidence suggests' + 'may/appear to'. Always note the conditions under which findings hold and what additional evidence is needed."},
+{spoken:"The government must do something about housing. People can't afford to live here.",hint:"It could be argued that... / access to affordable housing has become increasingly constrained / warrants urgent policy attention / the precise instruments through which intervention should operate",answer:"It could be argued that access to affordable housing has become increasingly constrained, a situation that warrants urgent and sustained policy attention. / The evidence suggests that systemic barriers to affordable housing may necessitate a more interventionist governmental policy response, though the precise instruments through which such intervention should operate remain subject to substantive debate. / A compelling case could be made for targeted governmental action on housing affordability, given the documented disparity between income growth and housing costs in recent years.",keyChange:"'must do something' → 'warrants urgent policy attention' / 'may necessitate'; 'people can't afford to live here' → 'access to affordable housing has become increasingly constrained'; tentative framing with 'could be argued'; debate acknowledged",principle:"Transform demand into argument: 'must do something' = unreasoned imperative. Replace with evidence-framing + hedged recommendation + acknowledgement that the form of intervention is debatable. The claim gains force precisely because it is qualified, not despite it."},
+{spoken:"We can see from the evidence that this approach doesn't work.",hint:"The available evidence appears to suggest... / may prove less effective than anticipated / under the conditions examined / within the parameters of the current study / further investigation is required",answer:"The available evidence appears to suggest that this approach may prove less effective than anticipated under the conditions examined, though the extent to which these findings generalise to other contexts remains to be established. / The data would appear to indicate that the efficacy of this approach is limited, at least within the parameters of the current study, and further empirical investigation is required before more definitive conclusions can be drawn about its generalisability.",keyChange:"'We can see' → 'The available evidence appears to suggest' (impersonal; evidence-centred); 'doesn't work' → 'may prove less effective than anticipated' (calibrated, not absolute); scope qualification added: 'under the conditions examined', 'within the parameters of the current study'",principle:"Remove the researcher as agent — let the evidence 'suggest', 'indicate', or 'point to'. Calibrate the negative claim: 'doesn't work' is absolute; 'may prove less effective' is calibrated to scope and evidence strength. Every claim should be falsifiable and proportionate."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (5 min)",subtitle:"Write a hedged academic paragraph and reflect on modal choices",type:"log",rubricKey:"log",
+prompts:[
+"Write 60–80 words on any academic topic using at least three different modal hedging devices (e.g. 'may', 'could', 'would appear to', 'the evidence suggests', 'it has been argued that'). Avoid: 'will', 'obviously', 'proves', or 'must' in this paragraph:",
+"Find one sentence from today's exercises where you used or were tempted to use 'will' or an unhedged assertion. Rewrite it with appropriate modal hedging and explain your modal choice:",
+"List three modal hedging expressions from today that you will actively deploy in your next academic writing task. Write one example sentence for each expression:"
+]}
+]},
+
+c1c2:{label:"C1+–C2",color:"#8B1A1A",light:"#F5DADA",theme:"Modality & Argumentative Force — Day 7",tagline:"Deontic vs epistemic modality, the certainty gradient, and modal deployment in policy argumentation",goal:"Today you will: master the deontic/epistemic modal distinction → calibrate modal certainty to evidence → use modal remoteness for argumentative distancing → produce a policy paragraph with annotated modal functions.",time:"20–25 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"Four advanced strategies for modal deployment at C1+/C2",type:"theory4",
+cards:[
+{label:"Deontic vs Epistemic Modality",color:"#8B1A1A",desc:"Modal verbs serve two fundamentally different logical functions. Deontic modality expresses obligation, permission, or prohibition ('must submit by Friday'). Epistemic modality expresses the speaker's degree of certainty about a proposition ('this must be the right answer'). C2 writers wield both with precision — and never conflate them.",fix:"Audit each modal you write: Is this about WHAT IS REQUIRED (deontic) or WHAT I BELIEVE IS TRUE (epistemic)? 'The policy must be revised' can mean either. Context must disambiguate — if it doesn't, your reader will choose the wrong reading and your argument will collapse."},
+{label:"The Modal Certainty Gradient",color:"#1A4A7A",desc:"The gradient from certainty to speculation: must/will (near-certain) > should/ought to (probable) > would (conditional) > may (genuine possibility) > might/could (slight possibility). Misaligning your modal with your evidence is an immediate signal of argumentative carelessness at C2 level.",fix:"Before each modal, ask: what is my evidence base? A single pilot study warrants 'might'. Multiple replicated studies warrant 'may' or 'appears to'. A meta-analysis of consistent findings warrants 'would appear to demonstrate'. Reserve 'will' for mathematical or logical entailments — almost never for empirical claims."},
+{label:"Modal Remoteness for Argumentative Distancing",color:"#2D6A1A",desc:"'Could', 'might', and 'would' serve in academic prose not merely for possibility but for intellectual distancing — detaching the writer from a claim and inviting the reader to reach the conclusion themselves. 'This could be interpreted as...' is not weak writing; it is rhetorically sophisticated.",fix:"Use distancing modals to introduce interpretations you want the reader to accept without feeling told: 'One might argue that...', 'This could be seen as...', 'It would seem that...'. The reader accepts the conclusion because they feel they reached it — the distancing modal is the mechanism."},
+{label:"Modality in Policy Argumentation",color:"#5A1A8A",desc:"Policy argumentation distinguishes: what MUST happen (obligation/necessity), what SHOULD happen (strong recommendation), what COULD happen (viable option), and what MIGHT happen (predicted consequence). Mixing these produces incoherent arguments where the writer's normative stance is illegible.",fix:"Map your argument: 'X must be done' = non-negotiable (requires the strongest justification). 'X should be implemented' = strong recommendation with named conditions. 'X could represent a viable alternative' = option among several. 'X might exacerbate Y' = predicted negative consequence. Each modal carries a different burden of proof — meet it."}
+]},
+{id:"spot",title:"🔍 Part 1 — Argumentation & Modal Audit (5 min)",subtitle:"6 passages — each contains a logical, epistemic, grammatical, or rhetorical modal failure at C1+/C2 level",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"The empirical record unambiguously demonstrates that fiscal austerity must inevitably produce economic instability across all contexts and timeframes.",underlined:"must inevitably produce economic instability across all contexts and timeframes",wrongWord:"must inevitably produce economic instability across all contexts and timeframes",correctWord:"may give rise to significant economic instability under certain conditions, though the evidence remains contested",wrongType:"epistemic overclaiming: triple absolutism (must + inevitably + all contexts)",correctType:"hedged causal claim with scope qualification and acknowledgement of contested evidence",rule:"'Must inevitably' is double-absolutism on a highly contested empirical question. 'Across all contexts and timeframes' eliminates every possible qualification. C2 writing requires proportioning claims to evidence. On austerity's effects, the empirical record is genuinely divided — claim accordingly.",tip:"The triple-absolutism audit: does your claim contain three or more unqualified absolutes (must, inevitably, all, always, never, entirely, unambiguously)? If so, audit each one. Even well-supported findings require scope qualifications. Replace: 'must inevitably' → 'may tend to'; 'all contexts' → 'many documented cases' or 'under comparable macroeconomic conditions'."},
+{sentence:"While it would be reasonable to argue that the evidence points in this direction, it must should also be noted that significant methodological variation exists across the studies surveyed.",underlined:"must should also be noted",wrongWord:"must should also be noted",correctWord:"should also be noted / must also be noted",wrongType:"double modal (must + should) — ungrammatical in English",correctType:"single modal: must OR should, chosen deliberately",rule:"English does not permit two modal verbs in a row. 'Must should' is ungrammatical — choose one modal that fits the argumentative function: 'should be noted' (recommendation to attend to this) or 'must be noted' (strong obligation to acknowledge it). At C2, the choice between them matters argumentatively.",tip:"Double modal audit: scan your writing for adjacent modals. 'Must should', 'might could', 'would may' — all ungrammatical. If you find one, decide which modal serves the argumentative function and delete the other. The choice itself is meaningful: 'should' recommends; 'must' compels."},
+{sentence:"This intervention shall have a measurable impact on long-term health outcomes among the target population, as the preliminary data suggest.",underlined:"shall have a measurable impact",wrongWord:"shall have a measurable impact",correctWord:"may have a measurable impact / appears likely to produce",wrongType:"shall (legal/formal future) — register error and epistemic overclaiming for preliminary data",correctType:"hedged modal (may / appears likely to) for an empirical claim from preliminary findings",rule:"'Shall' in contemporary academic English signals formal/legal obligation (e.g. 'participants shall provide written consent') or first-person future intention. Using 'shall' for an empirical prediction from preliminary data is both a register error and an epistemic overclaim. Use 'may have' or 'appears likely to'.",tip:"Register audit for 'shall': (1) Legal/procedural obligation? → 'shall' is appropriate. (2) Empirical prediction? → 'may', 'could', 'appears to'. (3) Strong first-person intention? → acceptable but archaic. 'Preliminary data' never warrant 'shall'. The word signals certainty the evidence does not support."},
+{sentence:"Although the intervention appears to reduce anxiety symptoms in the short term, but its long-term efficacy might could remain uncertain pending further longitudinal investigation.",underlined:"although... but... might could",wrongWord:"although... but... might could",correctWord:"Although the intervention appears to reduce anxiety symptoms in the short term, its long-term efficacy remains uncertain pending further longitudinal investigation.",wrongType:"double connector (although...but) AND double modal (might could) — two distinct errors",correctType:"single connector + single modal: 'although' without 'but'; 'might remain' or 'remains'",rule:"Two distinct errors: (1) 'Although...but' = classic double-connector error (L1 Vietnamese interference). 'Although' introduces a subordinate clause and does not require 'but' to close the thought. (2) 'Might could' = double modal, ungrammatical in standard English. Correct each independently.",tip:"Two-error sentence, two separate checks: (1) If 'although/while/even though' is present, delete the 'but/however' that follows it — they encode the same contrast. (2) After any modal, if another modal follows — delete one. Both errors simultaneously signal an unedited draft. Fix both before you move on."},
+{sentence:"It could to be inferred from the data that the disparity in outcomes reflects systemic inequality rather than individual variation in effort or ability.",underlined:"could to be inferred",wrongWord:"could to be inferred",correctWord:"could be inferred",wrongType:"could + to + passive (wrong: 'to' inserted before 'be')",correctType:"could + be + past participle (modal passive — no 'to')",rule:"'Could' is a modal verb and is followed directly by the base form — not 'to + infinitive'. The passive here requires: could + BE + past participle. 'Could to be inferred' inserts an erroneous 'to' between the modal and 'be'.",tip:"Passive + modal formula: [modal] + BE + [past participle]. No 'to' anywhere. 'Could be inferred', 'may be argued', 'should be noted', 'might be interpreted' — all follow this pattern identically. 'Could to be' / 'may to be' / 'should to be' = always wrong. Delete the 'to'."},
+{sentence:"The data would appears to confirm the hypothesis, a finding that must be interpreted with considerable caution given the small sample size.",underlined:"would appears",wrongWord:"would appears",correctWord:"would appear",wrongType:"would + inflected verb (-s after modal)",correctType:"would + base verb (no inflection)",rule:"Modal verbs are invariably followed by the base form — no inflection. 'Would appears' incorrectly adds -s to the verb after 'would'. The correct form: 'would appear'. Note that the second clause ('must be interpreted with caution') is correctly formed.",tip:"Base form check: the word immediately after EVERY modal must be in its simplest, uninflected form (no -s, -ed, -ing). 'Would appears' → 'would appear'. 'May suggests' → 'may suggest'. 'Might indicates' → 'might indicate'. Run this check on every modal before finalising your text."}
+]},
+{id:"transform",title:"✏️ Part 2 — Argue with Modal Precision (8 min)",subtitle:"Transform weak or epistemically flawed arguments into C2-level academic and policy prose",type:"transform",rubricKey:"transform",
+items:[
+{spoken:"We must act on climate change now because it will destroy the planet.",hint:"epistemic vs deontic; 'there is a compelling case for urgent action'; 'the available evidence would appear to indicate'; probabilistic causal claim; avoid 'destroy the planet'; temporal asymmetry of climate systems",answer:"There is a compelling case for urgent, systemic action on climate change — one grounded not in rhetorical alarm but in the weight of convergent scientific evidence, which would appear to indicate that continued inaction carries an unacceptably high probability of irreversible environmental and socioeconomic harm. / The imperative for expedited policy intervention on climate change could be constructed on multiple grounds: the available evidence suggests that delay carries non-trivial catastrophic risk, while the temporal asymmetry of climate systems means that early action may prove disproportionately more cost-effective than remediation attempted at a later stage.",keyChange:"'must act now' → 'there is a compelling case for urgent action' (deontic obligation → evidential argument); 'will destroy the planet' → 'carries a high probability of irreversible harm' (certain prediction → probabilistic epistemic claim with scope); argumentative grounding explicitly provided",principle:"Replace imperatives ('we must') with argued necessity ('a case can be made, grounded in...'). Replace absolute predictions ('will destroy') with probabilistic claims scaled to evidence ('carries an unacceptably high probability of'). C2 distinction: rhetoric vs argument. The modal choice is the hinge."},
+{spoken:"Some people might argue that social media is bad for young people, but others think it's good. It's complicated.",hint:"while proponents contend... critics argue... the balance of current evidence suggests... contingent upon moderating variables including... rather than resolving into a simple binary",answer:"While proponents of social media platforms contend that these tools facilitate social connectivity and provide access to diverse informational resources, critics argue that unrestricted use may be associated with adverse mental health outcomes — particularly among adolescents — and may exacerbate pre-existing psychological vulnerabilities. The balance of current evidence suggests that the impact of social media use is not inherently positive or negative, but rather contingent upon a range of moderating variables, including usage intensity, content type, age of onset, and the availability of offline social support. / The question resists simple binary resolution: the same platforms that appear to afford genuine social capital for some users may intensify social comparison and isolation for others, a pattern that demands context-sensitive rather than universal policy responses.",keyChange:"'some people might argue... others think' → structured concession with named positions; 'it's complicated' → replaced with specific moderating variables; 'bad/good' binary replaced with conditional analysis; modal 'may be associated with' / 'may exacerbate' calibrates the claims to current evidence",principle:"At C2, 'it's complicated' is not an analysis — it is an invitation to specify conditions. Replace binary framing and vague acknowledgement of complexity with a conditional analysis naming the specific variables that determine which position holds. The 'contingent upon' construction is your primary tool."},
+{spoken:"This theory might be wrong. More research is needed.",hint:"the theoretical framework warrants scrutiny; the extent to which its central claims hold... remains to be established; the propositions have yet to be subjected to sufficiently rigorous testing; before the degree of generality currently attributed to them can be justified",answer:"The theoretical framework advanced here warrants careful empirical scrutiny: the extent to which its central claims hold across the range of contexts to which the theory purports to apply remains to be established through further systematic investigation. / Several aspects of this framework may merit revision in light of emerging evidence; the central propositions have yet to be subjected to sufficiently rigorous empirical testing to justify the degree of generality currently attributed to them, and premature adoption in policy or practice would risk overgeneralising from a limited evidential base.",keyChange:"'might be wrong' → 'warrants careful empirical scrutiny' / 'may merit revision' (specific, methodologically grounded critique); 'more research is needed' → 'further systematic investigation' embedded within a claim about the scope the current evidence cannot support",principle:"A C2 critique specifies what might be wrong, why, and what evidence would adjudicate the dispute. 'More research is needed' is an observation; 'the central propositions have yet to be subjected to sufficiently rigorous testing to justify the degree of generality attributed to them' is a critique. The modal 'may merit' signals intellectual humility without abandoning the critique."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (5 min)",subtitle:"Write and reflect at C2 argumentation and modal precision standard",type:"log",rubricKey:"log",
+prompts:[
+"Write 80–100 words arguing for or against a policy of your choice. Use at least three modal verbs deliberately, choosing each to reflect either a deontic function (obligation/recommendation) or an epistemic function (certainty level). Annotate each modal in brackets — e.g. [deontic: obligation] or [epistemic: hedged possibility]:",
+"Identify one modal verb from today's exercises that made the argumentative difference between a strong and a weak claim. Write the weak version, the strong version, and one sentence explaining precisely how the modal change altered the logical force of the argument:",
+"Choose one transform from today and write your own alternative version at the same C2 level. Then write one sentence naming the specific rhetorical strategy you used — one you would not have deployed six months ago:"
+]}
+]}
+};
+
+// ── STATE ──
+let AL='a2b1',AS=0;
+const ST={choices:{},inputs:{},checked:{},logs:{}};
+
+// ── INIT ──
+function init(){
+  buildLvTabs();
+  applyLevel('a2b1');
+  document.title='Daily Drills 7';
+}
+
+function buildLvTabs(){
+  const c=document.getElementById('level-tabs');
+  c.innerHTML='';
+  Object.entries(LEVELS).forEach(([id,lv])=>{
+    const b=document.createElement('button');
+    b.className='level-tab'+(id===AL?' active':'');
+    b.textContent=lv.label;
+    b.onclick=()=>switchLv(id);
+    c.appendChild(b);
+  });
+}
+
+function switchLv(id){
+  AL=id; AS=0;
+  ST.choices={}; ST.inputs={}; ST.checked={}; ST.logs={};
+  document.querySelectorAll('.level-tab').forEach((b,i)=>b.classList.toggle('active',Object.keys(LEVELS)[i]===id));
+  applyLevel(id);
+}
+
+function applyLevel(id){
+  const lv=LEVELS[id];
+  document.documentElement.style.setProperty('--lc',lv.color);
+  document.getElementById('hdr-theme').textContent=lv.theme;
+  document.getElementById('hdr-meta').textContent=lv.tagline+' · ⏱ '+lv.time;
+  const gb=document.getElementById('goal-box');
+  gb.style.background=lv.light; gb.style.borderColor=lv.color+'30';
+  document.getElementById('goal-label').style.color=lv.color;
+  document.getElementById('goal-text').textContent=lv.goal;
+  buildSecNav(lv);
+  renderSec();
+}
+
+function buildSecNav(lv){
+  const nav=document.getElementById('sec-nav');
+  nav.innerHTML='';
+  lv.sections.forEach((s,i)=>{
+    const b=document.createElement('button');
+    b.className='sec-tab'+(i===AS?' active':'');
+    const label=s.title.replace(/[\u{1F300}-\u{1FFFF}]/gu,'').replace('—',' —').trim().split(' — ')[0].trim();
+    b.textContent=label;
+    b.onclick=()=>{AS=i;updSecNav();renderSec();};
+    nav.appendChild(b);
+  });
+}
+
+function updSecNav(){
+  document.querySelectorAll('.sec-tab').forEach((b,i)=>b.classList.toggle('active',i===AS));
+}
+
+function navSec(d){
+  const lv=LEVELS[AL];
+  const n=AS+d;
+  if(n<0||n>=lv.sections.length)return;
+  AS=n; updSecNav(); renderSec();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderSec(){
+  const lv=LEVELS[AL];
+  const sec=lv.sections[AS];
+  document.getElementById('sec-title').textContent=sec.title;
+  document.getElementById('sec-sub').textContent=sec.subtitle;
+  const total=lv.sections.length;
+  document.getElementById('nav-cnt').textContent=(AS+1)+' / '+total;
+  const pp=document.getElementById('btn-prev'),np=document.getElementById('btn-next');
+  pp.disabled=AS===0; np.disabled=AS===total-1;
+  np.style.background=AS===total-1?'#E8E5E0':lv.color;
+  np.style.color=AS===total-1?'#AAA':'#fff';
+  const el=document.getElementById('sec-content');
+  el.innerHTML='';
+  const t=sec.type;
+  if(t==='theory')rTheory(el,sec,lv);
+  else if(t==='theory2')rTheory2(el,sec,lv);
+  else if(t==='theory3')rTheory3(el,sec,lv);
+  else if(t==='theory4')rTheory4(el,sec,lv);
+  else if(t==='spot')rSpot(el,sec,lv);
+  else if(t==='fill')rFill(el,sec,lv);
+  else if(t==='transform')rTransform(el,sec,lv);
+  else if(t==='log')rLog(el,sec,lv);
+}
+
+// ── HELPERS ──
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function badge(type,color){return `<span class="tbadge" style="background:${color}18;color:${color};border:1px solid ${color}40">${esc(type)}</span>`;}
+
+function rubricHTML(rubric,lv){
+  if(!rubric)return'';
+  const total=rubric.reduce((s,r)=>s+r.max,0);
+  const rows=rubric.map(r=>`<div class="rub-row"><div><div class="rub-crit">${esc(r.criterion)}</div><div class="rub-desc">${esc(r.desc)}</div></div><div class="rub-pts" style="background:${lv.color}">${r.max} pt</div></div>`).join('');
+  return `<button class="rub-toggle" style="color:${lv.color};border-color:${lv.color}40" onclick="togRub(this)">📊 Assessment Criteria (${total} pts) <span>▼</span></button><div class="rub-panel" style="background:${lv.light};border:1px solid ${lv.color}30">${rows}</div>`;
+}
+
+function togRub(btn){
+  const p=btn.nextElementSibling;
+  const o=p.classList.toggle('open');
+  btn.querySelector('span').textContent=o?'▲':'▼';
+}
+
+function progHTML(id,total,lv){
+  return `<div class="prog-wrap"><div class="prog-bg"><div class="prog-fill" id="pf-${id}" style="background:${lv.color};width:0%"></div></div><div class="prog-lbl" id="pl-${id}">0/${total} completed · 0%</div></div>`;
+}
+
+function updProg(sid,done,total){
+  const pct=total===0?0:Math.round(done/total*100);
+  const pf=document.getElementById('pf-'+sid),pl=document.getElementById('pl-'+sid);
+  if(pf)pf.style.width=pct+'%';
+  if(pl)pl.textContent=done+'/'+total+' completed · '+pct+'%';
+}
+
+function scoreBadge(score,max,color){
+  const pct=max===0?0:Math.round(score/max*100);
+  const g=pct>=90?{l:'Excellent',c:'#1A7A3A'}:pct>=70?{l:'Good',c:'#1A4A7A'}:pct>=50?{l:'Fair',c:'#B7500A'}:{l:'Needs review',c:'#CC3333'};
+  return `<div class="score-badge" style="border-color:${color}"><div class="slbl">Kết quả tự động</div><div class="snum" style="color:${color}">${score}<span class="den">/${max}</span></div><div class="sgrade" style="color:${g.c}">${g.l} · ${pct}%</div></div>`;
+}
+
+// ── THEORY RENDERERS ──
+function rTheory(el,sec,lv){
+  el.innerHTML='<div class="theory-grid">'+sec.content.map(item=>`<div class="th-card" style="border-color:${item.color}30"><div class="th-head">${badge(item.badge,item.color)}<span style="font-weight:700;font-size:14px;color:${item.color}">${esc(item.label)}</span></div><div class="th-rule">${esc(item.rule)}</div><div class="th-ex">${esc(item.examples)}</div></div>`).join('')+'</div>';
+}
+
+function rTheory2(el,sec,lv){
+  el.innerHTML=sec.groups.map(g=>`<div class="g-card" style="border:1.5px solid ${g.color}30"><div class="g-title" style="color:${g.color}">${esc(g.label)}</div><div class="verbs-row">${g.verbs.map(v=>`<span class="v-chip" style="background:${g.color}12;color:${g.color};border:1px solid ${g.color}30">${v}</span>`).join('')}</div><div class="g-mem">💡 ${esc(g.memory)}</div><div class="g-ex">${esc(g.example)}</div></div>`).join('');
+}
+
+function rTheory3(el,sec,lv){
+  el.innerHTML=sec.pairs.map(p=>`<div class="pair-card"><div class="pair-sp"><div class="pair-sp-lbl">SPOKEN / INFORMAL</div><div class="pair-sp-txt">${esc(p.spoken)}</div></div><div class="pair-ac" style="background:${lv.light}60"><div class="pair-ac-lbl" style="color:${lv.color}">WRITTEN / ACADEMIC</div><div class="pair-ac-txt">${esc(p.academic)}</div><div class="pair-chg">→ ${esc(p.change)}</div></div></div>`).join('')+`<div class="insight" style="background:${lv.color}">📌 ${esc(sec.insight)}</div>`;
+}
+
+function rTheory4(el,sec,lv){
+  el.innerHTML=sec.cards.map(card=>`<div class="g-card" style="border:1.5px solid ${card.color}30;margin-bottom:10px">
+    <div class="g-title" style="color:${card.color}">${esc(card.label)}</div>
+    <div style="font-size:13px;color:#333;line-height:1.6;margin-bottom:10px">${esc(card.desc)}</div>
+    <div style="background:#fff;border-left:3px solid ${card.color};border-radius:0 6px 6px 0;padding:8px 12px;font-size:12px;color:${card.color};font-weight:600">&#x2192; ${esc(card.fix)}</div>
+  </div>`).join('');
+}
+
+// ── SPOT ──
+function rSpot(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+progHTML(sec.id,sec.items.length,lv)+
+    sec.items.map((item,i)=>{
+      const sen=esc(item.sentence).replace(esc(item.underlined),`<span class="ul-word" id="ulw-${sec.id}-${i}">${esc(item.underlined)}</span>`);
+      return `<div class="spot-card" id="sc-${sec.id}-${i}">
+        <div class="spot-top"><div class="spot-num">SENTENCE ${i+1}</div><div class="spot-sen">${sen}</div></div>
+        <div class="spot-acts" id="sa-${sec.id}-${i}">
+          <span>This sentence:</span>
+          <button class="btn-wrong" onclick="spotPick('${sec.id}',${i},'wrong')">❌ Has an error</button>
+          <button class="btn-right" onclick="spotPick('${sec.id}',${i},'right')">✅ Correct</button>
+        </div>
+        <div class="spot-ans" id="saa-${sec.id}-${i}" style="background:${lv.light}80">
+          <div class="ans-row">
+            <span class="wrong-wd">${esc(item.wrongWord)}</span>${badge(item.wrongType,'#CC3333')}
+            <span class="arr">→</span><span class="corr-wd">${esc(item.correctWord)}</span>${badge(item.correctType,'#1A7A3A')}
+          </div>
+          <div class="ans-rule">${esc(item.rule)}</div>
+          <div class="ans-tip" style="border:1px solid ${lv.color}30;color:${lv.color}">💡 ${esc(item.tip)}</div>
+          <div class="sc-inline" id="ssi-${sec.id}-${i}"></div>
+          <div class="warn-miss" id="swm-${sec.id}-${i}">⚠️ Câu này thực ra có lỗi — ghi vào sổ nhé!</div>
+        </div>
+      </div>`;
+    }).join('')+
+    `<button class="score-cta" id="scta-${sec.id}" onclick="calcSpot('${sec.id}')">📊 View auto-score</button><div id="sbdg-${sec.id}"></div>`;
+}
+
+function spotPick(sid,idx,choice){
+  if(!ST.choices[sid])ST.choices[sid]={};
+  if(ST.choices[sid][idx]!==undefined)return;
+  ST.choices[sid][idx]=choice;
+  document.getElementById('sa-'+sid+'-'+idx).style.display='none';
+  document.getElementById('saa-'+sid+'-'+idx).classList.add('open');
+  const lv=LEVELS[AL];
+  document.getElementById('sc-'+sid+'-'+idx).style.borderColor=lv.color+'50';
+  const ulw=document.getElementById('ulw-'+sid+'-'+idx);
+  if(ulw)ulw.classList.add('revealed');
+  if(choice==='right'){const w=document.getElementById('swm-'+sid+'-'+idx);if(w)w.style.display='block';}
+  const sec=lv.sections.find(s=>s.id===sid);
+  const done=Object.keys(ST.choices[sid]).length;
+  updProg(sid,done,sec.items.length);
+  if(done===sec.items.length){const c=document.getElementById('scta-'+sid);if(c)c.style.display='block';}
+}
+
+function calcSpot(sid){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  let score=0,max=0;
+  sec.items.forEach((_,i)=>{
+    const chose=(ST.choices[sid]||{})[i];
+    const pts=chose==='wrong'?3:0;
+    score+=pts;max+=3;
+    const el=document.getElementById('ssi-'+sid+'-'+i);
+    if(el){el.textContent=pts>0?'✓ +'+pts+' pt':'✗ 0/3 pt — sentence was actually incorrect';el.className='sc-inline '+(pts>0?'good':'bad');el.style.display='block';}
+  });
+  const cta=document.getElementById('scta-'+sid);if(cta)cta.style.display='none';
+  const bdg=document.getElementById('sbdg-'+sid);if(bdg)bdg.innerHTML=scoreBadge(score,max,lv.color);
+}
+
+// ── FILL ──
+function rFill(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+progHTML(sec.id,sec.items.length,lv)+
+    sec.items.map((item,i)=>`<div class="fill-card" id="fc-${sec.id}-${i}">
+      <div class="fill-body">
+        <div class="fill-base">SENTENCE ${i+1} — Từ gốc: <span style="color:${lv.color};font-family:'JetBrains Mono',monospace">${esc(item.baseWord||'')}</span></div>
+        <div class="fill-tmpl">${esc(item.template)}</div>
+        <div class="fill-irow">
+          <input class="fill-inp" id="fi-${sec.id}-${i}" placeholder="${esc(item.hint)}" onkeydown="if(event.key==='Enter')fillChk('${sec.id}',${i})"/>
+          <button class="fill-chk" id="fb-${sec.id}-${i}" style="background:${lv.color}" onclick="fillChk('${sec.id}',${i})">Check</button>
+          <span class="fill-ic" id="fic-${sec.id}-${i}"></span>
+        </div>
+      </div>
+      <div class="fill-ans" id="fa-${sec.id}-${i}" style="background:${lv.light}80">
+        <div class="fill-ca" id="fca-${sec.id}-${i}"></div>
+        <div class="fill-expl">${esc(item.explanation)}</div>
+        <div class="sc-inline" id="fsi-${sec.id}-${i}"></div>
+      </div>
+    </div>`).join('')+
+    `<button class="score-cta" id="fcta-${sec.id}" onclick="calcFill('${sec.id}')">📊 View auto-score</button><div id="fbdg-${sec.id}"></div>`;
+}
+
+function fillChk(sid,idx){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  const item=sec.items[idx];
+  const inp=document.getElementById('fi-'+sid+'-'+idx);
+  if(!inp||inp.disabled)return;
+  const uv=inp.value.trim().toLowerCase();
+  const ok=uv===item.answer.toLowerCase();
+  inp.disabled=true;
+  inp.classList.add(ok?'ok':'no');
+  document.getElementById('fc-'+sid+'-'+idx).classList.add(ok?'ok':'no');
+  const btn=document.getElementById('fb-'+sid+'-'+idx);if(btn)btn.style.display='none';
+  const ic=document.getElementById('fic-'+sid+'-'+idx);if(ic)ic.textContent=ok?'✅':'❌';
+  document.getElementById('fa-'+sid+'-'+idx).classList.add('open');
+  const ca=document.getElementById('fca-'+sid+'-'+idx);
+  if(ca)ca.textContent=ok?'':`Correct answer: ${item.answer}`;
+  if(!ST.inputs[sid])ST.inputs[sid]={};
+  ST.inputs[sid][idx]=inp.value;
+  if(!ST.checked[sid])ST.checked[sid]={};
+  ST.checked[sid][idx]={ok,uv};
+  const done=Object.keys(ST.checked[sid]).length;
+  updProg(sid,done,sec.items.length);
+  if(done===sec.items.length){const c=document.getElementById('fcta-'+sid);if(c)c.style.display='block';}
+}
+
+function calcFill(sid){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  let score=0,max=0;
+  sec.items.forEach((_,i)=>{
+    const r=(ST.checked[sid]||{})[i];
+    const pts=r?.ok?3:0;
+    score+=pts;max+=3;
+    const el=document.getElementById('fsi-'+sid+'-'+i);
+    if(el){el.textContent=pts>0?'✓ +3 pt':'✗ 0/3 pt';el.className='sc-inline '+(pts>0?'good':'bad');el.style.display='block';}
+  });
+  const cta=document.getElementById('fcta-'+sid);if(cta)cta.style.display='none';
+  const bdg=document.getElementById('fbdg-'+sid);if(bdg)bdg.innerHTML=scoreBadge(score,max,lv.color);
+}
+
+// ── TRANSFORM ──
+function rTransform(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+
+    `<div class="warn-box">📝 Write your transformed sentence before viewing the model. The model is a suggestion — multiple correct formulations exist.</div>`+
+    sec.items.map((item,i)=>`<div class="tr-card" id="tc-${sec.id}-${i}">
+      <div class="tr-body">
+        <div class="tr-num">TRANSFORM ${i+1}</div>
+        <div class="tr-spoken">🗣 ${esc(item.spoken)}</div>
+        <div class="tr-hint">Vocabulary hint: <span style="color:${lv.color};font-family:'JetBrains Mono',monospace">${esc(item.hint)}</span></div>
+        <textarea class="tr-ta" rows="2" id="ta-${sec.id}-${i}" placeholder="Write your academic sentence here..." oninput="saveTr('${sec.id}',${i},this.value)"></textarea>
+        <button class="tr-reveal" style="background:${lv.color}" onclick="revealTr('${sec.id}',${i})">View model answer</button>
+      </div>
+      <div class="tr-ans" id="tr-${sec.id}-${i}" style="background:${lv.light}90">
+        <div class="model-lbl">MODEL ANSWER (for reference):</div>
+        <div class="model-txt">${esc(item.answer)}</div>
+        <span class="kc-chip" style="border:1px solid ${lv.color}30;color:${lv.color}">Key change: ${esc(item.keyChange)}</span>
+        <div class="princ" style="margin-top:6px">📌 ${esc(item.principle)}</div>
+      </div>
+    </div>`).join('');
+}
+
+function saveTr(sid,idx,val){
+  if(!ST.inputs[sid])ST.inputs[sid]={};
+  ST.inputs[sid][idx]=val;
+  const ta=document.getElementById('ta-'+sid+'-'+idx);
+  if(ta)ta.style.borderColor=val?LEVELS[AL].color+'60':'#DDD';
+}
+
+function revealTr(sid,idx){
+  document.getElementById('tr-'+sid+'-'+idx).classList.add('open');
+  document.getElementById('tc-'+sid+'-'+idx).style.borderColor=LEVELS[AL].color+'50';
+  const btn=document.getElementById('tc-'+sid+'-'+idx).querySelector('.tr-reveal');
+  if(btn)btn.style.display='none';
+}
+
+// ── LOG ──
+function rLog(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+
+    `<div class="log-note">📌 The error log is the single most valuable learning tool in self-study. The more specific your notes, the faster your progress.</div>`+
+    sec.prompts.map((p,i)=>`<div class="log-prompt"><label class="log-lbl">${i+1}. ${esc(p)}</label><textarea class="log-ta" rows="3" id="la-${sec.id}-${i}" placeholder="Write here..." oninput="saveLog('${sec.id}',${i},this.value)"></textarea></div>`).join('')+
+    `<button class="log-save" id="ls-${sec.id}" onclick="saveLogAll('${sec.id}')" style="background:${lv.color}">💾 Save error log</button>`;
+}
+
+function saveLog(sid,idx,val){
+  if(!ST.logs[sid])ST.logs[sid]={};
+  ST.logs[sid][idx]=val;
+  const ta=document.getElementById('la-'+sid+'-'+idx);
+  if(ta)ta.style.borderColor=val?LEVELS[AL].color+'60':'#DDD';
+}
+
+function saveLogAll(sid){
+  const btn=document.getElementById('ls-'+sid);
+  if(btn){btn.textContent='✅ Saved!';btn.style.background='#22C55E';}
+}
+
+// ── DOWNLOAD ──
+function handleDownload(){
+  const lv=LEVELS[AL];
+  const now=new Date();
+  const ds=now.toLocaleDateString('vi-VN',{year:'numeric',month:'long',day:'numeric'});
+  const ts=now.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
+  const L=[];
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('       HUONG STELLA PARADIGM');
+  L.push('       PRACTICE SESSION REPORT · '+lv.label);
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('Date : '+ds+' at '+ts);
+  L.push('Topic : '+lv.theme);
+  L.push('');
+  lv.sections.forEach(sec=>{
+    if(['theory','theory2','theory3','theory4'].includes(sec.type))return;
+    L.push('──────────────────────────────────────────────────────────');
+    L.push('  '+sec.title.replace(/[\u{1F300}-\u{1FFFF}]/gu,'').trim().toUpperCase());
+    L.push('──────────────────────────────────────────────────────────');
+    if(sec.type==='spot'){
+      sec.items.forEach((item,i)=>{
+        L.push('  Sentence '+(i+1)+': '+item.sentence);
+        L.push('  -> Correct: '+item.sentence.replace(item.wrongWord,item.correctWord));
+        L.push('  -> Wrong: '+item.wrongWord+' ['+item.wrongType+']  ->  Right: '+item.correctWord+' ['+item.correctType+']');
+        L.push('  -> Rule: '+item.rule);
+        const chose=(ST.choices[sec.id]||{})[i];
+        if(chose!==undefined)L.push('  -> Your assessment: '+(chose==='wrong'?'[v] Correctly identified as INCORRECT':'[x] Marked as correct — actually has an error'));
+        L.push('');
+      });
+    }
+    if(sec.type==='fill'){
+      sec.items.forEach((item,i)=>{
+        const ua=(ST.inputs[sec.id]||{})[i]||'(chua tra loi)';
+        const ok=ua.trim().toLowerCase()===item.answer.toLowerCase();
+        L.push('  Sentence '+(i+1)+': '+item.template);
+        L.push('  -> Your answer       : '+ua);
+        L.push('  -> Correct answer    : '+item.answer+' ['+item.targetType+']');
+        L.push('  -> Result            : '+(ok?'[v] Correct':'[x] Incorrect'));
+        L.push('  -> Explanation       : '+item.explanation);
+        L.push('');
+      });
+    }
+    if(sec.type==='transform'){
+      sec.items.forEach((item,i)=>{
+        L.push('  Transform '+(i+1)+' — Original: "'+item.spoken+'"');
+        L.push('  -> Model answer: "'+item.answer+'"');
+        L.push('  -> Key change: '+item.keyChange);
+        L.push('  -> Principle: '+item.principle);
+        const ua=(ST.inputs[sec.id]||{})[i]||'';
+        if(ua)L.push('  -> Your sentence: '+ua);
+        L.push('');
+      });
+    }
+    if(sec.type==='log'){
+      sec.prompts.forEach((p,i)=>{
+        const note=(ST.logs[sec.id]||{})[i]||'(chua dien)';
+        L.push('  '+(i+1)+'. '+p);
+        L.push('     '+note);
+        L.push('');
+      });
+    }
+  });
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  ASSESSMENT CRITERIA (RUBRIC)');
+  L.push('════════════════════════════════════════════════════════════');
+  const rubs=RUBRICS[AL];
+  Object.entries(rubs).forEach(([key,rubric])=>{
+    L.push('  Section '+key+':');
+    rubric.forEach(r=>L.push('    . '+r.criterion.padEnd(42,' ')+r.max+' pts'));
+    L.push('');
+  });
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  DISCLAIMER');
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  This practice material was developed with the support of an');
+  L.push('  AI system within the academic programme of Huong Stella');
+  L.push('  Paradigm. While content has been reviewed against pedagogical');
+  L.push('  standards, learners are advised to cross-reference with');
+  L.push('  authoritative sources and consult their instructor for');
+  L.push('  clarification of specific points. Auto-scoring is indicative');
+  L.push('  only and does not replace teacher assessment.');
+  L.push('');
+  L.push('════════════════════════════════════════════════════════════');
+
+  const blob=new Blob([L.join('\n')],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='HuongStella_DailyDrill_Day7_'+AL+'_'+now.toISOString().slice(0,10)+'.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+init();
+</script>
+</body>
+</html>

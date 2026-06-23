@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Drills 2</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--lc:#2D6A4F;--ll:#D8F3DC}
+body{font-family:'Inter',sans-serif;background:#F4F2EF;color:#1a1a1a;min-height:100vh}
+code,pre,.mono{font-family:'JetBrains Mono',monospace}
+header{background:#111;color:#fff;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.brand{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;opacity:.6}
+.header-right{text-align:right}
+.day-label{font-size:13px;opacity:.5;letter-spacing:1px;text-transform:uppercase}
+.day-title{font-size:20px;font-weight:700;margin-top:2px}
+.lv-tabs{display:flex;gap:8px;padding:16px 24px;background:#fff;border-bottom:1px solid #e5e2dc;flex-wrap:wrap}
+.lv-tab{padding:6px 16px;border-radius:20px;border:2px solid #ddd;cursor:pointer;font-size:13px;font-weight:600;transition:all .2s}
+.lv-tab.active{color:#fff;border-color:var(--lc);background:var(--lc)}
+.sec-nav{display:flex;gap:6px;padding:12px 24px;background:#faf9f7;border-bottom:1px solid #e5e2dc;overflow-x:auto;white-space:nowrap}
+.sec-btn{padding:5px 14px;border-radius:14px;border:1.5px solid #ccc;background:#fff;cursor:pointer;font-size:12px;font-weight:500;transition:all .2s;flex-shrink:0}
+.sec-btn.active{background:var(--lc);color:#fff;border-color:var(--lc)}
+.main{max-width:860px;margin:0 auto;padding:24px 20px 60px}
+.sec-header{margin-bottom:20px}
+.sec-header h2{font-size:22px;font-weight:700;color:#111}
+.sec-header p{color:#555;margin-top:4px;font-size:14px}
+/* Theory */
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px}
+.theory-card{background:#fff;border-radius:12px;padding:20px;border-left:4px solid var(--lc);box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.theory-card .tc-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.theory-card .tc-label{font-weight:700;font-size:15px}
+.tc-badge{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:10px;background:var(--ll);color:var(--lc)}
+.tc-examples{background:#f7f6f3;border-radius:8px;padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.7;margin-bottom:10px;white-space:pre-wrap}
+.tc-rule{font-size:13px;color:#444;line-height:1.6;border-top:1px solid #eee;padding-top:10px}
+/* Theory2 */
+.theory2-grid{display:grid;gap:16px;margin-bottom:24px}
+.t2-card{background:#fff;border-radius:12px;padding:20px;border-left:4px solid var(--lc);box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.t2-head{font-weight:700;font-size:16px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.t2-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.t2-chip{background:var(--ll);color:var(--lc);padding:4px 12px;border-radius:12px;font-size:13px;font-weight:500}
+.t2-memory{font-size:13px;color:#555;font-style:italic;margin-bottom:8px}
+.t2-example{font-family:'JetBrains Mono',monospace;font-size:13px;background:#f7f6f3;padding:10px 12px;border-radius:8px;line-height:1.6}
+/* Theory3 */
+.theory3-pairs{display:grid;gap:14px;margin-bottom:20px}
+.t3-pair{background:#fff;border-radius:12px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.t3-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px}
+.t3-box{padding:10px 14px;border-radius:8px;font-size:13px;line-height:1.5}
+.t3-spoken{background:#fff3cd;border-left:3px solid #f0a500}
+.t3-academic{background:var(--ll);border-left:3px solid var(--lc)}
+.t3-box-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:.6;margin-bottom:4px}
+.t3-change{font-size:12px;color:#555;font-style:italic}
+.t3-insight{background:#111;color:#fff;border-radius:10px;padding:16px;font-size:13px;line-height:1.6;margin-bottom:24px}
+.t3-insight strong{color:var(--ll)}
+/* Theory4 */
+.theory4-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px}
+.t4-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.06);border-left:4px solid var(--lc)}
+.t4-label{font-weight:700;font-size:14px;margin-bottom:8px;color:var(--lc)}
+.t4-desc{font-size:13px;color:#444;line-height:1.6;margin-bottom:10px}
+.t4-fix{background:#f7f6f3;border-radius:8px;padding:10px 12px;font-size:13px;line-height:1.6;border-left:3px solid var(--lc)}
+/* Spot */
+.spot-list{display:grid;gap:14px;margin-bottom:24px}
+.spot-item{background:#fff;border-radius:12px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.spot-sentence{font-size:15px;line-height:1.7;margin-bottom:12px}
+.spot-sentence u{text-decoration-color:var(--lc);text-decoration-thickness:2px;font-family:'JetBrains Mono',monospace}
+.spot-choices{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.spot-choice{padding:7px 16px;border-radius:20px;border:2px solid #ddd;cursor:pointer;font-size:13px;font-weight:500;transition:all .2s;background:#fff}
+.spot-choice:hover{border-color:var(--lc)}
+.spot-choice.selected{border-color:var(--lc);background:var(--ll);color:var(--lc)}
+.spot-choice.correct{border-color:#2D6A4F;background:#D8F3DC;color:#1a5c3a}
+.spot-choice.wrong{border-color:#c0392b;background:#fde8e8;color:#c0392b}
+.spot-feedback{display:none;margin-top:10px;font-size:13px;line-height:1.6;border-radius:8px;padding:12px}
+.spot-feedback.show{display:block}
+.spot-feedback.ok{background:#D8F3DC;color:#1a5c3a}
+.spot-feedback.err{background:#fde8e8;color:#8B0000}
+.spot-rule{font-size:12px;margin-top:6px;opacity:.8}
+.spot-tip{margin-top:6px;padding:6px 10px;background:rgba(255,255,255,.6);border-radius:6px;font-style:italic;font-size:12px}
+.spot-check-btn{margin-top:8px;padding:7px 18px;background:var(--lc);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+/* Fill */
+.fill-list{display:grid;gap:14px;margin-bottom:24px}
+.fill-item{background:#fff;border-radius:12px;padding:18px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.fill-top{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px}
+.fill-num{width:28px;height:28px;border-radius:50%;background:var(--lc);color:#fff;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.fill-template{font-size:15px;line-height:1.7;flex:1}
+.fill-base{font-size:12px;color:#888;font-style:italic;margin-bottom:8px}
+.fill-input-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.fill-input{border:2px solid #ddd;border-radius:8px;padding:7px 12px;font-size:14px;font-family:'JetBrains Mono',monospace;min-width:160px;transition:border-color .2s;outline:none}
+.fill-input:focus{border-color:var(--lc)}
+.fill-input.correct{border-color:#2D6A4F;background:#D8F3DC}
+.fill-input.wrong{border-color:#c0392b;background:#fde8e8}
+.fill-chk-btn{padding:7px 16px;background:var(--lc);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+.fill-fb{margin-top:8px;font-size:13px;line-height:1.6;display:none}
+.fill-fb.show{display:block}
+.fill-fb.ok{color:#1a5c3a}
+.fill-fb.err{color:#8B0000}
+/* Transform */
+.transform-list{display:grid;gap:16px;margin-bottom:24px}
+.tr-item{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.tr-spoken{background:#fff3cd;border-radius:8px;padding:12px;font-size:14px;line-height:1.6;margin-bottom:8px;border-left:3px solid #f0a500}
+.tr-spoken-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#a07000;margin-bottom:4px}
+.tr-hint{font-size:12px;color:#777;font-style:italic;margin-bottom:10px}
+.tr-hint span{font-weight:600;color:#555}
+.tr-textarea{width:100%;border:2px solid #ddd;border-radius:8px;padding:10px 12px;font-size:14px;font-family:'Inter',sans-serif;min-height:70px;resize:vertical;outline:none;transition:border-color .2s}
+.tr-textarea:focus{border-color:var(--lc)}
+.tr-btn-row{display:flex;gap:8px;margin-top:8px}
+.tr-save-btn{padding:7px 16px;background:var(--lc);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+.tr-reveal-btn{padding:7px 16px;background:#555;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+.tr-model{display:none;margin-top:12px;background:var(--ll);border-radius:8px;padding:14px;font-size:13px;line-height:1.6;border-left:3px solid var(--lc)}
+.tr-model.show{display:block}
+.tr-model-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--lc);margin-bottom:6px}
+.tr-key{font-style:italic;color:#555;font-size:12px;margin-top:6px}
+.tr-principle{font-size:12px;font-weight:600;color:var(--lc);margin-top:4px}
+/* Log */
+.log-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:24px}
+.log-prompt{font-size:14px;font-weight:600;color:#333;margin-bottom:8px}
+.log-textarea{width:100%;border:2px solid #ddd;border-radius:8px;padding:10px 12px;font-size:14px;min-height:80px;resize:vertical;outline:none;transition:border-color .2s;font-family:'Inter',sans-serif}
+.log-textarea:focus{border-color:var(--lc)}
+.log-save-btn{margin-top:8px;padding:7px 16px;background:var(--lc);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+.log-saved{font-size:12px;color:#2D6A4F;margin-top:4px;display:none}
+.log-saved.show{display:block}
+.log-all-btn{margin-top:12px;padding:9px 20px;background:#111;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600}
+/* Rubric */
+.rub-toggle{background:none;border:1.5px solid var(--lc);color:var(--lc);border-radius:8px;padding:5px 14px;font-size:12px;font-weight:600;cursor:pointer;margin-bottom:8px}
+.rub-table{width:100%;border-collapse:collapse;font-size:13px;display:none;margin-bottom:16px}
+.rub-table.show{display:table}
+.rub-table th{background:var(--lc);color:#fff;padding:7px 10px;text-align:left}
+.rub-table td{padding:7px 10px;border-bottom:1px solid #eee}
+/* Progress */
+.progress-bar-wrap{background:#e5e2dc;border-radius:6px;height:8px;margin:8px 0 4px;overflow:hidden}
+.progress-bar{height:100%;border-radius:6px;background:var(--lc);transition:width .4s}
+.progress-label{font-size:12px;color:#666}
+/* Score badge */
+.score-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700;margin-left:8px}
+.score-hi{background:#D8F3DC;color:#1a5c3a}
+.score-mid{background:#fff3cd;color:#a07000}
+.score-lo{background:#fde8e8;color:#8B0000}
+/* Download */
+.dl-bar{position:fixed;bottom:0;left:0;right:0;background:#111;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;z-index:100}
+.dl-bar span{color:#aaa;font-size:13px}
+.dl-btn{padding:8px 20px;background:var(--lc);color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700}
+@media(max-width:600px){.t3-row{grid-template-columns:1fr}.theory-grid{grid-template-columns:1fr}.theory4-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Huong Stella Paradigm</div>
+    <div style="color:#fff;font-size:18px;font-weight:700;margin-top:4px">English Grammar Programme</div>
+  </div>
+  <div class="header-right">
+    <div class="day-label">Day 2 · Interactive Practice</div>
+    <div class="day-title">Confusing Pairs &amp; Collocations</div>
+  </div>
+</header>
+<div class="lv-tabs" id="lvTabs"></div>
+<div class="sec-nav" id="secNav"></div>
+<div class="main" id="main"></div>
+<div class="dl-bar">
+  <span>Save your work as a text report</span>
+  <button class="dl-btn" onclick="handleDownload()">⬇ Download Report</button>
+</div>
+
+<script>
+let AL='a2b1', AS=0;
+const ST={choices:{},inputs:{},checked:{},logs:{}};
+
+/* ── DATA ──────────────────────────────────────────────────────── */
+const RUBRICS={
+  a2b1:{
+    spot:[
+      {criterion:"Error correctly identified",max:1,desc:"You selected the word or phrase that contained the error."},
+      {criterion:"Correct replacement chosen",max:1,desc:"You identified the right word to replace the error."},
+      {criterion:"Rule recalled accurately",max:2,desc:"You can explain the directional or structural rule behind the error."}
+    ],
+    fill:[
+      {criterion:"Correct verb selected",max:2,desc:"The right verb from the confusing pair was chosen."},
+      {criterion:"Correct tense form",max:1,desc:"The verb is in the appropriate tense for the sentence."},
+      {criterion:"Contextual appropriateness",max:1,desc:"The word fits the meaning and register of the sentence."}
+    ],
+    log:[
+      {criterion:"Specific error recorded",max:2,desc:"You noted a real mistake you made, with both wrong and correct forms."},
+      {criterion:"Rule explained in own words",max:2,desc:"You paraphrased the directional rule without copying it verbatim."},
+      {criterion:"Original sentence produced",max:2,desc:"You wrote a new, correct sentence using the target pair."}
+    ]
+  },
+  b1b2:{
+    spot:[
+      {criterion:"Wrong collocation identified",max:1,desc:"You spotted the incorrect make/do/take/have verb."},
+      {criterion:"Correct verb supplied",max:1,desc:"You chose the right collocating verb."},
+      {criterion:"Pattern generalised",max:2,desc:"You can state which category (create/perform/initiate/experience) triggers which verb."}
+    ],
+    fill:[
+      {criterion:"Correct verb selected",max:2,desc:"The appropriate make/do/take/have form was used."},
+      {criterion:"Collocation accuracy",max:1,desc:"The full collocation (verb + noun) is standard native usage."},
+      {criterion:"Tense form correct",max:1,desc:"The verb is in the right tense."}
+    ],
+    log:[
+      {criterion:"Collocations recorded with context",max:2,desc:"You wrote at least two collocations in full example sentences."},
+      {criterion:"Pattern identified",max:2,desc:"You articulated a principle for when to use make vs do."},
+      {criterion:"Original sentences produced",max:2,desc:"You created three new sentences using take/have collocations."}
+    ]
+  },
+  b2c1:{
+    spot:[
+      {criterion:"Error type correctly named",max:1,desc:"You identified whether the error was passive form, hedging, or voice inconsistency."},
+      {criterion:"Correct form supplied",max:1,desc:"Your suggested correction is grammatically accurate."},
+      {criterion:"Register improvement",max:2,desc:"Your correction lifts the academic register of the sentence."}
+    ],
+    fill:[
+      {criterion:"Passive form correct",max:2,desc:"The passive auxiliary and past participle are both accurate."},
+      {criterion:"Hedging level appropriate",max:1,desc:"The hedge (may, appears to, suggests) matches the strength of the claim."},
+      {criterion:"Contextual fit",max:1,desc:"The completed sentence reads as plausible academic prose."}
+    ],
+    transform:[
+      {criterion:"Passive voice used where appropriate",max:2,desc:"The agent is removed or depersonalised where the finding, not the researcher, should be foregrounded."},
+      {criterion:"Hedging language present",max:2,desc:"At least one hedging modal or verb (may, appears, suggests) qualifies the claim."},
+      {criterion:"Formal register maintained throughout",max:2,desc:"Vocabulary, syntax, and tone are consistently academic — no informal phrasing remains."}
+    ],
+    log:[
+      {criterion:"Own writing edited with hedging",max:2,desc:"You revised a real sentence from your writing, adding appropriate qualification."},
+      {criterion:"Passive rationale explained",max:2,desc:"You articulated when and why passive voice is preferred in academic prose."},
+      {criterion:"Original academic sentence produced",max:2,desc:"Your new sentence correctly combines passive voice and a hedging modal."}
+    ]
+  },
+  c1c2:{
+    spot:[
+      {criterion:"Double connector or over-claim identified",max:1,desc:"You pinpointed the specific logical or grammatical flaw."},
+      {criterion:"Revised version grammatically correct",max:1,desc:"Your correction resolves the error without introducing new ones."},
+      {criterion:"Argumentative quality assessed",max:2,desc:"You explained why the error weakens the argument, not just the grammar."}
+    ],
+    fill:[
+      {criterion:"Correct connector or hedge selected",max:2,desc:"The chosen word creates the right logical relationship (concession, contrast, etc.)."},
+      {criterion:"Register appropriate",max:1,desc:"The connector suits formal written academic discourse."},
+      {criterion:"Sentence coherence maintained",max:1,desc:"The completed sentence flows logically and reads as academic prose."}
+    ],
+    transform:[
+      {criterion:"Concession properly scoped",max:2,desc:"The opposing view is acknowledged precisely — not dismissed, not granted wholesale."},
+      {criterion:"Pivot to main claim is clear",max:2,desc:"The transition from concession to argument is explicit and logical."},
+      {criterion:"Hedging and formality throughout",max:2,desc:"All claims are appropriately qualified; vocabulary and syntax are C2 academic."}
+    ],
+    log:[
+      {criterion:"Real text revised with concession",max:2,desc:"You rewrote an assertion from your own writing to include qualification."},
+      {criterion:"Connector distinctions explained",max:2,desc:"You articulated meaningful differences between the four concessive connectors."},
+      {criterion:"Mini-argument structurally complete",max:2,desc:"Your three-sentence piece has a clear concession, pivot, and substantiated claim."}
+    ]
+  }
+};
+
+const LEVELS={
+  a2b1:{
+    label:'A2–B1',color:'#2D6A4F',light:'#D8F3DC',
+    theme:'Confusing Pairs I',
+    tagline:'Master the most commonly mixed-up verb pairs in English',
+    goal:'Today you will: identify the directional logic behind borrow/lend, say/tell, rise/raise, and hear/listen — and correct typical errors.',
+    time:'10–15 min',
+    sections:[
+      {type:'theory',title:'Warmup: Confusing Verb Pairs',subtitle:'Four pairs — one clear rule each',
+        cards:[
+          {label:'borrow vs lend',badge:'verb pair',color:'#2D6A4F',
+            examples:'Can I borrow your pen?    → I take it from you\nI will lend you my pen.   → I give it to you',
+            rule:'BORROW = to take something from someone temporarily. LEND = to give something to someone temporarily. The key is direction: who is moving the object toward themselves?'},
+          {label:'say vs tell',badge:'verb pair',color:'#1A5E3A',
+            examples:'She said (that) she was tired.   → no person after SAY\nShe told me she was tired.      → person comes after TELL',
+            rule:'SAY is used alone or with a that-clause — never directly followed by a person object. TELL is always followed by a person: tell me, tell him, tell the class, tell a story.'},
+          {label:'rise vs raise',badge:'verb pair',color:'#226B4A',
+            examples:'The sun rises every morning.   → no object (intransitive)\nThey raised their hands.       → object: "their hands"',
+            rule:'RISE = to go up by itself — no object needed (rise/rose/risen). RAISE = to lift something — always needs an object (raise/raised/raised). If there is no object in the sentence, use RISE.'},
+          {label:'hear vs listen (to)',badge:'verb pair',color:'#1B5740',
+            examples:'I heard a strange noise.         → it happened to me (involuntary)\nShe listened to the lecture.    → she chose to pay attention (voluntary)',
+            rule:'HEAR = to receive sound without trying — it is involuntary. LISTEN TO = to focus your attention on sound deliberately. Always use the preposition TO after LISTEN: listen to music, listen to a speech — never "listen music".'}
+        ]
+      },
+      {type:'spot',rubricKey:'spot',title:'Spot the Error',subtitle:'Every sentence contains exactly one error. Select the incorrect word/phrase.',
+        items:[
+          {sentence:'Can you <u>borrow</u> me your dictionary for the exam?',
+            underlined:'borrow',wrongWord:'borrow',correctWord:'lend',
+            wrongType:'wrong direction verb',correctType:'lend (give out)',
+            rule:'The speaker wants to RECEIVE the dictionary, so they would borrow it. But the sentence is asking YOU to give it — that action is LEND. "Can you lend me your dictionary?" is correct.',
+            tip:'Trick: replace with "give" or "take". If "give" makes sense, use LEND. If "take" makes sense, use BORROW.'},
+          {sentence:'My teacher <u>told</u> that the test would be on Friday.',
+            underlined:'told',wrongWord:'told',correctWord:'said',
+            wrongType:'tell without person object',correctType:'say + that-clause',
+            rule:'TELL must be followed immediately by a person (told us, told me, told the class). Without a person object, use SAY: "My teacher said that the test would be on Friday."',
+            tip:'Quick test: insert "me" after the verb. "Told me that..." ✓ → TELL. "Said me that..." ✗ → SAY.'},
+          {sentence:'The prices of food have <u>raised</u> significantly this year.',
+            underlined:'raised',wrongWord:'raised',correctWord:'risen',
+            wrongType:'transitive verb used without object',correctType:'rise (past participle: risen)',
+            rule:'RAISE needs an object ("they raised prices"). Here, "prices" is the subject rising by itself — no one is raising them. Use RISE: "Prices have risen." (rise → rose → risen)',
+            tip:'No object after the verb? → RISE. Has an object? → RAISE. "Prices have risen" — no object. "They raised prices" — object: prices.'},
+          {sentence:'Please be quiet — I am <u>listening</u> a very important announcement.',
+            underlined:'listening',wrongWord:'listening',correctWord:'listening to',
+            wrongType:'missing preposition after listen',correctType:'listen to + object',
+            rule:'LISTEN always requires the preposition TO before its object: listen to music, listen to an announcement. Without "to", the sentence is grammatically incomplete. HEAR takes a direct object without any preposition.',
+            tip:'HEAR takes a direct object (I heard it). LISTEN needs a path: listen TO → going toward the sound. No preposition = wrong with listen.'},
+          {sentence:'He <u>borrowed</u> his car to his neighbour for the weekend.',
+            underlined:'borrowed',wrongWord:'borrowed',correctWord:'lent',
+            wrongType:'wrong direction verb',correctType:'lend (give out)',
+            rule:'He (the subject) is giving his car to his neighbour. The object moves AWAY from the subject. That is LEND, not BORROW. He lent his car to his neighbour.',
+            tip:'Draw an arrow: He → car → neighbour. Arrow pointing away from subject = LEND. Arrow pointing toward subject = BORROW.'},
+          {sentence:'The manager <u>said to us to finish</u> the report by Monday.',
+            underlined:'said to us to finish',wrongWord:'said to us to',correctWord:'told us to',
+            wrongType:'say + person + infinitive (invalid)',correctType:'tell + person + infinitive',
+            rule:'When reporting an instruction (verb + person + infinitive), use TELL, not SAY. "She told us to finish" is correct. SAY cannot be followed by a person then an infinitive in this structure — it takes a that-clause or a quote.',
+            tip:'Instruction with a person + to + verb? → TELL. "She told us to leave." Statement or quote? → SAY. "She said that we should leave."'}
+        ]
+      },
+      {type:'fill',rubricKey:'fill',title:'Fill in the Blank',subtitle:'Choose the correct word from the pair shown. Type the right form.',
+        items:[
+          {template:'I forgot my umbrella. Could you ___ me yours for the afternoon?',
+            baseWord:'borrow / lend',answer:'lend',targetType:'lend (give out)',
+            hint:'lend / borrow',
+            explanation:'"You" are being asked to give the umbrella to the speaker. The action of giving something temporarily is LEND. The speaker is the one who would borrow — but the question is directed at you.'},
+          {template:'My grandmother always ___ us stories about her childhood in the countryside.',
+            baseWord:'say / tell',answer:'told',targetType:'tell + person + noun (past)',
+            hint:'told / said',
+            explanation:'TELL is followed by a person (us) + a noun (stories). "Tell stories" is a standard collocation. Past tense: told. SAY would need a that-clause and cannot precede "us" directly.'},
+          {template:'The cost of living has ___ dramatically over the past decade.',
+            baseWord:'rise / raise',answer:'risen',targetType:'rise (past participle)',
+            hint:'risen / raised',
+            explanation:'"The cost of living" rises by itself — no one is causing it to rise in this sentence. Use RISE (intransitive). Present perfect: has risen (not has raised, which needs an object).'},
+          {template:'Did you ___ that strange sound coming from upstairs just now?',
+            baseWord:'hear / listen',answer:'hear',targetType:'hear (involuntary, no preposition)',
+            hint:'hear / listen to',
+            explanation:'The sound happened unexpectedly — you did not deliberately focus on it. That is HEAR (involuntary). LISTEN TO would imply you deliberately paid attention. Also: "Did you listen to that sound?" would need "to" and sounds unnatural in this context.'},
+          {template:'The government has announced plans to ___ the minimum wage next year.',
+            baseWord:'rise / raise',answer:'raise',targetType:'raise (transitive, needs object)',
+            hint:'raise / rise',
+            explanation:'The government is the agent actively lifting the minimum wage (the object). An object is present, so RAISE is required. RISE cannot be used here because it is intransitive.'}
+        ]
+      },
+      {type:'log',rubricKey:'log',title:'Error Log & Reflection',
+        prompts:[
+          'Write down the confusing pair you found hardest today. Note which "direction" rule (give vs take, voluntary vs involuntary) helps you remember which is which.',
+          'Explain in your own words why TELL needs a person object but SAY does not. Give one original example sentence for each.',
+          'Write two sentences of your own: one using RISE correctly and one using RAISE correctly. Use a topic related to your studies or daily life.'
+        ]
+      }
+    ]
+  },
+
+  b1b2:{
+    label:'B1+–B2',color:'#1A4A7A',light:'#D6E8F7',
+    theme:'Collocations: make / do / take / have',
+    tagline:'Stop guessing — learn the logic behind the four most important English collocating verbs',
+    goal:'Today you will: understand the semantic patterns behind make/do/take/have, identify wrong collocations, and produce these chunks accurately.',
+    time:'15–20 min',
+    sections:[
+      {type:'theory2',title:'Warmup: make / do / take / have — The Patterns',subtitle:'Three groups with one memory principle each',
+        groups:[
+          {label:'make',color:'#1A4A7A',
+            verbs:['make a decision','make progress','make an effort','make a mistake','make an appointment','make a point'],
+            memory:'MAKE = create or produce a result — use it when something NEW comes into existence (a decision, a mistake, progress)',
+            example:'She made a great effort to improve, but she still made a few mistakes along the way.'},
+          {label:'do',color:'#153E68',
+            verbs:['do research','do homework','do damage','do a favour','do well','do an exercise'],
+            memory:'DO = perform a task or activity — use it for actions you carry out, especially routine, assigned, or work-like activities',
+            example:'Can you do me a favour and help me do my research for the project?'},
+          {label:'take / have',color:'#0F3255',
+            verbs:['take part','take care','take a break','take an exam','have a meeting','have a go','have a chat','have a chance'],
+            memory:'TAKE = initiate or begin an action; HAVE = experience, hold, or be in a state (often social or temporal)',
+            example:'Let\'s have a quick chat before we take a break and then take part in the afternoon session.'}
+        ]
+      },
+      {type:'spot',rubricKey:'spot',title:'Spot the Error',subtitle:'Each sentence has one wrong collocating verb. Find and correct it.',
+        items:[
+          {sentence:'She <u>did</u> a decision to leave her job after ten years in the company.',
+            underlined:'did',wrongWord:'did',correctWord:'made',
+            wrongType:'do + decision (wrong collocation)',correctType:'make a decision',
+            rule:'"Make a decision" is the correct collocation because a decision is a result created — it fits the MAKE = create category. "Do a decision" does not exist in standard English.',
+            tip:'If you can say "produce a ___" or "create a ___", use MAKE. You can produce/create a decision → make a decision. You cannot produce homework → do homework.'},
+          {sentence:'Could you <u>make</u> me a favour and post this letter on your way home?',
+            underlined:'make',wrongWord:'make',correctWord:'do',
+            wrongType:'make + favour (wrong collocation)',correctType:'do a favour',
+            rule:'"Do a favour" is the correct collocation. A favour is a task you perform for someone — it fits the DO = perform category. "Make a favour" is a common error, especially for speakers whose L1 has a single verb for both.',
+            tip:'Favours, research, homework, exercises — these are tasks you CARRY OUT → DO. Decisions, mistakes, progress, appointments — these are outcomes you CREATE → MAKE.'},
+          {sentence:'He <u>took</u> a mistake in his calculations and had to redo the entire spreadsheet.',
+            underlined:'took',wrongWord:'took',correctWord:'made',
+            wrongType:'take + mistake (wrong collocation)',correctType:'make a mistake',
+            rule:'"Make a mistake" is the only correct collocation. Mistakes fit the MAKE = produce/create a result category. "Take a mistake" and "do a mistake" do not exist.',
+            tip:'The three most common wrong partners for MISTAKE are do, take, and have. None work — only MAKE. Make a mistake, made mistakes, making mistakes.'},
+          {sentence:'Scientists are currently <u>making</u> research into the long-term effects of social media.',
+            underlined:'making',wrongWord:'making',correctWord:'doing',
+            wrongType:'make + research (wrong collocation)',correctType:'do research',
+            rule:'"Do research" is correct. Research is an activity or task you carry out → DO. "Make research" sounds like you are creating the concept of research, which is not the intended meaning.',
+            tip:'Research, homework, a task, an exercise, a job — these are things you DO. If it sounds like work you perform, not a product you create, choose DO.'},
+          {sentence:'They <u>had</u> a lot of progress in the first semester but slowed down significantly.',
+            underlined:'had',wrongWord:'had',correctWord:'made',
+            wrongType:'have + progress (wrong collocation)',correctType:'make progress',
+            rule:'"Make progress" is the standard collocation. Progress is a result or outcome produced → MAKE. "Have progress" is not used in English. Compare: "make progress" vs "make a profit" vs "make improvements" — all results you produce.',
+            tip:'Test: can the noun follow "create"? Create progress? Not quite, but create a result → MAKE. Create a meeting? No → HAVE (have a meeting = hold an event).'},
+          {sentence:'We need to <u>do</u> a meeting tomorrow to discuss the new project budget.',
+            underlined:'do',wrongWord:'do',correctWord:'have',
+            wrongType:'do + meeting (wrong collocation)',correctType:'have a meeting',
+            rule:'"Have a meeting" is the correct collocation. A meeting is an event you hold or experience — it fits the HAVE = experience/hold category. "Have a chat", "have a conversation", "have a discussion" follow the same pattern.',
+            tip:'Social events and conversations go with HAVE: have a meeting, have a chat, have a party, have a discussion. You don\'t do or make them.'}
+        ]
+      },
+      {type:'fill',rubricKey:'fill',title:'Fill in the Blank',subtitle:'Choose make, do, take, or have — in the correct tense.',
+        items:[
+          {template:'You should ___ your homework before you go out this evening.',
+            baseWord:'make / do',answer:'do',targetType:'do + homework',
+            hint:'do / make',
+            explanation:'Homework is an assigned task you carry out → DO. "Make homework" does not exist. "Do your homework" is a fixed collocation — it also works figuratively: "do your research" (investigate something before acting).'},
+          {template:'It is perfectly natural to ___ mistakes when you are learning something new.',
+            baseWord:'make / do',answer:'make',targetType:'make + mistakes',
+            hint:'make / do',
+            explanation:'"Make a mistake" is the only correct collocation. A mistake is a result produced unintentionally. This is one of the most frequent learner errors — always MAKE mistakes, never do or have them.'},
+          {template:'We have been working for three hours — shall we ___ a short break?',
+            baseWord:'take / have',answer:'take',targetType:'take a break',
+            hint:'take / have',
+            explanation:'"Take a break" = initiate a pause — you are beginning an action (TAKE). "Have a break" also exists in British English and means roughly the same thing, but "take a break" is the more universally accepted collocation.'},
+          {template:'More studies need to ___ research into the effects of ultra-processed food on children.',
+            baseWord:'make / do',answer:'do',targetType:'do research',
+            hint:'do / make',
+            explanation:'Research is a task or activity carried out → DO. Never "make research". The full phrase here is "do research into [topic]" — note the preposition INTO for the area being investigated.'},
+          {template:'All students are encouraged to ___ part in the international essay competition.',
+            baseWord:'take / have',answer:'take',targetType:'take part (in)',
+            hint:'take / have',
+            explanation:'"Take part in" = participate in. This is a fixed phrasal collocation. TAKE initiates or enters into an activity. Compare: "take part in" vs "have a go at" — both involve engaging with something, but take part in = participate, have a go at = try something.'}
+        ]
+      },
+      {type:'log',rubricKey:'log',title:'Error Log & Reflection',
+        prompts:[
+          'Write down two make/do collocations you confused before today. Write a full example sentence for each, then note what category (create vs perform) helps you remember which to use.',
+          'In your own words, explain why "make progress" but "do research" — what is the underlying difference between what MAKE and DO signal about the relationship between verb and noun?',
+          'Write three original sentences using take/have collocations from today\'s warmup — set them in a realistic work, study, or everyday context you encounter regularly.'
+        ]
+      }
+    ]
+  },
+
+  b2c1:{
+    label:'B2+–C1',color:'#5A1A8A',light:'#EAD6F7',
+    theme:'Active vs Passive & Hedging I',
+    tagline:'Depersonalise your academic claims and qualify them at the right level',
+    goal:'Today you will: select between active and passive voice in academic prose, use impersonal passive constructions, and apply hedging modals and verbs appropriately.',
+    time:'20–25 min',
+    sections:[
+      {type:'theory3',title:'Warmup: From Spoken to Academic',subtitle:'Three transformations — spot the pattern in each',
+        pairs:[
+          {spoken:'We found that stress makes people eat more.',
+            academic:'It has been found that stress may contribute to increased food consumption.',
+            change:'Impersonal passive (It has been found) + hedging modal (may) + nominalisation (food consumption)'},
+          {spoken:'Researchers think this new treatment works.',
+            academic:'This new treatment appears to yield positive outcomes.',
+            change:'Passive/impersonal subject (treatment as subject) + hedging verb (appears to) + formal verb (yield)'},
+          {spoken:'They wrote the report and it changed everything.',
+            academic:'The report, produced in the preceding period, brought about significant structural change.',
+            change:'Passive participle clause (produced) + formal phrasal verb (brought about) + modified noun phrase (significant structural change)'}
+        ],
+        insight:'Academic writing uses <strong>impersonal passive</strong> to foreground findings over researchers, and <strong>hedging language</strong> (may, appears to, suggests) to avoid over-claiming. Both signal intellectual rigour.'
+      },
+      {type:'spot',rubricKey:'spot',title:'Spot the Error',subtitle:'Each sentence contains one error: passive form, hedging, or voice consistency.',
+        items:[
+          {sentence:'The survey was conducted the researchers at the University of Hanoi in 2024.',
+            underlined:'conducted the researchers',wrongWord:'conducted the researchers',correctWord:'conducted by the researchers',
+            wrongType:'missing "by" in passive',correctType:'passive + by + agent',
+            rule:'In passive constructions, the agent (the doer) must be introduced with BY: "was conducted by the researchers." Without "by", the sentence is grammatically incomplete and ambiguous.',
+            tip:'Passive test: if you can ask "conducted BY whom?" and there is an answer in the sentence, that answer must follow BY. No BY = broken passive.'},
+          {sentence:'It is certain that excessive screen time causes significant declines in academic performance.',
+            underlined:'It is certain that ... causes',wrongWord:'It is certain that',correctWord:'Evidence suggests that',
+            wrongType:'overclaiming — no hedge',correctType:'hedged epistemic framing',
+            rule:'In academic writing, absolute claims like "it is certain" or "causes" (direct causation) are rarely appropriate without overwhelming evidence. Use hedging: "Evidence suggests that excessive screen time may contribute to declines in academic performance."',
+            tip:'Ask: can I actually prove this 100%? If not, hedge. Replace "is certain" → "suggests/indicates"; replace "causes" → "may contribute to/appears to affect".'},
+          {sentence:'The results have showed a clear link between daily exercise and improved mental wellbeing.',
+            underlined:'have showed',wrongWord:'showed',correctWord:'shown',
+            wrongType:'wrong past participle (irregular verb)',correctType:'show → shown (irregular)',
+            rule:'"Show" is irregular: show → showed → shown. In the present perfect ("have + past participle"), the past participle is SHOWN, not "showed". "Showed" is the simple past tense, not the past participle.',
+            tip:'Mnemonic: sHOWn — the past participle grows from the root and adds -n: show → shown. Compare: know → known, grow → grown, blow → blown.'},
+          {sentence:'Although passive voice can used to improve cohesion, it should not overused in a single paragraph.',
+            underlined:'can used ... should not overused',wrongWord:'can used',correctWord:'can be used',
+            wrongType:'missing "be" in modal passive',correctType:'modal + be + past participle',
+            rule:'The passive requires the auxiliary BE after a modal: can BE used, should NOT BE overused. Without BE, the modal is followed directly by a past participle, which is ungrammatical in English.',
+            tip:'Modal passives: modal + BE + past participle. Can be seen. Should be noted. Must be acknowledged. The BE is never optional — it carries the passive meaning.'},
+          {sentence:'The data were carefully collected and then we analysed it using SPSS software.',
+            underlined:'then we analysed it',wrongWord:'we analysed it',correctWord:'then analysed using SPSS software',
+            wrongType:'voice inconsistency (passive → active)',correctType:'passive throughout for consistency',
+            rule:'When a sentence opens with a passive clause ("the data were collected"), maintaining the passive voice in subsequent clauses creates cohesion and keeps the data — not the researcher — as the topic. Switching to active ("we analysed") is jarring and informal.',
+            tip:'One sentence = one voice perspective unless there is a deliberate rhetorical reason to switch. Start passive → stay passive for parallel clauses in the same sentence.'}
+        ]
+      },
+      {type:'fill',rubricKey:'fill',title:'Fill in the Blank',subtitle:'Complete with the correct passive form or hedging expression.',
+        items:[
+          {template:'The findings ___ (publish) in a peer-reviewed journal in the spring of 2024.',
+            baseWord:'publish (passive)',answer:'were published',targetType:'past simple passive',
+            hint:'were / are + published',
+            explanation:'The findings are the subject but did not publish themselves — they were published by someone. Past simple passive: were + past participle. "Were published" (not "have been published", which would imply ongoing relevance to now).'},
+          {template:'Further research ___ (need) to confirm whether these preliminary results are replicable.',
+            baseWord:'need (passive)',answer:'is needed',targetType:'present simple passive',
+            hint:'is / are needed',
+            explanation:'"Research" is singular → "is". Passive because "research" is needed by the field, not the subject doing the needing. "Is needed" is the standard academic formulation meaning "is required/necessary".'},
+          {template:'All participants ___ (inform) of their right to withdraw before the study commenced.',
+            baseWord:'inform (passive)',answer:'were informed',targetType:'past simple passive',
+            hint:'were informed',
+            explanation:'Past simple passive: were + past participle. The participants received information (they were the recipient, not the agent). Correct form: "were informed". This is standard in methods sections of academic papers.'},
+          {template:'This approach ___ (appear) to offer a more sustainable and cost-effective solution than previous methods.',
+            baseWord:'appear (hedging)',answer:'appears',targetType:'hedging verb: appear to',
+            hint:'appears / seemed',
+            explanation:'"Appears to + infinitive" is a hedging structure meaning "seems to" — it qualifies the claim without the writer fully committing to it. Present simple because this is a general, current observation. Not passive — "appears" is the main verb.'},
+          {template:'The study suggests that prolonged isolation ___ contribute to long-term cognitive changes in elderly adults.',
+            baseWord:'may / might / could',answer:'may',targetType:'epistemic hedging modal',
+            hint:'may / might / could',
+            explanation:'Any of may/might/could is acceptable here, but "may" is the most common hedging modal in academic writing. It signals possibility without certainty. "Might" is slightly more tentative; "could" implies theoretical possibility.'}
+        ]
+      },
+      {type:'transform',rubricKey:'transform',title:'Academic Transformation',subtitle:'Rewrite each spoken sentence as formal academic prose. Then reveal the model.',
+        items:[
+          {spoken:'We know that social media is bad for teenagers\' mental health.',
+            hint:'Use: impersonal passive (It is… / It has been…), a hedging modal (may), formal noun phrases',
+            answer:'It is increasingly recognised that social media use may exert adverse effects on adolescent mental health. / It has been established that exposure to social media may be associated with negative mental health outcomes in young people.',
+            keyChange:'Impersonal passive (It is recognised) + hedging modal (may) + formal noun phrases (adolescent mental health, adverse effects)',
+            principle:'Never begin an academic claim with "We know" — shift to impersonal passive to foreground the evidence, not the knower'},
+          {spoken:'They did the whole study in three parts and got really good results.',
+            hint:'Use: passive voice throughout, formal verbs (conduct, yield, comprise), nominalise where possible',
+            answer:'The study was conducted in three distinct phases, yielding promising results. / The investigation was structured in three stages, from which significant findings were obtained.',
+            keyChange:'Passive (was conducted), formal synonyms (phases for parts, yielding for got), no first person, no informal intensifiers (really)',
+            principle:'Methods sections in academic writing use passive to depersonalise procedure; formal synonyms replace informal vocabulary'},
+          {spoken:'This proves that our method is better than the old one.',
+            hint:'Use: a hedging verb (suggests, indicates), a scoped claim (in this context, under these conditions), formal comparative phrasing',
+            answer:'These findings suggest that the proposed method may represent a more effective approach than its predecessor in this context. / The data indicate that the current methodology appears to outperform earlier approaches under the conditions tested.',
+            keyChange:'"Suggests" replaces "proves"; "may represent" hedges the claim; "predecessor" replaces "old one"; scope is explicitly limited',
+            principle:'Academic writing never "proves" — it suggests, indicates, implies, demonstrates. Always scope your claim to the conditions studied'}
+        ]
+      },
+      {type:'log',rubricKey:'log',title:'Error Log & Reflection',
+        prompts:[
+          'Find a sentence in your recent writing where you used "it is clear that", "this proves", or an unhedged active claim. Rewrite it using impersonal passive and an appropriate hedging modal.',
+          'Explain in your own words when to choose passive over active voice in academic writing. Give one example of a sentence that is better in the passive, and explain why.',
+          'Write one original academic sentence about a topic you are currently studying that correctly uses both passive voice and a hedging modal verb.'
+        ]
+      }
+    ]
+  },
+
+  c1c2:{
+    label:'C1+–C2',color:'#8B1A1A',light:'#F5DADA',
+    theme:'Concession & Argumentation I',
+    tagline:'Grant ground strategically — then pivot to a stronger position',
+    goal:'Today you will: distinguish concession from capitulation, eliminate double connectors, scope counter-arguments precisely, and construct three-move arguments.',
+    time:'20–25 min',
+    sections:[
+      {type:'theory4',title:'Warmup: Four Principles of Concession & Argumentation',subtitle:'What separates a C2 argument from a strong B2 one',
+        cards:[
+          {label:'Concession Without Collapse',color:'#8B1A1A',
+            desc:'Acknowledging an opposing view is not the same as agreeing with it. Weak writers either ignore counter-arguments or fully accept them. Strong writers grant specific, limited ground and then demonstrate why their thesis still holds.',
+            fix:'Weak: "Some people say X. They are wrong." Strong: "While X holds in restricted circumstances, a broader analysis of Y suggests that Z remains the more robust position."'},
+          {label:'The Although/But Trap',color:'#7A1515',
+            desc:'Vietnamese learners frequently double-mark concession: "Although X, but Y." This is a direct grammatical transfer from Vietnamese (mặc dù...nhưng). In English, one concessive connector per clause pair is the rule — the second is redundant and incorrect.',
+            fix:'Wrong: "Although the evidence is compelling, but we must remain cautious." Right: "Although the evidence is compelling, we must remain cautious." OR "The evidence is compelling, but we must remain cautious."'},
+          {label:'Fronting the Concession',color:'#6B1212',
+            desc:'Placing a concessive clause at the start of a sentence (fronting) signals intellectual honesty and builds rhetorical ethos. It is more persuasive than burying the counter-argument mid-paragraph because it shows the writer has engaged with opposition seriously.',
+            fix:'Compare: "The policy ultimately failed, although it showed early merit." vs "Admittedly, the policy demonstrated promise in its initial stages; however, sustained implementation proved untenable across all tested contexts."'},
+          {label:'Claiming vs Arguing',color:'#5C0F0F',
+            desc:'A claim states a position. An argument supports a claim with logical reasoning and evidence. C2 writers never simply assert — every substantive claim is followed by a logical connective (because, given that, since, as) and evidentiary support.',
+            fix:'Claim only: "Remote work improves productivity." Argument: "Remote work has been shown to improve productivity, partly because it reduces commute-related fatigue and affords workers greater autonomy over their schedules (cf. Smith & Patel, 2023).'}
+        ]
+      },
+      {type:'spot',rubricKey:'spot',title:'Spot the Error',subtitle:'Each item contains a logical, grammatical, or rhetorical flaw in concession or argumentation. Identify and explain it.',
+        items:[
+          {sentence:'<u>Although</u> the study had a small sample size, <u>but</u> the results were nonetheless statistically significant.',
+            underlined:'Although ... but',wrongWord:'but',correctWord:'[remove "but"]',
+            wrongType:'double concessive connector (although...but)',correctType:'single connector only',
+            rule:'In English, one concessive connector is sufficient: "Although X, Y" OR "X, but Y." Using both ALTHOUGH and BUT in the same clause pair is a grammatical error — a direct transfer from Vietnamese (mặc dù...nhưng). Remove one connector.',
+            tip:'Concession test: can you split it into two sentences? "The sample was small. But the results were significant." Now pick ONE connector to join them — not both.'},
+          {sentence:'<u>While</u> renewable energy sources carry higher upfront costs, <u>however</u> they produce no carbon emissions over their operational lifespan.',
+            underlined:'While ... however',wrongWord:'however',correctWord:'[remove "however" or restructure]',
+            wrongType:'double concessive marker (while...however)',correctType:'while + no second connector',
+            rule:'"While" already marks the concessive relationship at the start. Adding "however" in the main clause is redundant and ungrammatical. Options: "While renewables carry higher upfront costs, they produce no carbon emissions." OR "Renewables carry higher costs; however, they produce no carbon emissions."',
+            tip:'While/although → main clause (no second connector). Independent clause; however, → next clause. Never mix the two patterns in one sentence.'},
+          {sentence:'<u>It is obvious that</u> stricter gun legislation will completely eliminate gun violence in urban areas.',
+            underlined:'It is obvious that ... will completely eliminate',wrongWord:'It is obvious that',correctWord:'Evidence suggests that',
+            wrongType:'overclaim: unhedged certainty + absolute verb',correctType:'hedged epistemic framing + scoped claim',
+            rule:'Two errors: (1) "It is obvious" is a false assertion of certainty — this is a contested empirical claim. (2) "completely eliminate" is an absolute claim unsupported by evidence. Rewrite: "Evidence suggests that stricter gun legislation may contribute to reductions in gun-related violence in certain urban contexts."',
+            tip:'Academic rule: if a reasonable expert could disagree, hedge it. Replace "obvious" → "suggested"; "will eliminate" → "may reduce/contribute to reductions in".'},
+          {sentence:'<u>Admittedly</u>, the revised curriculum has several logistical drawbacks, <u>despite that</u> it should still be adopted by the Ministry of Education.',
+            underlined:'despite that',wrongWord:'despite that',correctWord:'nevertheless / nonetheless',
+            wrongType:'"despite that" — non-standard pivot connector',correctType:'nevertheless / nonetheless / yet',
+            rule:'"Despite that" is non-standard English. After a concessive opening (Admittedly, X), the pivot to the main argument uses: nevertheless, nonetheless, yet, however, or even so. "Despite" is used with a noun phrase or -ing clause, not a full clause: "Despite its drawbacks, it should be adopted."',
+            tip:'Pivot connectors after concession: nevertheless / nonetheless / even so / that said. "Despite" + noun: "Despite the drawbacks." Never "despite that + clause."'},
+          {sentence:'The results <u>clearly prove</u> that meditation reduces anxiety. <u>This means that</u> all medical practitioners must prescribe it immediately.',
+            underlined:'clearly prove ... This means that ... must',wrongWord:'clearly prove',correctWord:'suggest / indicate',
+            wrongType:'overclaim (proves) + unwarranted logical extension',correctType:'hedged claim + scoped conclusion',
+            rule:'Two errors: (1) Research rarely "proves" — it "suggests", "indicates", "supports the hypothesis that". (2) Jumping from "results show X" to "therefore everyone must do Y" is a logical overreach (naturalistic fallacy). The conclusion must be scoped: "These findings suggest meditation may be a beneficial complementary intervention for anxiety management."',
+            tip:'The C2 argumentation chain: evidence → inference → tentative recommendation. Never skip from evidence to mandate. "Proves" → "suggests"; "must" → "might warrant consideration as".'},
+          {sentence:'<u>Some scholars argue</u> that economic growth and environmental sustainability are incompatible. <u>This is wrong</u> because Nordic countries are both wealthy and green.',
+            underlined:'This is wrong',wrongWord:'This is wrong',correctWord:'This view, however, may be overstated',
+            wrongType:'dismissive rebuttal — no engagement with the argument\'s strongest form',correctType:'engage, acknowledge partial merit, then rebut',
+            rule:'Saying "this is wrong" without engaging with the strongest form of the opposing argument is intellectually weak and rhetorically ineffective. A C2 rebuttal acknowledges what the opposing view gets right before explaining why it ultimately fails or is overstated.',
+            tip:'Rebuttal formula: "While [acknowledgement of the strongest version of the opposing view], [evidence or reasoning that complicates or overturns it]." Never dismiss — engage.'}
+        ]
+      },
+      {type:'fill',rubricKey:'fill',title:'Fill in the Blank',subtitle:'Select the most precise connector, hedge, or construction for each context.',
+        items:[
+          {template:'___ the methodology has attracted some criticism, the study\'s findings remain among the most widely cited in the field.',
+            baseWord:'concessive conjunction (fronted)',answer:'Although',targetType:'fronted concessive clause',
+            hint:'Although / Despite / While',
+            explanation:'"Although" or "While" both work for a fronted concessive clause before a full subject-verb structure. "Despite" would need a noun phrase, not a clause ("Despite some criticism, the findings..."). "Although" is slightly more emphatic for formal written concession.'},
+          {template:'The treatment shows considerable promise in early trials; ___, further clinical testing across diverse populations is essential before widespread adoption.',
+            baseWord:'pivot connector (formal, after semicolon)',answer:'nevertheless',targetType:'pivot connector after semicolon',
+            hint:'nevertheless / however / nonetheless / that said',
+            explanation:'After a semicolon, a conjunctive adverb (followed by a comma) creates the pivot. "Nevertheless", "however", "nonetheless", and "that said" all work. "Nevertheless" carries the strongest sense of the counter-argument being genuinely weighty but still not decisive.'},
+          {template:'Some economists contend that globalisation systematically exacerbates income inequality. ___, a growing body of evidence points to its role in lifting millions out of absolute poverty.',
+            baseWord:'contrastive/pivot connector (new sentence)',answer:'Conversely',targetType:'contrast connector (new sentence)',
+            hint:'Conversely / By contrast / However',
+            explanation:'"Conversely" and "By contrast" introduce a genuinely opposite perspective — they are appropriate when the second point directly contradicts the first. "However" is weaker and more general. "Conversely" fits here because the two positions are mirror opposites.'},
+          {template:'The dataset ___ a correlation between urban density and respiratory illness, ___ definitively establishing causation.',
+            baseWord:'suggest + without (not)',answer:'suggests / without',targetType:'hedged claim + scope limitation',
+            hint:'suggests ... without',
+            explanation:'"The dataset suggests a correlation... without definitively establishing causation." This structure — claim + without + -ing clause — is an elegant academic way to acknowledge what evidence does and does not show simultaneously. "Suggests" (not "shows" or "proves") signals appropriate epistemic humility.'},
+          {template:'___ promising in controlled laboratory conditions, the compound has not yet been evaluated in human clinical trials.',
+            baseWord:'non-finite concessive clause',answer:'While',targetType:'fronted non-finite/concessive clause',
+            hint:'While / Although / Despite being',
+            explanation:'"While promising in controlled conditions" is an ellipted (reduced) concessive clause: the full version is "While [it is] promising in controlled conditions." "Although" also works. "Despite being promising" is grammatically correct but slightly more wordy. All three are academically appropriate.'}
+        ]
+      },
+      {type:'transform',rubricKey:'transform',title:'Academic Transformation',subtitle:'Rewrite each sentence or pair using sophisticated concession and argumentation. Reveal the model after your attempt.',
+        items:[
+          {spoken:'People say social media is bad for mental health but that\'s not completely true.',
+            hint:'Use: scoped concession (While X in certain contexts…), hedged pivot, precise academic noun phrases (adolescent mental health outcomes, heavy/compulsive use)',
+            answer:'While compelling evidence associates heavy social media use with adverse mental health outcomes in certain demographics — particularly adolescents with pre-existing vulnerabilities — it would be reductive to characterise the relationship as uniformly harmful across all user groups and platforms. / Although the link between social media and mental health deterioration is well-documented in some populations, emerging research suggests that platform type, usage patterns, and individual resilience factors may moderate these effects significantly.',
+            keyChange:'Concession scoped precisely (heavy use, certain demographics); pivot avoids full dismissal (reductive to characterise as uniformly); hedging throughout',
+            principle:'C2 concession is scoped — grant specific ground (heavy use, vulnerable groups), not the entire opposing position'},
+          {spoken:'Although some people are against nuclear power, we should use it because it\'s clean.',
+            hint:'Use: legitimate acknowledgement of the opposing view at its strongest, pivot with "nevertheless" or "however", substantiated claim with evidence language',
+            answer:'Although legitimate concerns persist regarding nuclear waste disposal, decommissioning costs, and the risks of catastrophic failure, the demonstrably low carbon footprint of nuclear generation — comparable to wind energy over the full lifecycle — positions it as a viable component of any credible decarbonisation strategy, provided robust regulatory oversight is maintained. / While the safety and environmental legacy of nuclear power remain subjects of genuine scientific and policy debate, its capacity to provide consistent base-load electricity with minimal greenhouse gas emissions suggests it merits serious consideration alongside renewables in the transition away from fossil fuels.',
+            keyChange:'"Legitimate concerns persist" acknowledges the strongest version; "demonstrably low carbon footprint" is the substantiated pivot; "provided" adds a condition that shows nuance',
+            principle:'Engage the opposing argument at its strongest — not a strawman. A weaker counter-argument makes a weaker rebuttal'},
+          {spoken:'This proves that economic growth and environmental protection can\'t go together.',
+            hint:'Use: hedge the main claim (suggests rather than proves), introduce a concessive clause that complicates the binary (though / that said), cite counter-evidence (Nordic model, green growth)',
+            answer:'These findings suggest that, in certain industrial and developmental contexts, sustained economic expansion may be difficult to reconcile with stringent environmental protections — though the trajectories of several Nordic economies imply that this tension is neither absolute nor insurmountable, particularly where policy frameworks prioritise green innovation. / While the data indicate a historical tendency for GDP growth to correlate with increased emissions in industrialising economies, emerging evidence from high-income nations that have achieved growth alongside emissions reductions challenges any deterministic view of the relationship.',
+            keyChange:'"Suggests" (not proves); "may be difficult" (hedged); "though" introduces counter-evidence that prevents the argument from being reductive; claim is explicitly scoped',
+            principle:'At C2, the main claim and its own qualification coexist in one sentence — the argument is self-aware, not one-dimensional'}
+        ]
+      },
+      {type:'log',rubricKey:'log',title:'Error Log & Reflection',
+        prompts:[
+          'Locate a paragraph in your own recent writing that makes a direct assertion without any concessive qualification. Rewrite the central claim to include a scoped concession and an appropriate hedge. Note what you changed and why.',
+          'Explain the precise difference between "although", "while", "admittedly", and "that said" as concessive devices. In what rhetorical situations would you choose each one over the others?',
+          'Write a three-sentence academic mini-argument on any topic you know well: Sentence 1 = a scoped concession acknowledging an opposing view. Sentence 2 = a pivot that maintains your thesis. Sentence 3 = a substantiated claim that supports your position.'
+        ]
+      }
+    ]
+  }
+};
+
+/* ── HELPERS ──────────────────────────────────────────────────── */
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function badge(t,c,l){return`<span style="background:${l||LEVELS[AL].light};color:${c||LEVELS[AL].color};padding:2px 8px;border-radius:10px;font-size:11px;font-weight:700;letter-spacing:.5px">${t}</span>`}
+function rubricHTML(key){
+  const rows=RUBRICS[AL][key];
+  if(!rows)return'';
+  let total=rows.reduce((a,b)=>a+b.max,0);
+  let html=`<button class="rub-toggle" onclick="togRub('rub-${key}-${AL}')">📋 Show Rubric (/${total} pts)</button>
+  <table class="rub-table" id="rub-${key}-${AL}">
+  <tr><th>Criterion</th><th>Max</th><th>Description</th></tr>`;
+  rows.forEach(r=>{html+=`<tr><td>${r.criterion}</td><td>${r.max}</td><td>${r.desc}</td></tr>`});
+  html+=`</table>`;return html}
+function togRub(id){const t=document.getElementById(id);if(t)t.classList.toggle('show')}
+function progHTML(key){return`<div class="progress-bar-wrap"><div class="progress-bar" id="pb-${key}-${AL}" style="width:0%"></div></div><div class="progress-label" id="pl-${key}-${AL}">0 / ? answered</div>`}
+function updProg(key,done,total){
+  const pb=document.getElementById(`pb-${key}-${AL}`);
+  const pl=document.getElementById(`pl-${key}-${AL}`);
+  if(pb)pb.style.width=(total?Math.round(done/total*100):0)+'%';
+  if(pl)pl.textContent=`${done} / ${total} answered`}
+function scoreBadge(score,max){
+  const pct=max?score/max:0;
+  const cls=pct>=.8?'score-hi':pct>=.5?'score-mid':'score-lo';
+  return`<span class="score-badge ${cls}">${score}/${max}</span>`}
+
+/* ── RENDERERS ─────────────────────────────────────────────────── */
+function rTheory(sec){
+  let h=`<div class="theory-grid">`;
+  sec.cards.forEach(c=>{
+    h+=`<div class="theory-card" style="border-left-color:${c.color}">
+      <div class="tc-head">
+        <span class="tc-label">${esc(c.label)}</span>
+        <span class="tc-badge" style="background:${LEVELS[AL].light};color:${LEVELS[AL].color}">${esc(c.badge)}</span>
+      </div>
+      <div class="tc-examples">${esc(c.examples)}</div>
+      <div class="tc-rule">${esc(c.rule)}</div>
+    </div>`;
+  });
+  h+=`</div>`;return h}
+
+function rTheory2(sec){
+  let h=`<div class="theory2-grid">`;
+  sec.groups.forEach(g=>{
+    h+=`<div class="t2-card" style="border-left-color:${g.color}">
+      <div class="t2-head" style="color:${g.color}">${esc(g.label.toUpperCase())}</div>
+      <div class="t2-chips">${g.verbs.map(v=>`<span class="t2-chip" style="background:${LEVELS[AL].light};color:${LEVELS[AL].color}">${esc(v)}</span>`).join('')}</div>
+      <div class="t2-memory">🧠 ${esc(g.memory)}</div>
+      <div class="t2-example">${esc(g.example)}</div>
+    </div>`;
+  });
+  h+=`</div>`;return h}
+
+function rTheory3(sec){
+  let h=`<div class="theory3-pairs">`;
+  sec.pairs.forEach((p,i)=>{
+    h+=`<div class="t3-pair">
+      <div class="t3-row">
+        <div class="t3-box t3-spoken"><div class="t3-box-label">Spoken / Informal</div>${esc(p.spoken)}</div>
+        <div class="t3-box t3-academic" style="background:${LEVELS[AL].light};border-color:${LEVELS[AL].color}"><div class="t3-box-label" style="color:${LEVELS[AL].color}">Academic</div>${esc(p.academic)}</div>
+      </div>
+      <div class="t3-change">🔄 ${esc(p.change)}</div>
+    </div>`;
+  });
+  h+=`</div><div class="t3-insight">💡 Key Principle: ${sec.insight}</div>`;return h}
+
+function rTheory4(sec){
+  let h=`<div class="theory4-grid">`;
+  sec.cards.forEach(c=>{
+    h+=`<div class="t4-card" style="border-left-color:${c.color}">
+      <div class="t4-label" style="color:${c.color}">${esc(c.label)}</div>
+      <div class="t4-desc">${esc(c.desc)}</div>
+      <div class="t4-fix">${esc(c.fix)}</div>
+    </div>`;
+  });
+  h+=`</div>`;return h}
+
+function rSpot(sec,si){
+  const k=`${AL}-${si}`;
+  let h=rubricHTML('spot')+progHTML('spot');
+  h+=`<div class="spot-list">`;
+  sec.items.forEach((it,i)=>{
+    const ck=`${k}-${i}`;
+    const sent=it.sentence;
+    h+=`<div class="spot-item" id="spot-${ck}">
+      <div style="font-size:11px;color:#999;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Sentence ${i+1}</div>
+      <div class="spot-sentence">${sent}</div>
+      <div style="font-size:12px;color:#777;margin-bottom:6px">Which word/phrase is wrong? Select one:</div>
+      <div class="spot-choices">
+        <div class="spot-choice" id="sc-${ck}-w" onclick="spotPick('${ck}','w')">${esc(it.wrongWord)}</div>
+        <div class="spot-choice" id="sc-${ck}-r" onclick="spotPick('${ck}','r')">${esc(it.correctWord)}</div>
+        <div class="spot-choice" id="sc-${ck}-na" onclick="spotPick('${ck}','na')">No error</div>
+      </div>
+      <button class="spot-check-btn" onclick="calcSpot('${ck}','${esc(it.wrongWord)}','${esc(it.rule)}','${esc(it.tip)}','${esc(it.correctWord)}','${esc(it.wrongType)}','${esc(it.correctType)}')">Check</button>
+      <div class="spot-feedback" id="sf-${ck}"></div>
+    </div>`;
+  });
+  h+=`</div>`;return h}
+
+function spotPick(ck,choice){
+  ST.choices[ck]=choice;
+  ['w','r','na'].forEach(c=>{
+    const el=document.getElementById(`sc-${ck}-${c}`);
+    if(el)el.classList.toggle('selected',c===choice);
+  });}
+
+function calcSpot(ck,wrongW,rule,tip,correctW,wrongT,correctT){
+  const choice=ST.choices[ck];
+  if(!choice){alert('Please select an option first.');return;}
+  const fb=document.getElementById(`sf-${ck}`);
+  if(!fb)return;
+  const ok=choice==='w';
+  fb.className='spot-feedback show '+(ok?'ok':'err');
+  fb.innerHTML=ok
+    ?`<strong>✓ Correct!</strong> "${wrongW}" is wrong (${wrongT}) → should be "${correctW}" (${correctT}).<div class="spot-rule">📖 ${rule}</div><div class="spot-tip">💡 Tip: ${tip}</div>`
+    :`<strong>✗ Not quite.</strong> The error is "${wrongW}" — it should be "${correctW}".<div class="spot-rule">📖 ${rule}</div><div class="spot-tip">💡 Tip: ${tip}</div>`;
+  ST.checked[ck]=ok;
+  const prefix=ck.substring(0,ck.lastIndexOf('-'));
+  updateSpotProg(prefix);}
+
+function updateSpotProg(prefix){
+  const lv=LEVELS[AL];const si=AS;
+  const sec=lv.sections[si];if(!sec||sec.type!=='spot')return;
+  const total=sec.items.length;
+  const k=`${AL}-${si}`;
+  let done=0;
+  sec.items.forEach((_,i)=>{if(ST.checked[`${k}-${i}`]!==undefined)done++;});
+  updProg('spot',done,total);}
+
+function rFill(sec,si){
+  const k=`${AL}-${si}`;
+  let h=rubricHTML('fill')+progHTML('fill');
+  h+=`<div class="fill-list">`;
+  sec.items.forEach((it,i)=>{
+    const ck=`${k}-${i}`;
+    h+=`<div class="fill-item">
+      <div class="fill-top">
+        <div class="fill-num">${i+1}</div>
+        <div class="fill-template">${esc(it.template.replace('___','<strong>[&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;]</strong>'))}</div>
+      </div>
+      <div class="fill-base">Word pair / base: <em>${esc(it.baseWord)}</em></div>
+      <div class="fill-input-row">
+        <input class="fill-input" id="fi-${ck}" placeholder="${esc(it.hint)}" onkeydown="if(event.key==='Enter')fillChk('${ck}','${esc(it.answer)}','${esc(it.explanation)}','${esc(it.targetType)}')">
+        <button class="fill-chk-btn" onclick="fillChk('${ck}','${esc(it.answer)}','${esc(it.explanation)}','${esc(it.targetType)}')">Check</button>
+      </div>
+      <div class="fill-fb" id="ff-${ck}"></div>
+    </div>`;
+  });
+  h+=`</div>`;return h}
+
+function fillChk(ck,ans,expl,type){
+  const inp=document.getElementById(`fi-${ck}`);if(!inp)return;
+  const val=inp.value.trim().toLowerCase();
+  const correct=ans.toLowerCase().split('/').map(s=>s.trim());
+  const ok=correct.some(c=>val===c);
+  inp.className='fill-input '+(ok?'correct':'wrong');
+  const fb=document.getElementById(`ff-${ck}`);if(!fb)return;
+  fb.className='fill-fb show '+(ok?'ok':'err');
+  fb.innerHTML=ok
+    ?`<strong>✓ Correct!</strong> <em>${esc(ans)}</em> — ${esc(type)}. ${esc(expl)}`
+    :`<strong>✗</strong> You wrote: <em>${esc(inp.value)}</em>. Correct answer: <strong>${esc(ans)}</strong> (${esc(type)}). ${esc(expl)}`;
+  ST.inputs[ck]={val:inp.value,ok};
+  calcFill(ck);}
+
+function calcFill(ck){
+  const prefix=ck.substring(0,ck.lastIndexOf('-'));
+  const lv=LEVELS[AL];const si=AS;
+  const sec=lv.sections[si];if(!sec||sec.type!=='fill')return;
+  const total=sec.items.length;
+  const k=`${AL}-${si}`;
+  let done=0;
+  sec.items.forEach((_,i)=>{if(ST.inputs[`${k}-${i}`])done++;});
+  updProg('fill',done,total);}
+
+function rTransform(sec,si){
+  const k=`${AL}-${si}`;
+  let h=rubricHTML('transform');
+  h+=`<div class="transform-list">`;
+  sec.items.forEach((it,i)=>{
+    const ck=`${k}-${i}`;
+    h+=`<div class="tr-item">
+      <div class="tr-spoken"><div class="tr-spoken-label">Spoken / Informal</div>${esc(it.spoken)}</div>
+      <div class="tr-hint">Use: <span>${esc(it.hint)}</span></div>
+      <textarea class="tr-textarea" id="tr-${ck}" placeholder="Write your academic version here…" oninput="saveTr('${ck}')"></textarea>
+      <div class="tr-btn-row">
+        <button class="tr-save-btn" onclick="saveTr('${ck}')">Save</button>
+        <button class="tr-reveal-btn" onclick="revealTr('${ck}','${esc(it.answer)}','${esc(it.keyChange)}','${esc(it.principle)}')">Reveal Model</button>
+      </div>
+      <div class="tr-model" id="trm-${ck}"></div>
+    </div>`;
+  });
+  h+=`</div>`;return h}
+
+function saveTr(ck){
+  const t=document.getElementById(`tr-${ck}`);
+  if(t)ST.inputs[`tr-${ck}`]=t.value;}
+
+function revealTr(ck,ans,key,princ){
+  saveTr(ck);
+  const m=document.getElementById(`trm-${ck}`);if(!m)return;
+  m.className='tr-model show';
+  m.innerHTML=`<div class="tr-model-label">Model Answer</div>${esc(ans)}<div class="tr-key">🔄 Key change: ${esc(key)}</div><div class="tr-principle">📐 Principle: ${esc(princ)}</div>`;}
+
+function rLog(sec,si){
+  const k=`${AL}-${si}`;
+  let h=rubricHTML('log')+`<div id="log-cards-${k}">`;
+  sec.prompts.forEach((p,i)=>{
+    const ck=`${k}-${i}`;
+    h+=`<div class="log-card">
+      <div class="log-prompt">${i+1}. ${esc(p)}</div>
+      <textarea class="log-textarea" id="log-${ck}" placeholder="Write your response here…" oninput="saveLog('${ck}')"></textarea>
+      <button class="log-save-btn" onclick="saveLog('${ck}')">Save</button>
+      <div class="log-saved" id="ls-${ck}">✓ Saved</div>
+    </div>`;
+  });
+  h+=`</div><button class="log-all-btn" onclick="saveLogAll('${k}',${sec.prompts.length})">Save All Reflections</button>`;
+  return h;}
+
+function saveLog(ck){
+  const t=document.getElementById(`log-${ck}`);
+  const s=document.getElementById(`ls-${ck}`);
+  if(t){ST.logs[ck]=t.value;}
+  if(s){s.classList.add('show');setTimeout(()=>s.classList.remove('show'),2000);}}
+
+function saveLogAll(k,n){
+  for(let i=0;i<n;i++)saveLog(`${k}-${i}`);}
+
+/* ── RENDERING CORE ────────────────────────────────────────────── */
+function renderSec(i){
+  AS=i;
+  const lv=LEVELS[AL];
+  const sec=lv.sections[i];
+  if(!sec)return;
+  const main=document.getElementById('main');
+  let content='';
+  switch(sec.type){
+    case'theory':   content=rTheory(sec);break;
+    case'theory2':  content=rTheory2(sec);break;
+    case'theory3':  content=rTheory3(sec);break;
+    case'theory4':  content=rTheory4(sec);break;
+    case'spot':     content=rSpot(sec,i);break;
+    case'fill':     content=rFill(sec,i);break;
+    case'transform':content=rTransform(sec,i);break;
+    case'log':      content=rLog(sec,i);break;
+  }
+  main.innerHTML=`
+    <div class="sec-header">
+      <h2>${esc(sec.title)}</h2>
+      ${sec.subtitle?`<p>${esc(sec.subtitle)}</p>`:''}
+    </div>
+    ${content}`;
+  buildSecNav();
+  window.scrollTo(0,0);}
+
+function buildSecNav(){
+  const lv=LEVELS[AL];
+  const nav=document.getElementById('secNav');
+  nav.innerHTML=lv.sections.map((s,i)=>`<button class="sec-btn${i===AS?' active':''}" onclick="navSec(${i})">${esc(s.title)}</button>`).join('');}
+
+function navSec(i){renderSec(i);}
+
+function buildLvTabs(){
+  const tabs=document.getElementById('lvTabs');
+  tabs.innerHTML=Object.keys(LEVELS).map(k=>{
+    const lv=LEVELS[k];
+    return`<button class="lv-tab${k===AL?' active':''}" onclick="switchLv('${k}')">${esc(lv.label)}</button>`;
+  }).join('');}
+
+function applyLevel(lv){
+  const l=LEVELS[lv];
+  document.documentElement.style.setProperty('--lc',l.color);
+  document.documentElement.style.setProperty('--ll',l.light);}
+
+function switchLv(lv){
+  AL=lv;AS=0;
+  applyLevel(lv);
+  buildLvTabs();
+  renderSec(0);}
+
+/* ── DOWNLOAD ──────────────────────────────────────────────────── */
+function handleDownload(){
+  const lv=LEVELS[AL];
+  const now=new Date();
+  let txt=`HUONG STELLA PARADIGM — DAILY DRILLS DAY 2\n`;
+  txt+=`Level: ${lv.label} | Theme: ${lv.theme}\n`;
+  txt+=`Generated: ${now.toISOString()}\n`;
+  txt+=`${'='.repeat(60)}\n\n`;
+
+  // Spot answers
+  txt+=`SPOT THE ERROR RESPONSES\n${'-'.repeat(40)}\n`;
+  lv.sections.forEach((sec,si)=>{
+    if(sec.type==='spot'){
+      sec.items.forEach((it,i)=>{
+        const ck=`${AL}-${si}-${i}`;
+        const choice=ST.choices[ck]||'(no answer)';
+        const ok=ST.checked[ck];
+        txt+=`Q${i+1}: ${it.sentence.replace(/<[^>]+>/g,'')}\n`;
+        txt+=`  Your choice: ${choice==='w'?it.wrongWord:choice==='r'?it.correctWord:'No error'}\n`;
+        txt+=`  Result: ${ok===true?'✓ Correct':ok===false?'✗ Incorrect':'Not checked'}\n\n`;
+      });
+    }
+  });
+
+  // Fill answers
+  txt+=`\nFILL IN THE BLANK RESPONSES\n${'-'.repeat(40)}\n`;
+  lv.sections.forEach((sec,si)=>{
+    if(sec.type==='fill'){
+      sec.items.forEach((it,i)=>{
+        const ck=`${AL}-${si}-${i}`;
+        const data=ST.inputs[ck];
+        txt+=`Q${i+1}: ${it.template}\n`;
+        txt+=`  Your answer: ${data?data.val:'(no answer)'}\n`;
+        txt+=`  Correct: ${it.answer}\n`;
+        txt+=`  Result: ${data?(data.ok?'✓ Correct':'✗ Incorrect'):'Not checked'}\n\n`;
+      });
+    }
+  });
+
+  // Transform
+  txt+=`\nACADEMIC TRANSFORMATIONS\n${'-'.repeat(40)}\n`;
+  lv.sections.forEach((sec,si)=>{
+    if(sec.type==='transform'){
+      sec.items.forEach((it,i)=>{
+        const ck=`tr-${AL}-${si}-${i}`;
+        txt+=`Spoken: ${it.spoken}\n`;
+        txt+=`Your version: ${ST.inputs[ck]||'(not attempted)'}\n`;
+        txt+=`Model: ${it.answer}\n\n`;
+      });
+    }
+  });
+
+  // Logs
+  txt+=`\nERROR LOG & REFLECTION\n${'-'.repeat(40)}\n`;
+  lv.sections.forEach((sec,si)=>{
+    if(sec.type==='log'){
+      sec.prompts.forEach((p,i)=>{
+        const ck=`${AL}-${si}-${i}`;
+        txt+=`Prompt ${i+1}: ${p}\n`;
+        txt+=`Response: ${ST.logs[ck]||'(not written)'}\n\n`;
+      });
+    }
+  });
+
+  const blob=new Blob([txt],{type:'text/plain'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download=`HuongStella_DailyDrill_Day2_${AL}_${now.toISOString().slice(0,10)}.txt`;
+  a.click();URL.revokeObjectURL(url);}
+
+/* ── INIT ──────────────────────────────────────────────────────── */
+function init(){
+  document.title='Daily Drills 2';
+  applyLevel(AL);
+  buildLvTabs();
+  renderSec(0);}
+
+window.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
