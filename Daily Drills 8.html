@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Drills 8</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#F4F2EF;color:#1A1A1A;min-height:100vh}
+button,textarea,input{font-family:'Inter',sans-serif}
+button{cursor:pointer}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+#app-header{background:#111;border-bottom:3px solid var(--lc,#2D6A4F);transition:border-color .3s}
+.header-inner{max-width:740px;margin:0 auto;padding:16px 20px 0}
+.brand-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.logo-mark{display:flex;align-items:center;gap:10px}
+.logo-text-main{font-size:13px;font-weight:900;color:#fff;line-height:1.1}
+.logo-text-sub{font-size:9px;font-weight:700;color:#E8C84A;letter-spacing:3px;text-transform:uppercase}
+.brand-right{text-align:right}
+.brand-right .dd-title{font-size:17px;font-weight:900;color:#fff;letter-spacing:-.5px}
+.brand-right .dd-sub{font-size:10px;color:#E8C84A;letter-spacing:2px;text-transform:uppercase}
+.lesson-label{font-size:11px;letter-spacing:3px;color:#555;text-transform:uppercase;margin-bottom:3px}
+.lesson-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:3px}
+.lesson-meta{font-size:12px;color:#888;margin-bottom:14px}
+.level-tabs{display:flex}
+.level-tab{padding:8px 18px;border:none;border-bottom:3px solid transparent;background:none;color:#555;font-weight:500;font-size:13px;transition:all .2s}
+.level-tab.active{border-bottom-color:var(--lc);color:var(--lc);font-weight:700}
+.main-body{max-width:740px;margin:0 auto;padding:20px 20px 16px}
+.goal-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap}
+.goal-box{flex:1;border-radius:12px;padding:12px 16px;min-width:240px;border:1px solid rgba(0,0,0,.08)}
+.goal-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.goal-text{font-size:12px;color:#333;line-height:1.6}
+.dl-btn{background:var(--lc);color:#fff;border:none;border-radius:12px;padding:12px 18px;font-size:12px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:110px;transition:opacity .2s}
+.dl-btn:hover{opacity:.88}
+.dl-btn .ic{font-size:20px}
+.dl-btn .sb{font-size:10px;opacity:.8}
+.sec-nav{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:2px}
+.sec-tab{padding:7px 14px;border-radius:20px;border:1.5px solid #DDD;background:#fff;color:#555;font-size:12px;font-weight:500;white-space:nowrap;transition:all .2s}
+.sec-tab.active{background:var(--lc);border-color:var(--lc);color:#fff;font-weight:700}
+.sec-title{font-size:16px;font-weight:800;color:#1A1A1A;margin-bottom:2px}
+.sec-subtitle{font-size:13px;color:#666;margin-bottom:18px}
+.theory-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.th-card{background:#fff;border-radius:12px;border:1.5px solid rgba(0,0,0,.08);padding:14px 16px}
+.th-head{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.tbadge{border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+.th-rule{font-size:12px;color:#555;margin-bottom:6px;line-height:1.5}
+.th-ex{font-size:11px;color:#888;font-style:italic;font-family:'JetBrains Mono',monospace}
+.g-card{background:#fff;border-radius:12px;padding:14px 18px;margin-bottom:10px}
+.g-title{font-weight:800;font-size:14px;margin-bottom:8px}
+.verbs-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.v-chip{border-radius:6px;padding:2px 10px;font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:600}
+.g-mem{font-size:12px;color:#666;margin-bottom:6px;font-style:italic}
+.g-ex{font-size:12px;color:#333;background:#F7F6F3;border-radius:6px;padding:6px 10px;font-family:'JetBrains Mono',monospace}
+.pair-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;overflow:hidden;margin-bottom:10px}
+.pair-sp{padding:12px 16px;border-left:3px solid #CCC}
+.pair-sp-lbl{font-size:10px;color:#999;margin-bottom:3px;font-weight:700;letter-spacing:1px}
+.pair-sp-txt{font-size:13px;color:#555;font-style:italic}
+.pair-ac{padding:12px 16px;border-left:3px solid var(--lc)}
+.pair-ac-lbl{font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:3px}
+.pair-ac-txt{font-size:13px;font-weight:600;color:#222}
+.pair-chg{font-size:11px;color:#888;margin-top:4px;font-family:'JetBrains Mono',monospace}
+.insight{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;color:#fff}
+.rub-toggle{display:flex;align-items:center;gap:8px;background:none;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;margin-bottom:12px;color:var(--lc)}
+.rub-panel{border-radius:10px;padding:12px 16px;margin-bottom:16px;display:none}
+.rub-panel.open{display:block}
+.rub-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid rgba(0,0,0,.08)}
+.rub-row:last-child{padding-bottom:0;margin-bottom:0;border-bottom:none}
+.rub-crit{font-size:13px;font-weight:700;margin-bottom:2px}
+.rub-desc{font-size:11px;color:#666}
+.rub-pts{color:#fff;border-radius:6px;padding:2px 10px;font-size:12px;font-weight:800;white-space:nowrap;background:var(--lc)}
+.prog-wrap{margin-bottom:12px}
+.prog-bg{background:#E8E5E0;border-radius:99px;height:5px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;transition:width .4s;background:var(--lc)}
+.prog-lbl{font-size:11px;color:#999;margin-top:3px}
+.spot-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:12px;overflow:hidden;transition:border-color .2s}
+.spot-num{font-size:11px;color:#999;margin-bottom:6px;font-weight:600;letter-spacing:1px}
+.spot-top{padding:14px 18px 10px}
+.spot-sen{font-size:15px;color:#1A1A1A;line-height:1.7}
+.ul-word{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#AAA}
+.ul-word.revealed{text-decoration-color:#CC3333;color:#CC3333;font-weight:700}
+.spot-acts{padding:0 18px 14px;display:flex;gap:8px;align-items:center}
+.spot-acts span{font-size:12px;color:#777}
+.btn-wrong{background:#FEE2E2;border:1px solid #FCA5A5;color:#CC3333;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700}
+.btn-right{background:#DCFCE7;border:1px solid #86EFAC;color:#1A7A3A;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700}
+.spot-ans{border-top:1px solid rgba(0,0,0,.08);padding:12px 18px;display:none}
+.spot-ans.open{display:block}
+.ans-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.wrong-wd{font-size:12px;color:#CC3333;text-decoration:line-through;font-style:italic}
+.corr-wd{font-size:13px;color:#1A7A3A;font-weight:700}
+.arr{color:#999}
+.ans-rule{font-size:12px;color:#444;margin-bottom:8px;line-height:1.5}
+.ans-tip{background:#fff;border-radius:6px;padding:6px 10px;font-size:12px;font-style:italic}
+.sc-inline{margin-top:8px;font-size:12px;font-weight:700;display:none}
+.sc-inline.good{color:#1A7A3A}
+.sc-inline.bad{color:#CC3333}
+.warn-miss{font-size:12px;color:#CC3333;font-weight:600;margin-top:6px;display:none}
+.fill-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:12px;overflow:hidden}
+.fill-card.ok{border-color:#22C55E}
+.fill-card.no{border-color:#EF4444}
+.fill-body{padding:14px 18px}
+.fill-base{font-size:11px;color:#999;margin-bottom:8px;font-weight:600;letter-spacing:1px}
+.fill-tmpl{font-size:14px;color:#1A1A1A;line-height:1.8;margin-bottom:12px}
+.fill-irow{display:flex;gap:8px;align-items:center}
+.fill-inp{flex:1;padding:8px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:14px;outline:none;transition:border-color .2s}
+.fill-inp.ok{background:#F0FDF4;border-color:#22C55E}
+.fill-inp.no{background:#FEF2F2;border-color:#EF4444}
+.fill-chk{background:var(--lc);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700}
+.fill-ic{font-size:20px}
+.fill-ans{border-top:1px solid rgba(0,0,0,.08);padding:10px 18px;display:none}
+.fill-ans.open{display:block}
+.fill-ca{font-size:13px;font-weight:700;color:#1A7A3A;margin-bottom:4px}
+.fill-expl{font-size:12px;color:#444;line-height:1.5}
+.tr-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:14px;overflow:hidden}
+.tr-body{padding:14px 18px}
+.tr-num{font-size:11px;color:#999;margin-bottom:8px;font-weight:600;letter-spacing:1px}
+.tr-spoken{background:#F5F3F0;border-radius:8px;padding:10px 14px;font-size:14px;color:#444;margin-bottom:12px;font-style:italic;border-left:3px solid #CCC}
+.tr-hint{font-size:12px;color:#777;margin-bottom:10px}
+.tr-ta{width:100%;padding:8px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:13px;resize:vertical;outline:none;line-height:1.6;transition:border-color .2s}
+.tr-reveal{background:var(--lc);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;margin-top:8px}
+.tr-ans{border-top:1px solid rgba(0,0,0,.08);padding:12px 18px;display:none}
+.tr-ans.open{display:block}
+.model-lbl{font-size:12px;font-weight:700;color:#999;margin-bottom:4px}
+.model-txt{font-size:13px;color:#1A1A1A;font-weight:600;line-height:1.6;margin-bottom:8px}
+.kc-chip{background:#fff;border-radius:6px;padding:4px 10px;font-size:11px;display:inline-block;margin-bottom:6px}
+.princ{font-size:12px;color:#555;font-style:italic;line-height:1.5}
+.log-note{background:#FFFBEB;border:1px solid #FCD34D;border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#92400E}
+.log-prompt{margin-bottom:14px}
+.log-lbl{display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:6px}
+.log-ta{width:100%;padding:10px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:13px;resize:vertical;outline:none;line-height:1.6;transition:border-color .2s}
+.log-save{border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:700;color:#fff;background:var(--lc);transition:background .2s}
+.score-badge{background:#fff;border-radius:12px;padding:14px 20px;text-align:center;margin-bottom:16px;margin-top:4px;border:2px solid var(--lc)}
+.score-badge .slbl{font-size:11px;color:#999;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.score-badge .snum{font-size:32px;font-weight:900;color:var(--lc)}
+.score-badge .snum .den{font-size:16px;font-weight:400;color:#999}
+.score-badge .sgrade{font-size:13px;font-weight:700;margin-top:2px}
+.score-cta{background:var(--lc);color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:800;width:100%;margin-top:4px;display:none}
+.warn-box{background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#92400E}
+.sec-nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:20px;border-top:1px solid #E2DDD8}
+.nav-btn{border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;border:none}
+.nav-prev{background:#fff;border:1.5px solid #DDD;color:#333}
+.nav-prev:disabled{color:#CCC}
+.nav-next{background:var(--lc);color:#fff;font-weight:700}
+.nav-next:disabled{background:#E8E5E0;color:#AAA}
+.nav-cnt{font-size:12px;color:#999}
+#app-footer{background:#1A1A1A;border-top:1px solid #2A2A2A;padding:24px 20px}
+.footer-inner{max-width:740px;margin:0 auto}
+.disc-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+.ai-badge{background:#2A2A2A;border:1px solid rgba(232,200,74,.3);border-radius:8px;padding:6px 10px;font-size:11px;color:#E8C84A;font-weight:800;letter-spacing:1px;white-space:nowrap}
+.disc-txt{font-size:12px;color:#666;line-height:1.7}
+.disc-txt strong{color:#AAA}
+.disc-txt .bn{color:#E8C84A}
+.footer-bot{border-top:1px solid #2A2A2A;padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-logo{display:flex;align-items:center;gap:8px}
+.footer-copy{font-size:11px;color:#444}
+@media(max-width:520px){.theory-grid{grid-template-columns:1fr}.goal-row{flex-direction:column}.dl-btn{width:100%;flex-direction:row}.brand-row{flex-direction:column;gap:10px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header id="app-header">
+<div class="header-inner">
+  <div class="brand-row">
+    <div class="logo-mark">
+      <div><div class="logo-text-main">HUONG STELLA PARADIGM</div></div>
+    </div>
+  </div>
+  <div class="lesson-label">Day 8 · Interactive Practice</div>
+  <div class="lesson-title" id="hdr-theme"></div>
+  <div class="lesson-meta" id="hdr-meta"></div>
+  <div class="level-tabs" id="level-tabs"></div>
+</div>
+</header>
+<main>
+<div class="main-body">
+  <div class="goal-row">
+    <div class="goal-box" id="goal-box">
+      <div class="goal-label" id="goal-label">Today's Objectives</div>
+      <div class="goal-text" id="goal-text"></div>
+    </div>
+    <button class="dl-btn" onclick="handleDownload()">
+      <span class="ic">&#x2B07;&#xFE0F;</span><span>Download Report</span><span class="sb">Your answers + Model answers</span>
+    </button>
+  </div>
+  <div class="sec-nav" id="sec-nav"></div>
+  <div class="sec-title" id="sec-title"></div>
+  <div class="sec-subtitle" id="sec-sub"></div>
+  <div id="sec-content"></div>
+  <div class="sec-nav-row">
+    <button class="nav-btn nav-prev" id="btn-prev" onclick="navSec(-1)">&#x2190; Previous</button>
+    <span class="nav-cnt" id="nav-cnt"></span>
+    <button class="nav-btn nav-next" id="btn-next" onclick="navSec(1)">Next &#x2192;</button>
+  </div>
+</div>
+</main>
+<footer id="app-footer">
+<div class="footer-inner">
+  <div class="disc-row">
+    <div class="ai-badge">AI-ASSISTED</div>
+    <div class="disc-txt">
+      This material is produced with AI support as part of the <span class="bn">Huong Stella Paradigm</span> academic programme. Content has been reviewed against pedagogical standards; however, learners are advised to <strong>cross-reference with authoritative sources</strong> and <strong>consult their instructor</strong> for clarification. Auto-scoring is indicative only and does not replace teacher assessment.
+    </div>
+  </div>
+  <div class="footer-bot">
+    <div class="footer-logo">
+      <span style="font-size:12px;color:#888;font-weight:700;letter-spacing:.5px">HUONG STELLA PARADIGM</span>
+      <span style="font-size:11px;color:#444">· Daily Drills</span>
+    </div>
+  </div>
+</div>
+</footer>
+<script>
+
+const RUBRICS={
+a2b1:{
+spot:[
+{criterion:"Identify the error accurately",max:1,desc:"Pinpoint which word or phrase is wrong and why it cannot be used here"},
+{criterion:"State the correct form or word",max:1,desc:"Supply the exact correction — no spelling errors"},
+{criterion:"Explain the reported-speech rule violated",max:1,desc:"Name the specific rule: tense backshift, say vs tell, pronoun shift, question structure"}
+],
+fill:[
+{criterion:"Correct backshift or structural form",max:1,desc:"Apply the right tense shift or pattern (will→would, is→was, say→told, etc.)"},
+{criterion:"Spelling accuracy",max:1,desc:"No spelling errors in the answer"},
+{criterion:"Contextual fit",max:1,desc:"The inserted word or phrase is logical within the full sentence structure"}
+],
+log:[
+{criterion:"Record a specific error with correction",max:2,desc:"State exactly which rule you violated and rewrite the corrected sentence"},
+{criterion:"Explain why the error happens",max:2,desc:"Name the root cause: direct transfer from Vietnamese? Confusion about tense? Say/tell?"},
+{criterion:"Compose an original correct example",max:2,desc:"Write a new sentence demonstrating the rule correctly — not copied from the exercises"}
+]
+},
+b1b2:{
+spot:[
+{criterion:"Identify the wrong verb pattern",max:1,desc:"Name whether the error is gerund, to-inf, or wrong preposition"},
+{criterion:"Supply the correct pattern accurately",max:2,desc:"Write the corrected form — correct spelling and structure"},
+{criterion:"Explain the rule for that verb",max:1,desc:"State why the verb takes that pattern (commitment, event-treated-as-fact, etc.)"}
+],
+fill:[
+{criterion:"Choose gerund vs to-infinitive correctly",max:2,desc:"Do not confuse the two verb patterns"},
+{criterion:"Form the verb correctly (spelling and structure)",max:1,desc:"V-ing or to + base form — exactly right"},
+{criterion:"Sentence is grammatically complete",max:1,desc:"The full sentence is coherent and natural, not just the inserted verb"}
+],
+log:[
+{criterion:"Produce original sentences using the correct patterns",max:2,desc:"Self-composed sentences are grammatically accurate and natural"},
+{criterion:"Identify your most frequent pattern error",max:2,desc:"Honest self-assessment: which verbs do you confuse?"},
+{criterion:"Naturalness of the example sentences",max:2,desc:"Sentences are not only grammatically correct but also plausible in real life"}
+]
+},
+b2c1:{
+spot:[
+{criterion:"Identify the wrong reporting verb or preposition",max:1,desc:"Name the exact error: wrong verb register, wrong preposition, wrong verb form"},
+{criterion:"Provide the academically appropriate replacement",max:2,desc:"The replacement must be natural and correct in academic writing"},
+{criterion:"Explain the register or meaning issue",max:2,desc:"Address why the original fails: too informal, epistemically wrong, wrong preposition pattern"}
+],
+transform:[
+{criterion:"Academic reporting verb is epistemically accurate",max:2,desc:"The verb faithfully represents the source's stance — not too strong, not too weak"},
+{criterion:"Sentence structure is academic",max:2,desc:"Integral citation, correct clause structure, appropriate nominalisation"},
+{criterion:"Natural and idiomatic academic collocation",max:2,desc:"Word combinations read as authentic academic English"},
+{criterion:"No informal register or Vietlish",max:2,desc:"Eliminate casual language, literal translation, and imprecise vocabulary"}
+],
+log:[
+{criterion:"Paragraph uses at least 2 different academic reporting verbs",max:3,desc:"Verbs are varied and epistemically calibrated to the claims being made"},
+{criterion:"Consistent academic register throughout",max:2,desc:"No register mixing — no 'say', 'think', or 'people believe' in the academic paragraph"},
+{criterion:"Self-identify remaining weaknesses",max:2,desc:"Specific, named targets — which verbs or structures are still uncertain?"}
+]
+},
+c1c2:{
+spot:[
+{criterion:"Diagnose the attribution or discourse failure",max:2,desc:"Go beyond surface error to identify the epistemic, rhetorical, or argumentative problem"},
+{criterion:"Propose a restructured version with commentary",max:3,desc:"Rewrite is not just corrected but genuinely improved in precision and credibility"},
+{criterion:"Explain the discourse-level implication of the error",max:2,desc:"How does the attribution error affect the reader's trust or understanding of the argument?"}
+],
+transform:[
+{criterion:"Attribution syntax is sophisticated and precise",max:3,desc:"Integral citation, epistemic verb, and clause structure work together seamlessly"},
+{criterion:"Argumentation is logically coherent",max:3,desc:"The logical relationship between attribution and claim is clear and rhetorically effective"},
+{criterion:"Lexical precision signals C2 mastery",max:2,desc:"No imprecise, informal, or overclaimed vocabulary — every word earns its place"},
+{criterion:"The sentence could appear in a high-quality academic journal",max:2,desc:"A strict self-audit standard: publishable without further editing"}
+],
+log:[
+{criterion:"Output demonstrates controlled academic attribution",max:3,desc:"Attribution is varied, epistemically calibrated, and analytically integrated — not formulaic"},
+{criterion:"Reflection identifies discourse-level strengths and weaknesses",max:3,desc:"Analysis goes beyond grammar to address argumentative structure and epistemic stance"},
+{criterion:"Forward transfer: names one attribution technique to deploy next time",max:2,desc:"Specific, actionable commitment — not vague ('I will write better')"}
+]
+}
+};
+
+const LEVELS={
+a2b1:{label:"A2–B1",color:"#2D6A4F",light:"#D8F3DC",theme:"Reported Speech Basics — Day 8",tagline:"Transforming direct speech into reported speech accurately",goal:"Today you will: learn 4 core reported-speech rules → spot backshift and say/tell errors → practise converting sentences → record errors in your log.",time:"10–15 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (2 min)",subtitle:"4 core rules of reported speech — understand the logic, not just the formula",type:"theory",
+content:[
+{label:"Tense Backshift",badge:"rule",color:"#2D6A4F",examples:"am/is → was · will → would · can → could · have done → had done",rule:"Tenses shift one step back into the past. This signals to the listener that the words were spoken at an earlier time. The further back in past, the more the tense 'retreats'."},
+{label:"Say vs Tell",badge:"v",color:"#1A5276",examples:"She said she was tired. / She told me she was tired.",rule:"'Tell' ALWAYS needs a person object: tell me, tell us, tell her. 'Say' NEVER takes a person directly — say (that)..., NOT say me / say him."},
+{label:"Pronoun Changes",badge:"pro",color:"#7D3C98",examples:'"I am ready." → He said he was ready. / "We will help you." → They said they would help us.',rule:"Pronouns shift from the speaker's viewpoint to the reporter's viewpoint. 'I' → 'he/she', 'my' → 'his/her', 'you' → 'me/us'. Think: whose perspective is reporting?"},
+{label:"Reported Questions",badge:"q",color:"#B7500A",examples:'"Are you tired?" → She asked if I was tired. / "Where do you work?" → He asked where I worked.',rule:"Yes/no questions use if or whether. Wh-questions keep the question word. CRITICAL: verb order becomes statement order — no auxiliary inversion (not 'asked where did I work')."}
+]},
+{id:"spot",title:"🔍 Part 1 — Spot the Error (4 min)",subtitle:"6 sentences — all contain a reported speech error. Identify it before checking.",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"He reported that the factory is producing more waste than ever before.",underlined:"is producing",wrongWord:"is producing",correctWord:"was producing",wrongType:"no tense backshift",correctType:"past continuous (was producing)",rule:"In reported speech, present continuous (is producing) shifts back to past continuous (was producing). The backshift signals that the original words were spoken at an earlier time.",tip:"Quick test: if the reporting verb is past tense ('reported', 'said', 'told'), the embedded clause almost always needs a past tense too. is → was, is doing → was doing."},
+{sentence:"She told that her flight had been delayed by three hours.",underlined:"told that",wrongWord:"told that",correctWord:"said that",wrongType:"tell without person object",correctType:"say + that-clause",rule:"'Tell' requires a person object: 'told us that', 'told me that'. Without a person object, use 'said': 'said that her flight...'",tip:"Memory test: can you insert 'us' or 'me' immediately after the verb? 'told us that...' ✓ → keep 'told'. 'told that...' ✗ → switch to 'said'."},
+{sentence:"They said they will submit the proposal before the end of the month.",underlined:"will submit",wrongWord:"will submit",correctWord:"would submit",wrongType:"will (no backshift)",correctType:"would (past of will)",rule:"'Will' in direct speech becomes 'would' in reported speech. 'They said they will...' sounds as if the original words are still in the present — the backshift to 'would' marks them as reported.",tip:"'Will' → 'would' is the single most common reported speech backshift error. Whenever you see 'said/told... will', change it to 'would'."},
+{sentence:"She told me that she can finish the assignment by herself.",underlined:"can finish",wrongWord:"can finish",correctWord:"could finish",wrongType:"can (no backshift)",correctType:"could (past of can)",rule:"Modal 'can' shifts to 'could' in reported speech. The same pattern applies: will→would, may→might, must→had to, shall→should.",tip:"Backshift checklist for modals: can→could, will→would, may→might, must→had to, shall→should. Print this list and memorise it — it covers 90% of modal backshift errors."},
+{sentence:"She asked him where does he work and how long he had been there.",underlined:"where does he work",wrongWord:"where does he work",correctWord:"where he worked",wrongType:"question word order in reported speech",correctType:"statement order + backshift",rule:"In reported questions, the auxiliary 'does' is removed and word order becomes statement order: Subject + Verb. Also apply backshift: works → worked.",tip:"Reported questions = no inversion, no auxiliary do/does/did. Ask yourself: is this a question or a statement? In reported speech, it's always a STATEMENT: 'where HE WORKED', not 'where DID HE WORK'."},
+{sentence:"The manager announced us that the office would be closed on Friday.",underlined:"announced us",wrongWord:"announced us",correctWord:"told us",wrongType:"announce + person object (wrong verb)",correctType:"tell + person object",rule:"'Announce' is not followed by a person object directly — it takes 'that' or 'to + audience'. To address an audience directly, use 'tell': 'told us that...'",tip:"Verbs that DO take person+that: tell, remind, warn, inform, assure. Verbs that DON'T: say, announce, mention, explain, suggest. Always check before using."}
+]},
+{id:"fill",title:"✏️ Part 2 — Fill in the Form (4 min)",subtitle:"Convert the direct speech into reported speech by filling in the blank",type:"fill",rubricKey:"fill",
+items:[
+{template:'Direct: "I am very nervous." → She said she ___ very nervous.',baseWord:"be (backshift)",answer:"was",targetType:"is→was",hint:"am/is shifts to... in the past",explanation:"'am' → 'was' (tense backshift). She said she was — not 'is'. The reporting verb 'said' signals that we need past tense in the embedded clause."},
+{template:'Direct: "We will call you tomorrow." → They said they ___ call us the following day.',baseWord:"will (backshift)",answer:"would",targetType:"will→would",hint:"will shifts to... in reported speech",explanation:"'will' → 'would' (tense backshift). Note also: 'tomorrow' → 'the following day' (time reference shift). Both changes mark the words as reported rather than current."},
+{template:"She ___ me that the library would be closed on Monday.",baseWord:"say / tell",answer:"told",targetType:"tell + person object",hint:"Which verb takes a person object (me)?",explanation:"'told me' — because there is a person object ('me'), the correct verb is 'tell'. 'Said me' is always wrong in English. Said (that)... / told + person + that..."},
+{template:'Direct: "Can you help me?" → He asked me ___ I could help him.',baseWord:"if / whether",answer:"if",targetType:"yes/no reported question",hint:"Yes/no reported questions use ___ or 'whether'",explanation:"'if' (or 'whether') introduces a yes/no reported question. Note also the backshift: can → could, and the pronoun shift: you → I (from the reporter's perspective), me → him."},
+{template:'Direct: "Where do you study?" → She asked him where he ___.',baseWord:"study (backshift + statement order)",answer:"studied",targetType:"wh-reported question",hint:"Backshift + no inversion: where he ___",explanation:"'studied' — backshift (do → did, study → studied) and statement order (where HE STUDIED, not where did he study). Both changes are required in a wh-reported question."}
+]},
+{id:"errorlog",title:"📓 Error Log — Day 8 (2 min)",subtitle:"Record your errors — the highest-value step in the session",type:"log",rubricKey:"log",
+prompts:[
+"Which reported-speech error did you make most today? Write the incorrect version and the corrected version:",
+"Why do you think this error happens? (Direct translation from Vietnamese? Forgetting backshift? Confusing say/tell?)",
+"Write one original reported speech sentence using 'told' or 'asked', correctly converted from direct speech:"
+]}
+]},
+
+b1b2:{label:"B1+–B2",color:"#1A4A7A",light:"#D6E8F7",theme:"Reporting Verbs I — Day 8",tagline:"Mastering verb patterns after reporting and discourse verbs",goal:"Today you will: classify reporting verbs by their pattern (that-clause, to-inf, gerund) → spot pattern errors → fill in the correct form → produce your own examples.",time:"15–20 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"Three categories of reporting verbs — understand the logic behind each pattern",type:"theory2",
+groups:[
+{label:"Verb + that-clause",color:"#1A4A7A",verbs:["state","claim","argue","assert","maintain","confirm","acknowledge","deny"],memory:"These verbs introduce propositional content — a fact, belief, or opinion. The that-clause carries the reported message. 'That' may be omitted in informal use but is required in formal/academic writing.",example:"She confirmed that the results were accurate. / He denied that he had been present at the meeting."},
+{label:"Verb + to-infinitive",color:"#7D1A4A",verbs:["agree","refuse","offer","promise","threaten","appear","demand","claim"],memory:"These verbs express a communicative act — a commitment, refusal, or offer — where the reported action is what the subject chose, refused, or promised to do. The to-infinitive expresses this intended or refused action.",example:"She agreed to submit the report by Friday. / He refused to answer any further questions. / They threatened to cancel the contract."},
+{label:"Verb + V-ing (gerund)",color:"#2D6A1A",verbs:["deny","admit","suggest","mention","recall","report","consider"],memory:"These verbs take a gerund when the reported action is treated as an event or fact (something done or proposed), not a future intention. Note: deny, admit, and suggest can also take a that-clause — but the gerund version is often more concise.",example:"He denied taking the documents from the office. / She admitted making an error in the calculation. / They mentioned seeing her at the conference."}
+]},
+{id:"spot",title:"🔍 Part 1 — Pattern Error Hunt (5 min)",subtitle:"6 sentences — all contain a reporting verb pattern error. Find it.",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"She argued about the theory was fundamentally flawed.",underlined:"argued about",wrongWord:"argued about",correctWord:"argued that",wrongType:"argue about (wrong preposition/structure)",correctType:"argue + that-clause",rule:"'Argue' is followed by 'that' to introduce the content of the argument — never 'argue about + clause'. 'Argue about' (+ noun) means to dispute a topic, e.g., 'they argued about money', not to state a position in an argument.",tip:"Pattern: argue that [clause] = state a position. Argue about [noun] = dispute a topic. If what follows is a full clause, it must be 'argue that', never 'argue about'."},
+{sentence:"He denied to take the laptop from the office without permission.",underlined:"denied to take",wrongWord:"denied to take",correctWord:"denied taking",wrongType:"deny + to-inf (wrong)",correctType:"deny + gerund (V-ing)",rule:"'Deny' is always followed by a gerund, not a to-infinitive. 'Deny' relates to an action that is asserted to have occurred — the gerund treats that action as an event-as-fact.",tip:"Deny, admit, confess, acknowledge (the act) → always gerund. These verbs are about past events: 'he denied HAVING taken' or 'he denied TAKING' — the action is treated as a completed event."},
+{sentence:"The two parties agreed meeting on neutral ground to resolve the dispute.",underlined:"agreed meeting",wrongWord:"agreed meeting",correctWord:"agreed to meet",wrongType:"agree + gerund (wrong)",correctType:"agree + to-infinitive",rule:"'Agree' is always followed by to-infinitive, not gerund. It expresses a mutual commitment to carry out a future action — that future orientation requires the to-infinitive.",tip:"Commitment verbs → to-inf: agree, promise, offer, refuse, decide, plan. They all point toward a future action. Gerund verbs point toward past or ongoing events. The direction (future vs past/ongoing) determines the pattern."},
+{sentence:"The company threatened to fired all employees who arrived late.",underlined:"to fired",wrongWord:"to fired",correctWord:"to fire",wrongType:"to + past form (wrong)",correctType:"to + base infinitive",rule:"After 'threaten', as with all verbs that take to-infinitive, the verb form is the BASE FORM (infinitive without -to). 'To fired' is a very common error — the -ed ending belongs to the reporting verb, not the infinitive.",tip:"ALWAYS: threaten/agree/refuse/promise/offer + to + BASE FORM. The base form never changes after 'to'. Test: 'to fire, to go, to be, to have'. Not 'to fired, to went, to been'."},
+{sentence:"The lawyer claimed having discovered new evidence that would change the verdict.",underlined:"claimed having discovered",wrongWord:"claimed having discovered",correctWord:"claimed to have discovered",wrongType:"claim + gerund (wrong for self-reference)",correctType:"claim + to-infinitive (for subject's own action)",rule:"When 'claim' refers to the subject's OWN action, use to-infinitive: 'claimed to have done'. The pattern 'claim + gerund' does not exist in standard English. Compare: 'claimed that the witness had lied' (that-clause for other's action).",tip:"Claim = assert that oneself has done X → to-inf: 'claimed to be innocent', 'claimed to have found'. If reporting someone else's action, use a that-clause: 'claimed that the witness had lied'."},
+{sentence:"She suggested that we to look for alternative suppliers before the deadline.",underlined:"to look",wrongWord:"to look",correctWord:"look",wrongType:"suggest + that + to-inf (wrong)",correctType:"suggest + that + present subjunctive / should + base",rule:"In 'suggest + that-clause', the verb in the clause uses the present subjunctive (base form without 'to') or 'should + base form' — never to-infinitive. 'I suggest that you look...' or 'I suggest that you should look...'",tip:"Suggest that we LOOK (not to look). This is the 'mandative subjunctive' — also applies to: recommend, propose, insist, demand, request that + base form. The 'to' disappears inside suggest-that clauses."}
+]},
+{id:"fill",title:"✏️ Part 2 — Complete with the Right Pattern (5 min)",subtitle:"Supply the gerund or to-infinitive of the verb in brackets",type:"fill",rubricKey:"fill",
+items:[
+{template:"She admitted ___ the email to the wrong recipient by mistake. (send)",baseWord:"send",answer:"sending",targetType:"admit + gerund",hint:"admit → V-ing (an action treated as a fact)",explanation:"'admitted sending' — admit + gerund. The action (sending) is treated as a confirmed event. 'Admitted to send' does not exist in standard English."},
+{template:"The key witness agreed ___ before the committee the following week. (testify)",baseWord:"testify",answer:"to testify",targetType:"agree + to-inf",hint:"agree → to + base form (future commitment)",explanation:"'agreed to testify' — agree + to-infinitive. This expresses a commitment to carry out a future action. 'Agreed testifying' is wrong — the gerund pattern does not apply to agree."},
+{template:"He offered ___ the team with the translation of the documents. (assist)",baseWord:"assist",answer:"to assist",targetType:"offer + to-inf",hint:"offer → to + base form (a proposal to do something)",explanation:"'offered to assist' — offer + to-infinitive. Offer = propose to do something (future-oriented), hence to-inf. 'Offered assisting' is wrong."},
+{template:"She recalled ___ him briefly at the international conference two years earlier. (meet)",baseWord:"meet",answer:"meeting",targetType:"recall + gerund",hint:"recall → V-ing (remembering a past event)",explanation:"'recalled meeting' — recall + gerund. The gerund treats the meeting as a past event recalled from memory. Compare: 'remembered meeting' (same pattern — remembering a past event)."},
+{template:"The director denied ___ about the budget discrepancies before the audit. (know)",baseWord:"know",answer:"knowing",targetType:"deny + gerund",hint:"deny → V-ing (rejecting a claim about a past action)",explanation:"'denied knowing' — deny + gerund. The gerund treats 'knowing' as an event being denied. 'Denied to know' is grammatically impossible in English."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (4 min)",subtitle:"Write real sentences and record your own errors",type:"log",rubricKey:"log",
+prompts:[
+"Write one sentence using a verb + gerund reporting verb (deny, admit, recall, suggest) about a real or imagined situation:",
+"Write one sentence using a verb + to-infinitive reporting verb (agree, refuse, threaten, offer) about a news story or event:",
+"Which verb pattern did you find hardest today? Write the rule in your own words and give one more example:"
+]}
+]},
+
+b2c1:{label:"B2+–C1",color:"#5A1A8A",light:"#EAD6F7",theme:"Academic Reporting Verbs II — Day 8",tagline:"Epistemic precision and register in academic attribution",goal:"Today you will: understand how reporting verbs carry epistemic weight → detect register and pattern errors → transform informal reporting into academic attribution → analyse your own output.",time:"20–25 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"How academic reporting verbs differ from everyday reporting — and why it matters",type:"theory3",
+pairs:[
+{spoken:"Smith says that education causes better outcomes.",academic:"Smith (2018) argues that educational attainment is positively correlated with improved socioeconomic outcomes.",change:"says → argues (academic verb, signals debatable claim); integral citation added; vague causation → academic correlation language"},
+{spoken:"The study found that the drug works.",academic:"The findings indicate that the drug demonstrates statistically significant efficacy under controlled conditions.",change:"found → indicate (foregrounds evidence, not researcher); works → demonstrates significant efficacy; hedging added: under controlled conditions"},
+{spoken:"Some researchers think that AI will change everything.",academic:"It has been widely contended that artificial intelligence is likely to transform numerous sectors of the global economy.",change:"some researchers think → it has been widely contended (impersonal, epistemic); will change everything → is likely to transform numerous sectors (hedged scope)"}
+],
+insight:"Academic reporting verbs are not neutral. 'Argues' signals a debatable claim open to rebuttal. 'Demonstrates' signals evidence-based finding. 'Contends' signals a strongly held but potentially contested position. Choosing the wrong verb misrepresents the source's stance and undermines your own credibility as a careful thinker."},
+{id:"spot",title:"🔍 Part 1 — Register & Pattern Detector (5 min)",subtitle:"6 sentences — each contains a reporting verb error of register, preposition, or form",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"Brown (2019) proves that social media usage leads to increased anxiety in adolescents.",underlined:"proves",wrongWord:"proves",correctWord:"argues / suggests / demonstrates",wrongType:"factive verb too strong for correlational research",correctType:"epistemically calibrated reporting verb",rule:"'Proves' implies logical or mathematical certainty. Correlational research — even strong research — does not 'prove' causation. The appropriate verbs are: 'argues' (for a theoretical position), 'suggests' or 'indicates' (for tentative findings), 'demonstrates' (for well-evidenced findings). Misusing 'proves' misrepresents the nature of the evidence.",tip:"When you write 'proves', ask: could a methodologist challenge this claim? If yes, use 'argues', 'suggests', or 'demonstrates'. Reserve 'prove' for mathematics and formal logic only."},
+{sentence:"The authors discuss about the limitations of their methodology in the final section.",underlined:"discuss about",wrongWord:"discuss about",correctWord:"discuss",wrongType:"discuss + about (wrong — transitive verb needs no preposition)",correctType:"discuss + object (no preposition)",rule:"'Discuss' is a transitive verb — it takes its object directly, with no preposition. 'Discuss about something' is a very common error, likely from over-generalisation ('talk about', 'write about'). Correct: 'discuss the limitations', 'discuss the findings'.",tip:"Transitive verbs that take NO preposition: discuss, address, approach, consider, examine, investigate, mention, emphasise. Test: 'discuss [thing]' — never 'discuss about [thing]'."},
+{sentence:"Jones et al. (2021) say that climate models may underestimate the rate of warming.",underlined:"say",wrongWord:"say",correctWord:"argue / contend / note",wrongType:"say — too informal for academic attribution",correctType:"formal academic reporting verb",rule:"Published academic work does not 'say' — it 'argues', 'contends', 'notes', 'observes', 'demonstrates', 'reports', or 'indicates'. 'Say' implies a speech act at a specific moment; academic texts make persistent written claims.",tip:"Quick register test: would this verb appear in a published journal article? 'Jones et al. (2021) say' → no. 'Jones et al. (2021) argue' → yes. Use 'say' only when quoting a speaker directly in conversation or interview data."},
+{sentence:"The study emphasised on the importance of including longitudinal data in future research.",underlined:"emphasised on",wrongWord:"emphasised on",correctWord:"emphasised",wrongType:"emphasise + on (wrong — transitive, no preposition)",correctType:"emphasise + object (no preposition)",rule:"Like 'discuss', 'emphasise' is transitive — it takes its object directly: 'emphasised the importance of'. Adding 'on' is a transfer error, probably from 'focus on' or 'concentrate on'.",tip:"Same family as 'discuss': emphasise, highlight, stress, underline, accentuate — all transitive, all take the object directly. No preposition needed or allowed."},
+{sentence:"The researcher told that participants showed significantly higher levels of task engagement.",underlined:"told",wrongWord:"told",correctWord:"reported / found / noted",wrongType:"tell without person object — wrong for academic reporting",correctType:"transitive academic reporting verb with no person object",rule:"'Told' requires a person object: 'told the audience', 'told participants'. Without a person, the meaning breaks down. For academic findings, use 'reported', 'found', 'noted', 'documented' — none of which need a person object.",tip:"Test: 'The researcher told [something]' — but told WHO? If there's no person, the verb is wrong. Use 'reported that', 'found that', 'noted that' — these take only a that-clause, no person needed."},
+{sentence:"Smith and Lee (2020) implied that the results to support their original hypothesis.",underlined:"to support",wrongWord:"to support",correctWord:"supported",wrongType:"wrong verb form in that-clause (to-inf instead of past tense)",correctType:"past tense in that-clause after past reporting verb",rule:"In a that-clause after a past-tense reporting verb ('implied'), the embedded verb must be a finite (tensed) form — not an infinitive. 'The results supported' or 'the results would support' — not 'the results to support'.",tip:"After 'said/argued/implied/found + that', the next verb must be a full tensed verb. 'To support' is non-finite — it cannot be the main verb of a reported clause. Remove 'to' and apply appropriate tense."}
+]},
+{id:"transform",title:"✏️ Part 2 — Academic Reporting Transform (8 min)",subtitle:"Rewrite each sentence using precise academic reporting — attend to verb choice, citation, and register",type:"transform",rubricKey:"transform",
+items:[
+{spoken:"The scientist said the experiment worked.",hint:"demonstrate (v), yield (v), findings (n), evidence (n), provide evidence for",answer:"The experiment yielded positive results, providing evidence for the viability of the proposed approach. / The findings demonstrate that the experiment produced the anticipated outcomes consistent with the theoretical framework.",keyChange:"said worked → demonstrate/yield; personal attribution (the scientist) → evidence-centred (the findings); 'worked' → produced the anticipated outcomes",principle:"Foreground evidence, not the researcher's speech act. 'The findings demonstrate' is stronger and more academically credible than 'the scientist said'. Academic writing centres the data, not the person."},
+{spoken:"Many people argue that renewable energy is the only solution.",hint:"widely contended, proponents of, constitute, most viable, growing body of evidence",answer:"It is widely contended that renewable energy represents the most viable path toward sustainable energy transition. / Proponents of renewable energy argue that it constitutes the most effective long-term response to the current energy crisis, though critics note that infrastructure constraints remain significant.",keyChange:"many people argue → it is widely contended / proponents argue; the only solution → most viable / most effective long-term response; hedged counter-view added",principle:"'Many people' has no academic standing. Use 'proponents of X', 'critics of Y', 'a growing body of evidence' — these specify the argumentative position and its epistemic basis. Avoid absolute claims ('only solution'); qualify with scope."},
+{spoken:"The study showed that the results were good.",hint:"indicate, significant, demonstrate, findings, statistically, reveal, considerable",answer:"The findings indicate that the results were statistically significant across all three experimental conditions. / The study demonstrates that the intervention produced a considerable improvement in the target outcomes, with effect sizes exceeding the clinical threshold.",keyChange:"showed → indicate/demonstrate; good → statistically significant / considerable improvement with effect sizes; results → target outcomes",principle:"'Good' is not an academic evaluator. Specify the dimension: statistically, clinically, economically, or ecologically significant — the dimension is itself an argument. Quantify where possible: effect sizes, confidence intervals, percentage change."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (5 min)",subtitle:"Write a short academic paragraph and self-analyse",type:"log",rubricKey:"log",
+prompts:[
+"Write 80–100 words on 'The relationship between sleep deprivation and academic performance' — use at least 2 different academic reporting verbs and one hedging device. Avoid: 'say', 'think', 'people believe', 'prove', 'obviously'.",
+"After writing: highlight your reporting verbs. Are they epistemically accurate — or are they too strong/too weak for what you are claiming?",
+"Error log: which academic reporting verb do you find hardest to use naturally? Write its full pattern and one example sentence:"
+]}
+]},
+
+c1c2:{label:"C1+–C2",color:"#8B1A1A",light:"#F5DADA",theme:"Attribution & Voice — Day 8",tagline:"Epistemic precision, source integrity, and synthesised academic voice",goal:"Today you will: master integral vs non-integral citation logic → calibrate epistemic strength of reporting verbs → diagnose attribution failures → produce sophisticated synthesised attribution.",time:"20–25 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"Four pillars of sophisticated academic attribution at C1+/C2",type:"theory4",
+cards:[
+{label:"Integral vs Non-integral Citation",color:"#8B1A1A",desc:"Integral citation: the author is grammatically part of the sentence ('Smith (2018) argues that...'). Non-integral: the source appears in parentheses ('(Smith, 2018)'). These serve different rhetorical functions. Integral foregrounds the author's voice and agency; non-integral foregrounds the finding itself. Mixing them randomly is not a stylistic choice — it is a structural failure.",fix:"Use integral when the author's specific stance or scholarly identity matters to your argument. Use non-integral to report background knowledge or widely shared consensus. Ask: is WHO said this important, or just WHAT was said?"},
+{label:"Epistemic Weight of Reporting Verbs",color:"#5A2D82",desc:"'Suggests' (tentative, correlational) ≠ 'demonstrates' (strong, replicated evidence) ≠ 'proves' (mathematical/logical certainty). Misattributing epistemic strength — reporting speculative work as 'demonstrating' — is a form of academic dishonesty. Overclaiming another scholar's position also distorts the intellectual record.",fix:"Map verbs to evidence strength: suggest / indicate (tentative) → show / reveal / find (evidential) → demonstrate / establish (strong) → prove / confirm (definitive). Choose the verb that accurately represents what the source actually shows, not what you wish it showed."},
+{label:"Factive vs Non-factive Reporting Verbs",color:"#1A4A7A",desc:"Factive verbs presuppose the truth of the embedded clause: 'Smith reveals that X' implies X is true. Non-factive verbs do not: 'Smith argues that X' does not commit you to X's truth. Choosing a factive verb for a contested claim is a logical error — you have quietly endorsed a position you meant only to report.",fix:"Factive (presuppose truth): reveal, discover, find, note, demonstrate. Non-factive (neutral or sceptical): argue, claim, contend, suggest, allege, maintain. If you are genuinely uncertain whether the source is correct, use non-factive. If the finding is well-established, factive is appropriate."},
+{label:"Synthesised Attribution at C2",color:"#2D6A1A",desc:"C2 writers do not just cite sources — they orchestrate them. Floating citations (facts with no source), over-attribution (citing every clause), and parallel attribution ('Brown says X. Jones says Y. Smith says Z.') all signal a writer who is collecting, not synthesising.",fix:"Group sources by position: 'Several scholars (Brown, 2018; Lee, 2020; Jones, 2021) have argued that X, though critics contend that Y (Garcia, 2019; Patel, 2022).' Then state your own analytical position — where you agree, qualify, extend, or diverge. This is academic voice, not academic ventriloquism."}
+]},
+{id:"spot",title:"🔍 Part 1 — Attribution Audit (5 min)",subtitle:"6 passages — each contains a logical, rhetorical, or epistemic attribution failure at C1+/C2 level",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"According to various researchers, it has been proven that bilingual education improves cognitive flexibility.",underlined:"various researchers... proven",wrongWord:"various researchers... proven",correctWord:"A growing body of research suggests / evidence indicates",wrongType:"vague attribution + epistemically overclaimed verb",correctType:"precise evidence quantifier + epistemically calibrated verb",rule:"'Various researchers' without citations is not a valid academic warrant for any claim, let alone one 'proven'. Even with citations, 'proven' overstates empirical research on a cognitive phenomenon. The double failure — imprecise sourcing AND overclaimed certainty — reduces this to an assertion masquerading as scholarship.",tip:"Ask two questions: (1) Who specifically? If you cannot name them, you cannot claim it. (2) How strong is the evidence? 'Proven' requires mathematical or logical certainty — for empirical work, use 'demonstrated', 'indicated', or 'suggested'."},
+{sentence:"Smith (2019) argues that the intervention was effective, while Jones (2020) also argues the same thing.",underlined:"also argues the same thing",wrongWord:"also argues the same thing",correctWord:"corroborates this view / similarly demonstrates / lends support to Smith's position",wrongType:"repetitive attribution with no discourse function",correctType:"convergence language that advances the argument",rule:"'Also argues the same thing' adds no analytical value — it is bookkeeping, not scholarship. When citing multiple sources in agreement, use convergence language that specifies the argumentative function: 'corroborates', 'reinforces', 'echoes', 'is consistent with', 'lends support to'. This shows you understand why both citations matter.",tip:"Before writing 'also argues', ask: what is the rhetorical function of citing Jones here? To corroborate? To show consensus? To deepen nuance? Let the verb answer that question — not 'the same thing'."},
+{sentence:"The study by Brown et al. (2018) said that participants showed improved outcomes across all conditions.",underlined:"said",wrongWord:"said",correctWord:"reported / found / demonstrated",wrongType:"informal reporting verb for academic text attribution",correctType:"formal academic reporting verb",rule:"Academic texts do not 'say' things — they 'report', 'find', 'demonstrate', 'argue', 'indicate', 'reveal'. 'Said' implies a speech act at a specific moment in time. Academic publications make persistent written claims that exist independently of any speech event.",tip:"Reporting verbs for academic texts (not speakers): find, report, demonstrate, reveal, indicate, argue, suggest, note, contend, establish. Reserve 'said/told/mentioned' for attributing words spoken by a participant in interview data or direct quotation from a recorded speech."},
+{sentence:"It has been demonstrated by numerous studies that screen time affects attention span, and it is obviously harmful for children.",underlined:"obviously harmful for children",wrongWord:"obviously harmful for children",correctWord:"and there is growing evidence of its adverse developmental effects / associated with adverse outcomes under certain conditions",wrongType:"epistemic overstatement and unsupported causal leap",correctType:"evidence-proportionate hedged claim",rule:"'Obviously' signals that the conclusion needs no argument — a rhetorical sleight of hand that substitutes certainty for evidence. The leap from 'affects attention span' to 'obviously harmful for children' also violates logical proportion: an effect on attention span does not automatically constitute harm at a developmental level, nor is this claim evidenced by the preceding clause.",tip:"'Obviously' should trigger a red flag in C2 writing. If it were obvious, it would not need to be asserted. Replace with: 'the evidence suggests', 'there is growing concern that', 'findings indicate an association with'. Let evidence lead, not rhetoric."},
+{sentence:"According to Smith (2018) who proved that the vaccine is safe, governments should mandate vaccination.",underlined:"proved that the vaccine is safe",wrongWord:"proved that the vaccine is safe",correctWord:"demonstrated the vaccine's safety profile within specified parameters / provided robust evidence for the vaccine's efficacy and safety",wrongType:"misattribution: 'proved' overstates what a clinical study can establish",correctType:"accurate epistemic attribution for empirical safety research",rule:"Clinical safety studies establish safety profiles within specified conditions and participant populations — they do not 'prove' absolute safety in any categorical sense. Misattributing 'proof' to an empirical study is an academic integrity failure with real-world consequences in health communication and policy.",tip:"Science communicates in probabilities, thresholds, and parameters — not categorical proof. 'Established significant evidence for safety', 'demonstrated safety within the studied population', 'met the regulatory threshold'. Reserve 'prove' for formal logic and mathematics."},
+{sentence:"The researchers mentioned that the experiment yielded no significant results in any of the three conditions.",underlined:"mentioned",wrongWord:"mentioned",correctWord:"reported / documented / acknowledged",wrongType:"mention — trivialises a primary research finding",correctType:"formal reporting verb appropriate to the epistemic status of the finding",rule:"'Mentioned' implies an incidental, brief, parenthetical reference — as if the null result were an afterthought. Research findings, including negative results, are primary outputs of equal methodological weight to positive findings. They are 'reported', 'documented', 'noted', or 'acknowledged' — not 'mentioned'.",tip:"Verb semantics: mention = incidental; note = brief but intentional; report = systematic output; document = formal record; acknowledge = admit openly (often with significance). Null results deserve 'reported' or 'documented' — trivialising them with 'mentioned' reflects a publication bias mindset that C2 writers should actively resist."}
+]},
+{id:"transform",title:"✏️ Part 2 — Attribution Transform (8 min)",subtitle:"Rewrite at C2 level — attend to epistemic calibration, citation integration, and rhetorical function",type:"transform",rubricKey:"transform",
+items:[
+{spoken:"Many studies say that learning a second language is good for your brain.",hint:"demonstrate, cognitive benefits, neural plasticity, a growing body of evidence, suggests, considerable empirical support",answer:"A growing body of evidence suggests that second-language acquisition confers measurable cognitive benefits, including enhanced neural plasticity and improved executive function. / There is now considerable empirical support for the view that bilingualism is associated with significant cognitive advantages, though the magnitude of these effects remains subject to ongoing investigation.",keyChange:"many studies say → a growing body of evidence suggests; good for your brain → measurable cognitive benefits including neural plasticity; hedged scope added: magnitude remains subject to investigation",principle:"Quantify and qualify the evidence base: 'a growing body of evidence', 'considerable empirical support', 'a substantial literature' each signals a different stage of scientific consensus. Choose the phrase that accurately represents how established the finding is — and add a forward-looking hedge if the field is still developing."},
+{spoken:"Jones thinks that the current approach to funding universities is unfair.",hint:"contends, Jones (year) integral citation, inequitable, systematically, fails to adequately address, structural reform",answer:"Jones (2021) contends that the existing framework for university funding distribution is systematically inequitable and requires structural reform. / As Jones (2021) argues, the current funding model fails to adequately address entrenched structural inequalities within higher education, a position that has gained traction in recent policy debates.",keyChange:"thinks → contends/argues (epistemic verb signalling a debatable scholarly claim); unfair → systematically inequitable; integral citation added; broader scholarly context added",principle:"'Thinks' belongs to casual conversation. Academic reporting requires an epistemically calibrated verb: 'contends' and 'argues' signal that the author makes a public, scholarly claim open to rebuttal. Adding the broader context ('a position that has gained traction') integrates the citation into a larger scholarly conversation — this is synthesised attribution, not isolated reporting."},
+{spoken:"A lot of researchers disagree about whether social media causes depression.",hint:"considerable debate, remains contested, the causal relationship between, empirical consensus yet to be established, yielding inconsistent findings",answer:"Considerable debate remains regarding the causal relationship between social media use and depressive symptomatology, with empirical consensus yet to be established. / The causal relationship between social media exposure and depression remains a contested area of inquiry, with studies yielding inconsistent and, at times, contradictory findings across different demographic groups.",keyChange:"a lot of researchers disagree → considerable debate remains / remains a contested area; causes depression → causal relationship between; depression → depressive symptomatology; inconsistent findings added",principle:"At C2, signal scholarly dispute with precision: 'remains contested', 'yields inconsistent findings', 'the evidence is inconclusive'. This is analytically more precise than 'researchers disagree' — it describes the state of the field rather than the behaviour of researchers, and it foregrounds the methodological complexity that makes the question difficult to resolve."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (5 min)",subtitle:"Produce and self-audit a synthesised attribution paragraph",type:"log",rubricKey:"log",
+prompts:[
+"Write 100–120 words synthesising two or more imagined sources on 'The impact of remote work on employee productivity'. Use at least 3 different reporting verbs, vary between integral and non-integral citation, and include at least one point of scholarly disagreement.",
+"After writing: review each reporting verb. Is each verb epistemically accurate? Is the distinction between what the author argues and what the data shows maintained throughout?",
+"Forward transfer: name one specific attribution technique from today — integral citation, convergence language, factive/non-factive distinction, etc. — that you will deliberately deploy in your next piece of academic writing. Write a model sentence using it."
+]}
+]}
+};
+
+// ── STATE ──
+let AL='a2b1',AS=0;
+const ST={choices:{},inputs:{},checked:{},logs:{}};
+
+// ── INIT ──
+function init(){
+  document.title='Daily Drills 8';
+  buildLvTabs();
+  applyLevel('a2b1');
+}
+
+function buildLvTabs(){
+  const c=document.getElementById('level-tabs');
+  c.innerHTML='';
+  Object.entries(LEVELS).forEach(([id,lv])=>{
+    const b=document.createElement('button');
+    b.className='level-tab'+(id===AL?' active':'');
+    b.textContent=lv.label;
+    b.onclick=()=>switchLv(id);
+    c.appendChild(b);
+  });
+}
+
+function switchLv(id){
+  AL=id; AS=0;
+  ST.choices={}; ST.inputs={}; ST.checked={}; ST.logs={};
+  document.querySelectorAll('.level-tab').forEach((b,i)=>b.classList.toggle('active',Object.keys(LEVELS)[i]===id));
+  applyLevel(id);
+}
+
+function applyLevel(id){
+  const lv=LEVELS[id];
+  document.documentElement.style.setProperty('--lc',lv.color);
+  document.getElementById('hdr-theme').textContent=lv.theme;
+  document.getElementById('hdr-meta').textContent=lv.tagline+' · ⏱ '+lv.time;
+  const gb=document.getElementById('goal-box');
+  gb.style.background=lv.light; gb.style.borderColor=lv.color+'30';
+  document.getElementById('goal-label').style.color=lv.color;
+  document.getElementById('goal-text').textContent=lv.goal;
+  buildSecNav(lv);
+  renderSec();
+}
+
+function buildSecNav(lv){
+  const nav=document.getElementById('sec-nav');
+  nav.innerHTML='';
+  lv.sections.forEach((s,i)=>{
+    const b=document.createElement('button');
+    b.className='sec-tab'+(i===AS?' active':'');
+    const label=s.title.replace(/[\u{1F300}-\u{1FFFF}]/gu,'').replace('—',' —').trim().split(' — ')[0].trim();
+    b.textContent=label;
+    b.onclick=()=>{AS=i;updSecNav();renderSec();};
+    nav.appendChild(b);
+  });
+}
+
+function updSecNav(){
+  document.querySelectorAll('.sec-tab').forEach((b,i)=>b.classList.toggle('active',i===AS));
+}
+
+function navSec(d){
+  const lv=LEVELS[AL];
+  const n=AS+d;
+  if(n<0||n>=lv.sections.length)return;
+  AS=n; updSecNav(); renderSec();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderSec(){
+  const lv=LEVELS[AL];
+  const sec=lv.sections[AS];
+  document.getElementById('sec-title').textContent=sec.title;
+  document.getElementById('sec-sub').textContent=sec.subtitle;
+  const total=lv.sections.length;
+  document.getElementById('nav-cnt').textContent=(AS+1)+' / '+total;
+  const pp=document.getElementById('btn-prev'),np=document.getElementById('btn-next');
+  pp.disabled=AS===0; np.disabled=AS===total-1;
+  np.style.background=AS===total-1?'#E8E5E0':lv.color;
+  np.style.color=AS===total-1?'#AAA':'#fff';
+  const el=document.getElementById('sec-content');
+  el.innerHTML='';
+  const t=sec.type;
+  if(t==='theory')rTheory(el,sec,lv);
+  else if(t==='theory2')rTheory2(el,sec,lv);
+  else if(t==='theory3')rTheory3(el,sec,lv);
+  else if(t==='theory4')rTheory4(el,sec,lv);
+  else if(t==='spot')rSpot(el,sec,lv);
+  else if(t==='fill')rFill(el,sec,lv);
+  else if(t==='transform')rTransform(el,sec,lv);
+  else if(t==='log')rLog(el,sec,lv);
+}
+
+// ── HELPERS ──
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function badge(type,color){return `<span class="tbadge" style="background:${color}18;color:${color};border:1px solid ${color}40">${esc(type)}</span>`;}
+
+function rubricHTML(rubric,lv){
+  if(!rubric)return'';
+  const total=rubric.reduce((s,r)=>s+r.max,0);
+  const rows=rubric.map(r=>`<div class="rub-row"><div><div class="rub-crit">${esc(r.criterion)}</div><div class="rub-desc">${esc(r.desc)}</div></div><div class="rub-pts" style="background:${lv.color}">${r.max} pt</div></div>`).join('');
+  return `<button class="rub-toggle" style="color:${lv.color};border-color:${lv.color}40" onclick="togRub(this)">📊 Assessment Criteria (${total} pts) <span>▼</span></button><div class="rub-panel" style="background:${lv.light};border:1px solid ${lv.color}30">${rows}</div>`;
+}
+
+function togRub(btn){
+  const p=btn.nextElementSibling;
+  const o=p.classList.toggle('open');
+  btn.querySelector('span').textContent=o?'▲':'▼';
+}
+
+function progHTML(id,total,lv){
+  return `<div class="prog-wrap"><div class="prog-bg"><div class="prog-fill" id="pf-${id}" style="background:${lv.color};width:0%"></div></div><div class="prog-lbl" id="pl-${id}">0/${total} completed · 0%</div></div>`;
+}
+
+function updProg(sid,done,total){
+  const pct=total===0?0:Math.round(done/total*100);
+  const pf=document.getElementById('pf-'+sid),pl=document.getElementById('pl-'+sid);
+  if(pf)pf.style.width=pct+'%';
+  if(pl)pl.textContent=done+'/'+total+' completed · '+pct+'%';
+}
+
+function scoreBadge(score,max,color){
+  const pct=max===0?0:Math.round(score/max*100);
+  const g=pct>=90?{l:'Excellent',c:'#1A7A3A'}:pct>=70?{l:'Good',c:'#1A4A7A'}:pct>=50?{l:'Fair',c:'#B7500A'}:{l:'Needs review',c:'#CC3333'};
+  return `<div class="score-badge" style="border-color:${color}"><div class="slbl">Kết quả tự động</div><div class="snum" style="color:${color}">${score}<span class="den">/${max}</span></div><div class="sgrade" style="color:${g.c}">${g.l} · ${pct}%</div></div>`;
+}
+
+// ── THEORY RENDERERS ──
+function rTheory(el,sec,lv){
+  el.innerHTML='<div class="theory-grid">'+sec.content.map(item=>`<div class="th-card" style="border-color:${item.color}30"><div class="th-head">${badge(item.badge,item.color)}<span style="font-weight:700;font-size:14px;color:${item.color}">${esc(item.label)}</span></div><div class="th-rule">${esc(item.rule)}</div><div class="th-ex">${esc(item.examples)}</div></div>`).join('')+'</div>';
+}
+
+function rTheory2(el,sec,lv){
+  el.innerHTML=sec.groups.map(g=>`<div class="g-card" style="border:1.5px solid ${g.color}30"><div class="g-title" style="color:${g.color}">${esc(g.label)}</div><div class="verbs-row">${g.verbs.map(v=>`<span class="v-chip" style="background:${g.color}12;color:${g.color};border:1px solid ${g.color}30">${v}</span>`).join('')}</div><div class="g-mem">💡 ${esc(g.memory)}</div><div class="g-ex">${esc(g.example)}</div></div>`).join('');
+}
+
+function rTheory3(el,sec,lv){
+  el.innerHTML=sec.pairs.map(p=>`<div class="pair-card"><div class="pair-sp"><div class="pair-sp-lbl">SPOKEN / INFORMAL</div><div class="pair-sp-txt">${esc(p.spoken)}</div></div><div class="pair-ac" style="background:${lv.light}60"><div class="pair-ac-lbl" style="color:${lv.color}">WRITTEN / ACADEMIC</div><div class="pair-ac-txt">${esc(p.academic)}</div><div class="pair-chg">→ ${esc(p.change)}</div></div></div>`).join('')+`<div class="insight" style="background:${lv.color}">📌 ${esc(sec.insight)}</div>`;
+}
+
+function rTheory4(el,sec,lv){
+  el.innerHTML=sec.cards.map(card=>`<div class="g-card" style="border:1.5px solid ${card.color}30;margin-bottom:10px">
+    <div class="g-title" style="color:${card.color}">${esc(card.label)}</div>
+    <div style="font-size:13px;color:#333;line-height:1.6;margin-bottom:10px">${esc(card.desc)}</div>
+    <div style="background:#fff;border-left:3px solid ${card.color};border-radius:0 6px 6px 0;padding:8px 12px;font-size:12px;color:${card.color};font-weight:600">&#x2192; ${esc(card.fix)}</div>
+  </div>`).join('');
+}
+
+// ── SPOT ──
+function rSpot(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+progHTML(sec.id,sec.items.length,lv)+
+    sec.items.map((item,i)=>{
+      const sen=esc(item.sentence).replace(esc(item.underlined),`<span class="ul-word" id="ulw-${sec.id}-${i}">${esc(item.underlined)}</span>`);
+      return `<div class="spot-card" id="sc-${sec.id}-${i}">
+        <div class="spot-top"><div class="spot-num">SENTENCE ${i+1}</div><div class="spot-sen">${sen}</div></div>
+        <div class="spot-acts" id="sa-${sec.id}-${i}">
+          <span>This sentence:</span>
+          <button class="btn-wrong" onclick="spotPick('${sec.id}',${i},'wrong')">❌ Has an error</button>
+          <button class="btn-right" onclick="spotPick('${sec.id}',${i},'right')">✅ Correct</button>
+        </div>
+        <div class="spot-ans" id="saa-${sec.id}-${i}" style="background:${lv.light}80">
+          <div class="ans-row">
+            <span class="wrong-wd">${esc(item.wrongWord)}</span>${badge(item.wrongType,'#CC3333')}
+            <span class="arr">→</span><span class="corr-wd">${esc(item.correctWord)}</span>${badge(item.correctType,'#1A7A3A')}
+          </div>
+          <div class="ans-rule">${esc(item.rule)}</div>
+          <div class="ans-tip" style="border:1px solid ${lv.color}30;color:${lv.color}">💡 ${esc(item.tip)}</div>
+          <div class="sc-inline" id="ssi-${sec.id}-${i}"></div>
+          <div class="warn-miss" id="swm-${sec.id}-${i}">⚠️ Câu này thực ra có lỗi — ghi vào sổ nhé!</div>
+        </div>
+      </div>`;
+    }).join('')+
+    `<button class="score-cta" id="scta-${sec.id}" onclick="calcSpot('${sec.id}')">📊 View auto-score</button><div id="sbdg-${sec.id}"></div>`;
+}
+
+function spotPick(sid,idx,choice){
+  if(!ST.choices[sid])ST.choices[sid]={};
+  if(ST.choices[sid][idx]!==undefined)return;
+  ST.choices[sid][idx]=choice;
+  document.getElementById('sa-'+sid+'-'+idx).style.display='none';
+  document.getElementById('saa-'+sid+'-'+idx).classList.add('open');
+  const lv=LEVELS[AL];
+  document.getElementById('sc-'+sid+'-'+idx).style.borderColor=lv.color+'50';
+  const ulw=document.getElementById('ulw-'+sid+'-'+idx);
+  if(ulw)ulw.classList.add('revealed');
+  if(choice==='right'){const w=document.getElementById('swm-'+sid+'-'+idx);if(w)w.style.display='block';}
+  const sec=lv.sections.find(s=>s.id===sid);
+  const done=Object.keys(ST.choices[sid]).length;
+  updProg(sid,done,sec.items.length);
+  if(done===sec.items.length){const c=document.getElementById('scta-'+sid);if(c)c.style.display='block';}
+}
+
+function calcSpot(sid){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  let score=0,max=0;
+  sec.items.forEach((_,i)=>{
+    const chose=(ST.choices[sid]||{})[i];
+    const pts=chose==='wrong'?3:0;
+    score+=pts;max+=3;
+    const el=document.getElementById('ssi-'+sid+'-'+i);
+    if(el){el.textContent=pts>0?'✓ +'+pts+' pt':'✗ 0/3 pt — sentence was actually incorrect';el.className='sc-inline '+(pts>0?'good':'bad');el.style.display='block';}
+  });
+  const cta=document.getElementById('scta-'+sid);if(cta)cta.style.display='none';
+  const bdg=document.getElementById('sbdg-'+sid);if(bdg)bdg.innerHTML=scoreBadge(score,max,lv.color);
+}
+
+// ── FILL ──
+function rFill(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+progHTML(sec.id,sec.items.length,lv)+
+    sec.items.map((item,i)=>`<div class="fill-card" id="fc-${sec.id}-${i}">
+      <div class="fill-body">
+        <div class="fill-base">SENTENCE ${i+1} — Từ gốc: <span style="color:${lv.color};font-family:'JetBrains Mono',monospace">${esc(item.baseWord||'')}</span></div>
+        <div class="fill-tmpl">${esc(item.template)}</div>
+        <div class="fill-irow">
+          <input class="fill-inp" id="fi-${sec.id}-${i}" placeholder="${esc(item.hint)}" onkeydown="if(event.key==='Enter')fillChk('${sec.id}',${i})"/>
+          <button class="fill-chk" id="fb-${sec.id}-${i}" style="background:${lv.color}" onclick="fillChk('${sec.id}',${i})">Check</button>
+          <span class="fill-ic" id="fic-${sec.id}-${i}"></span>
+        </div>
+      </div>
+      <div class="fill-ans" id="fa-${sec.id}-${i}" style="background:${lv.light}80">
+        <div class="fill-ca" id="fca-${sec.id}-${i}"></div>
+        <div class="fill-expl">${esc(item.explanation)}</div>
+        <div class="sc-inline" id="fsi-${sec.id}-${i}"></div>
+      </div>
+    </div>`).join('')+
+    `<button class="score-cta" id="fcta-${sec.id}" onclick="calcFill('${sec.id}')">📊 View auto-score</button><div id="fbdg-${sec.id}"></div>`;
+}
+
+function fillChk(sid,idx){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  const item=sec.items[idx];
+  const inp=document.getElementById('fi-'+sid+'-'+idx);
+  if(!inp||inp.disabled)return;
+  const uv=inp.value.trim().toLowerCase();
+  const ok=uv===item.answer.toLowerCase();
+  inp.disabled=true;
+  inp.classList.add(ok?'ok':'no');
+  document.getElementById('fc-'+sid+'-'+idx).classList.add(ok?'ok':'no');
+  const btn=document.getElementById('fb-'+sid+'-'+idx);if(btn)btn.style.display='none';
+  const ic=document.getElementById('fic-'+sid+'-'+idx);if(ic)ic.textContent=ok?'✅':'❌';
+  document.getElementById('fa-'+sid+'-'+idx).classList.add('open');
+  const ca=document.getElementById('fca-'+sid+'-'+idx);
+  if(ca)ca.textContent=ok?'':`Correct answer: ${item.answer}`;
+  if(!ST.inputs[sid])ST.inputs[sid]={};
+  ST.inputs[sid][idx]=inp.value;
+  if(!ST.checked[sid])ST.checked[sid]={};
+  ST.checked[sid][idx]={ok,uv};
+  const done=Object.keys(ST.checked[sid]).length;
+  updProg(sid,done,sec.items.length);
+  if(done===sec.items.length){const c=document.getElementById('fcta-'+sid);if(c)c.style.display='block';}
+}
+
+function calcFill(sid){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  let score=0,max=0;
+  sec.items.forEach((_,i)=>{
+    const r=(ST.checked[sid]||{})[i];
+    const pts=r?.ok?3:0;
+    score+=pts;max+=3;
+    const el=document.getElementById('fsi-'+sid+'-'+i);
+    if(el){el.textContent=pts>0?'✓ +3 pt':'✗ 0/3 pt';el.className='sc-inline '+(pts>0?'good':'bad');el.style.display='block';}
+  });
+  const cta=document.getElementById('fcta-'+sid);if(cta)cta.style.display='none';
+  const bdg=document.getElementById('fbdg-'+sid);if(bdg)bdg.innerHTML=scoreBadge(score,max,lv.color);
+}
+
+// ── TRANSFORM ──
+function rTransform(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+
+    `<div class="warn-box">📝 Write your transformed sentence before viewing the model. The model is a suggestion — multiple correct formulations are possible.</div>`+
+    sec.items.map((item,i)=>`<div class="tr-card" id="tc-${sec.id}-${i}">
+      <div class="tr-body">
+        <div class="tr-num">TRANSFORM ${i+1}</div>
+        <div class="tr-spoken">🗣 ${esc(item.spoken)}</div>
+        <div class="tr-hint">Vocabulary hint: <span style="color:${lv.color};font-family:'JetBrains Mono',monospace">${esc(item.hint)}</span></div>
+        <textarea class="tr-ta" rows="2" id="ta-${sec.id}-${i}" placeholder="Write your academic sentence here..." oninput="saveTr('${sec.id}',${i},this.value)"></textarea>
+        <button class="tr-reveal" style="background:${lv.color}" onclick="revealTr('${sec.id}',${i})">View model answer</button>
+      </div>
+      <div class="tr-ans" id="tr-${sec.id}-${i}" style="background:${lv.light}90">
+        <div class="model-lbl">MODEL ANSWER (for reference):</div>
+        <div class="model-txt">${esc(item.answer)}</div>
+        <span class="kc-chip" style="border:1px solid ${lv.color}30;color:${lv.color}">Key change: ${esc(item.keyChange)}</span>
+        <div class="princ" style="margin-top:6px">📌 ${esc(item.principle)}</div>
+      </div>
+    </div>`).join('');
+}
+
+function saveTr(sid,idx,val){
+  if(!ST.inputs[sid])ST.inputs[sid]={};
+  ST.inputs[sid][idx]=val;
+  const ta=document.getElementById('ta-'+sid+'-'+idx);
+  if(ta)ta.style.borderColor=val?LEVELS[AL].color+'60':'#DDD';
+}
+
+function revealTr(sid,idx){
+  document.getElementById('tr-'+sid+'-'+idx).classList.add('open');
+  document.getElementById('tc-'+sid+'-'+idx).style.borderColor=LEVELS[AL].color+'50';
+  const btn=document.getElementById('tc-'+sid+'-'+idx).querySelector('.tr-reveal');
+  if(btn)btn.style.display='none';
+}
+
+// ── LOG ──
+function rLog(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+
+    `<div class="log-note">📌 The error log is the single most valuable learning tool in self-study. The more specific your notes, the faster your progress.</div>`+
+    sec.prompts.map((p,i)=>`<div class="log-prompt"><label class="log-lbl">${i+1}. ${esc(p)}</label><textarea class="log-ta" rows="3" id="la-${sec.id}-${i}" placeholder="Write here..." oninput="saveLog('${sec.id}',${i},this.value)"></textarea></div>`).join('')+
+    `<button class="log-save" id="ls-${sec.id}" onclick="saveLogAll('${sec.id}')" style="background:${lv.color}">💾 Save error log</button>`;
+}
+
+function saveLog(sid,idx,val){
+  if(!ST.logs[sid])ST.logs[sid]={};
+  ST.logs[sid][idx]=val;
+  const ta=document.getElementById('la-'+sid+'-'+idx);
+  if(ta)ta.style.borderColor=val?LEVELS[AL].color+'60':'#DDD';
+}
+
+function saveLogAll(sid){
+  const btn=document.getElementById('ls-'+sid);
+  if(btn){btn.textContent='✅ Saved!';btn.style.background='#22C55E';}
+}
+
+// ── DOWNLOAD ──
+function handleDownload(){
+  const lv=LEVELS[AL];
+  const now=new Date();
+  const ds=now.toLocaleDateString('vi-VN',{year:'numeric',month:'long',day:'numeric'});
+  const ts=now.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
+  const L=[];
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('       HUONG STELLA PARADIGM');
+  L.push('       PRACTICE SESSION REPORT · '+lv.label);
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('Date : '+ds+' at '+ts);
+  L.push('Topic : '+lv.theme);
+  L.push('');
+  lv.sections.forEach(sec=>{
+    if(['theory','theory2','theory3','theory4'].includes(sec.type))return;
+    L.push('──────────────────────────────────────────────────────────');
+    L.push('  '+sec.title.replace(/[\u{1F300}-\u{1FFFF}]/gu,'').trim().toUpperCase());
+    L.push('──────────────────────────────────────────────────────────');
+    if(sec.type==='spot'){
+      sec.items.forEach((item,i)=>{
+        L.push('  Sentence '+(i+1)+': '+item.sentence);
+        L.push('  -> Correct: '+item.sentence.replace(item.wrongWord,item.correctWord));
+        L.push('  -> Wrong: '+item.wrongWord+' ['+item.wrongType+']  ->  Right: '+item.correctWord+' ['+item.correctType+']');
+        L.push('  -> Rule: '+item.rule);
+        const chose=(ST.choices[sec.id]||{})[i];
+        if(chose!==undefined)L.push('  -> Your assessment: '+(chose==='wrong'?'[v] Correctly identified as INCORRECT':'[x] Marked as correct — actually has an error'));
+        L.push('');
+      });
+    }
+    if(sec.type==='fill'){
+      sec.items.forEach((item,i)=>{
+        const ua=(ST.inputs[sec.id]||{})[i]||'(chua tra loi)';
+        const ok=ua.trim().toLowerCase()===item.answer.toLowerCase();
+        L.push('  Sentence '+(i+1)+': '+item.template);
+        L.push('  -> Your answer       : '+ua);
+        L.push('  -> Correct answer    : '+item.answer+' ['+item.targetType+']');
+        L.push('  -> Result            : '+(ok?'[v] Correct':'[x] Incorrect'));
+        L.push('  -> Explanation       : '+item.explanation);
+        L.push('');
+      });
+    }
+    if(sec.type==='transform'){
+      sec.items.forEach((item,i)=>{
+        L.push('  Transform '+(i+1)+' — Original: "'+item.spoken+'"');
+        L.push('  -> Model answer: "'+item.answer+'"');
+        L.push('  -> Key change: '+item.keyChange);
+        L.push('  -> Principle: '+item.principle);
+        const ua=(ST.inputs[sec.id]||{})[i]||'';
+        if(ua)L.push('  -> Your sentence: '+ua);
+        L.push('');
+      });
+    }
+    if(sec.type==='log'){
+      sec.prompts.forEach((p,i)=>{
+        const note=(ST.logs[sec.id]||{})[i]||'(chua dien)';
+        L.push('  '+(i+1)+'. '+p);
+        L.push('     '+note);
+        L.push('');
+      });
+    }
+  });
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  ASSESSMENT CRITERIA (RUBRIC)');
+  L.push('════════════════════════════════════════════════════════════');
+  const rubs=RUBRICS[AL];
+  Object.entries(rubs).forEach(([key,rubric])=>{
+    L.push('  Section '+key+':');
+    rubric.forEach(r=>L.push('    . '+r.criterion.padEnd(42,' ')+r.max+' pts'));
+    L.push('');
+  });
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  DISCLAIMER');
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  This practice material was developed with the support of an');
+  L.push('  AI system within the academic programme of Huong Stella');
+  L.push('  Paradigm. While content has been reviewed against pedagogical');
+  L.push('  standards, learners are advised to cross-reference with');
+  L.push('  authoritative sources and consult their instructor for');
+  L.push('  clarification of specific points. Auto-scoring is indicative');
+  L.push('  only and does not replace teacher assessment.');
+  L.push('');
+  L.push('════════════════════════════════════════════════════════════');
+
+  const blob=new Blob([L.join('\n')],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='HuongStella_DailyDrill_Day8_'+AL+'_'+now.toISOString().slice(0,10)+'.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+init();
+</script>
+</body>
+</html>
