@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Drills 9</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#F4F2EF;color:#1A1A1A;min-height:100vh}
+button,textarea,input{font-family:'Inter',sans-serif}
+button{cursor:pointer}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+#app-header{background:#111;border-bottom:3px solid var(--lc,#2D6A4F);transition:border-color .3s}
+.header-inner{max-width:740px;margin:0 auto;padding:16px 20px 0}
+.brand-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.logo-mark{display:flex;align-items:center;gap:10px}
+.logo-text-main{font-size:13px;font-weight:900;color:#fff;line-height:1.1}
+.logo-text-sub{font-size:9px;font-weight:700;color:#E8C84A;letter-spacing:3px;text-transform:uppercase}
+.brand-right{text-align:right}
+.brand-right .dd-title{font-size:17px;font-weight:900;color:#fff;letter-spacing:-.5px}
+.brand-right .dd-sub{font-size:10px;color:#E8C84A;letter-spacing:2px;text-transform:uppercase}
+.lesson-label{font-size:11px;letter-spacing:3px;color:#555;text-transform:uppercase;margin-bottom:3px}
+.lesson-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:3px}
+.lesson-meta{font-size:12px;color:#888;margin-bottom:14px}
+.level-tabs{display:flex}
+.level-tab{padding:8px 18px;border:none;border-bottom:3px solid transparent;background:none;color:#555;font-weight:500;font-size:13px;transition:all .2s}
+.level-tab.active{border-bottom-color:var(--lc);color:var(--lc);font-weight:700}
+.main-body{max-width:740px;margin:0 auto;padding:20px 20px 16px}
+.goal-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap}
+.goal-box{flex:1;border-radius:12px;padding:12px 16px;min-width:240px;border:1px solid rgba(0,0,0,.08)}
+.goal-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.goal-text{font-size:12px;color:#333;line-height:1.6}
+.dl-btn{background:var(--lc);color:#fff;border:none;border-radius:12px;padding:12px 18px;font-size:12px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:110px;transition:opacity .2s}
+.dl-btn:hover{opacity:.88}
+.dl-btn .ic{font-size:20px}
+.dl-btn .sb{font-size:10px;opacity:.8}
+.sec-nav{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:2px}
+.sec-tab{padding:7px 14px;border-radius:20px;border:1.5px solid #DDD;background:#fff;color:#555;font-size:12px;font-weight:500;white-space:nowrap;transition:all .2s}
+.sec-tab.active{background:var(--lc);border-color:var(--lc);color:#fff;font-weight:700}
+.sec-title{font-size:16px;font-weight:800;color:#1A1A1A;margin-bottom:2px}
+.sec-subtitle{font-size:13px;color:#666;margin-bottom:18px}
+.theory-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.th-card{background:#fff;border-radius:12px;border:1.5px solid rgba(0,0,0,.08);padding:14px 16px}
+.th-head{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.tbadge{border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+.th-rule{font-size:12px;color:#555;margin-bottom:6px;line-height:1.5}
+.th-ex{font-size:11px;color:#888;font-style:italic;font-family:'JetBrains Mono',monospace}
+.g-card{background:#fff;border-radius:12px;padding:14px 18px;margin-bottom:10px}
+.g-title{font-weight:800;font-size:14px;margin-bottom:8px}
+.verbs-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.v-chip{border-radius:6px;padding:2px 10px;font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:600}
+.g-mem{font-size:12px;color:#666;margin-bottom:6px;font-style:italic}
+.g-ex{font-size:12px;color:#333;background:#F7F6F3;border-radius:6px;padding:6px 10px;font-family:'JetBrains Mono',monospace}
+.pair-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;overflow:hidden;margin-bottom:10px}
+.pair-sp{padding:12px 16px;border-left:3px solid #CCC}
+.pair-sp-lbl{font-size:10px;color:#999;margin-bottom:3px;font-weight:700;letter-spacing:1px}
+.pair-sp-txt{font-size:13px;color:#555;font-style:italic}
+.pair-ac{padding:12px 16px;border-left:3px solid var(--lc)}
+.pair-ac-lbl{font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:3px}
+.pair-ac-txt{font-size:13px;font-weight:600;color:#222}
+.pair-chg{font-size:11px;color:#888;margin-top:4px;font-family:'JetBrains Mono',monospace}
+.insight{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;color:#fff}
+.rub-toggle{display:flex;align-items:center;gap:8px;background:none;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;margin-bottom:12px;color:var(--lc)}
+.rub-panel{border-radius:10px;padding:12px 16px;margin-bottom:16px;display:none}
+.rub-panel.open{display:block}
+.rub-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid rgba(0,0,0,.08)}
+.rub-row:last-child{padding-bottom:0;margin-bottom:0;border-bottom:none}
+.rub-crit{font-size:13px;font-weight:700;margin-bottom:2px}
+.rub-desc{font-size:11px;color:#666}
+.rub-pts{color:#fff;border-radius:6px;padding:2px 10px;font-size:12px;font-weight:800;white-space:nowrap;background:var(--lc)}
+.prog-wrap{margin-bottom:12px}
+.prog-bg{background:#E8E5E0;border-radius:99px;height:5px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;transition:width .4s;background:var(--lc)}
+.prog-lbl{font-size:11px;color:#999;margin-top:3px}
+.spot-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:12px;overflow:hidden;transition:border-color .2s}
+.spot-num{font-size:11px;color:#999;margin-bottom:6px;font-weight:600;letter-spacing:1px}
+.spot-top{padding:14px 18px 10px}
+.spot-sen{font-size:15px;color:#1A1A1A;line-height:1.7}
+.ul-word{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#AAA}
+.ul-word.revealed{text-decoration-color:#CC3333;color:#CC3333;font-weight:700}
+.spot-acts{padding:0 18px 14px;display:flex;gap:8px;align-items:center}
+.spot-acts span{font-size:12px;color:#777}
+.btn-wrong{background:#FEE2E2;border:1px solid #FCA5A5;color:#CC3333;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700}
+.btn-right{background:#DCFCE7;border:1px solid #86EFAC;color:#1A7A3A;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700}
+.spot-ans{border-top:1px solid rgba(0,0,0,.08);padding:12px 18px;display:none}
+.spot-ans.open{display:block}
+.ans-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.wrong-wd{font-size:12px;color:#CC3333;text-decoration:line-through;font-style:italic}
+.corr-wd{font-size:13px;color:#1A7A3A;font-weight:700}
+.arr{color:#999}
+.ans-rule{font-size:12px;color:#444;margin-bottom:8px;line-height:1.5}
+.ans-tip{background:#fff;border-radius:6px;padding:6px 10px;font-size:12px;font-style:italic}
+.sc-inline{margin-top:8px;font-size:12px;font-weight:700;display:none}
+.sc-inline.good{color:#1A7A3A}
+.sc-inline.bad{color:#CC3333}
+.warn-miss{font-size:12px;color:#CC3333;font-weight:600;margin-top:6px;display:none}
+.fill-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:12px;overflow:hidden}
+.fill-card.ok{border-color:#22C55E}
+.fill-card.no{border-color:#EF4444}
+.fill-body{padding:14px 18px}
+.fill-base{font-size:11px;color:#999;margin-bottom:8px;font-weight:600;letter-spacing:1px}
+.fill-tmpl{font-size:14px;color:#1A1A1A;line-height:1.8;margin-bottom:12px}
+.fill-irow{display:flex;gap:8px;align-items:center}
+.fill-inp{flex:1;padding:8px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:14px;outline:none;transition:border-color .2s}
+.fill-inp.ok{background:#F0FDF4;border-color:#22C55E}
+.fill-inp.no{background:#FEF2F2;border-color:#EF4444}
+.fill-chk{background:var(--lc);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700}
+.fill-ic{font-size:20px}
+.fill-ans{border-top:1px solid rgba(0,0,0,.08);padding:10px 18px;display:none}
+.fill-ans.open{display:block}
+.fill-ca{font-size:13px;font-weight:700;color:#1A7A3A;margin-bottom:4px}
+.fill-expl{font-size:12px;color:#444;line-height:1.5}
+.tr-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:14px;overflow:hidden}
+.tr-body{padding:14px 18px}
+.tr-num{font-size:11px;color:#999;margin-bottom:8px;font-weight:600;letter-spacing:1px}
+.tr-spoken{background:#F5F3F0;border-radius:8px;padding:10px 14px;font-size:14px;color:#444;margin-bottom:12px;font-style:italic;border-left:3px solid #CCC}
+.tr-hint{font-size:12px;color:#777;margin-bottom:10px}
+.tr-ta{width:100%;padding:8px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:13px;resize:vertical;outline:none;line-height:1.6;transition:border-color .2s}
+.tr-reveal{background:var(--lc);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;margin-top:8px}
+.tr-ans{border-top:1px solid rgba(0,0,0,.08);padding:12px 18px;display:none}
+.tr-ans.open{display:block}
+.model-lbl{font-size:12px;font-weight:700;color:#999;margin-bottom:4px}
+.model-txt{font-size:13px;color:#1A1A1A;font-weight:600;line-height:1.6;margin-bottom:8px}
+.kc-chip{background:#fff;border-radius:6px;padding:4px 10px;font-size:11px;display:inline-block;margin-bottom:6px}
+.princ{font-size:12px;color:#555;font-style:italic;line-height:1.5}
+.log-note{background:#FFFBEB;border:1px solid #FCD34D;border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#92400E}
+.log-prompt{margin-bottom:14px}
+.log-lbl{display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:6px}
+.log-ta{width:100%;padding:10px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:13px;resize:vertical;outline:none;line-height:1.6;transition:border-color .2s}
+.log-save{border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:700;color:#fff;background:var(--lc);transition:background .2s}
+.score-badge{background:#fff;border-radius:12px;padding:14px 20px;text-align:center;margin-bottom:16px;margin-top:4px;border:2px solid var(--lc)}
+.score-badge .slbl{font-size:11px;color:#999;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.score-badge .snum{font-size:32px;font-weight:900;color:var(--lc)}
+.score-badge .snum .den{font-size:16px;font-weight:400;color:#999}
+.score-badge .sgrade{font-size:13px;font-weight:700;margin-top:2px}
+.score-cta{background:var(--lc);color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:800;width:100%;margin-top:4px;display:none}
+.warn-box{background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#92400E}
+.sec-nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:20px;border-top:1px solid #E2DDD8}
+.nav-btn{border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;border:none}
+.nav-prev{background:#fff;border:1.5px solid #DDD;color:#333}
+.nav-prev:disabled{color:#CCC}
+.nav-next{background:var(--lc);color:#fff;font-weight:700}
+.nav-next:disabled{background:#E8E5E0;color:#AAA}
+.nav-cnt{font-size:12px;color:#999}
+#app-footer{background:#1A1A1A;border-top:1px solid #2A2A2A;padding:24px 20px}
+.footer-inner{max-width:740px;margin:0 auto}
+.disc-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+.ai-badge{background:#2A2A2A;border:1px solid rgba(232,200,74,.3);border-radius:8px;padding:6px 10px;font-size:11px;color:#E8C84A;font-weight:800;letter-spacing:1px;white-space:nowrap}
+.disc-txt{font-size:12px;color:#666;line-height:1.7}
+.disc-txt strong{color:#AAA}
+.disc-txt .bn{color:#E8C84A}
+.footer-bot{border-top:1px solid #2A2A2A;padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-logo{display:flex;align-items:center;gap:8px}
+.footer-copy{font-size:11px;color:#444}
+@media(max-width:520px){.theory-grid{grid-template-columns:1fr}.goal-row{flex-direction:column}.dl-btn{width:100%;flex-direction:row}.brand-row{flex-direction:column;gap:10px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header id="app-header">
+<div class="header-inner">
+  <div class="brand-row">
+    <div class="logo-mark">
+      <div><div class="logo-text-main">HUONG STELLA PARADIGM</div></div>
+    </div>
+  </div>
+  <div class="lesson-label">Day 9 · Interactive Practice</div>
+  <div class="lesson-title" id="hdr-theme"></div>
+  <div class="lesson-meta" id="hdr-meta"></div>
+  <div class="level-tabs" id="level-tabs"></div>
+</div>
+</header>
+<main>
+<div class="main-body">
+  <div class="goal-row">
+    <div class="goal-box" id="goal-box">
+      <div class="goal-label" id="goal-label">Today's Objectives</div>
+      <div class="goal-text" id="goal-text"></div>
+    </div>
+    <button class="dl-btn" onclick="handleDownload()">
+      <span class="ic">&#x2B07;&#xFE0F;</span><span>Download Report</span><span class="sb">Your answers + Model answers</span>
+    </button>
+  </div>
+  <div class="sec-nav" id="sec-nav"></div>
+  <div class="sec-title" id="sec-title"></div>
+  <div class="sec-subtitle" id="sec-sub"></div>
+  <div id="sec-content"></div>
+  <div class="sec-nav-row">
+    <button class="nav-btn nav-prev" id="btn-prev" onclick="navSec(-1)">&#x2190; Previous</button>
+    <span class="nav-cnt" id="nav-cnt"></span>
+    <button class="nav-btn nav-next" id="btn-next" onclick="navSec(1)">Next &#x2192;</button>
+  </div>
+</div>
+</main>
+<footer id="app-footer">
+<div class="footer-inner">
+  <div class="disc-row">
+    <div class="ai-badge">AI-ASSISTED</div>
+    <div class="disc-txt">
+      This material is produced with AI support as part of the <span class="bn">Huong Stella Paradigm</span> academic programme. Content has been reviewed against pedagogical standards; however, learners are advised to <strong>cross-reference with authoritative sources</strong> and <strong>consult their instructor</strong> for clarification. Auto-scoring is indicative only and does not replace teacher assessment.
+    </div>
+  </div>
+  <div class="footer-bot">
+    <div class="footer-logo">
+      <span style="font-size:12px;color:#888;font-weight:700;letter-spacing:.5px">HUONG STELLA PARADIGM</span>
+      <span style="font-size:11px;color:#444">· Daily Drills</span>
+    </div>
+  </div>
+</div>
+</footer>
+<script>
+const RUBRICS={
+a2b1:{
+  spot:[
+    {criterion:"Identify the conjunction or punctuation error precisely",max:1,desc:"Name exactly what is wrong: comma splice, run-on, wrong conjunction, or missing comma"},
+    {criterion:"State the correct conjunction with a reason",max:1,desc:"Not just the right word — explain why that conjunction fits the logical relationship"},
+    {criterion:"Supply the fully corrected clause junction",max:1,desc:"Write the exact corrected form without introducing additional errors"}
+  ],
+  fill:[
+    {criterion:"Select the correct conjunction from the pair given",max:1,desc:"Choose based on logical relationship: addition / contrast / result / alternative / negative addition"},
+    {criterion:"Understand the logical relationship encoded by the conjunction",max:1,desc:"Can articulate WHY this conjunction fits — not just that it sounds right"},
+    {criterion:"Sentence reads naturally and correctly with the conjunction",max:1,desc:"No additional punctuation or word order errors introduced"}
+  ],
+  log:[
+    {criterion:"Identify a specific error made today with the exact sentence",max:2,desc:"Record the wrong form and the corrected version — be precise"},
+    {criterion:"Explain the logical relationship the correct conjunction expresses",max:2,desc:"Use the terms: addition / contrast / result / alternative / negative addition"},
+    {criterion:"Compose one original compound sentence using a conjunction you found challenging",max:2,desc:"Write a correct, natural-sounding compound sentence about your own experience"}
+  ]
+},
+b1b2:{
+  spot:[
+    {criterion:"Identify the subordinator error or clause structure error precisely",max:1,desc:"State exactly what is wrong: double connector, wrong subordinator, missing comma, inverted word order, etc."},
+    {criterion:"Provide the correct form with a brief explanation",max:2,desc:"Supply the corrected sentence and state the rule that applies"},
+    {criterion:"Explain the meaning difference caused by the error",max:1,desc:"How does the error change the logical relationship between clauses?"}
+  ],
+  fill:[
+    {criterion:"Select the correct subordinator for the logical relationship",max:2,desc:"Choose between time / reason / concession / condition / purpose based on clause logic"},
+    {criterion:"Correct comma placement: before or after subordinate clause",max:1,desc:"Comma after fronted subordinate clause; no comma when main clause comes first"},
+    {criterion:"Sentence meaning is preserved and logical with chosen subordinator",max:1,desc:"The relationship between clauses is coherent, not contradictory"}
+  ],
+  log:[
+    {criterion:"Compose one complex sentence with a fronted subordinate clause (with correct comma)",max:2,desc:"Grammatically accurate; comma correctly placed after subordinate clause"},
+    {criterion:"Record the 'although...but' rule or one other subordination rule in your own words",max:2,desc:"Paraphrase — do not copy verbatim from the materials"},
+    {criterion:"Note one subordinator you previously used incorrectly and write the corrected sentence",max:2,desc:"Specific self-correction, not generic reflection"}
+  ]
+},
+b2c1:{
+  spot:[
+    {criterion:"Identify the specific cleft or pseudo-cleft error",max:1,desc:"Name the error: missing 'that', wrong pronoun, missing internal verb, inappropriate cleft use, etc."},
+    {criterion:"Supply the corrected structure completely and accurately",max:2,desc:"The entire cleft must be correct: It was/is + focus + that/who + clause; or What + S + V + is + focus"},
+    {criterion:"Explain when and why the cleft is or is not appropriate in context",max:2,desc:"Address whether the focused element is new/contrastive information or misused on shared knowledge"}
+  ],
+  transform:[
+    {criterion:"Cleft or pseudo-cleft structure is grammatically accurate",max:2,desc:"No missing pronouns, wrong order, or omitted auxiliary — the skeleton is correct"},
+    {criterion:"The focused element is communicatively appropriate",max:2,desc:"The cleft foregrounds new or contrastive information — not already-shared background knowledge"},
+    {criterion:"Academic register is maintained throughout",max:2,desc:"No informal vocabulary; the cleft enhances rather than disrupts academic flow"},
+    {criterion:"Both it-cleft and pseudo-cleft alternatives are attempted where possible",max:2,desc:"Demonstrates flexibility across both cleft types"}
+  ],
+  log:[
+    {criterion:"Both it-cleft and pseudo-cleft sentences are produced correctly",max:3,desc:"Both types attempted and grammatically accurate with appropriate focused elements"},
+    {criterion:"Focused element in each cleft is genuinely new or contrastive information",max:2,desc:"Cleft is not used on shared or background knowledge"},
+    {criterion:"Self-correction: identify any cleft error made today and write the corrected version",max:2,desc:"Honest, precise reflection on performance"}
+  ]
+},
+c1c2:{
+  spot:[
+    {criterion:"Diagnose the syntactic error with precision (dangling participle, inversion failure, etc.)",max:2,desc:"Not 'the sentence is wrong' — name the exact syntactic phenomenon that is violated"},
+    {criterion:"Provide a restructured version that is both correct and argumentatively stronger",max:3,desc:"The rewrite improves on the original — not just grammatically fixed but rhetorically effective"},
+    {criterion:"Explain the discourse-level consequence of the original error",max:2,desc:"How does the error affect readability, logical clarity, or argumentative precision?"}
+  ],
+  transform:[
+    {criterion:"Syntactic fronting, nominal embedding, or participial reduction applied accurately",max:3,desc:"The chosen syntactic strategy is executed without error — no dangling modifiers, no inversion failure"},
+    {criterion:"Argumentative force is genuinely enhanced by the structural choice",max:3,desc:"The transformed sentence is more persuasive, precise, or emphatic than the original"},
+    {criterion:"Lexical choices are commensurate with C2 academic register",max:2,desc:"No informal or imprecise vocabulary; compression does not reduce clarity"},
+    {criterion:"The sentence is syntactically valid and could appear in a refereed journal",max:2,desc:"Publishable standard: no ambiguous attachment, no redundant embedding, no structural collapse"}
+  ],
+  log:[
+    {criterion:"Fronting and inversion examples demonstrate structural mastery",max:3,desc:"Negative adverb inversion and complement fronting are both correctly executed"},
+    {criterion:"Clause reduction is executed without dangling modifier errors",max:3,desc:"Participial subject always matches the main clause subject; reduced clauses are unambiguous"},
+    {criterion:"Forward commitment: one syntactic technique named and committed to for next writing task",max:2,desc:"Specific and actionable — not 'I will write more complex sentences'"}
+  ]
+}
+};
+
+const LEVELS={
+a2b1:{label:"A2–B1",color:"#2D6A4F",light:"#D8F3DC",theme:"Compound Sentences — Day 9",tagline:"Joining independent clauses with coordinating conjunctions",goal:"Today you will: learn the 7 FANBOYS conjunctions → identify comma splices and run-ons → choose the right conjunction for the logical relationship → record in your error log.",time:"10–15 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (2 min)",subtitle:"4 rules for building correct compound sentences",type:"theory",
+content:[
+{label:"FANBOYS — the 7 coordinators",badge:"conj",color:"#2D6A4F",examples:"for, and, nor, but, or, yet, so",rule:"These 7 words join two independent clauses. Each encodes a different logical relationship: AND=addition, BUT/YET=contrast, OR=alternative, SO=result, FOR=reason, NOR=negative addition."},
+{label:"Comma Splice — always wrong",badge:"✗ splice",color:"#1A5276",examples:"✗ She was tired, she went home. ✓ She was tired, so she went home.",rule:"Two independent clauses joined by a comma alone = comma splice. Fix: add a FANBOYS conjunction after the comma, or split into two sentences."},
+{label:"Run-On Sentence",badge:"✗ run-on",color:"#7D3C98",examples:"✗ He works hard he never complains. ✓ He works hard, yet he never complains.",rule:"Two independent clauses with no punctuation and no conjunction = run-on. Fix: add a comma + FANBOYS, or insert a full stop and start a new sentence."},
+{label:"Comma Placement Rule",badge:"tip",color:"#B7500A",examples:"She studied hard, and she passed. (comma BEFORE 'and') / She studied and passed. (no comma — not two clauses)",rule:"Put a comma BEFORE the conjunction when both sides are full independent clauses. If one side is not a full clause (no subject), no comma is needed."}
+]},
+{id:"spot",title:"🔍 Part 1 — Spot the Error (4 min)",subtitle:"5 sentences — every sentence contains an error. Identify it before checking.",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"She finished all her homework, she went to the cinema with her friends afterwards.",underlined:"homework, she",wrongWord:"homework, she",correctWord:"homework, so she",wrongType:"comma splice",correctType:"comma + so (result)",rule:"'She finished her homework' and 'she went to the cinema' are two complete independent clauses. A comma alone cannot join them — add 'so' to show the result, or 'and' for simple addition.",tip:"Read each side of the comma aloud. Can both stand alone as sentences? YES → you need a conjunction after the comma, not just a comma."},
+{sentence:"He was very hungry he did not stop to eat anything during the entire journey.",underlined:"hungry he",wrongWord:"hungry he",correctWord:"hungry, but he",wrongType:"run-on (no comma or conjunction)",correctType:"comma + but (contrast)",rule:"'He was very hungry' and 'he did not stop to eat' are two independent clauses with nothing between them — a run-on sentence. Add a comma and a conjunction. 'But' signals the contrast (hunger, yet no eating).",tip:"No comma + no conjunction between two complete clauses = run-on. If two complete thoughts crash together with no punctuation, the reader loses the boundary between them."},
+{sentence:"She practised the speech every day, and she still made several mistakes in the final performance.",underlined:"and",wrongWord:"and",correctWord:"yet",wrongType:"and (wrong — hides contrast)",correctType:"yet (signals surprising contrast)",rule:"'And' signals addition — both clauses point in the same direction. Here, the second clause contradicts the expectation from the first: daily practice → still made mistakes. This is a contrast, requiring 'yet' or 'but'.",tip:"Ask: does the second clause surprise you given the first? YES → use 'but' or 'yet', not 'and'. 'And' means 'plus more of the same'; 'yet' means 'despite that'."},
+{sentence:"The students understood the grammar lesson but they struggled to apply it in their writing.",underlined:"lesson but",wrongWord:"lesson but",correctWord:"lesson, but",wrongType:"missing comma before 'but'",correctType:"comma + but (correct structure)",rule:"When a coordinating conjunction joins two independent clauses, a comma must appear BEFORE the conjunction. 'They struggled to apply it' is a full independent clause (has its own subject), so a comma before 'but' is required.",tip:"Test: is there a subject on both sides of the conjunction? 'The students understood...' (YES) + 'they struggled...' (YES) → both clauses independent → comma required before 'but'."},
+{sentence:"The exam was extremely difficult, so many students still managed to pass it with high scores.",underlined:"so",wrongWord:"so",correctWord:"yet",wrongType:"so (signals result — logically wrong here)",correctType:"yet (signals surprising contrast)",rule:"'So' means 'as a result': [cause], so [logical effect]. Here, many students passing a very difficult exam is a SURPRISING outcome, not a logical result. Use 'yet' or 'but' for this unexpected contrast.",tip:"'So' = therefore. 'Yet/but' = despite that. 'The exam was difficult, so nobody passed' (logical result ✓) vs 'The exam was difficult, yet many passed' (surprise ✓). Test: would 'therefore' fit? No? → use 'yet'."}
+]},
+{id:"fill",title:"✏️ Part 2 — Fill in the Conjunction (4 min)",subtitle:"Choose the correct conjunction from the pair given",type:"fill",rubricKey:"fill",
+items:[
+{template:"The traffic was terrible this morning, ___ we arrived at the meeting on time somehow. (but / so)",baseWord:"but / so",answer:"but",targetType:"but (contrast)",hint:"Arriving on time despite terrible traffic is surprising — contrast or result?",explanation:"'But' signals contrast: terrible traffic would normally make you late, but you arrived on time anyway. 'So' would illogically mean the terrible traffic caused you to arrive on time."},
+{template:"I was really thirsty after the long run, ___ I drank an entire bottle of water immediately. (but / so)",baseWord:"but / so",answer:"so",targetType:"so (result)",hint:"Is drinking the water a result of the thirst, or a surprise?",explanation:"'So' = as a result. Being thirsty is the cause; drinking immediately is the logical result. 'But' would create a contradiction: thirsty, but drank water — that is not a contrast."},
+{template:"You should submit the assignment today, ___ you will lose five marks for late submission. (or / and)",baseWord:"or / and",answer:"or",targetType:"or (consequence if not done)",hint:"What happens IF you do not submit? A warning/alternative, not an addition.",explanation:"'Or' introduces a consequence if the instruction is not followed: submit today OR (otherwise) face the penalty. This is the 'or else' use of 'or'. 'And' would mean you both submit AND lose marks — which makes no sense."},
+{template:"Neither the headteacher ___ any of the senior staff knew about the last-minute change in timetable. (nor / or)",baseWord:"nor / or",answer:"nor",targetType:"nor (negative addition after neither)",hint:"'Neither' always pairs with which conjunction?",explanation:"'Neither...nor' is a fixed negative pair — always together. 'Neither X nor Y' = both X and Y did not (know). Using 'or' after 'neither' is a very common error; the rule is absolute: neither + nor."},
+{template:"She loves reading literary fiction ___ watching documentary films in her spare time. (and / but)",baseWord:"and / but",answer:"and",targetType:"and (addition — both activities she enjoys)",hint:"Are the two activities contrasted, or does she enjoy both?",explanation:"'And' joins two things she enjoys (addition — both point in the same positive direction). 'But' would imply she loves one but not the other, contradicting the meaning of the sentence."}
+]},
+{id:"errorlog",title:"📓 Error Log — Today (2 min)",subtitle:"Record your own errors — this is the highest-value step in any self-study session",type:"log",rubricKey:"log",
+prompts:[
+"Which error did you make most today? Write the incorrect version and the corrected compound sentence:",
+"Why did you choose the wrong conjunction? (Wrong logical relationship? Missed the comma rule? Direct transfer from Vietnamese?) Be specific:",
+"Write one original compound sentence using the conjunction you found most difficult today:"
+]}
+]},
+
+b1b2:{label:"B1+–B2",color:"#1A4A7A",light:"#D6E8F7",theme:"Complex Sentences & Subordination — Day 9",tagline:"Using subordinating conjunctions to express time, reason, concession, and condition",goal:"Today you will: master three groups of subordinators → identify subordination errors (including the although...but trap) → fill in with precise subordinators → produce complex sentences.",time:"15–20 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"Three families of subordinators — learn the logic, not just the list",type:"theory2",
+groups:[
+{label:"Time Subordinators",color:"#1A4A7A",verbs:["when","while","before","after","until","as soon as","once","by the time"],memory:"Show the temporal relationship between two events. The subordinate clause can come BEFORE or AFTER the main clause — but when fronted, it must be followed by a comma. Never use 'will' inside a time clause.",example:"Before the meeting started, she had already reviewed all the documents. / She had reviewed all the documents before the meeting started."},
+{label:"Reason / Concession / Contrast",color:"#7D1A4A",verbs:["because","since","as","although","even though","whereas","while"],memory:"REASON (because/since/as) = explains WHY. CONCESSION (although/even though) = acknowledges an opposing fact without surrendering. CONTRAST (whereas/while) = shows a direct difference between two situations.",example:"Although the deadline was tight, the team submitted a strong report. / She stayed composed, whereas her colleagues panicked. / Since the data was incomplete, the researchers noted the limitation."},
+{label:"Condition / Purpose / Result",color:"#2D6A1A",verbs:["if","unless","provided that","so that","in order to","as long as","such that"],memory:"CONDITION (if/unless/provided that/as long as) = states the terms for something to happen. PURPOSE (so that/in order to) = explains WHY an action is taken. 'Unless' = 'if not' — the condition fails if the clause is true.",example:"Unless you confirm by Friday, the booking will be cancelled. / She spoke quietly so that she would not wake the children. / Provided that funding is secured, the project will proceed."}
+]},
+{id:"spot",title:"🔍 Part 1 — Error Hunt (5 min)",subtitle:"6 sentences — identify subordination errors common among Vietnamese learners",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"Although the salary was low, but she accepted the job because she loved the work environment.",underlined:"Although the salary was low, but",wrongWord:"Although the salary was low, but",correctWord:"Although the salary was low,",wrongType:"although...but (double connector)",correctType:"although alone (no 'but' needed)",rule:"'Although' already signals contrast — adding 'but' is redundant and grammatically wrong. Choose one: EITHER 'Although X, Y' (subordinate clause first) OR 'X, but Y' (two independent clauses joined by conjunction).",tip:"Vietnamese rule: 'Mặc dù...nhưng' allows both. English does not. Memory fix: EITHER although OR but — never both. One logical relationship = one connector."},
+{sentence:"Because the presentation was well-prepared, the client rejected the proposal at the final meeting.",underlined:"Because",wrongWord:"Because",correctWord:"Although",wrongType:"because (implies rejection follows logically from preparation)",correctType:"although (concession — the rejection is unexpected)",rule:"'Because' introduces a cause: [cause] → [logical effect]. A well-prepared presentation does not logically lead to rejection — the rejection is surprising. This is a concession, not a cause-effect relationship.",tip:"Ask: does the main clause logically follow from the subordinate clause? YES → because. NO (it is unexpected) → although/even though. Preparation → rejection is a paradox, not a result."},
+{sentence:"Before the students submitted their final essays they had to complete a peer review form.",underlined:"essays they",wrongWord:"essays they",correctWord:"essays, they",wrongType:"missing comma after fronted subordinate clause",correctType:"comma after fronted clause before main clause",rule:"When a subordinate clause comes BEFORE the main clause, a comma separates them. 'Before the students submitted their essays' is fronted → comma needed before 'they had to'.",tip:"Fronted clause → comma. 'Before X, [main clause].' If you flip the order — '[Main clause] before X' — no comma is needed. Position of clause determines position of comma."},
+{sentence:"Unless you study hard, you will pass all your examinations this semester.",underlined:"Unless",wrongWord:"Unless",correctWord:"If",wrongType:"unless (= if not — creates a contradictory condition)",correctType:"if (positive condition → positive result)",rule:"'Unless' = 'if not'. Substituting: 'If you do NOT study hard, you will pass' — this is absurd. 'Unless' is used when the outcome follows from NOT doing something. Here, studying leads to passing, so the condition is positive.",tip:"Test 'unless' by substituting 'if not': 'If you do not study hard, you will pass exams' → nonsense → use 'if'. Reserve 'unless' for warnings: 'Unless you hurry, you will miss the train' (= if you do not hurry → miss train ✓)."},
+{sentence:"She didn't understand what did the teacher explain in the lesson about subordinating conjunctions.",underlined:"what did the teacher explain",wrongWord:"what did the teacher explain",correctWord:"what the teacher explained",wrongType:"inverted word order in embedded clause (indirect question)",correctType:"declarative word order: what + S + V",rule:"In embedded (indirect) clauses after verbs like understand, know, explain, show — use declarative word order (S + V), not the inverted order of direct questions. 'What did the teacher explain?' (direct) → 'what the teacher explained' (embedded).",tip:"Direct question: What DID the teacher explain? Remove the auxiliary 'did', restore normal order: what the teacher explained. Inversion lives in questions only — not inside embedded clauses."},
+{sentence:"As soon as she will finish the report, she is going to celebrate with her whole department.",underlined:"she will finish",wrongWord:"she will finish",correctWord:"she finishes",wrongType:"future 'will' inside a time clause (wrong)",correctType:"present simple in time clause (encodes future meaning)",rule:"After time subordinators (as soon as, when, before, after, until, once), use the present simple — or present perfect — to express a future event. The 'will' belongs in the main clause only, not the time clause.",tip:"Time clauses and 'will' never mix. 'As soon as she finishes' (not 'will finish') — the future meaning is already understood from context. Think: the time clause sets the clock; 'will' fires only in the main clause."}
+]},
+{id:"fill",title:"✏️ Part 2 — Complete the Clause (5 min)",subtitle:"Fill in the correct subordinator — the logical relationship is your guide",type:"fill",rubricKey:"fill",
+items:[
+{template:"The library was completely silent ___ the students could focus entirely on their revision. (so that / because)",baseWord:"so that / because",answer:"so that",targetType:"so that (purpose)",hint:"Is this sentence explaining WHY the library is silent, or the PURPOSE of the silence?",explanation:"'So that' introduces purpose: the silence existed in order for students to focus. 'Because' would explain why the library is silent (e.g., because the librarian enforced rules) — that would require a different sentence structure."},
+{template:"___ the weather was freezing, the hikers pushed on to reach the summit before nightfall. (Although / Because)",baseWord:"Although / Because",answer:"Although",targetType:"although (concession)",hint:"The hikers pushed on DESPITE the cold — not because of it.",explanation:"'Although' introduces a concession: despite the freezing conditions (which would normally stop people), they continued. 'Because' would illogically mean the freezing cold caused them to hike harder."},
+{template:"She revised her essay three times ___ she was fully satisfied with the argument and the language. (until / so that)",baseWord:"until / so that",answer:"until",targetType:"until (up to the point when)",hint:"She revised repeatedly, stopping only WHEN satisfaction was achieved — not IN ORDER TO be satisfied.",explanation:"'Until' = up to the point when: she kept revising and only stopped when satisfaction was reached. 'So that' would imply she revised in order to achieve satisfaction (purpose) — grammatically possible but less natural for a repeated action that eventually stops."},
+{template:"___ the company makes a significant profit this year, it will have to consider making some redundancies. (Unless / Although)",baseWord:"Unless / Although",answer:"Unless",targetType:"unless (negative condition — if not)",hint:"The layoffs follow from NOT making a profit. Which word encodes 'if not'?",explanation:"'Unless' = 'if not': 'Unless the company makes a profit' = 'If the company does NOT make a profit' → it will consider redundancies. 'Although' would mean 'despite making a profit, it will still make people redundant' — the opposite meaning."},
+{template:"Please turn off all electronic devices ___ the examination begins to avoid any disruption. (before / when)",baseWord:"before / when",answer:"before",targetType:"before (action required prior to the event)",hint:"The devices must be off PRIOR to the exam starting — not at the same moment.",explanation:"'Before' places the action (switching off devices) earlier in time than the exam start. 'When' would mean you turn them off at the exact moment the exam begins — too late for proper preparation."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (4 min)",subtitle:"Write complex sentences and record your learning",type:"log",rubricKey:"log",
+prompts:[
+"Write one complex sentence with a FRONTED subordinate clause (starting with Although, Before, Because, or Unless). Remember the comma!",
+"Write the 'although...but' rule in your own words — then write a correct example sentence that avoids this error:",
+"Which subordinator did you use incorrectly today? Write the wrong sentence and the corrected version:"
+]}
+]},
+
+b2c1:{label:"B2+–C1",color:"#5A1A8A",light:"#EAD6F7",theme:"Cleft & Pseudo-Cleft Structures — Day 9",tagline:"Foregrounding information with it-clefts and pseudo-clefts in academic writing",goal:"Today you will: understand how cleft structures control information focus → detect cleft errors → transform sentences into precise it-clefts and pseudo-clefts → reflect on appropriate use.",time:"20–25 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"Spoken vs academic — how clefts shift emphasis",type:"theory3",
+pairs:[
+{spoken:"Researchers care most about replicability when evaluating a study.",academic:"What researchers value most when evaluating a study is replicability.",change:"pseudo-cleft: What + S + V + is + focused element (replicability placed at end = maximum emphasis)"},
+{spoken:"The funding cuts caused the research programme to collapse.",academic:"It was the funding cuts that caused the research programme to collapse.",change:"it-cleft: It + was + focused element + that + rest of clause (funding cuts singled out as THE cause)"},
+{spoken:"The government increased taxes to reduce the deficit.",academic:"It was to reduce the deficit that the government increased taxes.",change:"it-cleft fronting purpose clause: the REASON for the action becomes the focused element"}
+],
+insight:"Cleft structures are precision tools, not decoration. Use them to correct a misattribution ('It was X, not Y, that...'), to foreground new or contrastive information, or to signal an argumentative pivot. Overuse creates stilted prose — deploy them selectively and purposefully."},
+{id:"spot",title:"🔍 Part 1 — Cleft Error Detector (5 min)",subtitle:"5 sentences — identify errors in cleft construction or inappropriate cleft use",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"It was the lack of clear communication caused the entire project to fail at the final stage.",underlined:"communication caused",wrongWord:"communication caused",correctWord:"communication that caused",wrongType:"it-cleft missing 'that'",correctType:"It was X that V — 'that' is obligatory",rule:"The it-cleft structure requires: 'It was/is + [focus] + that/who + [rest of clause]'. The relative pronoun 'that' (or 'who' for people) is not optional — omitting it produces an ungrammatical structure.",tip:"Skeleton test: 'It was ___ THAT ___.' Always. Never 'It was [noun] [verb]' with nothing between them. If you cannot insert 'that' and produce a grammatical sentence, the focus element is wrong."},
+{sentence:"What important is to develop a consistent and distinctive writing voice across all academic work.",underlined:"What important is",wrongWord:"What important is",correctWord:"What is important is",wrongType:"pseudo-cleft: missing verb in the what-clause",correctType:"What + S + V + is + complement (internal verb required)",rule:"In a pseudo-cleft, the 'what'-clause must contain a full finite verb: 'What IS important' not 'What important'. Structure: What + [subject] + verb + is/was + [focus element].",tip:"Two 'be' verbs in a pseudo-cleft? Normal and required: 'What [IS] important [IS] consistency.' One inside the what-clause, one outside. Never skip the internal verb — it is the backbone of the what-clause."},
+{sentence:"It was the head of department which approved the controversial new research funding proposal.",underlined:"which",wrongWord:"which",correctWord:"who",wrongType:"which (used for a person — wrong)",correctType:"who (for persons in it-clefts)",rule:"In an it-cleft, use 'who' when the focused element refers to a person; 'that' is acceptable for both people and things informally; 'which' is for things only and may never refer to people.",tip:"Pronoun in it-cleft: PERSON → who (or 'that'). THING → that. NEVER 'which' for a person. 'It was the professor who introduced the concept' ✓. 'It was the professor which...' ✗."},
+{sentence:"What the researchers discovered were a significant correlation between screen time and anxiety in teenagers.",underlined:"were",wrongWord:"were",correctWord:"was",wrongType:"plural verb agreement (wrong — 'what-clause' is singular)",correctType:"singular 'was' (what-clause = single entity)",rule:"In a pseudo-cleft, the 'what'-clause functions as a singular entity, so the linking 'be' verb is typically singular: 'What the researchers discovered WAS a significant correlation'. The complement's number does not override this convention in formal academic writing.",tip:"Pseudo-cleft subject = singular. 'What they found WAS...' always, even if the complement is plural: 'What they found was several errors' (not 'were'). Academic standard overwhelmingly prefers 'was'."},
+{sentence:"All what we need now is to conduct a thorough and systematic review of all the existing literature.",underlined:"All what",wrongWord:"All what",correctWord:"All that",wrongType:"'All what' — non-standard English",correctType:"'All that' — correct fixed expression",rule:"The reduced pseudo-cleft 'All that X needs to do is V' uses 'that', not 'what'. 'All what' is non-standard and never appears in formal academic writing. Use 'All that' or the fuller 'What'.",tip:"Fixed pattern: 'All that + S + V + is + infinitive.' 'All that is needed is a clear methodology.' Never 'all what'. The distinction: 'what' can stand alone; after 'all', use 'that'."}
+]},
+{id:"transform",title:"✏️ Part 2 — Transform into Clefts (8 min)",subtitle:"Convert plain sentences into it-clefts and pseudo-clefts — focus on the right element",type:"transform",rubricKey:"transform",
+items:[
+{spoken:"The introduction of mandatory reporting standards in the 1990s had the biggest impact on corporate transparency.",hint:"It was + focus element + that + rest; or: What had the most significant impact on... was...",answer:"It was the introduction of mandatory reporting standards in the 1990s that had the most significant impact on corporate transparency. / What had the most significant impact on corporate transparency was the introduction of mandatory reporting standards in the 1990s.",keyChange:"Plain subject → it-cleft isolates subject as THE causal factor; 'biggest' → 'most significant' (register); pseudo-cleft alternative places the focus at the end (most emphatic position)",principle:"It-clefts foreground a specific element by positioning it between 'It was' and 'that', signalling: THIS, not something else, is what mattered. Use to correct a misattribution or to draw the reader's attention to a specific causal factor."},
+{spoken:"The government changed its policy because of the sustained pressure from international organisations.",hint:"It was + the sustained pressure from... + that + prompted/led/caused; focus on the cause, not the action",answer:"It was the sustained pressure from international organisations that prompted the government to revise its policy. / It was in response to sustained pressure from international organisations that the government fundamentally revised its policy position.",keyChange:"'because of' → cleft foregrounds the cause directly; 'changed' → 'prompted...to revise' / 'revised its policy position' (more precise); it-cleft makes causal attribution explicit",principle:"Cleft structures make causal reasoning visible. 'It was X that caused Y' is more argumentatively transparent than 'Y happened because of X' — the cleft prevents any ambiguity about which factor the writer is identifying as decisive."},
+{spoken:"Students mainly need strong time management skills to succeed at university.",hint:"What students need most to succeed at university is...; pseudo-cleft places focus at the end",answer:"What students need most to succeed at university is strong time management skills — a capacity that encompasses both prioritisation and the disciplined allocation of effort across competing demands. / It is strong time management skills, above all, that determine whether students are able to succeed in a university environment.",keyChange:"'mainly need' → 'need most' (pseudo-cleft requires superlative framing for precision); pseudo-cleft places 'strong time management skills' in final, emphatic position; it-cleft alternative fronts the focus for contrastive force",principle:"Pseudo-cleft (What + S + V + is + focus) places the focus element at the end of the sentence — the most rhetorically emphatic position in English. Use when you want the reader to receive the key information last, after anticipation has built."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (5 min)",subtitle:"Produce cleft sentences and reflect on your use of focus",type:"log",rubricKey:"log",
+prompts:[
+"Write one it-cleft and one pseudo-cleft about any topic you are currently studying. Check: (a) 'that' or 'who' present? (b) Internal verb in the what-clause? (c) Is the focused element new or contrastive information?",
+"Rewrite this sentence as a pseudo-cleft beginning with 'What...': 'Students most often underestimate the importance of revision at the sentence level.'",
+"Error log: Write any cleft structure from today's exercises that you found difficult. Note the specific error and write the corrected version with an explanation:"
+]}
+]},
+
+c1c2:{label:"C1+–C2",color:"#8B1A1A",light:"#F5DADA",theme:"Syntactic Complexity & Embedding — Day 9",tagline:"Controlling nominal clauses, participial reduction, and fronting for argumentative precision",goal:"Today you will: master four advanced syntactic strategies → diagnose dangling participles, inversion failures, and ambiguous embedding → transform sentences using fronting and nominal clauses → produce publishable-standard prose.",time:"20–25 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"Four syntactic strategies that separate C1 from C2 writing",type:"theory4",
+cards:[
+{label:"Nominal Clause Embedding",color:"#8B1A1A",desc:"Embedding a full clause as the subject, object, or complement of another clause creates information density without sacrificing logical precision. Weak writers fear long subjects and break them apart; strong writers deploy embedded subjects to control thematic prominence.",fix:"Structure: 'That [S+V] is/was + adj/n.' Example: 'That the findings were inconsistent across sites was acknowledged in the methodology section.' — versus the weak split: 'The findings were inconsistent. This was acknowledged.'"},
+{label:"Participial Clause Reduction",color:"#5A2D82",desc:"Compressing a full relative or adverbial clause into a shorter participial phrase raises information density and removes repetitive 'which/that' structures. Critical rule: the implied subject of the participle MUST be the same as the main clause subject — otherwise you produce a dangling modifier.",fix:"Full: 'The report, which was submitted by an independent committee, was reviewed by the board.' → Reduced: 'The report, submitted by an independent committee, was reviewed by the board.' Dangling (wrong): 'Having reviewed the evidence, the conclusion was obvious.' (Conclusions cannot review evidence.)"},
+{label:"Syntactic Fronting + Inversion",color:"#1A4A7A",desc:"Moving a non-subject element to sentence-initial position for emphasis: adverbials, complements, negative adverbs. When a negative or restrictive adverb is fronted (rarely, never, seldom, not only, hardly), the subject and auxiliary MUST invert — as in a question. Fronting without inversion is a C2-level error.",fix:"✓ 'Rarely has the relationship between syntax and argumentation been studied in this way.' ✓ 'Of particular significance is the discrepancy between the two datasets.' ✗ 'Rarely the researchers have considered...' (no inversion = error)"},
+{label:"Relative Clause Precision",color:"#2D6A1A",desc:"The 'nearest noun' principle: a relative clause modifies the noun directly before it. Stacking multiple relative clauses obscures the main predicate and creates ambiguous attachment — a structural error that undermines argumentative clarity even when individual clauses are grammatically correct.",fix:"Poor: 'The policy which was introduced in 2018 which aimed to reduce emissions which was criticised by experts has been revised.' Better: 'The policy introduced in 2018 to reduce emissions — and widely criticised by environmental experts — has since been revised.' (participial reduction removes the 'which' pile-up)"}
+]},
+{id:"spot",title:"🔍 Part 1 — Syntactic Audit (5 min)",subtitle:"5 passages — each contains a syntactic error at C1+/C2 level. Diagnose precisely.",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"Having reviewed all the available evidence, the conclusion was drawn that no single factor was solely responsible.",underlined:"Having reviewed all the available evidence, the conclusion was drawn",wrongWord:"Having reviewed all the available evidence, the conclusion was drawn",correctWord:"Having reviewed all the available evidence, the researchers concluded",wrongType:"dangling participial clause (conclusion cannot review evidence)",correctType:"participial clause with correct co-referential subject",rule:"The subject of a participial clause must match the subject of the main clause. 'Having reviewed evidence' requires a human agent — but the main clause subject is 'the conclusion', which cannot review evidence. This is a dangling modifier.",tip:"Before every participial phrase, ask: WHO is doing the -ing action? That agent must be the main clause subject. 'Having reviewed..., [the researchers]...' ✓. 'Having reviewed..., the conclusion...' ✗ — conclusions do not review."},
+{sentence:"The researchers presented their findings to the committee which had significant policy implications.",underlined:"committee which had significant policy implications",wrongWord:"committee which had significant policy implications",correctWord:"findings to the committee — findings that carried significant policy implications",wrongType:"ambiguous relative clause attachment ('which' attaches to 'committee')",correctType:"restructured to resolve attachment ambiguity",rule:"'Which had significant policy implications' should modify 'findings', but it immediately follows 'committee' — the nearest noun. By the 'nearest noun' principle, a relative clause modifies the noun directly before it. This creates a misreading.",tip:"Nearest-noun test: underline the noun directly before 'which'. Is that the noun you intend to modify? If not, restructure. Options: move the clause, use a dash, or reduce to a participial phrase: 'findings carrying significant policy implications'."},
+{sentence:"The report did not clarify what were the methodological limitations of the original study design.",underlined:"what were the methodological limitations",wrongWord:"what were the methodological limitations",correctWord:"what the methodological limitations were",wrongType:"inverted word order in embedded (nominal) clause",correctType:"declarative word order: what + S + V",rule:"Embedded clauses after verbs like clarify, explain, state, describe use declarative word order (S + V), not interrogative inversion (auxiliary + S). 'What WERE the limitations?' (direct question) → 'what the limitations WERE' (embedded clause).",tip:"Remove the embedding verb and check: does what remains read as a question? 'What were the limitations?' YES → question word order → must be uninverted in the embedded context. Rule: embedded clause = no inversion."},
+{sentence:"Rarely the government has addressed the underlying structural causes of urban inequality in its housing policy.",underlined:"Rarely the government has addressed",wrongWord:"Rarely the government has addressed",correctWord:"Rarely has the government addressed",wrongType:"no subject-auxiliary inversion after negative adverb fronting",correctType:"Rarely + inversion: has + S + V",rule:"When a negative or restrictive adverb (rarely, never, seldom, hardly, not only, only then) is placed at the front of a clause, the subject and auxiliary verb must invert — identical to question structure. 'Rarely has the government addressed...'",tip:"NEGATIVE FRONTING → INVERSION. Trigger words: never, rarely, seldom, hardly, barely, only, not until, not only. After any of these in sentence-initial position: auxiliary + subject. 'Rarely HAS the government' not 'Rarely the government has'."},
+{sentence:"That peer-review processes are in urgent need of structural reform it is now widely acknowledged across the field.",underlined:"That peer-review processes are in urgent need of structural reform it is now widely acknowledged",wrongWord:"That peer-review processes are in urgent need of structural reform it is now widely acknowledged",correctWord:"That peer-review processes are in urgent need of structural reform is now widely acknowledged",wrongType:"redundant pronoun 'it' after a that-clause subject",correctType:"that-clause as direct subject (no pronoun placeholder needed)",rule:"When a 'that'-clause is the subject, no pronoun 'it' should appear as a placeholder in the same predicate. Choose either: 'That X is acknowledged' OR 'It is acknowledged that X' — never both simultaneously in the same clause.",tip:"Two subjects, one predicate = error. 'That X + it + is' violates the principle that a finite clause has only one subject. Test: remove 'it' — does the sentence work? YES → 'it' was redundant. Remove it."}
+]},
+{id:"transform",title:"✏️ Part 2 — Syntactic Elevation (8 min)",subtitle:"Transform plain or structurally weak sentences using nominal embedding, fronting, or participial reduction",type:"transform",rubricKey:"transform",
+items:[
+{spoken:"Many academics think that the peer review system has serious problems.",hint:"That-clause as subject: 'That the peer review system...' + has been acknowledged / is now a matter of...; or impersonal passive: 'It has been widely argued that...'",answer:"That the peer review system is beset by serious structural inadequacies has been widely acknowledged in recent academic discourse. / It has been argued by a significant proportion of academic scholars that the peer review system is in urgent need of fundamental reform.",keyChange:"'Many academics think' → nominal subject ('That...has been acknowledged') or impersonal passive; 'serious problems' → 'structural inadequacies' / 'in urgent need of fundamental reform'; vague agent removed",principle:"Converting 'many people think X' into a nominal subject ('That X has been acknowledged') removes the vague agent, elevates register, and places the proposition — not the thinkers — in the thematically prominent subject position."},
+{spoken:"The data shows that the policy did not work well in low-income areas.",hint:"Fronted complement + inversion: 'Particularly striking is...'; nominal focus: 'the extent to which'; or: 'What the data reveal is the policy's differential impact...'",answer:"Particularly striking is the extent to which the policy failed to achieve its intended outcomes in low-income areas, suggesting a systematic differential in its distributional effects. / What the data reveal is the policy's disproportionate failure in low-income contexts — a finding with significant implications for future programme design.",keyChange:"'the data shows' → fronted complement ('Particularly striking is') + inversion, or pseudo-cleft ('What the data reveal is'); 'did not work well' → 'failed to achieve intended outcomes'; 'low-income areas' → 'low-income contexts'",principle:"Fronting a complement ('Particularly striking is...') immediately foregrounds the writer's evaluative judgment. This rhetorical move signals to the reader: what follows is the most significant finding — not merely one observation among several."},
+{spoken:"The way that different countries responded to the crisis shows that there is no single answer.",hint:"Participial reduction of relative clause; 'the diversity of national responses'; 'militates against'; 'admit of no single solution'; 'contingent upon'; embed a nominal clause",answer:"The diversity of national responses to the crisis militates against any single-solution narrative, underscoring the extent to which effective crisis governance is contingent upon specific political, institutional, and socioeconomic contexts. / What the variation in national crisis responses makes apparent is that effective policy cannot be decoupled from the specific political economy in which it operates.",keyChange:"'the way that different countries responded' → 'the diversity of national responses' (nominalization + participial reduction); 'shows that there is no single answer' → 'militates against any single-solution narrative'; embedded nominal clause replaces loose parataxis",principle:"Replacing a relative clause ('the way that different countries responded') with a precise noun phrase ('the diversity of national responses') removes redundancy and asserts the same idea with greater argumentative force. Precision in noun choice is a C2 marker — it is not cosmetic."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (5 min)",subtitle:"Write syntactically complex sentences and reflect on your structural choices",type:"log",rubricKey:"log",
+prompts:[
+"Write 2 sentences using syntactic fronting: (1) one with a negative adverb requiring inversion (rarely/never/not only...), and (2) one with a fronted complement (Particularly notable is... / Of greater significance is...). For each, explain what emphasis the fronting creates.",
+"Take your weakest sentence from today's transform section. Identify: (a) the main clause, (b) all embedded clauses, (c) whether any clause can be reduced to a participial phrase. Rewrite with at least one reduction and explain the change.",
+"Error log: Which syntactic error do you most frequently produce — dangling participle, inversion failure, or ambiguous relative clause? Write three correct exemplars of the correct structure as a self-correction drill:"
+]}
+]}
+};
+
+// ── STATE ──
+let AL='a2b1',AS=0;
+const ST={choices:{},inputs:{},checked:{},logs:{}};
+
+// ── INIT ──
+function init(){
+  document.title='Daily Drills 9';
+  buildLvTabs();
+  applyLevel('a2b1');
+}
+
+function buildLvTabs(){
+  const c=document.getElementById('level-tabs');
+  c.innerHTML='';
+  Object.entries(LEVELS).forEach(([id,lv])=>{
+    const b=document.createElement('button');
+    b.className='level-tab'+(id===AL?' active':'');
+    b.textContent=lv.label;
+    b.onclick=()=>switchLv(id);
+    c.appendChild(b);
+  });
+}
+
+function switchLv(id){
+  AL=id; AS=0;
+  ST.choices={}; ST.inputs={}; ST.checked={}; ST.logs={};
+  document.querySelectorAll('.level-tab').forEach((b,i)=>b.classList.toggle('active',Object.keys(LEVELS)[i]===id));
+  applyLevel(id);
+}
+
+function applyLevel(id){
+  const lv=LEVELS[id];
+  document.documentElement.style.setProperty('--lc',lv.color);
+  document.getElementById('hdr-theme').textContent=lv.theme;
+  document.getElementById('hdr-meta').textContent=lv.tagline+' · ⏱ '+lv.time;
+  const gb=document.getElementById('goal-box');
+  gb.style.background=lv.light; gb.style.borderColor=lv.color+'30';
+  document.getElementById('goal-label').textContent="Today's Objectives";
+  document.getElementById('goal-label').style.color=lv.color;
+  document.getElementById('goal-text').textContent=lv.goal;
+  buildSecNav(lv);
+  renderSec();
+}
+
+function buildSecNav(lv){
+  const nav=document.getElementById('sec-nav');
+  nav.innerHTML='';
+  lv.sections.forEach((s,i)=>{
+    const b=document.createElement('button');
+    b.className='sec-tab'+(i===AS?' active':'');
+    const label=s.title.replace(/[\u{1F300}-\u{1FFFF}]/gu,'').replace('—',' —').trim().split(' — ')[0].trim();
+    b.textContent=label;
+    b.onclick=()=>{AS=i;updSecNav();renderSec();};
+    nav.appendChild(b);
+  });
+}
+
+function updSecNav(){
+  document.querySelectorAll('.sec-tab').forEach((b,i)=>b.classList.toggle('active',i===AS));
+}
+
+function navSec(d){
+  const lv=LEVELS[AL];
+  const n=AS+d;
+  if(n<0||n>=lv.sections.length)return;
+  AS=n; updSecNav(); renderSec();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderSec(){
+  const lv=LEVELS[AL];
+  const sec=lv.sections[AS];
+  document.getElementById('sec-title').textContent=sec.title;
+  document.getElementById('sec-sub').textContent=sec.subtitle;
+  const total=lv.sections.length;
+  document.getElementById('nav-cnt').textContent=(AS+1)+' / '+total;
+  const pp=document.getElementById('btn-prev'),np=document.getElementById('btn-next');
+  pp.disabled=AS===0; np.disabled=AS===total-1;
+  np.style.background=AS===total-1?'#E8E5E0':lv.color;
+  np.style.color=AS===total-1?'#AAA':'#fff';
+  const el=document.getElementById('sec-content');
+  el.innerHTML='';
+  const t=sec.type;
+  if(t==='theory')rTheory(el,sec,lv);
+  else if(t==='theory2')rTheory2(el,sec,lv);
+  else if(t==='theory3')rTheory3(el,sec,lv);
+  else if(t==='theory4')rTheory4(el,sec,lv);
+  else if(t==='spot')rSpot(el,sec,lv);
+  else if(t==='fill')rFill(el,sec,lv);
+  else if(t==='transform')rTransform(el,sec,lv);
+  else if(t==='log')rLog(el,sec,lv);
+}
+
+// ── HELPERS ──
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function badge(type,color){return `<span class="tbadge" style="background:${color}18;color:${color};border:1px solid ${color}40">${esc(type)}</span>`;}
+
+function rubricHTML(rubric,lv){
+  if(!rubric)return'';
+  const total=rubric.reduce((s,r)=>s+r.max,0);
+  const rows=rubric.map(r=>`<div class="rub-row"><div><div class="rub-crit">${esc(r.criterion)}</div><div class="rub-desc">${esc(r.desc)}</div></div><div class="rub-pts" style="background:${lv.color}">${r.max} pt</div></div>`).join('');
+  return `<button class="rub-toggle" style="color:${lv.color};border-color:${lv.color}40" onclick="togRub(this)">📊 Assessment Criteria (${total} pts) <span>▼</span></button><div class="rub-panel" style="background:${lv.light};border:1px solid ${lv.color}30">${rows}</div>`;
+}
+
+function togRub(btn){
+  const p=btn.nextElementSibling;
+  const o=p.classList.toggle('open');
+  btn.querySelector('span').textContent=o?'▲':'▼';
+}
+
+function progHTML(id,total,lv){
+  return `<div class="prog-wrap"><div class="prog-bg"><div class="prog-fill" id="pf-${id}" style="background:${lv.color};width:0%"></div></div><div class="prog-lbl" id="pl-${id}">0/${total} completed · 0%</div></div>`;
+}
+
+function updProg(sid,done,total){
+  const pct=total===0?0:Math.round(done/total*100);
+  const pf=document.getElementById('pf-'+sid),pl=document.getElementById('pl-'+sid);
+  if(pf)pf.style.width=pct+'%';
+  if(pl)pl.textContent=done+'/'+total+' completed · '+pct+'%';
+}
+
+function scoreBadge(score,max,color){
+  const pct=max===0?0:Math.round(score/max*100);
+  const g=pct>=90?{l:'Excellent',c:'#1A7A3A'}:pct>=70?{l:'Good',c:'#1A4A7A'}:pct>=50?{l:'Fair',c:'#B7500A'}:{l:'Needs review',c:'#CC3333'};
+  return `<div class="score-badge" style="border-color:${color}"><div class="slbl">Kết quả tự động</div><div class="snum" style="color:${color}">${score}<span class="den">/${max}</span></div><div class="sgrade" style="color:${g.c}">${g.l} · ${pct}%</div></div>`;
+}
+
+// ── THEORY RENDERERS ──
+function rTheory(el,sec,lv){
+  el.innerHTML='<div class="theory-grid">'+sec.content.map(item=>`<div class="th-card" style="border-color:${item.color}30"><div class="th-head">${badge(item.badge,item.color)}<span style="font-weight:700;font-size:14px;color:${item.color}">${esc(item.label)}</span></div><div class="th-rule">${esc(item.rule)}</div><div class="th-ex">${esc(item.examples)}</div></div>`).join('')+'</div>';
+}
+
+function rTheory2(el,sec,lv){
+  el.innerHTML=sec.groups.map(g=>`<div class="g-card" style="border:1.5px solid ${g.color}30"><div class="g-title" style="color:${g.color}">${esc(g.label)}</div><div class="verbs-row">${g.verbs.map(v=>`<span class="v-chip" style="background:${g.color}12;color:${g.color};border:1px solid ${g.color}30">${v}</span>`).join('')}</div><div class="g-mem">💡 ${esc(g.memory)}</div><div class="g-ex">${esc(g.example)}</div></div>`).join('');
+}
+
+function rTheory3(el,sec,lv){
+  el.innerHTML=sec.pairs.map(p=>`<div class="pair-card"><div class="pair-sp"><div class="pair-sp-lbl">SPOKEN / INFORMAL</div><div class="pair-sp-txt">${esc(p.spoken)}</div></div><div class="pair-ac" style="background:${lv.light}60"><div class="pair-ac-lbl" style="color:${lv.color}">WRITTEN / ACADEMIC</div><div class="pair-ac-txt">${esc(p.academic)}</div><div class="pair-chg">→ ${esc(p.change)}</div></div></div>`).join('')+`<div class="insight" style="background:${lv.color}">📌 ${esc(sec.insight)}</div>`;
+}
+
+function rTheory4(el,sec,lv){
+  el.innerHTML=sec.cards.map(card=>`<div class="g-card" style="border:1.5px solid ${card.color}30;margin-bottom:10px">
+    <div class="g-title" style="color:${card.color}">${esc(card.label)}</div>
+    <div style="font-size:13px;color:#333;line-height:1.6;margin-bottom:10px">${esc(card.desc)}</div>
+    <div style="background:#fff;border-left:3px solid ${card.color};border-radius:0 6px 6px 0;padding:8px 12px;font-size:12px;color:${card.color};font-weight:600">&#x2192; ${esc(card.fix)}</div>
+  </div>`).join('');
+}
+
+// ── SPOT ──
+function rSpot(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+progHTML(sec.id,sec.items.length,lv)+
+    sec.items.map((item,i)=>{
+      const sen=esc(item.sentence).replace(esc(item.underlined),`<span class="ul-word" id="ulw-${sec.id}-${i}">${esc(item.underlined)}</span>`);
+      return `<div class="spot-card" id="sc-${sec.id}-${i}">
+        <div class="spot-top"><div class="spot-num">SENTENCE ${i+1}</div><div class="spot-sen">${sen}</div></div>
+        <div class="spot-acts" id="sa-${sec.id}-${i}">
+          <span>This sentence:</span>
+          <button class="btn-wrong" onclick="spotPick('${sec.id}',${i},'wrong')">❌ Has an error</button>
+          <button class="btn-right" onclick="spotPick('${sec.id}',${i},'right')">✅ Correct</button>
+        </div>
+        <div class="spot-ans" id="saa-${sec.id}-${i}" style="background:${lv.light}80">
+          <div class="ans-row">
+            <span class="wrong-wd">${esc(item.wrongWord)}</span>${badge(item.wrongType,'#CC3333')}
+            <span class="arr">→</span><span class="corr-wd">${esc(item.correctWord)}</span>${badge(item.correctType,'#1A7A3A')}
+          </div>
+          <div class="ans-rule">${esc(item.rule)}</div>
+          <div class="ans-tip" style="border:1px solid ${lv.color}30;color:${lv.color}">💡 ${esc(item.tip)}</div>
+          <div class="sc-inline" id="ssi-${sec.id}-${i}"></div>
+          <div class="warn-miss" id="swm-${sec.id}-${i}">⚠️ Câu này thực ra có lỗi — ghi vào sổ nhé!</div>
+        </div>
+      </div>`;
+    }).join('')+
+    `<button class="score-cta" id="scta-${sec.id}" onclick="calcSpot('${sec.id}')">📊 View auto-score</button><div id="sbdg-${sec.id}"></div>`;
+}
+
+function spotPick(sid,idx,choice){
+  if(!ST.choices[sid])ST.choices[sid]={};
+  if(ST.choices[sid][idx]!==undefined)return;
+  ST.choices[sid][idx]=choice;
+  document.getElementById('sa-'+sid+'-'+idx).style.display='none';
+  document.getElementById('saa-'+sid+'-'+idx).classList.add('open');
+  const lv=LEVELS[AL];
+  document.getElementById('sc-'+sid+'-'+idx).style.borderColor=lv.color+'50';
+  const ulw=document.getElementById('ulw-'+sid+'-'+idx);
+  if(ulw)ulw.classList.add('revealed');
+  if(choice==='right'){const w=document.getElementById('swm-'+sid+'-'+idx);if(w)w.style.display='block';}
+  const sec=lv.sections.find(s=>s.id===sid);
+  const done=Object.keys(ST.choices[sid]).length;
+  updProg(sid,done,sec.items.length);
+  if(done===sec.items.length){const c=document.getElementById('scta-'+sid);if(c)c.style.display='block';}
+}
+
+function calcSpot(sid){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  let score=0,max=0;
+  sec.items.forEach((_,i)=>{
+    const chose=(ST.choices[sid]||{})[i];
+    const pts=chose==='wrong'?3:0;
+    score+=pts;max+=3;
+    const el=document.getElementById('ssi-'+sid+'-'+i);
+    if(el){el.textContent=pts>0?'✓ +'+pts+' pt':'✗ 0/3 pt — sentence was actually incorrect';el.className='sc-inline '+(pts>0?'good':'bad');el.style.display='block';}
+  });
+  const cta=document.getElementById('scta-'+sid);if(cta)cta.style.display='none';
+  const bdg=document.getElementById('sbdg-'+sid);if(bdg)bdg.innerHTML=scoreBadge(score,max,lv.color);
+}
+
+// ── FILL ──
+function rFill(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+progHTML(sec.id,sec.items.length,lv)+
+    sec.items.map((item,i)=>`<div class="fill-card" id="fc-${sec.id}-${i}">
+      <div class="fill-body">
+        <div class="fill-base">SENTENCE ${i+1} — Từ gốc: <span style="color:${lv.color};font-family:'JetBrains Mono',monospace">${esc(item.baseWord||'')}</span></div>
+        <div class="fill-tmpl">${esc(item.template)}</div>
+        <div class="fill-irow">
+          <input class="fill-inp" id="fi-${sec.id}-${i}" placeholder="${esc(item.hint)}" onkeydown="if(event.key==='Enter')fillChk('${sec.id}',${i})"/>
+          <button class="fill-chk" id="fb-${sec.id}-${i}" style="background:${lv.color}" onclick="fillChk('${sec.id}',${i})">Check</button>
+          <span class="fill-ic" id="fic-${sec.id}-${i}"></span>
+        </div>
+      </div>
+      <div class="fill-ans" id="fa-${sec.id}-${i}" style="background:${lv.light}80">
+        <div class="fill-ca" id="fca-${sec.id}-${i}"></div>
+        <div class="fill-expl">${esc(item.explanation)}</div>
+        <div class="sc-inline" id="fsi-${sec.id}-${i}"></div>
+      </div>
+    </div>`).join('')+
+    `<button class="score-cta" id="fcta-${sec.id}" onclick="calcFill('${sec.id}')">📊 View auto-score</button><div id="fbdg-${sec.id}"></div>`;
+}
+
+function fillChk(sid,idx){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  const item=sec.items[idx];
+  const inp=document.getElementById('fi-'+sid+'-'+idx);
+  if(!inp||inp.disabled)return;
+  const uv=inp.value.trim().toLowerCase();
+  const ok=uv===item.answer.toLowerCase();
+  inp.disabled=true;
+  inp.classList.add(ok?'ok':'no');
+  document.getElementById('fc-'+sid+'-'+idx).classList.add(ok?'ok':'no');
+  const btn=document.getElementById('fb-'+sid+'-'+idx);if(btn)btn.style.display='none';
+  const ic=document.getElementById('fic-'+sid+'-'+idx);if(ic)ic.textContent=ok?'✅':'❌';
+  document.getElementById('fa-'+sid+'-'+idx).classList.add('open');
+  const ca=document.getElementById('fca-'+sid+'-'+idx);
+  if(ca)ca.textContent=ok?'':`Correct answer: ${item.answer}`;
+  if(!ST.inputs[sid])ST.inputs[sid]={};
+  ST.inputs[sid][idx]=inp.value;
+  if(!ST.checked[sid])ST.checked[sid]={};
+  ST.checked[sid][idx]={ok,uv};
+  const done=Object.keys(ST.checked[sid]).length;
+  updProg(sid,done,sec.items.length);
+  if(done===sec.items.length){const c=document.getElementById('fcta-'+sid);if(c)c.style.display='block';}
+}
+
+function calcFill(sid){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  let score=0,max=0;
+  sec.items.forEach((_,i)=>{
+    const r=(ST.checked[sid]||{})[i];
+    const pts=r?.ok?3:0;
+    score+=pts;max+=3;
+    const el=document.getElementById('fsi-'+sid+'-'+i);
+    if(el){el.textContent=pts>0?'✓ +3 pt':'✗ 0/3 pt';el.className='sc-inline '+(pts>0?'good':'bad');el.style.display='block';}
+  });
+  const cta=document.getElementById('fcta-'+sid);if(cta)cta.style.display='none';
+  const bdg=document.getElementById('fbdg-'+sid);if(bdg)bdg.innerHTML=scoreBadge(score,max,lv.color);
+}
+
+// ── TRANSFORM ──
+function rTransform(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+
+    `<div class="warn-box">📝 Write your transformed sentence before viewing the model. The model is a suggestion — multiple correct formulations are possible.</div>`+
+    sec.items.map((item,i)=>`<div class="tr-card" id="tc-${sec.id}-${i}">
+      <div class="tr-body">
+        <div class="tr-num">TRANSFORM ${i+1}</div>
+        <div class="tr-spoken">🗣 ${esc(item.spoken)}</div>
+        <div class="tr-hint">Vocabulary hint: <span style="color:${lv.color};font-family:'JetBrains Mono',monospace">${esc(item.hint)}</span></div>
+        <textarea class="tr-ta" rows="2" id="ta-${sec.id}-${i}" placeholder="Write your sentence here..." oninput="saveTr('${sec.id}',${i},this.value)"></textarea>
+        <button class="tr-reveal" style="background:${lv.color}" onclick="revealTr('${sec.id}',${i})">View model answer</button>
+      </div>
+      <div class="tr-ans" id="tr-${sec.id}-${i}" style="background:${lv.light}90">
+        <div class="model-lbl">MODEL ANSWER (for reference):</div>
+        <div class="model-txt">${esc(item.answer)}</div>
+        <span class="kc-chip" style="border:1px solid ${lv.color}30;color:${lv.color}">Key change: ${esc(item.keyChange)}</span>
+        <div class="princ" style="margin-top:6px">📌 ${esc(item.principle)}</div>
+      </div>
+    </div>`).join('');
+}
+
+function saveTr(sid,idx,val){
+  if(!ST.inputs[sid])ST.inputs[sid]={};
+  ST.inputs[sid][idx]=val;
+  const ta=document.getElementById('ta-'+sid+'-'+idx);
+  if(ta)ta.style.borderColor=val?LEVELS[AL].color+'60':'#DDD';
+}
+
+function revealTr(sid,idx){
+  document.getElementById('tr-'+sid+'-'+idx).classList.add('open');
+  document.getElementById('tc-'+sid+'-'+idx).style.borderColor=LEVELS[AL].color+'50';
+  const btn=document.getElementById('tc-'+sid+'-'+idx).querySelector('.tr-reveal');
+  if(btn)btn.style.display='none';
+}
+
+// ── LOG ──
+function rLog(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+
+    `<div class="log-note">📌 The error log is the single most valuable learning tool in self-study. The more specific your notes, the faster your progress.</div>`+
+    sec.prompts.map((p,i)=>`<div class="log-prompt"><label class="log-lbl">${i+1}. ${esc(p)}</label><textarea class="log-ta" rows="3" id="la-${sec.id}-${i}" placeholder="Write here..." oninput="saveLog('${sec.id}',${i},this.value)"></textarea></div>`).join('')+
+    `<button class="log-save" id="ls-${sec.id}" onclick="saveLogAll('${sec.id}')" style="background:${lv.color}">💾 Save error log</button>`;
+}
+
+function saveLog(sid,idx,val){
+  if(!ST.logs[sid])ST.logs[sid]={};
+  ST.logs[sid][idx]=val;
+  const ta=document.getElementById('la-'+sid+'-'+idx);
+  if(ta)ta.style.borderColor=val?LEVELS[AL].color+'60':'#DDD';
+}
+
+function saveLogAll(sid){
+  const btn=document.getElementById('ls-'+sid);
+  if(btn){btn.textContent='✅ Saved!';btn.style.background='#22C55E';}
+}
+
+// ── DOWNLOAD ──
+function handleDownload(){
+  const lv=LEVELS[AL];
+  const now=new Date();
+  const ds=now.toLocaleDateString('vi-VN',{year:'numeric',month:'long',day:'numeric'});
+  const ts=now.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
+  const L=[];
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('       HUONG STELLA PARADIGM');
+  L.push('       PRACTICE SESSION REPORT · '+lv.label);
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('Date : '+ds+' at '+ts);
+  L.push('Topic : '+lv.theme);
+  L.push('');
+  lv.sections.forEach(sec=>{
+    if(['theory','theory2','theory3','theory4'].includes(sec.type))return;
+    L.push('──────────────────────────────────────────────────────────');
+    L.push('  '+sec.title.replace(/[\u{1F300}-\u{1FFFF}]/gu,'').trim().toUpperCase());
+    L.push('──────────────────────────────────────────────────────────');
+    if(sec.type==='spot'){
+      sec.items.forEach((item,i)=>{
+        L.push('  Sentence '+(i+1)+': '+item.sentence);
+        L.push('  -> Correct: '+item.sentence.replace(item.wrongWord,item.correctWord));
+        L.push('  -> Wrong: '+item.wrongWord+' ['+item.wrongType+']  ->  Right: '+item.correctWord+' ['+item.correctType+']');
+        L.push('  -> Rule: '+item.rule);
+        const chose=(ST.choices[sec.id]||{})[i];
+        if(chose!==undefined)L.push('  -> Your assessment: '+(chose==='wrong'?'[v] Correctly identified as INCORRECT':'[x] Marked as correct — actually has an error'));
+        L.push('');
+      });
+    }
+    if(sec.type==='fill'){
+      sec.items.forEach((item,i)=>{
+        const ua=(ST.inputs[sec.id]||{})[i]||'(chua tra loi)';
+        const ok=ua.trim().toLowerCase()===item.answer.toLowerCase();
+        L.push('  Sentence '+(i+1)+': '+item.template);
+        L.push('  -> Your answer       : '+ua);
+        L.push('  -> Correct answer    : '+item.answer+' ['+item.targetType+']');
+        L.push('  -> Result            : '+(ok?'[v] Correct':'[x] Incorrect'));
+        L.push('  -> Explanation       : '+item.explanation);
+        L.push('');
+      });
+    }
+    if(sec.type==='transform'){
+      sec.items.forEach((item,i)=>{
+        L.push('  Transform '+(i+1)+' — Original: "'+item.spoken+'"');
+        L.push('  -> Model answer: "'+item.answer+'"');
+        L.push('  -> Key change: '+item.keyChange);
+        L.push('  -> Principle: '+item.principle);
+        const ua=(ST.inputs[sec.id]||{})[i]||'';
+        if(ua)L.push('  -> Your sentence: '+ua);
+        L.push('');
+      });
+    }
+    if(sec.type==='log'){
+      sec.prompts.forEach((p,i)=>{
+        const note=(ST.logs[sec.id]||{})[i]||'(chua dien)';
+        L.push('  '+(i+1)+'. '+p);
+        L.push('     '+note);
+        L.push('');
+      });
+    }
+  });
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  ASSESSMENT CRITERIA (RUBRIC)');
+  L.push('════════════════════════════════════════════════════════════');
+  const rubs=RUBRICS[AL];
+  Object.entries(rubs).forEach(([key,rubric])=>{
+    L.push('  Section '+key+':');
+    rubric.forEach(r=>L.push('    . '+r.criterion.padEnd(42,' ')+r.max+' pts'));
+    L.push('');
+  });
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  DISCLAIMER');
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  This practice material was developed with the support of an');
+  L.push('  AI system within the academic programme of Huong Stella');
+  L.push('  Paradigm. While content has been reviewed against pedagogical');
+  L.push('  standards, learners are advised to cross-reference with');
+  L.push('  authoritative sources and consult their instructor for');
+  L.push('  clarification of specific points. Auto-scoring is indicative');
+  L.push('  only and does not replace teacher assessment.');
+  L.push('');
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('════════════════════════════════════════════════════════════');
+
+  const blob=new Blob([L.join('\n')],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='HuongStella_DailyDrill_Day9_'+AL+'_'+now.toISOString().slice(0,10)+'.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+init();
+</script>
+</body>
+</html>

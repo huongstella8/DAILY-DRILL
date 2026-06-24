@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Drills 10</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--lc:#2D6A4F;--ll:#D8F3DC}
+body{font-family:'Inter',sans-serif;background:#F4F2EF;color:#1a1a1a;min-height:100vh}
+header{background:#111;color:#fff;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+header .brand{font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;opacity:.55;font-weight:600}
+header .day-label{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7;font-weight:500}
+header h1{font-size:1.15rem;font-weight:700;letter-spacing:-.01em;margin-top:2px}
+.dl-btn{background:transparent;border:1px solid rgba(255,255,255,.3);color:#fff;padding:7px 16px;border-radius:6px;font-size:.78rem;cursor:pointer;font-family:'Inter',sans-serif;transition:background .2s}
+.dl-btn:hover{background:rgba(255,255,255,.1)}
+.lv-tabs{display:flex;gap:6px;padding:16px 24px 0;flex-wrap:wrap}
+.lv-tab{padding:8px 18px;border-radius:8px 8px 0 0;font-size:.8rem;font-weight:600;cursor:pointer;border:2px solid transparent;background:#e8e4de;color:#555;transition:all .2s;letter-spacing:.02em}
+.lv-tab.active{background:var(--lc);color:#fff;border-color:var(--lc)}
+.lv-tab:hover:not(.active){background:#ddd8d0}
+.lv-header{background:var(--lc);color:#fff;padding:20px 28px 16px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.lv-header h2{font-size:1.1rem;font-weight:700}
+.lv-header .tagline{font-size:.82rem;opacity:.85;margin-top:3px}
+.lv-header .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.lv-header .meta span{font-size:.75rem;background:rgba(255,255,255,.18);padding:3px 10px;border-radius:20px}
+.goal-bar{background:var(--ll);border-left:4px solid var(--lc);padding:12px 20px;font-size:.83rem;line-height:1.6;color:#1a1a1a}
+.goal-bar strong{color:var(--lc)}
+.sec-nav{display:flex;gap:6px;padding:16px 24px 0;flex-wrap:wrap;background:#F4F2EF}
+.sec-btn{padding:7px 14px;border-radius:6px;font-size:.78rem;font-weight:600;cursor:pointer;border:2px solid #ccc;background:#fff;color:#555;transition:all .2s}
+.sec-btn.active{background:var(--lc);color:#fff;border-color:var(--lc)}
+.sec-btn:hover:not(.active){border-color:var(--lc);color:var(--lc)}
+.sec-content{padding:24px;max-width:860px}
+/* Theory cards */
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:4px}
+.tc{background:#fff;border-radius:10px;padding:16px;border-top:4px solid var(--lc);box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.tc .tc-label{font-weight:700;font-size:.9rem;margin-bottom:4px}
+.tc .tc-badge{display:inline-block;font-size:.68rem;background:var(--ll);color:var(--lc);padding:2px 8px;border-radius:20px;font-weight:700;margin-bottom:8px;letter-spacing:.04em}
+.tc .tc-ex{font-family:'JetBrains Mono',monospace;font-size:.78rem;background:#f7f5f2;padding:8px 10px;border-radius:6px;margin-bottom:8px;line-height:1.5}
+.tc .tc-rule{font-size:.78rem;color:#444;line-height:1.55}
+/* Theory2 */
+.t2-grid{display:grid;gap:14px;margin-top:4px}
+.t2c{background:#fff;border-radius:10px;padding:16px;border-left:5px solid var(--lc);box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.t2c .t2-label{font-weight:700;font-size:.9rem;margin-bottom:8px}
+.t2c .t2-verbs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.t2c .t2-verb{font-family:'JetBrains Mono',monospace;font-size:.78rem;background:var(--ll);color:var(--lc);padding:3px 10px;border-radius:4px;font-weight:600}
+.t2c .t2-mem{font-size:.78rem;color:#555;margin-bottom:6px;font-style:italic}
+.t2c .t2-ex{font-family:'JetBrains Mono',monospace;font-size:.78rem;background:#f7f5f2;padding:8px 10px;border-radius:6px;line-height:1.5}
+/* Theory3 */
+.t3-pairs{display:grid;gap:14px;margin-top:4px}
+.t3p{background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.t3p .sp{font-size:.8rem;color:#888;margin-bottom:4px;font-weight:600;text-transform:uppercase;letter-spacing:.05em}
+.t3p .spoken-s{font-family:'JetBrains Mono',monospace;font-size:.82rem;padding:8px 12px;background:#fdf3f3;border-left:3px solid #c00;border-radius:0 6px 6px 0;margin-bottom:10px}
+.t3p .academic-s{font-family:'JetBrains Mono',monospace;font-size:.82rem;padding:8px 12px;background:#f0fdf4;border-left:3px solid var(--lc);border-radius:0 6px 6px 0;margin-bottom:10px}
+.t3p .change{font-size:.78rem;color:#555;font-style:italic}
+.t3-insight{background:var(--ll);border-left:4px solid var(--lc);padding:12px 16px;border-radius:0 8px 8px 0;font-size:.82rem;color:#1a1a1a;margin-top:14px;line-height:1.55}
+.t3-insight strong{color:var(--lc)}
+/* Theory4 */
+.t4-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:4px}
+.t4c{background:#fff;border-radius:10px;padding:16px;border-top:4px solid var(--lc);box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.t4c .t4-label{font-weight:700;font-size:.88rem;margin-bottom:6px}
+.t4c .t4-desc{font-size:.78rem;color:#444;margin-bottom:8px;line-height:1.5}
+.t4c .t4-fix{font-size:.78rem;background:#f7f5f2;padding:8px 10px;border-radius:6px;line-height:1.5;font-family:'JetBrains Mono',monospace}
+/* Spot */
+.spot-item{background:#fff;border-radius:10px;padding:18px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.spot-item .si-num{font-size:.72rem;font-weight:700;color:var(--lc);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.spot-item .si-sent{font-size:.9rem;line-height:1.65;margin-bottom:12px}
+.si-sent .underline{text-decoration:underline;text-decoration-color:var(--lc);text-underline-offset:3px;cursor:pointer}
+.spot-opts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.spot-opt{padding:7px 14px;border-radius:6px;border:2px solid #ddd;background:#fff;font-size:.82rem;cursor:pointer;transition:all .18s;font-family:'Inter',sans-serif}
+.spot-opt:hover{border-color:var(--lc)}
+.spot-opt.sel-wrong{background:#fdf3f3;border-color:#c00;color:#c00}
+.spot-opt.sel-right{background:#f0fdf4;border-color:#2D6A4F;color:#2D6A4F}
+.spot-opt.revealed-right{background:#f0fdf4;border-color:#2D6A4F;color:#2D6A4F}
+.spot-reveal{display:none;margin-top:10px;background:#f7f5f2;border-radius:8px;padding:12px 14px;font-size:.8rem;line-height:1.6}
+.spot-reveal.show{display:block}
+.spot-reveal .rev-rule{margin-bottom:6px}
+.spot-reveal .rev-tip{color:#555;font-style:italic}
+.spot-reveal .rev-label{font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--lc);margin-bottom:2px}
+.calc-row{display:flex;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}
+.calc-btn{background:var(--lc);color:#fff;border:none;padding:9px 20px;border-radius:7px;font-size:.82rem;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;transition:opacity .2s}
+.calc-btn:hover{opacity:.85}
+.score-badge{display:inline-block;padding:6px 14px;border-radius:20px;font-size:.82rem;font-weight:700}
+/* Fill */
+.fill-item{background:#fff;border-radius:10px;padding:18px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.fill-item .fi-num{font-size:.72rem;font-weight:700;color:var(--lc);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.fi-base{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:.78rem;background:var(--ll);color:var(--lc);padding:3px 10px;border-radius:4px;margin-bottom:10px;font-weight:600}
+.fi-template{font-size:.88rem;line-height:1.65;margin-bottom:10px}
+.fi-input-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fi-input{border:2px solid #ddd;border-radius:6px;padding:7px 12px;font-size:.85rem;font-family:'JetBrains Mono',monospace;outline:none;transition:border .18s;width:180px}
+.fi-input:focus{border-color:var(--lc)}
+.fi-input.correct{border-color:#2D6A4F;background:#f0fdf4}
+.fi-input.wrong{border-color:#c00;background:#fdf3f3}
+.fi-chk{background:var(--lc);color:#fff;border:none;padding:7px 14px;border-radius:6px;font-size:.8rem;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600}
+.fi-fb{margin-top:8px;font-size:.8rem;display:none;line-height:1.55}
+.fi-fb.show{display:block}
+.fi-fb.ok{color:#2D6A4F}
+.fi-fb.no{color:#c00}
+/* Transform */
+.tr-item{background:#fff;border-radius:10px;padding:18px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.tr-item .tr-num{font-size:.72rem;font-weight:700;color:var(--lc);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.tr-spoken{font-family:'JetBrains Mono',monospace;font-size:.82rem;padding:8px 12px;background:#fdf3f3;border-left:3px solid #c00;border-radius:0 6px 6px 0;margin-bottom:8px;line-height:1.5}
+.tr-hint{font-size:.78rem;color:#555;margin-bottom:8px;font-style:italic}
+.tr-hint strong{color:var(--lc);font-style:normal}
+.tr-textarea{width:100%;border:2px solid #ddd;border-radius:6px;padding:10px 12px;font-family:'Inter',sans-serif;font-size:.83rem;resize:vertical;min-height:72px;outline:none;transition:border .18s}
+.tr-textarea:focus{border-color:var(--lc)}
+.tr-btns{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.tr-save-btn{background:var(--lc);color:#fff;border:none;padding:7px 14px;border-radius:6px;font-size:.8rem;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600}
+.tr-reveal-btn{background:#fff;color:var(--lc);border:2px solid var(--lc);padding:7px 14px;border-radius:6px;font-size:.8rem;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600}
+.tr-model{display:none;margin-top:10px;background:#f0fdf4;border-left:4px solid var(--lc);padding:12px 14px;border-radius:0 8px 8px 0;font-size:.8rem;line-height:1.6}
+.tr-model.show{display:block}
+.tr-model .tm-ans{font-family:'JetBrains Mono',monospace;font-size:.8rem;margin-bottom:6px}
+.tr-model .tm-key{color:#555;font-style:italic;font-size:.78rem}
+/* Log */
+.log-item{background:#fff;border-radius:10px;padding:18px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.07)}
+.log-item .li-num{font-size:.72rem;font-weight:700;color:var(--lc);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.log-item .li-prompt{font-size:.87rem;line-height:1.6;margin-bottom:10px}
+.log-textarea{width:100%;border:2px solid #ddd;border-radius:6px;padding:10px 12px;font-family:'Inter',sans-serif;font-size:.83rem;resize:vertical;min-height:72px;outline:none;transition:border .18s}
+.log-textarea:focus{border-color:var(--lc)}
+.log-save-btn{background:var(--lc);color:#fff;border:none;padding:7px 14px;border-radius:6px;font-size:.8rem;cursor:pointer;font-family:'Inter',sans-serif;font-weight:600;margin-top:8px}
+.log-saved{color:var(--lc);font-size:.78rem;margin-top:6px;display:none}
+.log-saved.show{display:block}
+.save-all-row{margin-top:10px}
+/* Rubric */
+.rubric-toggle{background:none;border:1px solid #ccc;border-radius:6px;padding:6px 14px;font-size:.78rem;cursor:pointer;color:#555;font-family:'Inter',sans-serif;margin-top:14px;transition:all .2s}
+.rubric-toggle:hover{border-color:var(--lc);color:var(--lc)}
+.rubric-box{display:none;margin-top:10px;background:#f7f5f2;border-radius:8px;padding:14px}
+.rubric-box.show{display:block}
+.rubric-box table{width:100%;border-collapse:collapse;font-size:.78rem}
+.rubric-box th{text-align:left;color:#555;font-weight:600;padding:4px 8px;border-bottom:2px solid #ddd}
+.rubric-box td{padding:5px 8px;border-bottom:1px solid #eee;line-height:1.5}
+/* Progress */
+.prog-bar-wrap{height:6px;background:#e0dbd4;border-radius:3px;margin-bottom:4px;overflow:hidden}
+.prog-bar{height:100%;background:var(--lc);border-radius:3px;transition:width .4s}
+.prog-label{font-size:.72rem;color:#777}
+.prog-wrap{margin-bottom:16px}
+/* Section title */
+.sec-title{font-size:1rem;font-weight:700;margin-bottom:4px}
+.sec-subtitle{font-size:.8rem;color:#666;margin-bottom:16px}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Huong Stella Paradigm</div>
+    <h1>Vocabulary Building</h1>
+    <div class="day-label">Day 10 · Interactive Practice</div>
+  </div>
+  <button class="dl-btn" onclick="handleDownload()">⬇ Download Report</button>
+</header>
+
+<div class="lv-tabs" id="lvTabs"></div>
+<div id="lvHeader"></div>
+<div id="secNav"></div>
+<div class="sec-content" id="secContent"></div>
+
+<script>
+const DAY = 10;
+let AL = 'a2b1', AS = 0;
+const ST = {choices:{}, inputs:{}, checked:{}, logs:{}};
+
+const RUBRICS = {
+  a2b1: {
+    spot: [
+      {criterion:"Identifies the incorrect word form",max:1,desc:"Selects the exact underlined error in the sentence"},
+      {criterion:"Chooses the correct replacement",max:2,desc:"Selects the right word-form option (1 pt) with no second attempt (2 pts)"},
+      {criterion:"Applies rule consistently",max:1,desc:"Score awarded after full section based on pattern of accuracy"}
+    ],
+    fill: [
+      {criterion:"Correct word form supplied",max:2,desc:"Exact target form used (2 pts); plausible but wrong form (0 pts)"},
+      {criterion:"Spelling accurate",max:1,desc:"No spelling errors in the answer"},
+      {criterion:"Appropriate suffix selected",max:1,desc:"Chooses the suffix that matches the grammatical category required"}
+    ],
+    log: [
+      {criterion:"Reflection is specific",max:2,desc:"Names a particular word family or suffix, not a general comment"},
+      {criterion:"Own example sentence is grammatically correct",max:2,desc:"Word form and sentence structure are both accurate"},
+      {criterion:"Rule explanation shows understanding",max:2,desc:"Explains why the suffix signals a particular word class, not just lists examples"}
+    ]
+  },
+  b1b2: {
+    spot: [
+      {criterion:"Identifies the error",max:1,desc:"Correct option selected on first try"},
+      {criterion:"Understands the grammatical reason",max:2,desc:"After reveal: can explain particle placement or following-verb form rule"},
+      {criterion:"Error type correctly categorised",max:1,desc:"Labels error as particle order / verb form / preposition etc."}
+    ],
+    fill: [
+      {criterion:"Correct phrasal verb form",max:2,desc:"Right phrasal verb with correct particle and verb form"},
+      {criterion:"Particle accuracy",max:1,desc:"Particle choice is exact (off/up/forward etc.)"},
+      {criterion:"Tense consistent with context",max:1,desc:"Verb tense matches the rest of the sentence"}
+    ],
+    log: [
+      {criterion:"Error record is precise",max:2,desc:"States the wrong form and the correct form with explanation"},
+      {criterion:"Grammar rule explained correctly",max:2,desc:"Separable vs inseparable rule stated accurately"},
+      {criterion:"Original sentences are natural",max:2,desc:"Both sentences sound idiomatic, not just grammatically correct"}
+    ]
+  },
+  b2c1: {
+    spot: [
+      {criterion:"Error identified correctly",max:1,desc:"Selects the right option on first attempt"},
+      {criterion:"Rule applied to AWL context",max:2,desc:"Error traced to specific AWL word class, collocation, or SVA rule"},
+      {criterion:"Register awareness demonstrated",max:1,desc:"Recognises when a word is too informal or incorrectly formed for academic prose"}
+    ],
+    fill: [
+      {criterion:"Correct AWL word selected",max:2,desc:"Exact lemma in correct form (e.g. assess not assessment where verb needed)"},
+      {criterion:"Collocational fit",max:1,desc:"Word fits the surrounding collocation naturally"},
+      {criterion:"Tense/agreement accurate",max:1,desc:"Verb form matches subject and tense frame"}
+    ],
+    transform: [
+      {criterion:"AWL vocabulary deployed",max:2,desc:"At least two Tier-1 AWL words are used accurately and appropriately"},
+      {criterion:"Nominalisation or hedging applied",max:2,desc:"Informal verb phrase replaced with noun phrase or hedged academic equivalent"},
+      {criterion:"Register is consistently formal",max:1,desc:"No informal words or contractions in the transformed sentence"}
+    ],
+    log: [
+      {criterion:"Misused word identified precisely",max:2,desc:"Names the specific AWL word and explains the error pattern"},
+      {criterion:"Affect/effect distinction explained",max:2,desc:"Both words defined with correct grammatical category and example"},
+      {criterion:"Own writing revision is meaningful",max:2,desc:"Substitution genuinely raises register, not just swaps a synonym"}
+    ]
+  },
+  c1c2: {
+    spot: [
+      {criterion:"Error identified",max:1,desc:"Correct option on first attempt"},
+      {criterion:"Connotative/gradability principle stated",max:2,desc:"Explains non-gradability, implication vs inference, or register mismatch"},
+      {criterion:"Alternative phrasing suggested",max:1,desc:"Offers a precise alternative that avoids the error pattern"}
+    ],
+    fill: [
+      {criterion:"Most precise word selected",max:2,desc:"Chooses the option with the exact connotative fit, not just a synonym"},
+      {criterion:"Connotative reasoning is accurate",max:1,desc:"Can explain why the other options fail (wrong register, false implication, etc.)"},
+      {criterion:"Sentence cohesion maintained",max:1,desc:"Word chosen integrates with surrounding syntax and discourse"}
+    ],
+    transform: [
+      {criterion:"Lexical choices are evaluatively precise",max:2,desc:"Words carry the intended stance (critical, neutral, or supportive) without ambiguity"},
+      {criterion:"Connotative loading is exploited deliberately",max:2,desc:"At least one word choice is justified by its connotative, not just denotative, value"},
+      {criterion:"C2 syntactic complexity",max:1,desc:"Sentence uses embedding, nominalisation, or rhetorical structure beyond simple SVO"}
+    ],
+    log: [
+      {criterion:"Connotative analysis is insightful",max:2,desc:"Goes beyond dictionary definition to explore evaluative or ideological loading"},
+      {criterion:"Reporting verb distinctions are accurate",max:2,desc:"Claim/argue/assert distinguished by evidential strength and authorial stance"},
+      {criterion:"Critical-stance sentence is rhetorically effective",max:2,desc:"Lexical choice alone (without explicit evaluation) signals a critical position"}
+    ]
+  }
+};
+
+const LEVELS = {
+  a2b1: {
+    label:"A2–B1", color:"#2D6A4F", light:"#D8F3DC",
+    theme:"Word Families & Suffixes",
+    tagline:"Build vocabulary by mastering how one root word becomes noun, verb, adjective, and adverb.",
+    goal:"Today you will: identify common noun, verb, adjective, and adverb suffixes · spot word-form errors typical of Vietnamese learners · fill in the correct word form from a given root",
+    time:"10–15 min",
+    sections:[
+      {type:"theory", title:"Warmup", subtitle:"Four suffix families you must know",
+       cards:[
+        {label:"Noun Suffixes", badge:"noun", color:"#2D6A4F",
+         examples:"-tion/-sion: education, decision\n-ment: government, development\n-ness: happiness, darkness\n-er/-or: teacher, actor",
+         rule:"Add these endings to verbs or adjectives to create nouns. 'Educate' (v) → 'education' (n). 'Happy' (adj) → 'happiness' (n). Ask: Is this person, place, thing, or idea? → needs a noun."},
+        {label:"Verb Suffixes", badge:"verb", color:"#1A4A7A",
+         examples:"-ise/-ize: organise, realise\n-en: strengthen, widen\n-ify: clarify, simplify\n-ate: educate, communicate",
+         rule:"These endings make verbs from nouns or adjectives. 'Strong' (adj) → 'strengthen' (v). 'Simple' (adj) → 'simplify' (v). Ask: Is this an action? → needs a verb."},
+        {label:"Adjective Suffixes", badge:"adjective", color:"#5A1A8A",
+         examples:"-ful: careful, useful\n-less: careless, useless\n-ous: dangerous, famous\n-al: natural, cultural\n-ive: creative, effective",
+         rule:"Adjective suffixes turn nouns into descriptors. 'Care' (n) → 'careful' (adj). 'Create' (v) → 'creative' (adj). Ask: Does this describe a noun? → needs an adjective."},
+        {label:"Adverb Suffix", badge:"adverb", color:"#8B1A1A",
+         examples:"-ly: carefully, quickly\nseriously, naturally\neffectively, culturally",
+         rule:"Almost all English adverbs end in -ly. They modify verbs, adjectives, or other adverbs — NEVER nouns. 'She spoke careful.' ✗ → 'She spoke carefully.' ✓ Ask: Does this modify a verb or adjective? → needs -ly."}
+       ]
+      },
+      {type:"spot", title:"Spot the Error", subtitle:"Each sentence has a word-form error. Choose the correct replacement.", rubricKey:"spot",
+       items:[
+        {sentence:"The manager spoke very careful during the presentation.",
+         underlined:"careful",
+         wrongWord:"careful",
+         correctWord:"carefully",
+         wrongType:"adjective used as adverb",
+         correctType:"adverb (-ly)",
+         rule:"'Careful' is an adjective and must describe a noun. Here it modifies the verb 'spoke', so the adverb form 'carefully' is required.",
+         tip:"Test: replace the word with 'slowly'. If 'slowly' fits, you need -ly. 'She spoke slowly' ✓ → 'She spoke carefully' ✓."},
+        {sentence:"The develop of technology has changed our daily lives.",
+         underlined:"develop",
+         wrongWord:"develop",
+         correctWord:"development",
+         wrongType:"verb used as noun",
+         correctType:"noun (-ment)",
+         rule:"'Develop' is a verb. After 'The', you need a noun. 'Development' (noun, -ment suffix) is the correct form: 'The development of technology'.",
+         tip:"Spot a noun slot: after 'the', before 'of', or after a preposition, the word must be a noun. Add -ment, -tion, or -ness."},
+        {sentence:"He is very success in his business and inspires many people.",
+         underlined:"success",
+         wrongWord:"success",
+         correctWord:"successful",
+         wrongType:"noun used as adjective",
+         correctType:"adjective (-ful)",
+         rule:"After 'is very', you need an adjective, not a noun. 'Success' is a noun. 'Successful' (adjective, -ful suffix) is required: 'He is very successful'.",
+         tip:"After 'be + very/quite/really', you almost always need an adjective. Nouns cannot follow intensifiers like 'very'."},
+        {sentence:"We need to simple the instructions so that beginners can understand them.",
+         underlined:"simple",
+         wrongWord:"simple",
+         correctWord:"simplify",
+         wrongType:"adjective used as verb",
+         correctType:"verb (-ify)",
+         rule:"After 'to' (infinitive marker) you need a base verb. 'Simple' is an adjective. 'Simplify' (verb, -ify suffix) converts it to the correct form: 'to simplify'.",
+         tip:"After 'to need to / want to / have to + ___', you need a verb. If the word ends in -ple, -ful, -ous, it's likely an adjective — add -ify or -ise."},
+        {sentence:"The child is very create and produces beautiful drawings every week.",
+         underlined:"create",
+         wrongWord:"create",
+         correctWord:"creative",
+         wrongType:"verb used as adjective",
+         correctType:"adjective (-ive)",
+         rule:"After 'is very', you need an adjective. 'Create' is a verb. The adjective form is 'creative' (-ive suffix): 'The child is very creative'.",
+         tip:"Can you put 'extremely' before the word? 'Extremely creative' ✓, 'Extremely create' ✗. If 'extremely' sounds wrong, reconsider the word form."},
+        {sentence:"Her kind and patient made everyone in the office feel comfortable.",
+         underlined:"kind and patient",
+         wrongWord:"kind and patient",
+         correctWord:"kindness and patience",
+         wrongType:"adjectives used as nouns (subject slot)",
+         correctType:"nouns (-ness / -nce)",
+         rule:"'Her ___' requires noun(s) as the sentence subject. 'Kind' and 'patient' are adjectives. The noun forms are 'kindness' and 'patience': 'Her kindness and patience made…'",
+         tip:"Possessive pronouns (her, his, their) must be followed by a noun phrase. Adjectives alone cannot follow possessives in subject position."}
+       ]
+      },
+      {type:"fill", title:"Fill in the Blank", subtitle:"Use the root word given to supply the correct word form.", rubricKey:"fill",
+       items:[
+        {template:"The government has invested heavily in ___ to improve the standard of living.",
+         baseWord:"educate",
+         answer:"education",
+         targetType:"noun (-tion)",
+         hint:"noun form…",
+         explanation:"'Education' is the noun form of 'educate'. It follows the preposition 'in', confirming a noun is needed."},
+        {template:"Regular exercise can ___ your immune system and protect you from illness.",
+         baseWord:"strong",
+         answer:"strengthen",
+         targetType:"verb (-en)",
+         hint:"verb form…",
+         explanation:"'Strengthen' is the verb formed from the adjective 'strong' with the suffix -en. The modal 'can' confirms a base verb is required."},
+        {template:"Crossing the road without looking is extremely ___.",
+         baseWord:"danger",
+         answer:"dangerous",
+         targetType:"adjective (-ous)",
+         hint:"adjective form…",
+         explanation:"After 'is extremely', an adjective is required. 'Dangerous' adds -ous to the noun 'danger'."},
+        {template:"The new app provides ___ tips for students who are struggling with grammar.",
+         baseWord:"help",
+         answer:"helpful",
+         targetType:"adjective (-ful)",
+         hint:"adjective form…",
+         explanation:"'Helpful' (adjective, -ful) modifies the noun 'tips'. Note: 'helpless' (without help) would change the meaning completely."},
+        {template:"___ skills are essential for anyone working in a team environment.",
+         baseWord:"communicate",
+         answer:"Communication",
+         targetType:"noun (-tion)",
+         hint:"noun form…",
+         explanation:"'Communication' is the noun form. At the start of the sentence, before 'skills', a noun (modifier) is required: 'Communication skills'."}
+       ]
+      },
+      {type:"log", title:"Error Log", subtitle:"Reflect on today's learning. Write in the spaces below.", rubricKey:"log",
+       prompts:[
+         "Write down one complete word family from today — noun, verb, adjective, and adverb forms. Which form do you find hardest to remember, and why?",
+         "Explain in your own words: what is the difference between -ful and -less? Give two original examples of each suffix in a sentence.",
+         "Write three sentences using three different word forms of the same root (e.g. communicate / communication / communicative / communicatively). Make sure each sentence is grammatically correct."
+       ]
+      }
+    ]
+  },
+  b1b2: {
+    label:"B1+–B2", color:"#1A4A7A", light:"#D6E8F7",
+    theme:"Phrasal Verbs in Context",
+    tagline:"Master the meaning, grammar, and collocations of high-frequency phrasal verbs.",
+    goal:"Today you will: categorise phrasal verbs by particle and meaning · apply particle-placement rules for separable vs inseparable verbs · identify typical errors in phrasal verb use",
+    time:"15–20 min",
+    sections:[
+      {type:"theory2", title:"Warmup", subtitle:"Three phrasal-verb families — learn them by particle",
+       groups:[
+        {label:"COME verbs", color:"#1A4A7A",
+         verbs:["come across","come up with","come across as","come into"],
+         memory:"COME = encounter or arrive at something (literally or mentally). 'Come across' = find by chance. 'Come up with' = think of (an idea). 'Come across as' = give the impression of. All are INSEPARABLE.",
+         example:"She came up with an innovative solution during the brainstorming session. (NOT: She came an innovative solution up with.)"},
+        {label:"BRING verbs", color:"#5A1A8A",
+         verbs:["bring about","bring up","bring out","bring forward"],
+         memory:"BRING = cause movement or change. 'Bring about' = cause (a change). 'Bring up' = raise a topic OR raise a child. 'Bring out' = reveal or publish. SEPARABLE when followed by a pronoun: 'bring it about'.",
+         example:"The new policy brought about significant improvements in air quality. / She brought up an important point at the meeting."},
+        {label:"PUT verbs", color:"#8B1A1A",
+         verbs:["put off","put forward","put up with","put down to"],
+         memory:"PUT = place or delay. 'Put off' = postpone OR disgust. 'Put forward' = propose/suggest. 'Put up with' = tolerate. SEPARABLE (put it off, put it forward) EXCEPT 'put up with': 'put up with it' ✓ NOT 'put it up with'.",
+         example:"The committee put forward a new proposal to reduce carbon emissions. / He couldn't put up with the noise any longer."}
+       ]
+      },
+      {type:"spot", title:"Spot the Error", subtitle:"Each sentence has a phrasal verb error. Choose the correct replacement.", rubricKey:"spot",
+       items:[
+        {sentence:"She looked forward to meet her family again after six months abroad.",
+         underlined:"to meet",
+         wrongWord:"to meet",
+         correctWord:"to meeting",
+         wrongType:"infinitive after phrasal-verb 'to'",
+         correctType:"gerund (-ing) after 'to'",
+         rule:"In 'look forward to', the word 'to' is a PREPOSITION, not an infinitive marker. Prepositions must be followed by a noun or gerund (-ing form), NOT a base infinitive. 'Look forward to meeting' ✓.",
+         tip:"Test: replace 'to' with 'towards'. 'Looking towards meeting' sounds fine → confirms 'to' is a preposition → use -ing. Other traps: 'object to doing', 'used to doing', 'resort to doing'."},
+        {sentence:"He put off to go to the doctor even though he had been feeling unwell for weeks.",
+         underlined:"to go",
+         wrongWord:"to go",
+         correctWord:"going",
+         wrongType:"infinitive after 'put off'",
+         correctType:"gerund (-ing) after 'put off'",
+         rule:"'Put off' means postpone and is always followed by a gerund (-ing), not an infinitive. 'He put off going to the doctor' ✓. Compare: 'He decided to go' (infinitive after 'decide') — different verb, different pattern.",
+         tip:"Phrasal verbs of postponing/avoiding (put off, delay, avoid, consider) take -ing. Infinitive follows verbs of intention (decide, want, plan, hope)."},
+        {sentence:"We need to figure the problem it out before the deadline.",
+         underlined:"the problem it out",
+         wrongWord:"the problem it out",
+         correctWord:"it out",
+         wrongType:"noun inserted before pronoun object",
+         correctType:"pronoun goes between verb and particle",
+         rule:"When the object is a PRONOUN (it, him, her, them), it MUST go between the verb and the particle: 'figure it out' ✓. You cannot say 'figure the problem it out'. If using a noun, you may split or keep together: 'figure out the problem' or 'figure the problem out'.",
+         tip:"Rule of thumb: pronoun = always split ('turn it off'); long noun phrase = keep together ('turn off all the lights in the building')."},
+        {sentence:"The company came across a new strategy to reduce costs during the meeting.",
+         underlined:"came across",
+         wrongWord:"came across",
+         correctWord:"came up with",
+         wrongType:"wrong phrasal verb (came across = found accidentally)",
+         correctType:"came up with (= devised/thought of)",
+         rule:"'Come across' means to find or encounter something by chance — you don't actively create it. 'Come up with' means to think of or invent: 'The company came up with a new strategy'. The company created the strategy deliberately, so 'came across' is wrong.",
+         tip:"Did someone intentionally create it? → 'came up with'. Did someone stumble upon it accidentally? → 'came across'."},
+        {sentence:"Despite the challenges, the team was able to carry the project through successfully.",
+         underlined:"carry the project through",
+         wrongWord:"carry the project through",
+         correctWord:"carry out the project",
+         wrongType:"wrong phrasal verb (carry through ≠ carry out)",
+         correctType:"carry out (= execute/complete a task)",
+         rule:"'Carry out' = perform or execute a task (carry out research, carry out a plan). 'Carry through' = persist with something despite difficulty, and is less common. In this context, 'carry out the project' or 'see the project through' are the natural choices.",
+         tip:"When in doubt with 'carry', ask: Are they doing/executing something? → 'carry out'. Are they persisting against obstacles? → 'see it through' / 'carry it through'."}
+       ]
+      },
+      {type:"fill", title:"Fill in the Blank", subtitle:"Complete each sentence with the correct phrasal verb in the correct form.", rubricKey:"fill",
+       items:[
+        {template:"Years of economic mismanagement ___ the collapse of the national currency.",
+         baseWord:"bring about",
+         answer:"brought about",
+         targetType:"phrasal verb: past simple",
+         hint:"past form of bring about…",
+         explanation:"'Bring about' means to cause. Past simple: 'brought about'. The object 'the collapse' follows the particle, which is correct for a noun object with this separable verb."},
+        {template:"The minister ___ several new measures to tackle unemployment at the press conference.",
+         baseWord:"put forward",
+         answer:"put forward",
+         targetType:"phrasal verb: past simple",
+         hint:"past form of put forward…",
+         explanation:"'Put forward' = to propose/suggest formally. The base form and past form are identical ('put' is irregular). Here, past simple is required for the press conference context."},
+        {template:"Despite his best efforts, he simply could not ___ the constant interruptions during his presentation.",
+         baseWord:"put up with",
+         answer:"put up with",
+         targetType:"inseparable phrasal verb",
+         hint:"tolerate…",
+         explanation:"'Put up with' = tolerate. It is a three-word inseparable phrasal verb — the object always follows the whole verb: 'put up with the interruptions'. Never: 'put the interruptions up with'."},
+        {template:"The researchers ___ a solution to the contamination problem after months of testing.",
+         baseWord:"come up with",
+         answer:"came up with",
+         targetType:"phrasal verb: past simple",
+         hint:"past form of come up with…",
+         explanation:"'Come up with' = to devise or think of. Past simple: 'came up with'. Contrast with 'come across' (find by chance) — here the solution was actively devised."},
+        {template:"The government decided to ___ the public consultation until further data had been collected.",
+         baseWord:"put off",
+         answer:"put off",
+         targetType:"phrasal verb: infinitive form",
+         hint:"postpone…",
+         explanation:"'Put off' = postpone. After 'decided to', the base form is required: 'to put off'. As a separable verb with a long noun object, the particle follows the object: 'put off the consultation'."}
+       ]
+      },
+      {type:"log", title:"Error Log", subtitle:"Reflect on today's learning. Write in the spaces below.", rubricKey:"log",
+       prompts:[
+         "Write down a phrasal verb you made an error with today. Write the wrong sentence you produced, the corrected version, and a clear explanation of what rule you violated.",
+         "Explain the separable vs inseparable rule in your own words. Why must a pronoun always go between the verb and particle in a separable phrasal verb? Give one example of each.",
+         "Write two original sentences using phrasal verbs from today — one using a separable verb with a noun object, and one using an inseparable three-word phrasal verb. Check both are grammatically accurate."
+       ]
+      }
+    ]
+  },
+  b2c1: {
+    label:"B2+–C1", color:"#5A1A8A", light:"#EAD6F7",
+    theme:"Academic Word List — Tier 1",
+    tagline:"Deploy Tier-1 AWL vocabulary precisely to elevate register and demonstrate disciplinary fluency.",
+    goal:"Today you will: distinguish AWL Tier-1 words from informal equivalents · identify word-class and collocation errors with AWL items · transform informal sentences into formally appropriate academic prose",
+    time:"20–25 min",
+    sections:[
+      {type:"theory3", title:"Warmup", subtitle:"Three informal → academic transformations — study what changes and why",
+       pairs:[
+        {spoken:"People think that having lots of money makes you happy.",
+         academic:"It is widely assumed that financial prosperity correlates with subjective well-being.",
+         change:"'People think' → 'It is widely assumed': passive construction removes vague subject. 'Having lots of money' → 'financial prosperity': nominalisation + AWL collocate. 'Makes you happy' → 'correlates with subjective well-being': precise AWL verb + academic noun phrase."},
+        {spoken:"This report looks at how schools use technology in the classroom.",
+         academic:"This report examines the extent to which technology is utilised within classroom contexts.",
+         change:"'Looks at' → 'examines': AWL Tier-1 verb of analysis. 'How schools use' → 'the extent to which… is utilised': nominalisation + passive raises formality. 'In the classroom' → 'within classroom contexts': prepositional precision."},
+        {spoken:"There are a lot of studies that show this idea is not right.",
+         academic:"A substantial body of evidence indicates that this assertion lacks empirical support.",
+         change:"'A lot of studies' → 'a substantial body of evidence': academic quantity phrase. 'Show' → 'indicates': AWL Tier-1 reporting verb. 'Not right' → 'lacks empirical support': AWL collocation replaces informal negation."}
+       ],
+       insight:"AWL Tier-1 principle: replace high-frequency general verbs (show, use, look at, think) with precise AWL equivalents (indicate, utilise, examine, assume). Simultaneously, nominalise verb phrases into noun phrases to achieve the dense, noun-heavy style of academic prose."
+      },
+      {type:"spot", title:"Spot the Error", subtitle:"Each sentence has a word-class, collocation, or register error with an AWL item. Choose the correct replacement.", rubricKey:"spot",
+       items:[
+        {sentence:"The study analysed the affects of prolonged stress on cognitive performance.",
+         underlined:"affects",
+         wrongWord:"affects",
+         correctWord:"effects",
+         wrongType:"verb used as noun (affect/effect confusion)",
+         correctType:"noun: effects",
+         rule:"'Affect' (verb) = to have an influence on. 'Effect' (noun) = the result or outcome. After 'the', you need a noun: 'the effects of stress'. 'Affect' as a noun is rare and highly specialised (psychology only).",
+         tip:"Quick test: can you say 'the ___ of X on Y'? If yes, you need the noun 'effect'. Can you say 'X ___ Y'? If yes, you need the verb 'affect'. Memory: Effect = End result (both start with E)."},
+        {sentence:"This approach is very advantage for second-language learners.",
+         underlined:"advantage",
+         wrongWord:"advantage",
+         correctWord:"advantageous",
+         wrongType:"noun used as adjective",
+         correctType:"adjective: advantageous",
+         rule:"After 'is very', an adjective is required. 'Advantage' is a noun. The adjective form is 'advantageous' (-ous suffix): 'This approach is very advantageous'. Alternatively: 'This approach offers a significant advantage'.",
+         tip:"After 'be + intensifier (very/highly/particularly)', you need an adjective. If you see a noun here, add the right suffix: -ous, -al, -ive, -ful."},
+        {sentence:"The concept of cultural identity seem to resist simple categorisation.",
+         underlined:"seem",
+         wrongWord:"seem",
+         correctWord:"seems",
+         wrongType:"SVA error: plural verb with singular head noun",
+         correctType:"singular verb: seems",
+         rule:"The subject is 'The concept' (singular), not 'cultural identity'. A prepositional phrase ('of cultural identity') between subject and verb does not change the verb form. 'The concept seems' ✓.",
+         tip:"Identify the true subject by removing everything between 'The' and the verb: 'The concept [of cultural identity] seem' → 'The concept seem' — wrong. Add -s: 'The concept seems'."},
+        {sentence:"The data clearly shows a significantly increase in reported cases of respiratory illness.",
+         underlined:"significantly increase",
+         wrongWord:"significantly increase",
+         correctWord:"significant increase",
+         wrongType:"adverb modifying noun (should modify adjective/verb)",
+         correctType:"adjective modifying noun",
+         rule:"'Increase' is used as a noun here ('a(n) ___ increase'). Nouns are modified by adjectives, not adverbs. 'Significantly' is an adverb and cannot modify 'increase' when it functions as a noun. Use 'significant increase' (adjective + noun).",
+         tip:"Ask: Is the word after the blank a NOUN? → use an adjective. Is it a VERB or another adjective? → use an adverb. 'A significant increase' ✓ vs 'increased significantly' ✓."},
+        {sentence:"Researchers have analysed the issue from a lot of different perspectives.",
+         underlined:"a lot of",
+         wrongWord:"a lot of",
+         correctWord:"a range of",
+         wrongType:"informal quantifier in academic register",
+         correctType:"formal quantifier: a range of",
+         rule:"'A lot of' is informal and inappropriate in academic writing. AWL-aligned alternatives include 'a range of', 'a variety of', 'numerous', or 'a number of'. 'A range of different perspectives' is the natural academic collocation.",
+         tip:"Ban these from academic writing: a lot of, lots of, many many, tons of. Replace with: a range of, a number of, numerous, considerable, substantial."}
+       ]
+      },
+      {type:"transform", title:"Transform", subtitle:"Rewrite each informal sentence as academic prose. Use AWL Tier-1 vocabulary.", rubricKey:"transform",
+       items:[
+        {spoken:"People say that learning vocabulary is the most important thing in language learning.",
+         hint:"Use: widely regarded / acquisition / fundamental / constitutes / determinant",
+         answer:"Vocabulary acquisition is widely regarded as one of the most fundamental determinants of language proficiency. / It is generally assumed that lexical development constitutes the primary factor underlying communicative competence.",
+         keyChange:"'People say' → passive ('is widely regarded'); 'most important thing' → 'fundamental determinant' (AWL nominalisation); 'language learning' → 'language proficiency' or 'communicative competence' (disciplinary precision).",
+         principle:"Replace agentless informal subjects ('people say') with passive constructions that distribute epistemic authority. Nominalise verb phrases to create the dense noun-phrase style characteristic of academic discourse."},
+        {spoken:"We can see that poverty affects health in a lot of ways.",
+         hint:"Use: evident / exerts / considerable influence / outcomes / multiple dimensions",
+         answer:"It is evident that poverty exerts a considerable influence on health outcomes across multiple dimensions. / The relationship between poverty and health is multidimensional, encompassing nutritional, psychological, and environmental determinants.",
+         keyChange:"'We can see' → 'It is evident' (impersonal); 'affects in a lot of ways' → 'exerts a considerable influence across multiple dimensions' (AWL verb + formal quantification).",
+         principle:"Avoid first-person and vague quantifiers. 'Exert influence' is the academic collocation for 'affect'; 'dimensions' signals that multiple analytical categories are being invoked."},
+        {spoken:"This idea has been around for a long time and a lot of scholars agree with it.",
+         hint:"Use: established / theoretical basis / enjoys / broad / scholarly consensus",
+         answer:"This concept has an established theoretical basis and enjoys broad scholarly consensus. / This proposition is long-established within the field and commands widespread academic support.",
+         keyChange:"'Has been around for a long time' → 'has an established theoretical basis' (AWL nominalisation + adjective). 'A lot of scholars agree' → 'enjoys broad scholarly consensus' (AWL collocation; 'enjoy' + abstract noun is a formal pattern).",
+         principle:"'Enjoy + abstract noun' (enjoy support, enjoy consensus, enjoy legitimacy) is an AWL-level collocation that compresses lengthy informal descriptions into concise academic phrases."}
+       ]
+      },
+      {type:"log", title:"Error Log", subtitle:"Reflect on today's learning. Write in the spaces below.", rubricKey:"log",
+       prompts:[
+         "Identify one AWL Tier-1 word you have previously overused or misused (e.g. always writing 'effect' when you mean 'affect', or writing 'analyse' when you need 'examination'). Write the correct form and a model sentence showing it in context.",
+         "Explain the difference between 'affect' (verb) and 'effect' (noun) in your own words. Write one sentence using each. Then explain: in what rare context might 'affect' be used as a noun or 'effect' as a verb?",
+         "Find a sentence in something you wrote recently and rewrite it using at least two AWL Tier-1 words. Paste both versions. What changed in register or precision?"
+       ]
+      }
+    ]
+  },
+  c1c2: {
+    label:"C1+–C2", color:"#8B1A1A", light:"#F5DADA",
+    theme:"Lexical Precision & Connotation",
+    tagline:"Exploit connotative loading, gradability constraints, and evaluative register to write with rhetorical precision.",
+    goal:"Today you will: distinguish words with identical denotation but divergent connotative loading · identify errors arising from gradability violations and inference/implication confusion · construct sentences where lexical choice alone signals evaluative stance",
+    time:"20–25 min",
+    sections:[
+      {type:"theory4", title:"Warmup", subtitle:"Four principles of lexical precision at C2 level",
+       cards:[
+        {label:"Denotation vs. Connotation", color:"#8B1A1A",
+         desc:"Two words can share a dictionary definition yet carry opposite evaluative loading. 'Slender', 'slim', and 'skinny' all mean 'not fat', but 'slender' is admiring, 'slim' is neutral, and 'skinny' can be pejorative. In academic writing, 'claim' implies the speaker is sceptical of the assertion; 'argue' is neutral; 'demonstrate' implies the writer accepts the evidence.",
+         fix:"Before choosing a word, ask: What attitude does this word signal? In critical writing, 'the regime', 'the administration', and 'the government' are not interchangeable — 'regime' connotes illegitimacy."},
+        {label:"Gradability & Absolute Adjectives", color:"#5A1A8A",
+         desc:"Gradable adjectives (important, useful, long) accept degree modifiers: 'very important', 'rather useful'. Non-gradable (absolute) adjectives (unique, perfect, essential, fatal, infinite) describe states that cannot logically exist in degrees. Saying 'very unique' is a logical contradiction — something is either the only one of its kind or it is not.",
+         fix:"Test: ask 'How X?' or 'More X than what?'. If the question makes no sense, the adjective is non-gradable. Don't write 'very unique' — write 'particularly distinctive', 'entirely without precedent', or 'genuinely one of a kind'."},
+        {label:"Imply vs. Infer (and their nominals)", color:"#2D6A4F",
+         desc:"The SENDER of a message IMPLIES (suggests without stating). The RECEIVER INFERS (draws a conclusion). This distinction extends to their nominals (implication / inference) and to parallel pairs: data, findings, and results IMPLY — they cannot 'infer'. Only conscious agents (researchers, readers, the author) can infer. Confusing them misattributes agency.",
+         fix:"Rewrite test: 'The data infers…' → WRONG (data cannot reason). → 'The data imply…' ✓. 'The data carry the implication that…' ✓. Reserve 'infer' for agents: 'From this, one may infer that…'"},
+        {label:"Deny vs. Dispute vs. Reject", color:"#1A4A7A",
+         desc:"These near-synonyms are not interchangeable in academic argumentation. 'Deny' = assert that something did not happen or is not true (factual claim). 'Dispute' = contest the validity, accuracy, or interpretation of something. 'Reject' = refuse to accept a claim or theory, often on evidential or logical grounds. Using 'deny' when you mean 'dispute' implies the opponent is lying rather than mistaken.",
+         fix:"'Scholars deny the theory' → implies the theory is obviously false. 'Scholars dispute the theory' → implies legitimate methodological or evidential disagreement. Precision here is an ethical as well as a stylistic choice."}
+       ]
+      },
+      {type:"spot", title:"Spot the Error", subtitle:"Each sentence has a connotative, gradability, or semantic precision error. Identify and correct it.", rubricKey:"spot",
+       items:[
+        {sentence:"The author argues that urban poverty is a very unique phenomenon that defies cross-cultural comparison.",
+         underlined:"very unique",
+         wrongWord:"very unique",
+         correctWord:"genuinely distinctive",
+         wrongType:"gradability violation: absolute adjective",
+         correctType:"gradable adjective phrase",
+         rule:"'Unique' is an absolute adjective meaning 'the only one of its kind'. It cannot be graded with 'very', 'quite', 'rather', or 'fairly'. Use gradable alternatives: 'particularly distinctive', 'genuinely singular', or 'without parallel'.",
+         tip:"The non-gradable test: ask 'How unique is it?' If the question sounds absurd (there can't be degrees of being the only one), the adjective is absolute. Other absolutes: perfect, fatal, infinite, impossible, essential, complete."},
+        {sentence:"This data infers that economic growth alone is insufficient to reduce structural inequality.",
+         underlined:"infers",
+         wrongWord:"infers",
+         correctWord:"implies",
+         wrongType:"agency confusion: data cannot infer",
+         correctType:"implies (data is the sender, not receiver)",
+         rule:"Only conscious agents can INFER (draw conclusions). Data, findings, results, and evidence can only IMPLY (suggest without stating). 'The data imply that…' ✓. The researcher or reader infers: 'From this, researchers may infer that…' ✓.",
+         tip:"Sender → implies. Receiver → infers. Ask: Is this word pointing outward (suggesting to someone else) or inward (concluding from something)? Data points outward → implies."},
+        {sentence:"Several prominent academics have denied the methodology, citing insufficient sample sizes.",
+         underlined:"denied",
+         wrongWord:"denied",
+         correctWord:"disputed",
+         wrongType:"wrong near-synonym: deny ≠ dispute",
+         correctType:"disputed (contested validity, not existence)",
+         rule:"'Deny' = state that something did not happen / is not true (factual negation). 'Dispute' = contest the validity or accuracy of something. Academics 'dispute' a methodology — they question whether it is sound, not whether it exists. 'Deny' implies the methodology is non-existent or fabricated.",
+         tip:"Ask: Are they saying 'it didn't happen'? → deny. Or 'it happened but it's wrong / flawed'? → dispute / challenge / contest."},
+        {sentence:"The findings are interested in their implications for social policy reform.",
+         underlined:"interested",
+         wrongWord:"interested",
+         correctWord:"interesting",
+         wrongType:"participant adjective: -ed vs. -ing confusion",
+         correctType:"-ing adjective (quality of the thing)",
+         rule:"'-ed' adjectives describe how a conscious being FEELS (the reader is interested). '-ing' adjectives describe the quality of a THING (the findings are interesting). Findings cannot feel interest — they have the property of being interesting.",
+         tip:"Test with person/thing: 'I am interested because the findings are ___.' The blank takes -ing. Reverse: 'The findings made me feel ___.' The blank takes -ed. Findings = -ing; Readers = -ed."},
+        {sentence:"The policy was criticised for being too much ambitious in its targets and timeframe.",
+         underlined:"too much ambitious",
+         wrongWord:"too much ambitious",
+         correctWord:"overly ambitious",
+         wrongType:"wrong degree modifier before adjective",
+         correctType:"overly / excessively + adjective",
+         rule:"'Too much' modifies uncountable nouns ('too much time') or is used alone ('I ate too much'). Before an adjective, use 'too' alone ('too ambitious') or 'overly/excessively ambitious'. 'Too much + adjective' is a direct transfer error from Vietnamese (quá + adjective).",
+         tip:"Overly = too + adj (formal). Too = too + adj (neutral). Too much = too + uncountable noun. Never: too much + adjective. Quick test: 'too much + [noun]' ✓ / 'too + [adjective]' ✓ / 'too much + [adjective]' ✗."}
+       ]
+      },
+      {type:"transform", title:"Transform", subtitle:"Rewrite each sentence to achieve the level of lexical precision and connotative control expected at C2.", rubricKey:"transform",
+       items:[
+        {spoken:"People always say economic growth is good, but some experts think it can cause problems for society.",
+         hint:"Use: conventionally valorised / a growing body of scholarship / assumption / GDP expansion / correlates",
+         answer:"Whilst economic growth is conventionally valorised as an unqualified societal good, a growing body of scholarship challenges the assumption that GDP expansion necessarily correlates with improved social outcomes. / Economic growth, long positioned within policy discourse as an intrinsically beneficial objective, is increasingly subject to scholarly scrutiny regarding its distributional and social effects.",
+         keyChange:"'People always say is good' → 'conventionally valorised as': the adverb 'conventionally' signals that this is a received assumption, not an established fact — a subtle critical move. 'Some experts think can cause problems' → 'challenges the assumption that… correlates with': academic hedging + AWL collocation.",
+         principle:"Connotative precision as critique: 'valorised' (rather than 'described as good') signals that the positive framing is ideologically constructed. Choosing words that expose assumptions is a key C2 rhetorical strategy."},
+        {spoken:"The word 'investment' sounds positive, so politicians use it instead of 'spending' to make people think it's a good thing.",
+         hint:"Use: lexical choice / constitutes / rhetorical strategy / connotative loading / reframe / expenditure",
+         answer:"The lexical choice of 'investment' over 'spending' constitutes a deliberate rhetorical strategy, exploiting the former term's positive connotative loading to reframe public expenditure as productive rather than merely costly. / Substituting 'investment' for 'spending' is a calculated rhetorical manoeuvre: the term's accumulated connotations of future return and rational planning work to legitimise what might otherwise be perceived as fiscal profligacy.",
+         keyChange:"'Sounds positive' → 'positive connotative loading': names the linguistic phenomenon precisely. 'Make people think it's a good thing' → 'reframe public expenditure as productive': the verb 'reframe' signals deliberate rhetorical construction.",
+         principle:"At C2, the language you use to describe language should itself be precise. 'Reframe', 'construct', 'position', and 'constitute' are verbs that signal discourse awareness — they show you understand that word choice is never neutral."},
+        {spoken:"We can tell the author is biased because they only use words that support their view.",
+         hint:"Use: lexical choices / consistently foregrounding / marginalising / evaluative stance / claim to objectivity / undermine",
+         answer:"The author's lexical choices — consistently foregrounding favourable framings whilst marginalising countervailing evidence — reveal an underlying evaluative stance that fundamentally undermines the text's claim to objectivity. / A pattern of lexical selection biased toward confirmatory framing, combined with the systematic elision of contradictory evidence, exposes the evaluative commitments beneath the text's ostensibly neutral register.",
+         keyChange:"'We can tell' → eliminated (first person replaced by impersonal evidence-based claim). 'Only use words that support their view' → 'consistently foregrounding favourable framings whilst marginalising countervailing evidence': precise description of the rhetorical mechanism.",
+         principle:"C2 critical analysis avoids evaluative assertions ('the author is biased') and instead describes observable linguistic mechanisms ('foregrounding', 'marginalising', 'eliding') that lead the reader to draw the critical conclusion independently."}
+       ]
+      },
+      {type:"log", title:"Error Log", subtitle:"Reflect on today's learning. Write in the spaces below.", rubricKey:"log",
+       prompts:[
+         "Find a word in something you read recently — an article, an essay, or academic text — whose connotative loading surprised or struck you. Quote the sentence, name the word, and analyse what the word implies beyond its literal dictionary definition.",
+         "Distinguish 'claim', 'argue', and 'assert' as academic reporting verbs. For each: (a) state the evidential status it implies, (b) state what stance the reporting author takes, and (c) give an example sentence. When would you choose 'claim' over 'argue' and why does that choice matter rhetorically?",
+         "Write a sentence about a policy, idea, or phenomenon in your field in which your lexical choice alone — without any explicit evaluative adjective like 'good' or 'problematic' — signals a clearly critical stance toward the subject. Then write a second version with a neutral or supportive stance, using different lexical choices. Annotate the key words in both."
+       ]
+      }
+    ]
+  }
+};
+
+/* ── Init ── */
+function init(){
+  document.title = 'Daily Drills 10';
+  buildLvTabs();
+  switchLv('a2b1');
+}
+
+function buildLvTabs(){
+  const c = document.getElementById('lvTabs');
+  c.innerHTML = '';
+  Object.keys(LEVELS).forEach(k=>{
+    const lv = LEVELS[k];
+    const btn = document.createElement('button');
+    btn.className = 'lv-tab' + (k===AL?' active':'');
+    btn.textContent = lv.label;
+    btn.style.setProperty('--lc', lv.color);
+    btn.onclick = ()=>switchLv(k);
+    c.appendChild(btn);
+  });
+}
+
+function switchLv(k){
+  AL = k; AS = 0;
+  document.querySelectorAll('.lv-tab').forEach((b,i)=>{
+    b.classList.toggle('active', Object.keys(LEVELS)[i]===k);
+  });
+  applyLevel();
+  buildSecNav();
+  navSec(0);
+}
+
+function applyLevel(){
+  const lv = LEVELS[AL];
+  document.documentElement.style.setProperty('--lc', lv.color);
+  document.documentElement.style.setProperty('--ll', lv.light);
+  const h = document.getElementById('lvHeader');
+  h.style.setProperty('--lc', lv.color);
+  h.style.setProperty('--ll', lv.light);
+  h.innerHTML = `
+    <div class="lv-header" style="--lc:${lv.color}">
+      <div>
+        <h2>${lv.label} — ${lv.theme}</h2>
+        <div class="tagline">${lv.tagline}</div>
+        <div class="meta"><span>⏱ ${lv.time}</span><span>Day 10</span></div>
+      </div>
+    </div>
+    <div class="goal-bar" style="--lc:${lv.color};--ll:${lv.light}"><strong>Today you will:</strong> ${lv.goal}</div>`;
+}
+
+function buildSecNav(){
+  const lv = LEVELS[AL];
+  const c = document.getElementById('secNav');
+  c.innerHTML = '';
+  lv.sections.forEach((s,i)=>{
+    const b = document.createElement('button');
+    b.className = 'sec-btn' + (i===0?' active':'');
+    b.textContent = s.title;
+    b.onclick = ()=>navSec(i);
+    c.appendChild(b);
+  });
+}
+
+function navSec(i){
+  AS = i;
+  document.querySelectorAll('.sec-btn').forEach((b,j)=>b.classList.toggle('active',j===i));
+  renderSec(i);
+}
+
+function renderSec(i){
+  const lv = LEVELS[AL];
+  const sec = lv.sections[i];
+  const c = document.getElementById('secContent');
+  c.style.setProperty('--lc', lv.color);
+  c.style.setProperty('--ll', lv.light);
+  let html = `<div class="sec-title">${sec.title}</div><div class="sec-subtitle">${sec.subtitle}</div>`;
+  if(sec.type==='theory') html += rTheory(sec);
+  else if(sec.type==='theory2') html += rTheory2(sec);
+  else if(sec.type==='theory3') html += rTheory3(sec);
+  else if(sec.type==='theory4') html += rTheory4(sec);
+  else if(sec.type==='spot') html += rSpot(sec);
+  else if(sec.type==='fill') html += rFill(sec);
+  else if(sec.type==='transform') html += rTransform(sec);
+  else if(sec.type==='log') html += rLog(sec);
+  c.innerHTML = html;
+}
+
+/* ── Renderers ── */
+function rTheory(sec){
+  return `<div class="theory-grid">${sec.cards.map(c=>`
+    <div class="tc" style="border-top-color:${c.color}">
+      <div class="tc-label">${esc(c.label)}</div>
+      <span class="tc-badge" style="background:${LEVELS[AL].light};color:${c.color}">${esc(c.badge)}</span>
+      <div class="tc-ex">${esc(c.examples).replace(/\n/g,'<br>')}</div>
+      <div class="tc-rule">${esc(c.rule)}</div>
+    </div>`).join('')}</div>`;
+}
+
+function rTheory2(sec){
+  return `<div class="t2-grid">${sec.groups.map(g=>`
+    <div class="t2c" style="border-left-color:${g.color}">
+      <div class="t2-label">${esc(g.label)}</div>
+      <div class="t2-verbs">${g.verbs.map(v=>`<span class="t2-verb" style="background:${LEVELS[AL].light};color:${g.color}">${esc(v)}</span>`).join('')}</div>
+      <div class="t2-mem">${esc(g.memory)}</div>
+      <div class="t2-ex">${esc(g.example)}</div>
+    </div>`).join('')}</div>`;
+}
+
+function rTheory3(sec){
+  const pairs = sec.pairs.map((p,i)=>`
+    <div class="t3p">
+      <div class="sp">Informal</div>
+      <div class="spoken-s">${esc(p.spoken)}</div>
+      <div class="sp">Academic</div>
+      <div class="academic-s">${esc(p.academic)}</div>
+      <div class="change">↳ ${esc(p.change)}</div>
+    </div>`).join('');
+  return `<div class="t3-pairs">${pairs}</div>
+    <div class="t3-insight"><strong>Key principle:</strong> ${esc(sec.insight)}</div>`;
+}
+
+function rTheory4(sec){
+  return `<div class="t4-grid">${sec.cards.map(c=>`
+    <div class="t4c" style="border-top-color:${c.color}">
+      <div class="t4-label">${esc(c.label)}</div>
+      <div class="t4-desc">${esc(c.desc)}</div>
+      <div class="t4-fix">${esc(c.fix)}</div>
+    </div>`).join('')}</div>`;
+}
+
+function rSpot(sec){
+  const rub = RUBRICS[AL][sec.rubricKey];
+  let html = progHTML(sec.rubricKey);
+  sec.items.forEach((it,i)=>{
+    const sid = AL+'_spot_'+i;
+    const parts = it.sentence.split(it.underlined);
+    const sentHtml = parts.length===2
+      ? esc(parts[0])+'<span class="underline">'+esc(it.underlined)+'</span>'+esc(parts[1])
+      : esc(it.sentence);
+    html += `<div class="spot-item">
+      <div class="si-num">Item ${i+1}</div>
+      <div class="si-sent">${sentHtml}</div>
+      <div class="spot-opts" id="opts_${sid}">
+        <button class="spot-opt" onclick="spotPick('${sid}',0,'${esc(it.wrongWord)}','${esc(it.correctWord)}','${esc(it.wrongType)}','${esc(it.correctType)}')">${esc(it.wrongWord)} (keep)</button>
+        <button class="spot-opt" onclick="spotPick('${sid}',1,'${esc(it.wrongWord)}','${esc(it.correctWord)}','${esc(it.wrongType)}','${esc(it.correctType)}')">${esc(it.correctWord)} (change)</button>
+      </div>
+      <div class="spot-reveal" id="rev_${sid}">
+        <div class="rev-label">Error type</div>
+        <div class="rev-rule">✗ <strong>${esc(it.wrongWord)}</strong> — ${esc(it.wrongType)}<br>✓ <strong>${esc(it.correctWord)}</strong> — ${esc(it.correctType)}</div>
+        <div class="rev-rule" style="margin-top:6px">${esc(it.rule)}</div>
+        <div class="rev-tip" style="margin-top:6px">💡 ${esc(it.tip)}</div>
+      </div>
+    </div>`;
+  });
+  html += `<div class="calc-row">
+    <button class="calc-btn" onclick="calcSpot('${sec.rubricKey}',${sec.items.length})">Calculate Score</button>
+    <span id="score_${AL}_${sec.rubricKey}"></span>
+  </div>`;
+  html += rubricHTML(rub, AL+'_'+sec.rubricKey);
+  return html;
+}
+
+function rFill(sec){
+  const rub = RUBRICS[AL][sec.rubricKey];
+  let html = progHTML(sec.rubricKey);
+  sec.items.forEach((it,i)=>{
+    const fid = AL+'_fill_'+i;
+    html += `<div class="fill-item">
+      <div class="fi-num">Item ${i+1}</div>
+      <span class="fi-base">${esc(it.baseWord)}</span>
+      <div class="fi-template">${esc(it.template)}</div>
+      <div class="fi-input-row">
+        <input class="fi-input" id="inp_${fid}" placeholder="${esc(it.hint)}" type="text">
+        <button class="fi-chk" onclick="fillChk('${fid}','${esc(it.answer)}','${esc(it.explanation)}')">Check</button>
+      </div>
+      <div class="fi-fb" id="fb_${fid}"></div>
+    </div>`;
+  });
+  html += `<div class="calc-row">
+    <button class="calc-btn" onclick="calcFill('${sec.rubricKey}',${sec.items.length})">Calculate Score</button>
+    <span id="score_${AL}_${sec.rubricKey}"></span>
+  </div>`;
+  html += rubricHTML(rub, AL+'_'+sec.rubricKey);
+  return html;
+}
+
+function rTransform(sec){
+  const rub = RUBRICS[AL][sec.rubricKey];
+  let html = '';
+  sec.items.forEach((it,i)=>{
+    const tid = AL+'_tr_'+i;
+    html += `<div class="tr-item">
+      <div class="tr-num">Item ${i+1}</div>
+      <div class="tr-spoken">${esc(it.spoken)}</div>
+      <div class="tr-hint"><strong>Hint:</strong> ${esc(it.hint)}</div>
+      <textarea class="tr-textarea" id="tr_${tid}" placeholder="Write your academic version here…"></textarea>
+      <div class="tr-btns">
+        <button class="tr-save-btn" onclick="saveTr('${tid}')">Save</button>
+        <button class="tr-reveal-btn" onclick="revealTr('${tid}','${esc(it.answer)}','${esc(it.keyChange)}','${esc(it.principle)}')">Show Model</button>
+      </div>
+      <div class="tr-model" id="model_${tid}">
+        <div class="rev-label">Model answer</div>
+        <div class="tm-ans" id="ans_${tid}"></div>
+        <div class="tm-key" id="key_${tid}"></div>
+        <div class="tm-key" id="pr_${tid}"></div>
+      </div>
+    </div>`;
+  });
+  html += rubricHTML(rub, AL+'_'+sec.rubricKey);
+  return html;
+}
+
+function rLog(sec){
+  const rub = RUBRICS[AL][sec.rubricKey];
+  let html = '';
+  sec.prompts.forEach((p,i)=>{
+    const lid = AL+'_log_'+i;
+    html += `<div class="log-item">
+      <div class="li-num">Reflection ${i+1}</div>
+      <div class="li-prompt">${esc(p)}</div>
+      <textarea class="log-textarea" id="log_${lid}" placeholder="Write your response here…"></textarea>
+      <button class="log-save-btn" onclick="saveLog('${lid}')">Save</button>
+      <div class="log-saved" id="saved_${lid}">✓ Saved</div>
+    </div>`;
+  });
+  html += `<div class="save-all-row"><button class="calc-btn" onclick="saveLogAll('${AL}',${sec.prompts.length})">Save All Reflections</button></div>`;
+  html += rubricHTML(rub, AL+'_'+sec.rubricKey);
+  return html;
+}
+
+/* ── Interactions ── */
+function spotPick(sid, choice, wrongWord, correctWord, wrongType, correctType){
+  if(ST.choices[sid]!==undefined) return;
+  const isRight = choice===1;
+  ST.choices[sid] = isRight ? 1 : 0;
+  const opts = document.querySelectorAll(`#opts_${sid} .spot-opt`);
+  opts.forEach((b,i)=>{
+    if(i===choice) b.classList.add(isRight?'sel-right':'sel-wrong');
+    if(!isRight && i===1) b.classList.add('revealed-right');
+  });
+  document.getElementById('rev_'+sid).classList.add('show');
+  updProg(sid.split('_')[1]);
+}
+
+function calcSpot(key, total){
+  let score = 0;
+  for(let i=0;i<total;i++){
+    const sid=AL+'_spot_'+i;
+    if(ST.choices[sid]===1) score++;
+  }
+  const el = document.getElementById('score_'+AL+'_'+key);
+  el.innerHTML = scoreBadge(score, total);
+}
+
+function fillChk(fid, answer, explanation){
+  const inp = document.getElementById('inp_'+fid);
+  const fb = document.getElementById('fb_'+fid);
+  const val = inp.value.trim().toLowerCase();
+  const ans = answer.toLowerCase();
+  const correct = val===ans;
+  ST.inputs[fid] = correct?1:0;
+  inp.className = 'fi-input '+(correct?'correct':'wrong');
+  fb.className = 'fi-fb show '+(correct?'ok':'no');
+  fb.innerHTML = correct
+    ? `✓ Correct! ${esc(explanation)}`
+    : `✗ The answer is <strong>${esc(answer)}</strong>. ${esc(explanation)}`;
+  updProg('fill');
+}
+
+function calcFill(key, total){
+  let score = 0;
+  for(let i=0;i<total;i++){
+    const fid=AL+'_fill_'+i;
+    if(ST.inputs[fid]===1) score++;
+  }
+  const el = document.getElementById('score_'+AL+'_'+key);
+  el.innerHTML = scoreBadge(score, total);
+}
+
+function saveTr(tid){
+  const ta = document.getElementById('tr_'+tid);
+  ST.logs['tr_'+tid] = ta.value;
+  ta.style.borderColor = LEVELS[AL].color;
+}
+
+function revealTr(tid, answer, keyChange, principle){
+  document.getElementById('model_'+tid).classList.add('show');
+  document.getElementById('ans_'+tid).innerHTML = esc(answer).replace(/ \/ /g,'<br>— or —<br>');
+  document.getElementById('key_'+tid).innerHTML = '<strong>Key change:</strong> '+esc(keyChange);
+  document.getElementById('pr_'+tid).innerHTML = '<strong>Principle:</strong> '+esc(principle);
+}
+
+function saveLog(lid){
+  const ta = document.getElementById('log_'+lid);
+  ST.logs[lid] = ta.value;
+  const saved = document.getElementById('saved_'+lid);
+  if(saved){ saved.classList.add('show'); setTimeout(()=>saved.classList.remove('show'),2000); }
+}
+
+function saveLogAll(lv, total){
+  for(let i=0;i<total;i++){
+    const lid=lv+'_log_'+i;
+    const ta=document.getElementById('log_'+lid);
+    if(ta) ST.logs[lid]=ta.value;
+  }
+  alert('All reflections saved!');
+}
+
+/* ── Download ── */
+function handleDownload(){
+  const lv = LEVELS[AL];
+  const now = new Date();
+  let txt = `HUONG STELLA PARADIGM — Daily Drills Day 10\n`;
+  txt += `Level: ${lv.label} | Theme: ${lv.theme}\n`;
+  txt += `Downloaded: ${now.toISOString()}\n`;
+  txt += '═'.repeat(60)+'\n\n';
+
+  txt += 'SPOT-THE-ERROR RESPONSES\n'+'─'.repeat(40)+'\n';
+  lv.sections.filter(s=>s.type==='spot').forEach(s=>{
+    s.items.forEach((it,i)=>{
+      const sid=AL+'_spot_'+i;
+      const ans=ST.choices[sid];
+      txt += `Item ${i+1}: ${it.sentence}\n`;
+      txt += `Your answer: ${ans===1?'Correct ('+it.correctWord+')':ans===0?'Wrong':'Not answered'}\n`;
+      txt += `Correct: ${it.correctWord} | Rule: ${it.rule}\n\n`;
+    });
+  });
+
+  txt += 'FILL-IN-THE-BLANK RESPONSES\n'+'─'.repeat(40)+'\n';
+  lv.sections.filter(s=>s.type==='fill').forEach(s=>{
+    s.items.forEach((it,i)=>{
+      const fid=AL+'_fill_'+i;
+      const inp=document.getElementById('inp_'+fid);
+      txt += `Item ${i+1}: ${it.template}\n`;
+      txt += `Your answer: ${inp?inp.value:'—'} | Correct: ${it.answer}\n`;
+      txt += `Explanation: ${it.explanation}\n\n`;
+    });
+  });
+
+  txt += 'TRANSFORM RESPONSES\n'+'─'.repeat(40)+'\n';
+  lv.sections.filter(s=>s.type==='transform').forEach(s=>{
+    s.items.forEach((it,i)=>{
+      const tid=AL+'_tr_'+i;
+      txt += `Item ${i+1} — Original: ${it.spoken}\n`;
+      txt += `Your version: ${ST.logs['tr_'+tid]||'—'}\n`;
+      txt += `Model: ${it.answer}\n\n`;
+    });
+  });
+
+  txt += 'REFLECTIONS\n'+'─'.repeat(40)+'\n';
+  lv.sections.filter(s=>s.type==='log').forEach(s=>{
+    s.prompts.forEach((p,i)=>{
+      const lid=AL+'_log_'+i;
+      txt += `Reflection ${i+1}: ${p}\n`;
+      txt += `${ST.logs[lid]||'—'}\n\n`;
+    });
+  });
+
+  const blob = new Blob([txt],{type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `HuongStella_DailyDrill_Day10_`+AL+'_'+now.toISOString().slice(0,10)+'.txt';
+  a.click();
+}
+
+/* ── Helpers ── */
+function esc(s){
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+
+function badge(text){
+  return `<span class="tc-badge">${esc(text)}</span>`;
+}
+
+function rubricHTML(rub, key){
+  if(!rub) return '';
+  return `<button class="rubric-toggle" onclick="togRub('rub_${key}')">▸ Show Rubric</button>
+  <div class="rubric-box" id="rub_${key}">
+    <table>
+      <tr><th>Criterion</th><th>Max</th><th>Description</th></tr>
+      ${rub.map(r=>`<tr><td>${esc(r.criterion)}</td><td>${r.max}</td><td>${esc(r.desc)}</td></tr>`).join('')}
+    </table>
+  </div>`;
+}
+
+function togRub(id){
+  const el = document.getElementById(id);
+  if(el) el.classList.toggle('show');
+}
+
+function progHTML(key){
+  return `<div class="prog-wrap">
+    <div class="prog-bar-wrap"><div class="prog-bar" id="prog_${AL}_${key}" style="width:0%"></div></div>
+    <div class="prog-label" id="progl_${AL}_${key}">0% complete</div>
+  </div>`;
+}
+
+function updProg(key){
+  const lv = LEVELS[AL];
+  const sec = lv.sections.find(s=>s.rubricKey===key);
+  if(!sec) return;
+  let done=0, total=0;
+  if(sec.type==='spot'){
+    total=sec.items.length;
+    sec.items.forEach((_,i)=>{ if(ST.choices[AL+'_spot_'+i]!==undefined) done++; });
+  } else if(sec.type==='fill'){
+    total=sec.items.length;
+    sec.items.forEach((_,i)=>{ if(ST.inputs[AL+'_fill_'+i]!==undefined) done++; });
+  }
+  if(total===0) return;
+  const pct=Math.round(done/total*100);
+  const bar=document.getElementById('prog_'+AL+'_'+key);
+  const lbl=document.getElementById('progl_'+AL+'_'+key);
+  if(bar) bar.style.width=pct+'%';
+  if(lbl) lbl.textContent=pct+'% complete';
+}
+
+function scoreBadge(score, total){
+  const pct = score/total;
+  const col = pct>=0.8?'#2D6A4F':pct>=0.6?'#1A4A7A':'#8B1A1A';
+  const bg = pct>=0.8?'#D8F3DC':pct>=0.6?'#D6E8F7':'#F5DADA';
+  return `<span class="score-badge" style="background:${bg};color:${col}">${score}/${total} (${Math.round(pct*100)}%)</span>`;
+}
+
+window.onload = init;
+</script>
+</body>
+</html>
