@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Drills 11</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#F4F2EF;color:#1A1A1A;min-height:100vh}
+button,textarea,input{font-family:'Inter',sans-serif}
+button{cursor:pointer}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+#app-header{background:#111;border-bottom:3px solid var(--lc,#2D6A4F);transition:border-color .3s}
+.header-inner{max-width:740px;margin:0 auto;padding:16px 20px 0}
+.brand-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.logo-mark{display:flex;align-items:center;gap:10px}
+.logo-text-main{font-size:13px;font-weight:900;color:#fff;line-height:1.1}
+.logo-text-sub{font-size:9px;font-weight:700;color:#E8C84A;letter-spacing:3px;text-transform:uppercase}
+.brand-right{text-align:right}
+.brand-right .dd-title{font-size:17px;font-weight:900;color:#fff;letter-spacing:-.5px}
+.brand-right .dd-sub{font-size:10px;color:#E8C84A;letter-spacing:2px;text-transform:uppercase}
+.lesson-label{font-size:11px;letter-spacing:3px;color:#555;text-transform:uppercase;margin-bottom:3px}
+.lesson-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:3px}
+.lesson-meta{font-size:12px;color:#888;margin-bottom:14px}
+.level-tabs{display:flex}
+.level-tab{padding:8px 18px;border:none;border-bottom:3px solid transparent;background:none;color:#555;font-weight:500;font-size:13px;transition:all .2s}
+.level-tab.active{border-bottom-color:var(--lc);color:var(--lc);font-weight:700}
+.main-body{max-width:740px;margin:0 auto;padding:20px 20px 16px}
+.goal-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap}
+.goal-box{flex:1;border-radius:12px;padding:12px 16px;min-width:240px;border:1px solid rgba(0,0,0,.08)}
+.goal-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.goal-text{font-size:12px;color:#333;line-height:1.6}
+.dl-btn{background:var(--lc);color:#fff;border:none;border-radius:12px;padding:12px 18px;font-size:12px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:110px;transition:opacity .2s}
+.dl-btn:hover{opacity:.88}
+.dl-btn .ic{font-size:20px}
+.dl-btn .sb{font-size:10px;opacity:.8}
+.sec-nav{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:2px}
+.sec-tab{padding:7px 14px;border-radius:20px;border:1.5px solid #DDD;background:#fff;color:#555;font-size:12px;font-weight:500;white-space:nowrap;transition:all .2s}
+.sec-tab.active{background:var(--lc);border-color:var(--lc);color:#fff;font-weight:700}
+.sec-title{font-size:16px;font-weight:800;color:#1A1A1A;margin-bottom:2px}
+.sec-subtitle{font-size:13px;color:#666;margin-bottom:18px}
+.theory-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.th-card{background:#fff;border-radius:12px;border:1.5px solid rgba(0,0,0,.08);padding:14px 16px}
+.th-head{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.tbadge{border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+.th-rule{font-size:12px;color:#555;margin-bottom:6px;line-height:1.5}
+.th-ex{font-size:11px;color:#888;font-style:italic;font-family:'JetBrains Mono',monospace}
+.g-card{background:#fff;border-radius:12px;padding:14px 18px;margin-bottom:10px}
+.g-title{font-weight:800;font-size:14px;margin-bottom:8px}
+.verbs-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.v-chip{border-radius:6px;padding:2px 10px;font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:600}
+.g-mem{font-size:12px;color:#666;margin-bottom:6px;font-style:italic}
+.g-ex{font-size:12px;color:#333;background:#F7F6F3;border-radius:6px;padding:6px 10px;font-family:'JetBrains Mono',monospace}
+.pair-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;overflow:hidden;margin-bottom:10px}
+.pair-sp{padding:12px 16px;border-left:3px solid #CCC}
+.pair-sp-lbl{font-size:10px;color:#999;margin-bottom:3px;font-weight:700;letter-spacing:1px}
+.pair-sp-txt{font-size:13px;color:#555;font-style:italic}
+.pair-ac{padding:12px 16px;border-left:3px solid var(--lc)}
+.pair-ac-lbl{font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:3px}
+.pair-ac-txt{font-size:13px;font-weight:600;color:#222}
+.pair-chg{font-size:11px;color:#888;margin-top:4px;font-family:'JetBrains Mono',monospace}
+.insight{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;color:#fff}
+.rub-toggle{display:flex;align-items:center;gap:8px;background:none;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;margin-bottom:12px;color:var(--lc)}
+.rub-panel{border-radius:10px;padding:12px 16px;margin-bottom:16px;display:none}
+.rub-panel.open{display:block}
+.rub-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid rgba(0,0,0,.08)}
+.rub-row:last-child{padding-bottom:0;margin-bottom:0;border-bottom:none}
+.rub-crit{font-size:13px;font-weight:700;margin-bottom:2px}
+.rub-desc{font-size:11px;color:#666}
+.rub-pts{color:#fff;border-radius:6px;padding:2px 10px;font-size:12px;font-weight:800;white-space:nowrap;background:var(--lc)}
+.prog-wrap{margin-bottom:12px}
+.prog-bg{background:#E8E5E0;border-radius:99px;height:5px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;transition:width .4s;background:var(--lc)}
+.prog-lbl{font-size:11px;color:#999;margin-top:3px}
+.spot-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:12px;overflow:hidden;transition:border-color .2s}
+.spot-num{font-size:11px;color:#999;margin-bottom:6px;font-weight:600;letter-spacing:1px}
+.spot-top{padding:14px 18px 10px}
+.spot-sen{font-size:15px;color:#1A1A1A;line-height:1.7}
+.ul-word{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#AAA}
+.ul-word.revealed{text-decoration-color:#CC3333;color:#CC3333;font-weight:700}
+.spot-acts{padding:0 18px 14px;display:flex;gap:8px;align-items:center}
+.spot-acts span{font-size:12px;color:#777}
+.btn-wrong{background:#FEE2E2;border:1px solid #FCA5A5;color:#CC3333;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700}
+.btn-right{background:#DCFCE7;border:1px solid #86EFAC;color:#1A7A3A;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700}
+.spot-ans{border-top:1px solid rgba(0,0,0,.08);padding:12px 18px;display:none}
+.spot-ans.open{display:block}
+.ans-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.wrong-wd{font-size:12px;color:#CC3333;text-decoration:line-through;font-style:italic}
+.corr-wd{font-size:13px;color:#1A7A3A;font-weight:700}
+.arr{color:#999}
+.ans-rule{font-size:12px;color:#444;margin-bottom:8px;line-height:1.5}
+.ans-tip{background:#fff;border-radius:6px;padding:6px 10px;font-size:12px;font-style:italic}
+.sc-inline{margin-top:8px;font-size:12px;font-weight:700;display:none}
+.sc-inline.good{color:#1A7A3A}
+.sc-inline.bad{color:#CC3333}
+.warn-miss{font-size:12px;color:#CC3333;font-weight:600;margin-top:6px;display:none}
+.fill-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:12px;overflow:hidden}
+.fill-card.ok{border-color:#22C55E}
+.fill-card.no{border-color:#EF4444}
+.fill-body{padding:14px 18px}
+.fill-base{font-size:11px;color:#999;margin-bottom:8px;font-weight:600;letter-spacing:1px}
+.fill-tmpl{font-size:14px;color:#1A1A1A;line-height:1.8;margin-bottom:12px}
+.fill-irow{display:flex;gap:8px;align-items:center}
+.fill-inp{flex:1;padding:8px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:14px;outline:none;transition:border-color .2s}
+.fill-inp.ok{background:#F0FDF4;border-color:#22C55E}
+.fill-inp.no{background:#FEF2F2;border-color:#EF4444}
+.fill-chk{background:var(--lc);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700}
+.fill-ic{font-size:20px}
+.fill-ans{border-top:1px solid rgba(0,0,0,.08);padding:10px 18px;display:none}
+.fill-ans.open{display:block}
+.fill-ca{font-size:13px;font-weight:700;color:#1A7A3A;margin-bottom:4px}
+.fill-expl{font-size:12px;color:#444;line-height:1.5}
+.tr-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:14px;overflow:hidden}
+.tr-body{padding:14px 18px}
+.tr-num{font-size:11px;color:#999;margin-bottom:8px;font-weight:600;letter-spacing:1px}
+.tr-spoken{background:#F5F3F0;border-radius:8px;padding:10px 14px;font-size:14px;color:#444;margin-bottom:12px;font-style:italic;border-left:3px solid #CCC}
+.tr-hint{font-size:12px;color:#777;margin-bottom:10px}
+.tr-ta{width:100%;padding:8px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:13px;resize:vertical;outline:none;line-height:1.6;transition:border-color .2s}
+.tr-reveal{background:var(--lc);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;margin-top:8px}
+.tr-ans{border-top:1px solid rgba(0,0,0,.08);padding:12px 18px;display:none}
+.tr-ans.open{display:block}
+.model-lbl{font-size:12px;font-weight:700;color:#999;margin-bottom:4px}
+.model-txt{font-size:13px;color:#1A1A1A;font-weight:600;line-height:1.6;margin-bottom:8px}
+.kc-chip{background:#fff;border-radius:6px;padding:4px 10px;font-size:11px;display:inline-block;margin-bottom:6px}
+.princ{font-size:12px;color:#555;font-style:italic;line-height:1.5}
+.log-note{background:#FFFBEB;border:1px solid #FCD34D;border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#92400E}
+.log-prompt{margin-bottom:14px}
+.log-lbl{display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:6px}
+.log-ta{width:100%;padding:10px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:13px;resize:vertical;outline:none;line-height:1.6;transition:border-color .2s}
+.log-save{border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:700;color:#fff;background:var(--lc);transition:background .2s}
+.score-badge{background:#fff;border-radius:12px;padding:14px 20px;text-align:center;margin-bottom:16px;margin-top:4px;border:2px solid var(--lc)}
+.score-badge .slbl{font-size:11px;color:#999;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.score-badge .snum{font-size:32px;font-weight:900;color:var(--lc)}
+.score-badge .snum .den{font-size:16px;font-weight:400;color:#999}
+.score-badge .sgrade{font-size:13px;font-weight:700;margin-top:2px}
+.score-cta{background:var(--lc);color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:800;width:100%;margin-top:4px;display:none}
+.warn-box{background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#92400E}
+.sec-nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:20px;border-top:1px solid #E2DDD8}
+.nav-btn{border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;border:none}
+.nav-prev{background:#fff;border:1.5px solid #DDD;color:#333}
+.nav-prev:disabled{color:#CCC}
+.nav-next{background:var(--lc);color:#fff;font-weight:700}
+.nav-next:disabled{background:#E8E5E0;color:#AAA}
+.nav-cnt{font-size:12px;color:#999}
+#app-footer{background:#1A1A1A;border-top:1px solid #2A2A2A;padding:24px 20px}
+.footer-inner{max-width:740px;margin:0 auto}
+.disc-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+.ai-badge{background:#2A2A2A;border:1px solid rgba(232,200,74,.3);border-radius:8px;padding:6px 10px;font-size:11px;color:#E8C84A;font-weight:800;letter-spacing:1px;white-space:nowrap}
+.disc-txt{font-size:12px;color:#666;line-height:1.7}
+.disc-txt strong{color:#AAA}
+.disc-txt .bn{color:#E8C84A}
+.footer-bot{border-top:1px solid #2A2A2A;padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-logo{display:flex;align-items:center;gap:8px}
+.footer-copy{font-size:11px;color:#444}
+@media(max-width:520px){.theory-grid{grid-template-columns:1fr}.goal-row{flex-direction:column}.dl-btn{width:100%;flex-direction:row}.brand-row{flex-direction:column;gap:10px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header id="app-header">
+<div class="header-inner">
+  <div class="brand-row">
+    <div class="logo-mark">
+      <div><div class="logo-text-main">HUONG STELLA PARADIGM</div></div>
+    </div>
+  </div>
+  <div class="lesson-label">Day 11 · Interactive Practice</div>
+  <div class="lesson-title" id="hdr-theme"></div>
+  <div class="lesson-meta" id="hdr-meta"></div>
+  <div class="level-tabs" id="level-tabs"></div>
+</div>
+</header>
+<main>
+<div class="main-body">
+  <div class="goal-row">
+    <div class="goal-box" id="goal-box">
+      <div class="goal-label" id="goal-label">Today's Objectives</div>
+      <div class="goal-text" id="goal-text"></div>
+    </div>
+    <button class="dl-btn" onclick="handleDownload()">
+      <span class="ic">&#x2B07;&#xFE0F;</span><span>Download Report</span><span class="sb">Your answers + Model answers</span>
+    </button>
+  </div>
+  <div class="sec-nav" id="sec-nav"></div>
+  <div class="sec-title" id="sec-title"></div>
+  <div class="sec-subtitle" id="sec-sub"></div>
+  <div id="sec-content"></div>
+  <div class="sec-nav-row">
+    <button class="nav-btn nav-prev" id="btn-prev" onclick="navSec(-1)">&#x2190; Previous</button>
+    <span class="nav-cnt" id="nav-cnt"></span>
+    <button class="nav-btn nav-next" id="btn-next" onclick="navSec(1)">Next &#x2192;</button>
+  </div>
+</div>
+</main>
+<footer id="app-footer">
+<div class="footer-inner">
+  <div class="disc-row">
+    <div class="ai-badge">AI-ASSISTED</div>
+    <div class="disc-txt">
+      This material is produced with AI support as part of the <span class="bn">Huong Stella Paradigm</span> academic programme. Content has been reviewed against pedagogical standards; however, learners are advised to <strong>cross-reference with authoritative sources</strong> and <strong>consult their instructor</strong> for clarification. Auto-scoring is indicative only and does not replace teacher assessment.
+    </div>
+  </div>
+  <div class="footer-bot">
+    <div class="footer-logo">
+      <span style="font-size:12px;color:#888;font-weight:700;letter-spacing:.5px">HUONG STELLA PARADIGM</span>
+      <span style="font-size:11px;color:#444">· Daily Drills</span>
+    </div>
+  </div>
+</div>
+</footer>
+<script>
+const RUBRICS={
+a2b1:{
+  spot:[
+    {criterion:"Identify the wrong passive form (V2/base form/-ing used instead of V3, or missing BE)",max:1,desc:"Name the error type precisely: e.g. 'wrote is V2 not V3', 'eating is -ing not past participle', 'was is missing'"},
+    {criterion:"Supply the correct passive form with accurate past participle",max:2,desc:"Write the corrected be + past participle with no spelling errors — especially for irregular verbs"},
+    {criterion:"Explain the rule violated",max:1,desc:"State which rule was broken: passive needs V3 not V2, passive needs auxiliary BE, -ing cannot be V3, etc."}
+  ],
+  fill:[
+    {criterion:"Select the correct tense and form of BE + past participle",max:2,desc:"Identify the correct tense of BE (was/were/is/are/will be/has been) and form the past participle accurately"},
+    {criterion:"Spelling accuracy of past participle",max:1,desc:"No spelling errors in the past participle, especially irregular forms (written, grown, stolen)"},
+    {criterion:"Explain why this tense is correct",max:1,desc:"Reference the time expression: 'yesterday → past simple', 'every year → present simple', 'next Saturday → future'"}
+  ],
+  log:[
+    {criterion:"List at least 5 correct irregular past participles",max:2,desc:"V3 forms spelled correctly: written, broken, chosen, known, stolen, spoken, grown, taken, etc."},
+    {criterion:"Produce an accurate active-to-passive conversion",max:2,desc:"Passive sentence has: correct subject, correct tense of BE, correct past participle, optional by-phrase in correct position"},
+    {criterion:"Write one original sentence using past simple passive",max:2,desc:"Sentence must be semantically natural and grammatically accurate: was/were + V3 (no missing auxiliary, no -ing, no V2)"}
+  ]
+},
+b1b2:{
+  spot:[
+    {criterion:"Identify the specific tense error in the passive construction",max:1,desc:"Name the exact problem: double auxiliary (was been), missing 'been', missing 'be', wrong participle form, wrong tense"},
+    {criterion:"Provide the complete corrected passive form",max:2,desc:"Write the full auxiliary chain correctly — no missing elements, no extra auxiliaries"},
+    {criterion:"Explain why the correct tense/form is needed",max:1,desc:"Reference the time expression or context that determines the tense: 'already submitted → present perfect', 'by the time = past perfect'"}
+  ],
+  fill:[
+    {criterion:"Select the correct passive tense for the context clue given",max:2,desc:"Identify the time signal and apply the matching passive tense: must (modal), has been (perfect), will be (future), was (past)"},
+    {criterion:"Complete auxiliary chain accuracy",max:1,desc:"All elements of the passive chain are present and correctly ordered: modal/aux + be/been + past participle"},
+    {criterion:"Natural register in the completed sentence",max:1,desc:"The completed sentence sounds like natural English, not a grammar formula applied mechanically"}
+  ],
+  log:[
+    {criterion:"Produce 4 correct passive forms (present/past/present perfect/future) for one verb",max:2,desc:"All four correctly formed: is published / was published / has been published / will be published (no missing auxiliaries)"},
+    {criterion:"3 original sentences in 3 different passive tenses with appropriate time context",max:2,desc:"Each uses a different tense and the tense is justified by the sentence context — not arbitrary"},
+    {criterion:"Self-diagnosis: name the hardest passive tense + write full formula + one example",max:2,desc:"Be specific: name the tense, write the formula (e.g. have/has + been + V3), write one correct example sentence"}
+  ]
+},
+b2c1:{
+  spot:[
+    {criterion:"Identify the specific error in the passive reporting verb construction",max:2,desc:"Distinguish: wrong participle form (base/gerund/-ing), false passive with stative verb, wrong infinitive type (simple vs perfect)"},
+    {criterion:"Supply the correct construction accurately",max:2,desc:"Write the complete corrected structure: be + V3 / is [V3] that + clause / be [V3] to (have) + V3 — whichever applies"},
+    {criterion:"Explain the grammar rule and the discourse function of the construction",max:2,desc:"What was the grammatical error? What rhetorical work does the correct passive reporting verb construction perform in academic writing?"}
+  ],
+  transform:[
+    {criterion:"Passive reporting verb construction is grammatically accurate",max:2,desc:"Correct structure throughout: It is [V3] that... / Subject + is [V3] + to (have) + V3 — no missing elements"},
+    {criterion:"Frequency adverb and reporting verb are well-chosen for the epistemic force of the claim",max:2,desc:"'Widely' suggests broad consensus; 'increasingly' suggests growing evidence; 'argued' = contested; 'established' = more accepted — match to claim strength"},
+    {criterion:"Vocabulary upgrade achieves academic register without sounding stilted",max:2,desc:"Original vague language replaced with precise academic vocabulary that is contextually natural — not just 'long words'"},
+    {criterion:"Time relationship between reporting verb and reported event is accurately encoded",max:2,desc:"Past event + present passive verb → perfect infinitive (to have risen); no time shift → simple infinitive (to reduce)"}
+  ],
+  log:[
+    {criterion:"Two distinct passive reporting verb patterns used accurately in the paragraph",max:3,desc:"Both 'It is [V3] that...' and '[Subject] is [V3] to...' appear and are correctly formed with appropriate vocabulary"},
+    {criterion:"Explanation identifies both the grammar and the rhetorical function",max:2,desc:"Addresses: what is the grammatical structure? AND what epistemic work does it do — who does it attribute the claim to, and with what level of certainty?"},
+    {criterion:"Two-version exercise demonstrates mastery of both patterns",max:2,desc:"Both versions are grammatically correct; student can articulate what changes between them beyond just word order"}
+  ]
+},
+c1c2:{
+  spot:[
+    {criterion:"Diagnose the discourse-level failure (cohesion, accountability, word order, false passive, or double connector)",max:2,desc:"Go beyond the surface error to identify the rhetorical or structural principle violated — not just 'this is wrong'"},
+    {criterion:"Propose a restructured version that is genuinely stronger than the original",max:3,desc:"Rewrite is grammatically accurate, discourse-coherent, and argumentatively more effective — not just a surface correction"},
+    {criterion:"Explain the argumentative or cohesive cost of the original error",max:2,desc:"How does this error affect the reader's understanding or trust at the discourse level? What is lost?"}
+  ],
+  transform:[
+    {criterion:"Passive is deployed purposefully at the discourse level, not randomly",max:3,desc:"Each passive choice serves a named function: thematic focus, cohesive chaining, epistemic distancing, or rhetorical emphasis"},
+    {criterion:"Argumentation is logically coherent, proportioned, and rhetorically effective",max:3,desc:"The logical relationship between clauses is clear; claims are proportioned to evidence; the argument would convince an academic reader"},
+    {criterion:"Lexical choices are precise and contextually appropriate — no performative complexity",max:2,desc:"Vocabulary is specific and earns its place; no 'big words' that obscure rather than illuminate the argument"},
+    {criterion:"The passage meets publishable academic standard",max:2,desc:"No grammatical errors, no hedging collapse, no over-assertion, no awkward phrasing — could appear in a peer-reviewed journal without further editing"}
+  ],
+  log:[
+    {criterion:"Passive use in paragraph is purposeful, and each instance is annotated with its discourse function",max:3,desc:"Student names the function of each passive: 'passive here maintains thematic continuity', 'passive here signals epistemic distancing', etc."},
+    {criterion:"Two discourse-function explanations are specific and demonstrate metalinguistic control",max:3,desc:"Explanations articulate what is GAINED by passive over active at that specific point — not just 'I used passive to avoid I'"},
+    {criterion:"Agent-suppression reflection demonstrates critical awareness of the rhetorical ethics of the passive",max:2,desc:"Student can distinguish between justified agent omission (unknown/irrelevant agent) and evasive omission (suppressing accountability)"}
+  ]
+}
+};
+
+const LEVELS={
+a2b1:{label:"A2–B1",color:"#2D6A4F",light:"#D8F3DC",theme:"Passive Voice Introduction — Day 11",tagline:"Forming and using the passive in present, past, and future",goal:"Today you will: learn when and why passive is used → identify common passive errors (wrong V3 form, missing auxiliary, -ing instead of V3) → practise forming passive sentences correctly → record irregular past participles.",time:"10–15 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (2 min)",subtitle:"Four essential facts about passive voice",type:"theory",
+content:[
+{label:"Passive Structure",badge:"form",color:"#2D6A4F",examples:"Active: 'Someone built this bridge.' / Passive: 'This bridge was built (by someone).'",rule:"Passive = subject + BE (correct tense) + PAST PARTICIPLE (V3). The original object becomes the new subject. The agent moves to a by-phrase or disappears entirely."},
+{label:"When to Use Passive",badge:"use",color:"#1A4A7A",examples:"My wallet was stolen. [who? unknown] / He was born in 1995. [agent obvious] / Gold was discovered in 1848. [gold = focus]",rule:"Use passive when: (1) agent is unknown, (2) agent is obvious/unimportant, (3) the thing acted upon is more important to the sentence than who did it."},
+{label:"Irregular Past Participles",badge:"V3",color:"#5A1A8A",examples:"write→written / break→broken / speak→spoken / grow→grown / know→known / steal→stolen / choose→chosen",rule:"Many common verbs have irregular V3 forms. You CANNOT use the simple past (V2) in the passive. 'Was wrote' and 'is spoke' are both wrong — passive always needs V3, never V2."},
+{label:"Passive Negatives & Questions",badge:"neg/q",color:"#8B1A1A",examples:"The door was not locked. / Has the report been sent? / Is English taught here?",rule:"Negative passive: subject + BE + NOT + V3. Question passive: BE/auxiliary + subject + V3? The auxiliary carries the tense and the NOT. The past participle never changes."}
+]},
+{id:"spot",title:"🔍 Part 1 — Spot the Error (4 min)",subtitle:"6 sentences — every sentence contains a passive error. Identify it.",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"The famous novel was wrote by a young author at the age of twenty-two.",underlined:"was wrote",wrongWord:"was wrote",correctWord:"was written",wrongType:"V2 used as past participle",correctType:"irregular V3 'written'",rule:"'Write' has three forms: write (V1) → wrote (V2) → written (V3). Passive requires V3. 'Was wrote' uses V2 — only the past participle (V3) can follow the auxiliary BE in a passive construction.",tip:"Before writing any passive, ask: is this V2 or V3? Write-WROTE-WRITTEN: wrote = simple past (cannot follow was/were). Written = past participle (the only correct form after was/were/is/are/has been)."},
+{sentence:"English is spoke in many countries around the world as a first or second language.",underlined:"is spoke",wrongWord:"is spoke",correctWord:"is spoken",wrongType:"V2 used as past participle",correctType:"irregular V3 'spoken'",rule:"'Speak' → past participle is 'spoken' (not spoke). 'Spoke' is V2 (simple past). Present simple passive = is/are + V3. 'Is spoke' is impossible: V2 can never follow the auxiliary 'is'.",tip:"The -en ending family: speak-spoke-spokEN, break-broke-brokEN, choose-chose-chosEN, freeze-froze-frozEN. The pattern: -o- vowel in V2 often becomes -o- + -en in V3. Learn these as one rhyming group."},
+{sentence:"All the food was eating before the guests arrived at the party.",underlined:"was eating",wrongWord:"was eating",correctWord:"was eaten",wrongType:"-ing form (active progressive) instead of V3",correctType:"past participle 'eaten'",rule:"'Was eating' = active past progressive ('the guests were eating food'). Passive needs 'was + V3': was eaten. The -ing form is NEVER a past participle — passive always uses -ed or the irregular V3 form.",tip:"Quick check: 'The food was eating...' — can food eat anything? No. The -ing form in passive position signals the subject is doing the action. If that is impossible, the -ing is wrong. Use V3: was eaten."},
+{sentence:"My phone repaired at the shop immediately after the screen cracked.",underlined:"phone repaired",wrongWord:"phone repaired",correctWord:"phone was repaired",wrongType:"missing auxiliary 'was'",correctType:"was + past participle",rule:"Passive requires the auxiliary verb BE. Without 'was', 'repaired' functions as a participial adjective — creating a noun phrase fragment, not a finite clause. A complete passive must have a form of BE.",tip:"Think of BE as the 'passport' verb. Without it, there is no tense and no sentence. Diagnosis: if you cannot answer 'when did this happen?' the auxiliary is probably missing. Insert was/were to fix it instantly."},
+{sentence:"Rice is grew in many parts of Asia, especially along the Mekong Delta.",underlined:"is grew",wrongWord:"is grew",correctWord:"is grown",wrongType:"V2 (past tense) used after present auxiliary 'is'",correctType:"past participle 'grown'",rule:"'Grow' → grew (V2) → grown (V3). 'Is grew' mixes present auxiliary 'is' with past 'grew' — a tense clash AND the wrong form. Present simple passive = is/are + V3 (past participle), never V2.",tip:"Irregular family: grow-grew-GROWN, know-knew-KNOWN, throw-threw-THROWN, blow-blew-BLOWN. Pattern: -ew → -own. Practise the pattern: 'rice is grown', 'it is known', 'the ball is thrown'. One pattern covers all four."},
+{sentence:"The new school was build by the local government to serve over two thousand students.",underlined:"was build",wrongWord:"was build",correctWord:"was built",wrongType:"base form (infinitive) instead of past participle",correctType:"past participle 'built'",rule:"'Build' has the same form for V2 and V3: built. 'Was build' uses the base form (infinitive). After was/were/is/are/has been, you need the past participle — never the base form (infinitive).",tip:"Base form follows modals: 'will build', 'must build'. Past participle follows BE auxiliaries: 'was built', 'is built', 'has been built'. 'Was' is not a modal — it cannot be followed by the base form. Was + build = impossible."}
+]},
+{id:"fill",title:"✏️ Part 2 — Complete the Passive (4 min)",subtitle:"Write the correct passive form of the verb in brackets",type:"fill",rubricKey:"fill",
+items:[
+{template:"The letter ___ to the wrong address by mistake yesterday. (deliver)",baseWord:"deliver",answer:"was delivered",targetType:"past simple passive",hint:"yesterday = past; was/were + V3",explanation:"'Was delivered' = past simple passive. 'Yesterday' signals past tense → use 'was' (singular). Deliver is a regular verb: V3 = delivered (-ed ending). Structure: was + delivered."},
+{template:"Thousands of tourists ___ to this region every year because of its ancient temples. (attract)",baseWord:"attract",answer:"are attracted",targetType:"present simple passive",hint:"every year = regular fact; is/are + V3; plural subject",explanation:"'Are attracted' = present simple passive. 'Every year' signals a recurring fact → present simple. 'Thousands of tourists' is plural → 'are' (not 'is'). Attract → attracted (regular -ed)."},
+{template:"The winner's name ___ at the end of the ceremony next Saturday. (announce)",baseWord:"announce",answer:"will be announced",targetType:"future passive",hint:"next Saturday = future; will + be + V3",explanation:"'Will be announced' = future passive. 'Next Saturday' signals future → will + BE + past participle. The 'be' between 'will' and the past participle is essential — never omit it. Announce → announced."},
+{template:"The old factory ___ into luxury apartments over the past two years. (convert)",baseWord:"convert",answer:"has been converted",targetType:"present perfect passive",hint:"over the past two years = perfect aspect; singular subject → has/have?",explanation:"'Has been converted' = present perfect passive. 'Over the past two years' signals the perfect aspect (recent change with present relevance). Singular subject → 'has' (not 'have'). Structure: has + been + V3."},
+{template:"The ancient manuscript ___ into English until the nineteenth century. (not / translate)",baseWord:"translate (negative)",answer:"was not translated",targetType:"past simple passive negative",hint:"negative + past; was/were + not + V3",explanation:"'Was not translated' = negative past simple passive. Structure: subject + WAS + NOT + V3. Singular → 'was'. Translate → translated (regular). The three-word answer is required: was + not + translated."}
+]},
+{id:"errorlog",title:"📓 Error Log — Day 11 (2 min)",subtitle:"Consolidate your passive voice learning",type:"log",rubricKey:"log",
+prompts:[
+"Write the passive form (is/are + V3) of these 5 irregular verbs: write, break, choose, steal, grow. Format: 'write → is written / was written'. Include both present and past passive for each:",
+"Convert this sentence from active to passive: 'The teacher corrected all the mistakes in our essays.' Write the full passive sentence (hint: subject = 'all the mistakes'; tense = past; agent = 'by the teacher'):",
+"Write one original sentence about something at your school or workplace using past simple passive (was/were + V3). Make it realistic and specific:"
+]}
+]},
+
+b1b2:{label:"B1+–B2",color:"#1A4A7A",light:"#D6E8F7",theme:"Passive Across Tenses — Day 11",tagline:"Forming passive voice accurately in all major tenses",goal:"Today you will: master passive form across present, past, perfect, future, and modal tenses → spot tense errors in passive constructions → produce passive sentences in appropriate tenses → diagnose your most error-prone passive pattern.",time:"15–20 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"The passive tense system — four essential patterns",type:"theory2",
+groups:[
+{label:"Present simple passive: is/are + V3",color:"#1A4A7A",verbs:["is made","are tested","is sold","are written","is spoken","are awarded","is produced"],memory:"Ongoing facts, habits, and general truths: what IS DONE regularly or permanently — no specific time",example:"English is taught in over 100 countries. / These cars are assembled by hand."},
+{label:"Past simple passive: was/were + V3",color:"#5A1A8A",verbs:["was built","were sent","was discovered","were damaged","was signed","were arrested","was founded"],memory:"Completed actions at a specific time in the past: what WAS DONE — always paired with a time reference",example:"The treaty was signed in 1919. / Three suspects were arrested yesterday."},
+{label:"Present perfect passive: has/have been + V3",color:"#2D6A4F",verbs:["has been updated","have been informed","has been launched","have been charged","has been awarded","have been released"],memory:"Past action with present relevance: what HAS BEEN DONE — result matters now, specific time not stated",example:"The report has been submitted. / Several people have been injured in the accident."},
+{label:"Future & modal passive: will be + V3 / must be + V3",color:"#8B1A1A",verbs:["will be released","must be worn","will be announced","should be checked","must be completed","will be evaluated"],memory:"Future plans, predictions, or obligations: what WILL BE / MUST BE DONE — the passive still needs 'be' between the modal and the V3",example:"The results will be published next month. / All forms must be completed in black ink."}
+]},
+{id:"spot",title:"🔍 Part 1 — Tense Errors in the Passive (5 min)",subtitle:"6 sentences — every one has a passive tense or form error",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"The suspects were been questioned by police for over three hours before being released.",underlined:"were been questioned",wrongWord:"were been questioned",correctWord:"were questioned",wrongType:"double auxiliary: were + been (impossible)",correctType:"past simple passive: were + V3",rule:"Past simple passive = was/were + V3. 'Were been questioned' wrongly adds 'been', which belongs in the present perfect passive (have/has been + V3). Past simple has no 'been': were questioned, not were been questioned.",tip:"Double auxiliary test: after 'was/were', can you add 'been'? Only in past perfect passive: 'had been questioned'. Past simple needs nothing between were and V3. Count: past simple = 2 words (were + V3). If you have 3, one is wrong."},
+{sentence:"The annual report has already submitted to the board of directors for their approval.",underlined:"has already submitted",wrongWord:"has already submitted",correctWord:"has already been submitted",wrongType:"missing 'been' in present perfect passive",correctType:"has/have + been + V3",rule:"Present perfect passive = have/has + BEEN + V3. 'Has already submitted' is active present perfect ('the report has submitted something') — meaningless. The passive form requires 'been' between 'has' and the past participle.",tip:"Perfect passive checklist — three-part lock: HAVE/HAS → BEEN → V3. All three must be present. Active: 'she has submitted the report'. Passive: 'the report has been submitted'. Count the words: has been submitted = 3 (never 2 in perfect passive)."},
+{sentence:"The new safety regulations will announced by the government at a press conference tomorrow.",underlined:"will announced",wrongWord:"will announced",correctWord:"will be announced",wrongType:"missing 'be' in future passive",correctType:"will + be + V3",rule:"Future passive = will + BE + V3. 'Will announced' skips 'be' entirely, which is doubly wrong: after 'will', you need a base form (be), and the main verb must be the past participle (announced). Two errors for the price of one.",tip:"Future passive checklist: WILL → BE → V3. Modal + base form + past participle. Never 'will + V3' directly. Mnemonics: 'will BE' locks together — the modal always calls for 'be' as the next word in passive."},
+{sentence:"The emergency meeting is currently being hold to discuss the recent data breach.",underlined:"being hold",wrongWord:"being hold",correctWord:"being held",wrongType:"base form instead of past participle",correctType:"irregular past participle 'held'",rule:"Present progressive passive = is/are + being + V3. 'Hold' has an irregular past participle: held (not hold). 'Being hold' uses the base form — which looks identical to the infinitive for this verb. Always check: is this V3 or the infinitive?",tip:"Irregular cluster: hold-held-HELD, sell-sold-SOLD, tell-told-TOLD, build-built-BUILT. For progressive passives (is/are/was/were + being + V3), the V3 must be past participle, never the base form. Being + hold is impossible; being + held is correct."},
+{sentence:"Many ancient artefacts have been discover in the region over the past two decades of excavation.",underlined:"have been discover",wrongWord:"have been discover",correctWord:"have been discovered",wrongType:"base form instead of past participle after 'been'",correctType:"regular past participle 'discovered'",rule:"After 'have/has been', the next word MUST be a past participle (V3) — never the base form. 'Discover' is a regular verb: V3 = discovered (add -ed). 'Have been discover' omits the -ed ending.",tip:"Rule without exception: after BEEN, only V3 follows. Regular verbs add -ed; irregular verbs use their V3. Test: can you say 'The artefacts were discovered'? If yes, 'discovered' is your V3. Anything other than the correct V3 after 'been' is wrong."},
+{sentence:"By the time the inspection team arrived, most of the documents were already destroy.",underlined:"were already destroy",wrongWord:"were already destroy",correctWord:"had already been destroyed",wrongType:"simple past passive instead of past perfect passive; missing -ed",correctType:"past perfect passive: had + been + V3",rule:"When a passive action occurred BEFORE another past event, use past perfect passive: had + been + V3. 'By the time they arrived' signals the destruction happened first. 'Were already destroy' also omits the -ed ending.",tip:"Timeline trigger: 'by the time', 'when they arrived', 'before it started' → the earlier past action needs past perfect passive: HAD BEEN + V3. Regular: had been destroyed. Irregular: had been stolen, had been taken. Two parts to fix: tense AND the -ed."}
+]},
+{id:"fill",title:"✏️ Part 2 — Choose the Right Passive Tense (5 min)",subtitle:"Write the complete passive form — check the time clue in each sentence",type:"fill",rubricKey:"fill",
+items:[
+{template:"All mobile phones ___ before the exam begins. (switch off — obligation)",baseWord:"switch off (modal)",answer:"must be switched off",targetType:"modal passive: must + be + V3",hint:"obligation = must; modal + be + V3",explanation:"'Must be switched off' = modal passive for obligation. Structure: must + BE (base form) + past participle. Switch off → switched off (phrasal verb, -ed ending). The full answer must include 'must be'."},
+{template:"The ancient temple ___ to its original condition over the past five years. (restore)",baseWord:"restore",answer:"has been restored",targetType:"present perfect passive",hint:"over the past five years = perfect aspect; singular subject",explanation:"'Has been restored' = present perfect passive. 'Over the past five years' signals recent completed action still relevant now. Singular subject ('the temple') → 'has' (not 'have'). Restore → restored. Structure: has + been + V3."},
+{template:"The winner's name ___ at the next ceremony, scheduled for late October. (announce)",baseWord:"announce",answer:"will be announced",targetType:"future passive",hint:"next ceremony = future event; will + be + V3",explanation:"'Will be announced' = future passive. Future time reference → modal 'will'. Structure: will + BE (base form) + past participle. Never omit 'be' between 'will' and the past participle. Announce → announced."},
+{template:"The suspect ___ without charge after twelve hours of questioning. (release — past)",baseWord:"release",answer:"was released",targetType:"past simple passive",hint:"completed past action; singular subject; was/were + V3",explanation:"'Was released' = past simple passive. A completed past action → past simple. Singular subject ('the suspect') → 'was'. Release → released (regular -ed). No 'been' needed — that belongs in the perfect passive."},
+{template:"A new international treaty on climate change ___ by world leaders at the summit last year. (sign)",baseWord:"sign",answer:"was signed",targetType:"past simple passive (irregular-check verb)",hint:"last year = specific past time; singular subject; was/were + V3",explanation:"'Was signed' = past simple passive. 'Last year' specifies a completed past event → past simple. 'A new international treaty' is singular → 'was'. Sign → signed (regular). Note: 'sign' is regular (not 'was signed' from 'sine')."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (4 min)",subtitle:"Produce passive sentences across tenses and reflect",type:"log",rubricKey:"log",
+prompts:[
+"Complete this table for the verb 'publish': write 4 passive forms (present simple / past simple / present perfect / future). Format: 'is published / was published / has been published / will be published'. Then do the same for 'arrest':",
+"Write 3 sentences about recent or imagined news events — one in past simple passive, one in present perfect passive, one in future passive. Make each sentence realistic:",
+"Which passive tense do you find hardest to form correctly? Write: (a) the full formula, (b) the most common error you make, and (c) one correct example sentence using that tense:"
+]}
+]},
+
+b2c1:{label:"B2+–C1",color:"#5A1A8A",light:"#EAD6F7",theme:"Passive with Reporting Verbs — Day 11",tagline:"Using passive + reporting verbs for academic hedging and epistemic calibration",goal:"Today you will: understand the two passive reporting verb patterns (It is argued that... / X is believed to...) → spot grammatical errors in these structures → transform informal claims into hedged academic prose → practise calibrating epistemic strength.",time:"20–25 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"Passive + reporting verbs — three spoken-to-academic transformations",type:"theory3",
+pairs:[
+{spoken:"Scientists believe that air pollution causes thousands of deaths per year.",academic:"It is widely believed that air pollution accounts for thousands of deaths annually. / Air pollution is widely believed to cause thousands of premature deaths each year.",change:"Pattern 1: It is [V3] that + clause. Pattern 2: Subject + is [V3] + to + infinitive. Both remove a single 'scientists' as source and distribute the claim across the field."},
+{spoken:"Many experts say that social media is changing the way people communicate.",academic:"It has been argued that social media is fundamentally altering established communication patterns across demographic groups. / Social media has been widely reported to be reshaping the norms of interpersonal communication.",change:"Reporting verbs carry different epistemic weight: 'argued' = contested/debatable; 'reported' = observed/documented; 'acknowledged' = more widely accepted. Choose with precision — not all reporting verbs are interchangeable."},
+{spoken:"Researchers have found that sleep deprivation affects decision-making.",academic:"It has been established through empirical investigation that sleep deprivation adversely affects cognitive decision-making capacity. / Sleep deprivation has been found to impair executive function, with consequences for both accuracy and response speed.",change:"'Established' signals stronger evidential grounding than 'found'. 'Adversely affects' is more precise than 'affects'. The perfect tense ('has been found') implies an accumulating body of evidence rather than a single study."}
+],
+insight:"The passive + reporting verb construction performs two simultaneous functions: it distributes a claim across the academic community (rather than a single source) and enables calibration of certainty through frequency adverbs. 'It is widely argued' ≠ 'it has been established' — the former signals an ongoing debate; the latter signals an accepted finding. Always match the adverb and reporting verb to the actual strength of the evidence."},
+{id:"spot",title:"🔍 Part 1 — Passive Reporting Verb Errors (5 min)",subtitle:"6 sentences — each has an error in passive + reporting verb structure",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"The new treatment has been widely accept as effective in reducing symptoms of chronic pain.",underlined:"widely accept",wrongWord:"accept",correctWord:"accepted",wrongType:"base form instead of past participle after 'been'",correctType:"past participle 'accepted'",rule:"After 'have/has been', only a past participle (V3) can follow. 'Accept' is regular: past participle = accepted (-ed). 'Has been accept' omits the -ed — a common omission when the verb ends in a consonant cluster or sounds similar to another word.",tip:"Audit every passive after 'been': does the main verb end in -ed (regular) or have its irregular V3 form? 'Accept' → 'accepted'. Distinguish from 'except' (preposition). If in doubt, ask: can I say 'it was accepted'? If yes, 'accepted' is the correct V3 for this passive."},
+{sentence:"It is generally acknowledge that access to quality education remains deeply unequal across socioeconomic groups.",underlined:"generally acknowledge",wrongWord:"acknowledge",correctWord:"acknowledged",wrongType:"base form after 'is' in passive reporting structure",correctType:"past participle 'acknowledged'",rule:"The pattern is: It is + PAST PARTICIPLE + that + clause. 'Acknowledge' → 'acknowledged'. After 'is' in this passive structure, you need the past participle — never the base form. 'Is acknowledge' is not passive; it is a grammatical error.",tip:"The 'It is [V3] that' pattern: memorise the reporting verbs in their past participle forms — acknowledged, recognised, believed, argued, reported, noted, claimed, suggested. All end in -ed. Never write 'It is argue / believe / acknowledge' — only 'It is argued / believed / acknowledged'."},
+{sentence:"The theory was long considered being outdated, but recent experimental evidence has revived scholarly interest.",underlined:"considered being",wrongWord:"considered being",correctWord:"considered (to be) outdated",wrongType:"gerund after passive reporting verb",correctType:"bare adjective OR to be + adjective",rule:"After passive reporting verbs (was considered / was thought / was believed), the complement is: (a) bare adjective — 'was considered outdated', or (b) to be + adjective — 'was considered to be outdated'. Never 'being' — this is a gerund form and does not belong in this complement position.",tip:"Pattern test: be + considered/thought/believed/known + to be + [adj/noun]. OR be + considered/thought + [adj] directly (no 'to be'). 'Considered being' mixes structures incorrectly. 'Being' signals the progressive or gerund — neither fits here."},
+{sentence:"It has been arguing in recent academic literature that the current approach to urban planning is fundamentally flawed.",underlined:"has been arguing",wrongWord:"has been arguing",correctWord:"has been argued",wrongType:"present participle (-ing) instead of past participle",correctType:"past participle 'argued'",rule:"'Has been arguing' is active present perfect progressive — meaning 'someone has been arguing for a long time' (continuous active action). 'It has been argued' is the passive impersonal reporting construction with the past participle. 'Arguing' and 'argued' are categorically different forms.",tip:"Active vs passive diagnostic: who is doing the arguing? 'It' cannot argue — so this must be passive. Active perfect progressive: 'The researcher has been arguing for years' (-ing signals continuity). Passive: 'It has been argued' (-ed signals the claim exists in the literature). -ing = active, continuous; -ed = passive, received."},
+{sentence:"Sea levels are widely reported to risen by an average of 20 cm over the past century.",underlined:"to risen",wrongWord:"to risen",correctWord:"to have risen",wrongType:"simple infinitive when perfect infinitive is required",correctType:"perfect infinitive: to have + V3",rule:"When the passive reporting verb is present tense but the reported event is in the past, the embedded infinitive must be perfect: 'to have risen'. 'To risen' is doubly wrong: 'risen' cannot follow 'to' directly (it is a past participle, not a base form), and the time shift requires the perfect infinitive.",tip:"Time-shift rule: present passive verb + past event → perfect infinitive: 'are reported to HAVE risen', 'is believed to HAVE occurred', 'is thought to HAVE originated'. No time shift (general fact) → simple infinitive: 'is known to cause'. If the event happened before the reporting time, add 'have' after 'to'."},
+{sentence:"The compound is appeared to inhibit bacterial growth at concentrations above 5 mg per litre.",underlined:"is appeared",wrongWord:"is appeared",correctWord:"appears",wrongType:"false passive with stative verb 'appear'",correctType:"active stative verb: appears to",rule:"'Appear' is a stative linking verb and CANNOT be passivised. 'Is appeared' is a false passive — a very common error when learners over-apply the passive reporting verb pattern. The correct form is active: 'The compound appears to inhibit...'",tip:"Stative verbs that are NEVER passive: appear, seem, remain, become, taste (stative), weigh (stative). Compare these with passive-compatible reporting verbs: believe, argue, report, claim, consider, suggest, know. If the verb is stative, use active only. 'It seems / it appears / it remains' — always active in English."}
+]},
+{id:"transform",title:"✏️ Part 2 — Academic Transformation (8 min)",subtitle:"Transform the informal claim into hedged academic prose using passive reporting verbs",type:"transform",rubricKey:"transform",
+items:[
+{spoken:"Many researchers think that childhood poverty permanently damages brain development.",hint:"It is widely acknowledged/argued that... / Childhood poverty is widely thought to... / calibrate: permanently → significantly / lastingly / adversely",answer:"It is widely acknowledged among researchers that exposure to poverty during early childhood has a significant and potentially lasting impact on neurological development. / Childhood poverty is widely thought to exert a lasting adverse influence on brain development, with documented effects on cognitive capacity and emotional regulation in later life.",keyChange:"'Many researchers think' → 'It is widely acknowledged' (impersonal passive + frequency adverb); 'permanently damages' → 'has a lasting adverse impact on' / 'exert a lasting adverse influence' (hedged: 'potentially lasting'); 'brain development' → 'neurological development' (more precise register)",principle:"Impersonal passive reporting shifts a claim from a single group's opinion to apparent community consensus. The frequency adverb (widely, generally) calibrates the level of that consensus. Always hedge absolute terms: 'permanently' → 'potentially lastingly' signals honest epistemic modesty."},
+{spoken:"Scientists say that rising global temperatures will make extreme weather more common.",hint:"It has been projected/suggested that... / Rising global temperatures are widely predicted to... / ground the claim: on the basis of current climate modelling / as indicated by...",answer:"It has been projected on the basis of current climate modelling that rising global temperatures will result in a significant increase in the frequency and severity of extreme weather events. / Rising global temperatures are widely predicted to intensify the occurrence of extreme weather events, as indicated by a growing and convergent body of climate research.",keyChange:"'Scientists say' → 'It has been projected' (passive + methodological grounding); 'will make more common' → 'will result in a significant increase in the frequency and severity of' (precise academic phrasing); added: 'on the basis of current climate modelling' / 'as indicated by a growing body of research' (evidential grounding)",principle:"Grounding a claim by specifying the method or evidence base ('on the basis of', 'as indicated by', 'according to modelling') elevates it from assertion to evidence-backed argument. Passive reporting allows this without attributing the claim to any named individual."},
+{spoken:"People used to believe that the earth was the centre of the universe.",hint:"It was long held/maintained that... / The earth was long considered to be... / For centuries, it was widely accepted that... / add historical resolution for argumentative depth",answer:"It was long held that the earth occupied a fixed central position in the cosmos — a belief that was overturned definitively only by the heliocentric model established during the Copernican revolution of the sixteenth century. / For centuries, the earth was widely considered to be the immovable centre of the universe, a conviction that persisted until empirical observation and mathematical modelling rendered the geocentric model untenable.",keyChange:"'People used to believe' → 'It was long held / widely considered' (passive + time adverb); 'the earth was the centre' → 'occupied a fixed central position in the cosmos' (precise academic vocabulary); addition of historical resolution adds argumentative depth beyond mere fact-statement",principle:"For superseded historical beliefs, the passive 'it was long held/maintained/considered' foregrounds the claim's historical currency without attributing it to a vague 'people'. Adding the resolution ('only overturned by') transforms an isolated fact into an illustration of how scientific paradigms shift — a richer argumentative move."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (5 min)",subtitle:"Write hedged academic prose using passive reporting verbs",type:"log",rubricKey:"log",
+prompts:[
+"Write 80–100 words on the topic 'The role of social media in shaping public opinion'. Use at least two different passive reporting verb constructions — one 'It is [V3] that...' pattern and one '[Subject] is [V3] to...' pattern. Avoid: 'I think', 'In this essay', 'it is obvious', or 'definitely':",
+"Identify one passive reporting verb construction you used above. Explain: (a) what is the grammatical structure? (b) what level of certainty does it signal, and why?",
+"Write the same claim two ways — once using 'It is widely argued that...' and once using '[Subject] is widely argued to...'. Check that both are grammatically accurate and note what changes between the two patterns:"
+]}
+]},
+
+c1c2:{label:"C1+–C2",color:"#8B1A1A",light:"#F5DADA",theme:"Passive for Argument & Cohesion — Day 11",tagline:"Strategic deployment of passive voice for discourse coherence and argumentative effect",goal:"Today you will: understand passive as a discourse tool (not just a grammatical option) → diagnose failures of cohesion, accountability, word order, and false passivisation → transform weak passive-laden prose into sophisticated academic argument → audit your own passive choices at the rhetorical level.",time:"20–25 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"Four strategic uses of passive voice at C1+/C2 level",type:"theory4",
+cards:[
+{label:"Strategic Passivisation for Thematic Focus",color:"#8B1A1A",desc:"The most powerful reason to use passive is not to avoid 'I' — it is to place the most communicatively important element in subject position (the theme of the sentence). Active: 'The committee introduced the bill.' Passive: 'The bill was introduced...' — optimal when 'the bill', not 'the committee', is the paragraph's topic.",fix:"Before every passive, ask: 'What is the topic of THIS sentence in this paragraph?' Put that element in subject position. If the agent is the topic, stay active. If the thing being acted upon is the topic, passivise. The decision is rhetorical, not grammatical."},
+{label:"Passive in Cohesive Chains",color:"#5A2D82",desc:"Passive enables you to maintain topic continuity (thematic progression) across sentence boundaries. When a paragraph tracks 'the data', every sentence should keep 'the data' in subject position — passivising verbs to sustain this chain even when the data is the object of the action described.",fix:"Cohesion audit: read only the subjects of consecutive sentences. Do they track the same referent? If three different agents appear as subjects across four sentences on the same topic, passive can restore coherence. Target: 'The data were collected... They were analysed... Significant trends were identified...' — all subjects refer to the data or its derivatives."},
+{label:"Agentless Passive for Epistemic Distancing",color:"#1A4A7A",desc:"Omitting the by-phrase (agentless passive) allows a claim to appear sourceless — as if it belongs to no single origin, as if the academic community as a whole holds the view. This is a powerful rhetorical move, but must be used honestly: do not suppress a contested agent to manufacture false consensus.",fix:"Use agentless passive honestly: (a) agent is genuinely unknown, (b) agent is obvious from context, (c) you want to distribute the claim across a field rather than a single source. Avoid it when suppressing the agent misleads the reader about who made the claim or who bears responsibility."},
+{label:"Passive Overuse and Its Rhetorical Cost",color:"#2D6A1A",desc:"Every passive has a rhetorical cost: it hides agency, which can obscure accountability. Over-passivisation produces vague, responsibility-free prose. 'Mistakes were made. Damage was caused. Decisions were taken.' — no one is responsible. Sometimes useful (diplomacy), often dishonest (politics), frequently just weak writing.",fix:"Accountability audit: when passive appears, ask — does omitting the agent genuinely serve the argument, or does it obscure accountability? If naming who did it matters, name them actively. 'The government failed to respond' is stronger and more honest than 'a response was not provided'."}
+]},
+{id:"spot",title:"🔍 Part 1 — Discourse-Level Passive Audit (5 min)",subtitle:"6 passages — each has a cohesion failure, false passive, word order error, or argumentative weakness",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"The committee reviewed the proposal. Then the committee approved it with minor amendments. Later the committee published the final results.",underlined:"Then the committee approved it with minor amendments. Later the committee published the final results.",wrongWord:"Then the committee approved it with minor amendments. Later the committee published the final results.",correctWord:"It was then approved with minor amendments, and the final results were subsequently published.",wrongType:"cohesion failure: repetitive active subject displaces the topic from subject position",correctType:"passive to maintain thematic continuity — 'the proposal/it/the results' as sustained topic",rule:"When a paragraph tracks a single referent (the proposal / the results), passivising keeps that referent in subject position. Repeating 'the committee' as subject across three sentences shifts focus from the proposal (the topic) to the committee (the agent) — against the paragraph's communicative purpose.",tip:"Cohesion test: read only the subjects of your consecutive sentences. If the same agent appears three times as subject in a paragraph that is supposed to be about something the agent is doing TO, passivise to restore topic continuity. The topic — not the agent — belongs in subject position."},
+{sentence:"Although it has long been argued that economic growth benefits all social strata, but this view has been increasingly challenged by empirical evidence from developing economies.",underlined:"Although it has long been argued that economic growth benefits all social strata, but",wrongWord:"Although... but",correctWord:"Although it has long been argued that economic growth benefits all social strata, this view has been increasingly challenged by empirical evidence from developing economies.",wrongType:"double connector: Although + but (redundant subordination error)",correctType:"single concessive clause: Although [clause], [main clause] — no 'but'",rule:"'Although' and 'but' both signal contrast. Using both in the same structure is redundant and grammatically wrong. 'Although' opens a subordinate clause and completes its contrast in the main clause. Adding 'but' is surplus — it is also the written form of the Vietnamese 'mặc dù...nhưng' construction.",tip:"The test: remove 'although' and check if 'but' alone carries the meaning. If yes, use 'but' (or 'however') and drop 'although'. For complex clause structure, keep 'although' and drop 'but'. Never both. This error appears at every level and is an immediate signal of L1 transfer."},
+{sentence:"It is important that by the researchers in the study more transparent reporting methods should be adopted in future work.",underlined:"by the researchers in the study more transparent reporting methods should be adopted",wrongWord:"by the researchers in the study more transparent reporting methods should be adopted",correctWord:"more transparent reporting methods should be adopted by researchers in future work",wrongType:"inverted word order: by-phrase before subject in passive",correctType:"standard passive word order: subject + modal + be + V3 + (by-phrase at end)",rule:"In English passive, the by-phrase is an optional adverbial adjunct and ALWAYS follows the main passive verb. Moving it before the subject produces a word order that sounds like a direct translation from another language.",tip:"By-phrase placement test: treat 'by the researchers' like any adverbial ('yesterday', 'in the study', 'in future work'). Adverbials go at the end of the clause. The formula is always: SUBJECT + MODAL + BE + V3 → then optional adjuncts (including by-phrase) at the end."},
+{sentence:"A great deal of research has been conducted into this phenomenon, and significant patterns have been identified, and these patterns have been interpreted as indicative of a structural problem, and a report has been produced summarising the key conclusions.",underlined:"and significant patterns have been identified, and these patterns have been interpreted as indicative of a structural problem, and a report has been produced",wrongWord:"and...and...and (three coordinated passive clauses)",correctWord:"revealing significant patterns that are widely interpreted as indicative of a structural problem, the key conclusions of which have been consolidated in a published report",wrongType:"coordination overload: three 'and'-linked passive clauses creating a flat, undifferentiated structure",correctType:"hierarchical subordination: relative clause + participial clause to encode logical relationships",rule:"Three 'and'-linked clauses signal C1 writing that has not reached C2 syntactic subordination. Coordination treats all clauses as equally weighted; subordination encodes the logical hierarchy — which claim is the main finding, which is a consequence, which is a derivative.",tip:"Coordination-to-subordination audit: when you write three 'and'-clauses in a row, ask — which is the main claim? Encode the others with: which/that (relative clause), having (participial), given that (adverbial). Subordination makes the argument's logic visible; coordination merely lists."},
+{sentence:"Throughout this essay, I have been argued that the current framework is inadequate, and it has been demonstrated by me that alternative approaches exist.",underlined:"I have been argued... demonstrated by me",wrongWord:"I have been argued... demonstrated by me",correctWord:"I have argued that the current framework is inadequate and have demonstrated that alternative approaches exist.",wrongType:"false passive with first-person agent + redundant 'by me'",correctType:"active first-person voice when the writer is the agent",rule:"'I have been argued' is a false passive — 'I' is the agent (the one arguing), not the recipient of argument. Passivising with 'I' as subject contradicts the passive's logic. Similarly, 'demonstrated by me' reveals the agent is already the subject, making the passive simultaneously redundant and ungrammatical.",tip:"When you want to present your own argumentative moves, use active: 'I have argued', 'I have demonstrated', 'I contend', 'I have shown'. Reserve passive for claims you want to attribute to the field, for unknown agents, or for cohesive chaining — not for announcing what you yourself are doing."},
+{sentence:"Mistakes were made by the government in its handling of the crisis, damage was caused to public trust, and confidence was lost by the population in the institutions responsible.",underlined:"Mistakes were made by the government... damage was caused to public trust... confidence was lost by the population",wrongWord:"Mistakes were made by the government in its handling of the crisis, damage was caused to public trust, and confidence was lost by the population",correctWord:"The government's mishandling of the crisis inflicted lasting damage on public trust and eroded popular confidence in the institutions it had been charged with protecting.",wrongType:"passive suppressing accountability despite known, responsible agent — evasive prose",correctType:"active voice with named agent when accountability is the argument's purpose",rule:"When the agent is known, the agent's action is morally or politically significant, and accountability is the point — passive is not neutral; it is evasive. 'Mistakes were made' (no named agent) is classic political obfuscation. In argumentative academic writing, passive that suppresses a known responsible agent weakens the argument's ethical credibility.",tip:"The accountability question: does this sentence make a claim about WHO did something consequential? If yes, and you know who, use active. 'The government inflicted lasting damage' is stronger, clearer, and more honest than 'damage was caused'. Passive that hides a known responsible agent signals either political caution or rhetorical weakness — neither is appropriate in academic argumentation."}
+]},
+{id:"transform",title:"✏️ Part 2 — Argue with Discourse Control (8 min)",subtitle:"Transform weak or passive-overloaded prose into C2-level academic argument",type:"transform",rubricKey:"transform",
+items:[
+{spoken:"Some economists say minimum wage increases help poor workers. Other economists say they cause unemployment instead.",hint:"While proponents... have argued... / this position has been contested by... / the weight of evidence suggests... / contingent upon labour market conditions",answer:"While proponents of minimum wage legislation have argued that targeted increases offer a critical mechanism for alleviating in-work poverty, this position has been contested by economists who maintain that such policies risk generating unemployment among the very populations they are intended to benefit. The weight of empirical evidence, however, suggests that the employment effects of moderate minimum wage increases are more modest than critics contend, and may be contingent upon labour market conditions, industry structure, and the magnitude of the increase itself.",keyChange:"'Some say...others say the opposite' → 'While proponents... this position has been contested by' (structured concession using passive to distribute the contested claim); 'help poor workers' → 'alleviating in-work poverty'; 'cause unemployment' → 'risk generating unemployment among the very populations...'; evidential conclusion added with scope qualification",principle:"Productive academic disagreement is not 'some say X, others say Y'. It presents the strongest version of each position, then weighs the evidence. Passive ('has been argued', 'has been contested') allows presenting contested positions without attribution to named individuals, projecting a field-level debate rather than a parochial exchange."},
+{spoken:"People throw away a lot of plastic. It pollutes the ocean. It harms sea life.",hint:"The large-scale disposal of plastic waste... has been documented as... / agentless passive to foreground the phenomenon; nominalisation; embedded relative clause; 'with well-established consequences for'",answer:"The large-scale disposal of plastic waste — much of which is inadequately managed at the point of collection — has been extensively documented as a primary driver of marine pollution, with well-established consequences for biodiversity across oceanic ecosystems. / The accumulation of improperly disposed plastic in marine environments has been identified as one of the most pressing ecological challenges of the present century, with documented impacts on species ranging from microorganisms to apex predators.",keyChange:"'People throw away a lot of plastic' → 'The large-scale disposal of plastic waste' (nominalisation removes vague agent 'people' and foregrounds the phenomenon); three short clauses → single complex sentence with embedded relative clause and postmodifying phrase; 'pollutes/harms' → 'driver of marine pollution, with consequences for biodiversity' (precise academic vocabulary)",principle:"Nominalisation + agentless passive shifts agency from 'people' (vague, politically uncomfortable) to the phenomenon itself ('the disposal'), appropriate when the systemic pattern matters more than individual actors. The embedded relative clause ('much of which') allows qualification without a new sentence — a hallmark of C2 syntactic density."},
+{spoken:"The committee made a bad decision. Everyone criticised it. They eventually had to change it.",hint:"The committee's decision... drew considerable criticism... / passive to track the decision as topic across sentences; formal reporting verbs; added interpretation for argumentative depth",answer:"The committee's decision drew considerable criticism from stakeholders across multiple sectors and was subsequently revised in response to sustained institutional pressure — a development widely interpreted as an implicit acknowledgement of the policy's fundamental inadequacy. / The decision taken by the committee attracted widespread criticism and was ultimately reversed, a reversal that commentators have argued reflected not merely tactical concession but a structural failure in the original deliberative process.",keyChange:"'Made a bad decision' → 'The committee's decision' (nominalisation shifts topic to the decision); passive ('was subsequently revised', 'was ultimately reversed') maintains decision as topic across sentences; 'everyone criticised it' → 'drew considerable criticism from stakeholders across multiple sectors'; added interpretive clause elevates fact to argument",principle:"When a paragraph tracks a single referent ('the decision'), every sentence should keep that referent in subject position. Passivising ensures cohesive thematic progression — the reader follows the decision's trajectory, not the committee's actions. The interpretive addition ('widely interpreted as') transforms a factual account into an argument about institutional accountability."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (5 min)",subtitle:"Write and reflect at C2 discourse level",type:"log",rubricKey:"log",
+prompts:[
+"Write 100–120 words on: 'To what extent is the passive voice overused in academic writing?' Use passive strategically — only where it genuinely serves a discourse function. At least two sentences should use active voice where passive would be tempting. After writing, annotate each passive construction with its function in brackets (e.g. [thematic focus], [epistemic distancing], [cohesive chain]):",
+"Identify two passive constructions in your paragraph above. For each, write one sentence explaining: (a) what discourse function it serves, and (b) why active voice would be less effective at that specific point:",
+"Identify one place in your paragraph where you used — or were tempted to use — passive to avoid naming an agent. Explain whether suppressing the agent was rhetorically justified (unknown/irrelevant agent) or evasive (known agent, accountability matters). Rewrite if evasive:"
+]}
+]}
+};
+
+// ── STATE ──
+let AL='a2b1',AS=0;
+const ST={choices:{},inputs:{},checked:{},logs:{}};
+
+// ── INIT ──
+function init(){
+  document.title='Daily Drills 11';
+  buildLvTabs();
+  applyLevel('a2b1');
+}
+
+function buildLvTabs(){
+  const c=document.getElementById('level-tabs');
+  c.innerHTML='';
+  Object.entries(LEVELS).forEach(([id,lv])=>{
+    const b=document.createElement('button');
+    b.className='level-tab'+(id===AL?' active':'');
+    b.textContent=lv.label;
+    b.onclick=()=>switchLv(id);
+    c.appendChild(b);
+  });
+}
+
+function switchLv(id){
+  AL=id; AS=0;
+  ST.choices={}; ST.inputs={}; ST.checked={}; ST.logs={};
+  document.querySelectorAll('.level-tab').forEach((b,i)=>b.classList.toggle('active',Object.keys(LEVELS)[i]===id));
+  applyLevel(id);
+}
+
+function applyLevel(id){
+  const lv=LEVELS[id];
+  document.documentElement.style.setProperty('--lc',lv.color);
+  document.getElementById('hdr-theme').textContent=lv.theme;
+  document.getElementById('hdr-meta').textContent=lv.tagline+' · ⏱ '+lv.time;
+  const gb=document.getElementById('goal-box');
+  gb.style.background=lv.light; gb.style.borderColor=lv.color+'30';
+  document.getElementById('goal-label').style.color=lv.color;
+  document.getElementById('goal-text').textContent=lv.goal;
+  buildSecNav(lv);
+  renderSec();
+}
+
+function buildSecNav(lv){
+  const nav=document.getElementById('sec-nav');
+  nav.innerHTML='';
+  lv.sections.forEach((s,i)=>{
+    const b=document.createElement('button');
+    b.className='sec-tab'+(i===AS?' active':'');
+    const label=s.title.replace(/[\u{1F300}-\u{1FFFF}]/gu,'').replace('—',' —').trim().split(' — ')[0].trim();
+    b.textContent=label;
+    b.onclick=()=>{AS=i;updSecNav();renderSec();};
+    nav.appendChild(b);
+  });
+}
+
+function updSecNav(){
+  document.querySelectorAll('.sec-tab').forEach((b,i)=>b.classList.toggle('active',i===AS));
+}
+
+function navSec(d){
+  const lv=LEVELS[AL];
+  const n=AS+d;
+  if(n<0||n>=lv.sections.length)return;
+  AS=n; updSecNav(); renderSec();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderSec(){
+  const lv=LEVELS[AL];
+  const sec=lv.sections[AS];
+  document.getElementById('sec-title').textContent=sec.title;
+  document.getElementById('sec-sub').textContent=sec.subtitle;
+  const total=lv.sections.length;
+  document.getElementById('nav-cnt').textContent=(AS+1)+' / '+total;
+  const pp=document.getElementById('btn-prev'),np=document.getElementById('btn-next');
+  pp.disabled=AS===0; np.disabled=AS===total-1;
+  np.style.background=AS===total-1?'#E8E5E0':lv.color;
+  np.style.color=AS===total-1?'#AAA':'#fff';
+  const el=document.getElementById('sec-content');
+  el.innerHTML='';
+  const t=sec.type;
+  if(t==='theory')rTheory(el,sec,lv);
+  else if(t==='theory2')rTheory2(el,sec,lv);
+  else if(t==='theory3')rTheory3(el,sec,lv);
+  else if(t==='theory4')rTheory4(el,sec,lv);
+  else if(t==='spot')rSpot(el,sec,lv);
+  else if(t==='fill')rFill(el,sec,lv);
+  else if(t==='transform')rTransform(el,sec,lv);
+  else if(t==='log')rLog(el,sec,lv);
+}
+
+// ── HELPERS ──
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function badge(type,color){return `<span class="tbadge" style="background:${color}18;color:${color};border:1px solid ${color}40">${esc(type)}</span>`;}
+
+function rubricHTML(rubric,lv){
+  if(!rubric)return'';
+  const total=rubric.reduce((s,r)=>s+r.max,0);
+  const rows=rubric.map(r=>`<div class="rub-row"><div><div class="rub-crit">${esc(r.criterion)}</div><div class="rub-desc">${esc(r.desc)}</div></div><div class="rub-pts" style="background:${lv.color}">${r.max} pt</div></div>`).join('');
+  return `<button class="rub-toggle" style="color:${lv.color};border-color:${lv.color}40" onclick="togRub(this)">📊 Assessment Criteria (${total} pts) <span>▼</span></button><div class="rub-panel" style="background:${lv.light};border:1px solid ${lv.color}30">${rows}</div>`;
+}
+
+function togRub(btn){
+  const p=btn.nextElementSibling;
+  const o=p.classList.toggle('open');
+  btn.querySelector('span').textContent=o?'▲':'▼';
+}
+
+function progHTML(id,total,lv){
+  return `<div class="prog-wrap"><div class="prog-bg"><div class="prog-fill" id="pf-${id}" style="background:${lv.color};width:0%"></div></div><div class="prog-lbl" id="pl-${id}">0/${total} completed · 0%</div></div>`;
+}
+
+function updProg(sid,done,total){
+  const pct=total===0?0:Math.round(done/total*100);
+  const pf=document.getElementById('pf-'+sid),pl=document.getElementById('pl-'+sid);
+  if(pf)pf.style.width=pct+'%';
+  if(pl)pl.textContent=done+'/'+total+' completed · '+pct+'%';
+}
+
+function scoreBadge(score,max,color){
+  const pct=max===0?0:Math.round(score/max*100);
+  const g=pct>=90?{l:'Excellent',c:'#1A7A3A'}:pct>=70?{l:'Good',c:'#1A4A7A'}:pct>=50?{l:'Fair',c:'#B7500A'}:{l:'Needs review',c:'#CC3333'};
+  return `<div class="score-badge" style="border-color:${color}"><div class="slbl">Kết quả tự động</div><div class="snum" style="color:${color}">${score}<span class="den">/${max}</span></div><div class="sgrade" style="color:${g.c}">${g.l} · ${pct}%</div></div>`;
+}
+
+// ── THEORY RENDERERS ──
+function rTheory(el,sec,lv){
+  el.innerHTML='<div class="theory-grid">'+sec.content.map(item=>`<div class="th-card" style="border-color:${item.color}30"><div class="th-head">${badge(item.badge,item.color)}<span style="font-weight:700;font-size:14px;color:${item.color}">${esc(item.label)}</span></div><div class="th-rule">${esc(item.rule)}</div><div class="th-ex">${esc(item.examples)}</div></div>`).join('')+'</div>';
+}
+
+function rTheory2(el,sec,lv){
+  el.innerHTML=sec.groups.map(g=>`<div class="g-card" style="border:1.5px solid ${g.color}30"><div class="g-title" style="color:${g.color}">${esc(g.label)}</div><div class="verbs-row">${g.verbs.map(v=>`<span class="v-chip" style="background:${g.color}12;color:${g.color};border:1px solid ${g.color}30">${v}</span>`).join('')}</div><div class="g-mem">💡 ${esc(g.memory)}</div><div class="g-ex">${esc(g.example)}</div></div>`).join('');
+}
+
+function rTheory3(el,sec,lv){
+  el.innerHTML=sec.pairs.map(p=>`<div class="pair-card"><div class="pair-sp"><div class="pair-sp-lbl">SPOKEN / INFORMAL</div><div class="pair-sp-txt">${esc(p.spoken)}</div></div><div class="pair-ac" style="background:${lv.light}60"><div class="pair-ac-lbl" style="color:${lv.color}">WRITTEN / ACADEMIC</div><div class="pair-ac-txt">${esc(p.academic)}</div><div class="pair-chg">→ ${esc(p.change)}</div></div></div>`).join('')+`<div class="insight" style="background:${lv.color}">📌 ${esc(sec.insight)}</div>`;
+}
+
+function rTheory4(el,sec,lv){
+  el.innerHTML=sec.cards.map(card=>`<div class="g-card" style="border:1.5px solid ${card.color}30;margin-bottom:10px">
+    <div class="g-title" style="color:${card.color}">${esc(card.label)}</div>
+    <div style="font-size:13px;color:#333;line-height:1.6;margin-bottom:10px">${esc(card.desc)}</div>
+    <div style="background:#fff;border-left:3px solid ${card.color};border-radius:0 6px 6px 0;padding:8px 12px;font-size:12px;color:${card.color};font-weight:600">&#x2192; ${esc(card.fix)}</div>
+  </div>`).join('');
+}
+
+// ── SPOT ──
+function rSpot(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+progHTML(sec.id,sec.items.length,lv)+
+    sec.items.map((item,i)=>{
+      const escaped=esc(item.sentence);
+      const escapedUl=esc(item.underlined);
+      const sen=escaped.includes(escapedUl)?escaped.replace(escapedUl,`<span class="ul-word" id="ulw-${sec.id}-${i}">${escapedUl}</span>`):escaped;
+      return `<div class="spot-card" id="sc-${sec.id}-${i}">
+        <div class="spot-top"><div class="spot-num">SENTENCE ${i+1}</div><div class="spot-sen">${sen}</div></div>
+        <div class="spot-acts" id="sa-${sec.id}-${i}">
+          <span>This sentence:</span>
+          <button class="btn-wrong" onclick="spotPick('${sec.id}',${i},'wrong')">❌ Has an error</button>
+          <button class="btn-right" onclick="spotPick('${sec.id}',${i},'right')">✅ Correct</button>
+        </div>
+        <div class="spot-ans" id="saa-${sec.id}-${i}" style="background:${lv.light}80">
+          <div class="ans-row">
+            <span class="wrong-wd">${esc(item.wrongWord)}</span>${badge(item.wrongType,'#CC3333')}
+            <span class="arr">→</span><span class="corr-wd">${esc(item.correctWord)}</span>${badge(item.correctType,'#1A7A3A')}
+          </div>
+          <div class="ans-rule">${esc(item.rule)}</div>
+          <div class="ans-tip" style="border:1px solid ${lv.color}30;color:${lv.color}">💡 ${esc(item.tip)}</div>
+          <div class="sc-inline" id="ssi-${sec.id}-${i}"></div>
+          <div class="warn-miss" id="swm-${sec.id}-${i}">⚠️ Câu này thực ra có lỗi — ghi vào sổ nhé!</div>
+        </div>
+      </div>`;
+    }).join('')+
+    `<button class="score-cta" id="scta-${sec.id}" onclick="calcSpot('${sec.id}')">📊 View auto-score</button><div id="sbdg-${sec.id}"></div>`;
+}
+
+function spotPick(sid,idx,choice){
+  if(!ST.choices[sid])ST.choices[sid]={};
+  if(ST.choices[sid][idx]!==undefined)return;
+  ST.choices[sid][idx]=choice;
+  document.getElementById('sa-'+sid+'-'+idx).style.display='none';
+  document.getElementById('saa-'+sid+'-'+idx).classList.add('open');
+  const lv=LEVELS[AL];
+  document.getElementById('sc-'+sid+'-'+idx).style.borderColor=lv.color+'50';
+  const ulw=document.getElementById('ulw-'+sid+'-'+idx);
+  if(ulw)ulw.classList.add('revealed');
+  if(choice==='right'){const w=document.getElementById('swm-'+sid+'-'+idx);if(w)w.style.display='block';}
+  const sec=lv.sections.find(s=>s.id===sid);
+  const done=Object.keys(ST.choices[sid]).length;
+  updProg(sid,done,sec.items.length);
+  if(done===sec.items.length){const c=document.getElementById('scta-'+sid);if(c)c.style.display='block';}
+}
+
+function calcSpot(sid){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  let score=0,max=0;
+  sec.items.forEach((_,i)=>{
+    const chose=(ST.choices[sid]||{})[i];
+    const pts=chose==='wrong'?3:0;
+    score+=pts;max+=3;
+    const el=document.getElementById('ssi-'+sid+'-'+i);
+    if(el){el.textContent=pts>0?'✓ +3 pt':'✗ 0/3 pt — sentence was actually incorrect';el.className='sc-inline '+(pts>0?'good':'bad');el.style.display='block';}
+  });
+  const cta=document.getElementById('scta-'+sid);if(cta)cta.style.display='none';
+  const bdg=document.getElementById('sbdg-'+sid);if(bdg)bdg.innerHTML=scoreBadge(score,max,lv.color);
+}
+
+// ── FILL ──
+function rFill(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+progHTML(sec.id,sec.items.length,lv)+
+    sec.items.map((item,i)=>`<div class="fill-card" id="fc-${sec.id}-${i}">
+      <div class="fill-body">
+        <div class="fill-base">SENTENCE ${i+1} — Root: <span style="color:${lv.color};font-family:'JetBrains Mono',monospace">${esc(item.baseWord||'')}</span></div>
+        <div class="fill-tmpl">${esc(item.template)}</div>
+        <div class="fill-irow">
+          <input class="fill-inp" id="fi-${sec.id}-${i}" placeholder="${esc(item.hint)}" onkeydown="if(event.key==='Enter')fillChk('${sec.id}',${i})"/>
+          <button class="fill-chk" id="fb-${sec.id}-${i}" style="background:${lv.color}" onclick="fillChk('${sec.id}',${i})">Check</button>
+          <span class="fill-ic" id="fic-${sec.id}-${i}"></span>
+        </div>
+      </div>
+      <div class="fill-ans" id="fa-${sec.id}-${i}" style="background:${lv.light}80">
+        <div class="fill-ca" id="fca-${sec.id}-${i}"></div>
+        <div class="fill-expl">${esc(item.explanation)}</div>
+        <div class="sc-inline" id="fsi-${sec.id}-${i}"></div>
+      </div>
+    </div>`).join('')+
+    `<button class="score-cta" id="fcta-${sec.id}" onclick="calcFill('${sec.id}')">📊 View auto-score</button><div id="fbdg-${sec.id}"></div>`;
+}
+
+function fillChk(sid,idx){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  const item=sec.items[idx];
+  const inp=document.getElementById('fi-'+sid+'-'+idx);
+  if(!inp||inp.disabled)return;
+  const uv=inp.value.trim().toLowerCase();
+  const ok=uv===item.answer.toLowerCase();
+  inp.disabled=true;
+  inp.classList.add(ok?'ok':'no');
+  document.getElementById('fc-'+sid+'-'+idx).classList.add(ok?'ok':'no');
+  const btn=document.getElementById('fb-'+sid+'-'+idx);if(btn)btn.style.display='none';
+  const ic=document.getElementById('fic-'+sid+'-'+idx);if(ic)ic.textContent=ok?'✅':'❌';
+  document.getElementById('fa-'+sid+'-'+idx).classList.add('open');
+  const ca=document.getElementById('fca-'+sid+'-'+idx);
+  if(ca)ca.textContent=ok?'':`Correct answer: ${item.answer}`;
+  if(!ST.inputs[sid])ST.inputs[sid]={};
+  ST.inputs[sid][idx]=inp.value;
+  if(!ST.checked[sid])ST.checked[sid]={};
+  ST.checked[sid][idx]={ok,uv};
+  const done=Object.keys(ST.checked[sid]).length;
+  updProg(sid,done,sec.items.length);
+  if(done===sec.items.length){const c=document.getElementById('fcta-'+sid);if(c)c.style.display='block';}
+}
+
+function calcFill(sid){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  let score=0,max=0;
+  sec.items.forEach((_,i)=>{
+    const r=(ST.checked[sid]||{})[i];
+    const pts=r?.ok?3:0;
+    score+=pts;max+=3;
+    const el=document.getElementById('fsi-'+sid+'-'+i);
+    if(el){el.textContent=pts>0?'✓ +3 pt':'✗ 0/3 pt';el.className='sc-inline '+(pts>0?'good':'bad');el.style.display='block';}
+  });
+  const cta=document.getElementById('fcta-'+sid);if(cta)cta.style.display='none';
+  const bdg=document.getElementById('fbdg-'+sid);if(bdg)bdg.innerHTML=scoreBadge(score,max,lv.color);
+}
+
+// ── TRANSFORM ──
+function rTransform(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+
+    `<div class="warn-box">📝 Write your transformed sentence before viewing the model. The model is a suggestion — multiple correct formulations are possible.</div>`+
+    sec.items.map((item,i)=>`<div class="tr-card" id="tc-${sec.id}-${i}">
+      <div class="tr-body">
+        <div class="tr-num">TRANSFORM ${i+1}</div>
+        <div class="tr-spoken">🗣 ${esc(item.spoken)}</div>
+        <div class="tr-hint">Vocabulary hint: <span style="color:${lv.color};font-family:'JetBrains Mono',monospace">${esc(item.hint)}</span></div>
+        <textarea class="tr-ta" rows="3" id="ta-${sec.id}-${i}" placeholder="Write your academic sentence here..." oninput="saveTr('${sec.id}',${i},this.value)"></textarea>
+        <button class="tr-reveal" style="background:${lv.color}" onclick="revealTr('${sec.id}',${i})">View model answer</button>
+      </div>
+      <div class="tr-ans" id="tr-${sec.id}-${i}" style="background:${lv.light}90">
+        <div class="model-lbl">MODEL ANSWER (for reference):</div>
+        <div class="model-txt">${esc(item.answer)}</div>
+        <span class="kc-chip" style="border:1px solid ${lv.color}30;color:${lv.color}">Key change: ${esc(item.keyChange)}</span>
+        <div class="princ" style="margin-top:6px">📌 ${esc(item.principle)}</div>
+      </div>
+    </div>`).join('');
+}
+
+function saveTr(sid,idx,val){
+  if(!ST.inputs[sid])ST.inputs[sid]={};
+  ST.inputs[sid][idx]=val;
+  const ta=document.getElementById('ta-'+sid+'-'+idx);
+  if(ta)ta.style.borderColor=val?LEVELS[AL].color+'60':'#DDD';
+}
+
+function revealTr(sid,idx){
+  document.getElementById('tr-'+sid+'-'+idx).classList.add('open');
+  document.getElementById('tc-'+sid+'-'+idx).style.borderColor=LEVELS[AL].color+'50';
+  const btn=document.getElementById('tc-'+sid+'-'+idx).querySelector('.tr-reveal');
+  if(btn)btn.style.display='none';
+}
+
+// ── LOG ──
+function rLog(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+
+    `<div class="log-note">📌 The error log is the single most valuable learning tool in self-study. The more specific your notes, the faster your progress.</div>`+
+    sec.prompts.map((p,i)=>`<div class="log-prompt"><label class="log-lbl">${i+1}. ${esc(p)}</label><textarea class="log-ta" rows="3" id="la-${sec.id}-${i}" placeholder="Write here..." oninput="saveLog('${sec.id}',${i},this.value)"></textarea></div>`).join('')+
+    `<button class="log-save" id="ls-${sec.id}" onclick="saveLogAll('${sec.id}')" style="background:${lv.color}">💾 Save error log</button>`;
+}
+
+function saveLog(sid,idx,val){
+  if(!ST.logs[sid])ST.logs[sid]={};
+  ST.logs[sid][idx]=val;
+  const ta=document.getElementById('la-'+sid+'-'+idx);
+  if(ta)ta.style.borderColor=val?LEVELS[AL].color+'60':'#DDD';
+}
+
+function saveLogAll(sid){
+  const btn=document.getElementById('ls-'+sid);
+  if(btn){btn.textContent='✅ Saved!';btn.style.background='#22C55E';}
+}
+
+// ── DOWNLOAD ──
+function handleDownload(){
+  const lv=LEVELS[AL];
+  const now=new Date();
+  const ds=now.toLocaleDateString('vi-VN',{year:'numeric',month:'long',day:'numeric'});
+  const ts=now.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
+  const L=[];
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('       HUONG STELLA PARADIGM');
+  L.push('       PRACTICE SESSION REPORT · DAY 11 · '+lv.label);
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('Date : '+ds+' at '+ts);
+  L.push('Topic : '+lv.theme);
+  L.push('');
+  lv.sections.forEach(sec=>{
+    if(['theory','theory2','theory3','theory4'].includes(sec.type))return;
+    L.push('──────────────────────────────────────────────────────────');
+    L.push('  '+sec.title.replace(/[\u{1F300}-\u{1FFFF}]/gu,'').trim().toUpperCase());
+    L.push('──────────────────────────────────────────────────────────');
+    if(sec.type==='spot'){
+      sec.items.forEach((item,i)=>{
+        L.push('  Sentence '+(i+1)+': '+item.sentence);
+        L.push('  -> Correct: '+item.sentence.replace(item.wrongWord,item.correctWord));
+        L.push('  -> Wrong: '+item.wrongWord+' ['+item.wrongType+']  ->  Right: '+item.correctWord+' ['+item.correctType+']');
+        L.push('  -> Rule: '+item.rule);
+        const chose=(ST.choices[sec.id]||{})[i];
+        if(chose!==undefined)L.push('  -> Your assessment: '+(chose==='wrong'?'[v] Correctly identified as INCORRECT':'[x] Marked as correct — actually has an error'));
+        L.push('');
+      });
+    }
+    if(sec.type==='fill'){
+      sec.items.forEach((item,i)=>{
+        const ua=(ST.inputs[sec.id]||{})[i]||'(chua tra loi)';
+        const ok=ua.trim().toLowerCase()===item.answer.toLowerCase();
+        L.push('  Sentence '+(i+1)+': '+item.template);
+        L.push('  -> Your answer       : '+ua);
+        L.push('  -> Correct answer    : '+item.answer+' ['+item.targetType+']');
+        L.push('  -> Result            : '+(ok?'[v] Correct':'[x] Incorrect'));
+        L.push('  -> Explanation       : '+item.explanation);
+        L.push('');
+      });
+    }
+    if(sec.type==='transform'){
+      sec.items.forEach((item,i)=>{
+        L.push('  Transform '+(i+1)+' — Original: "'+item.spoken+'"');
+        L.push('  -> Model answer: "'+item.answer+'"');
+        L.push('  -> Key change: '+item.keyChange);
+        L.push('  -> Principle: '+item.principle);
+        const ua=(ST.inputs[sec.id]||{})[i]||'';
+        if(ua)L.push('  -> Your sentence: '+ua);
+        L.push('');
+      });
+    }
+    if(sec.type==='log'){
+      sec.prompts.forEach((p,i)=>{
+        const note=(ST.logs[sec.id]||{})[i]||'(chua dien)';
+        L.push('  '+(i+1)+'. '+p);
+        L.push('     '+note);
+        L.push('');
+      });
+    }
+  });
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  ASSESSMENT CRITERIA (RUBRIC)');
+  L.push('════════════════════════════════════════════════════════════');
+  const rubs=RUBRICS[AL];
+  Object.entries(rubs).forEach(([key,rubric])=>{
+    L.push('  Section '+key+':');
+    rubric.forEach(r=>L.push('    . '+r.criterion.padEnd(50,' ')+r.max+' pts'));
+    L.push('');
+  });
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  DISCLAIMER');
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  This practice material was developed with the support of an');
+  L.push('  AI system within the academic programme of Huong Stella');
+  L.push('  Paradigm. While content has been reviewed against pedagogical');
+  L.push('  standards, learners are advised to cross-reference with');
+  L.push('  authoritative sources and consult their instructor for');
+  L.push('  clarification of specific points. Auto-scoring is indicative');
+  L.push('  only and does not replace teacher assessment.');
+  L.push('');
+  L.push('════════════════════════════════════════════════════════════');
+  const blob=new Blob([L.join('\n')],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='HuongStella_DailyDrill_Day11_'+AL+'_'+now.toISOString().slice(0,10)+'.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+init();
+</script>
+</body>
+</html>

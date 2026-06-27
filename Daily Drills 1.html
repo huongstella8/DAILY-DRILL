@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Daily Drills 1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--lc:#2D6A4F;--ll:#D8F3DC;--bg:#F4F2EF;--hdr:#111;--rad:10px;--shadow:0 2px 8px rgba(0,0,0,.08)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:#1a1a1a;min-height:100vh}
+code,pre,.mono{font-family:'JetBrains Mono',monospace}
+header{background:var(--hdr);color:#fff;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.brand{font-size:.7rem;font-weight:700;letter-spacing:.18em;opacity:.6;text-transform:uppercase}
+.hdr-title{font-size:1.1rem;font-weight:700;letter-spacing:.04em}
+.hdr-sub{font-size:.75rem;opacity:.55;margin-top:2px}
+.hdr-dl button{background:#fff;color:var(--hdr);border:none;padding:8px 18px;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.hdr-dl button:hover{opacity:.85}
+.lv-tabs{display:flex;gap:0;border-bottom:2px solid #ddd;padding:0 32px;background:#fff;position:sticky;top:0;z-index:50;overflow-x:auto}
+.lv-tab{padding:14px 22px;font-size:.82rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:all .15s;color:#666}
+.lv-tab.active{color:var(--lc);border-bottom-color:var(--lc)}
+.lv-tab:hover:not(.active){color:#333}
+.hero{padding:28px 32px 20px;border-bottom:1px solid #e4e1db}
+.hero-row{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.hero-badge{background:var(--lc);color:#fff;padding:6px 14px;border-radius:20px;font-size:.75rem;font-weight:700;letter-spacing:.05em;white-space:nowrap}
+.hero-info{flex:1;min-width:220px}
+.hero-theme{font-size:1.25rem;font-weight:700;color:var(--lc);margin-bottom:4px}
+.hero-tagline{font-size:.88rem;color:#555;margin-bottom:10px}
+.hero-goal{font-size:.82rem;background:var(--ll);border-left:3px solid var(--lc);padding:10px 14px;border-radius:0 6px 6px 0;color:#333;line-height:1.6}
+.hero-time{font-size:.75rem;color:#888;margin-top:8px;font-weight:500}
+.sec-nav{display:flex;gap:8px;padding:16px 32px;overflow-x:auto;border-bottom:1px solid #e4e1db;background:#fff}
+.sec-btn{padding:6px 14px;border-radius:20px;border:1.5px solid #ddd;background:#fff;font-size:.78rem;font-weight:500;cursor:pointer;white-space:nowrap;transition:all .15s;color:#555}
+.sec-btn.active{background:var(--lc);color:#fff;border-color:var(--lc)}
+.sec-btn:hover:not(.active){border-color:var(--lc);color:var(--lc)}
+.content{padding:28px 32px;max-width:900px}
+.prog-wrap{background:#eee;border-radius:20px;height:8px;margin-bottom:24px;overflow:hidden}
+.prog-bar{height:100%;border-radius:20px;background:var(--lc);transition:width .4s ease}
+.prog-label{font-size:.75rem;color:#888;margin-bottom:6px;font-weight:500}
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-top:4px}
+.tc{background:#fff;border-radius:var(--rad);padding:16px 18px;border-top:4px solid var(--lc);box-shadow:var(--shadow)}
+.tc-header{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.tc-label{font-weight:700;font-size:.92rem;color:var(--hdr)}
+.tc-badge{font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:10px;letter-spacing:.04em;text-transform:uppercase}
+.tc-examples{font-family:'JetBrains Mono',monospace;font-size:.78rem;background:#f8f8f6;padding:8px 10px;border-radius:6px;margin-bottom:8px;line-height:1.7;color:#333}
+.tc-rule{font-size:.8rem;color:#555;line-height:1.6}
+.t2-group{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:12px;border-left:4px solid var(--lc)}
+.t2-label{font-weight:700;font-size:.95rem;margin-bottom:8px}
+.t2-verbs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.t2-verb{padding:3px 10px;border-radius:12px;font-size:.78rem;font-weight:600;font-family:'JetBrains Mono',monospace}
+.t2-memory{font-size:.8rem;color:#444;background:#f5f3f0;padding:8px 12px;border-radius:6px;margin-bottom:8px;line-height:1.5;font-style:italic}
+.t2-example{font-size:.82rem;color:#555;font-family:'JetBrains Mono',monospace;line-height:1.6}
+.t3-pair{background:#fff;border-radius:var(--rad);padding:16px 18px;box-shadow:var(--shadow);margin-bottom:12px}
+.t3-spoken{font-size:.82rem;color:#888;text-decoration:line-through;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+.t3-academic{font-size:.85rem;color:#1a1a1a;font-weight:600;margin-bottom:8px;font-family:'JetBrains Mono',monospace;line-height:1.5}
+.t3-change{font-size:.78rem;color:var(--lc);background:var(--ll);padding:5px 10px;border-radius:6px}
+.t3-insight{background:var(--hdr);color:#fff;border-radius:var(--rad);padding:14px 18px;font-size:.83rem;line-height:1.65;margin-top:4px}
+.t4-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.t4-card{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);border-top:4px solid var(--lc)}
+.t4-label{font-weight:700;font-size:.92rem;margin-bottom:10px;color:var(--hdr)}
+.t4-desc{font-size:.81rem;color:#444;line-height:1.7;margin-bottom:12px}
+.t4-fix{font-size:.79rem;font-family:'JetBrains Mono',monospace;background:#f5f3f0;padding:10px 12px;border-radius:6px;color:#333;line-height:1.7}
+.t4-sub{font-size:.75rem;font-weight:700;color:var(--lc);margin-top:10px;margin-bottom:4px;text-transform:uppercase;letter-spacing:.05em}
+.spot-item{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.spot-num{font-size:.72rem;font-weight:700;color:#999;letter-spacing:.05em;margin-bottom:8px;text-transform:uppercase}
+.spot-sentence{font-size:.95rem;line-height:1.7;margin-bottom:14px;color:#1a1a1a}
+.spot-sentence u{text-decoration:underline;text-decoration-color:var(--lc);text-underline-offset:3px;font-weight:600}
+.spot-choices{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.spot-choice{padding:8px 16px;border-radius:8px;border:2px solid #ddd;background:#fff;font-size:.83rem;cursor:pointer;font-weight:500;transition:all .15s}
+.spot-choice:hover:not(.locked){border-color:var(--lc);color:var(--lc)}
+.spot-choice.correct{border-color:#2D6A4F;background:#D8F3DC;color:#2D6A4F}
+.spot-choice.wrong{border-color:#c0392b;background:#fde8e8;color:#c0392b}
+.spot-feedback{display:none;margin-top:10px;border-radius:8px;padding:12px 14px;font-size:.82rem;line-height:1.6}
+.spot-feedback.show{display:block}
+.spot-feedback.ok{background:#D8F3DC;border-left:3px solid #2D6A4F}
+.spot-feedback.err{background:#fde8e8;border-left:3px solid #c0392b}
+.fb-rule{margin-top:6px;color:#444}
+.fb-tip{margin-top:6px;font-style:italic;color:#666;font-size:.79rem}
+.spot-check-btn{margin-top:10px;padding:7px 18px;background:var(--lc);color:#fff;border:none;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.spot-check-btn:hover{opacity:.85}
+.spot-score{margin-top:14px;padding:10px 14px;background:#f5f3f0;border-radius:8px;font-size:.83rem;font-weight:600}
+.rub-toggle{background:none;border:1px solid #ddd;border-radius:6px;padding:5px 12px;font-size:.75rem;cursor:pointer;color:#777;margin-bottom:10px;transition:all .15s}
+.rub-toggle:hover{border-color:var(--lc);color:var(--lc)}
+.rub-table{display:none;width:100%;border-collapse:collapse;font-size:.78rem;margin-bottom:12px}
+.rub-table.show{display:table}
+.rub-table th{background:var(--lc);color:#fff;padding:7px 10px;text-align:left}
+.rub-table td{padding:7px 10px;border-bottom:1px solid #eee;vertical-align:top}
+.rub-table tr:last-child td{border-bottom:none}
+.rub-max{font-weight:700;color:var(--lc);text-align:center}
+.fill-item{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.fill-template{font-size:.95rem;line-height:1.7;margin-bottom:10px;color:#1a1a1a}
+.fill-base{display:inline-block;background:var(--ll);color:var(--lc);padding:2px 10px;border-radius:10px;font-size:.78rem;font-weight:700;margin-bottom:10px;font-family:'JetBrains Mono',monospace}
+.fill-input-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fill-input{border:2px solid #ddd;border-radius:8px;padding:8px 14px;font-size:.88rem;font-family:'JetBrains Mono',monospace;outline:none;transition:border-color .15s;min-width:180px}
+.fill-input:focus{border-color:var(--lc)}
+.fill-input.correct{border-color:#2D6A4F;background:#D8F3DC}
+.fill-input.wrong{border-color:#c0392b;background:#fde8e8}
+.fill-btn{padding:8px 16px;background:var(--lc);color:#fff;border:none;border-radius:6px;font-size:.8rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.fill-btn:hover{opacity:.85}
+.fill-feedback{display:none;margin-top:10px;border-radius:8px;padding:10px 14px;font-size:.82rem;line-height:1.6}
+.fill-feedback.show{display:block}
+.fill-feedback.ok{background:#D8F3DC;border-left:3px solid #2D6A4F}
+.fill-feedback.err{background:#fde8e8;border-left:3px solid #c0392b}
+.tr-item{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.tr-spoken{font-size:.88rem;color:#777;font-style:italic;margin-bottom:8px;padding:8px 12px;background:#f5f3f0;border-radius:6px;font-family:'JetBrains Mono',monospace;line-height:1.5}
+.tr-hint{font-size:.78rem;color:var(--lc);background:var(--ll);padding:5px 10px;border-radius:6px;margin-bottom:10px}
+.tr-textarea{width:100%;border:2px solid #ddd;border-radius:8px;padding:10px 14px;font-size:.85rem;font-family:'JetBrains Mono',monospace;resize:vertical;min-height:80px;outline:none;transition:border-color .15s;line-height:1.6}
+.tr-textarea:focus{border-color:var(--lc)}
+.tr-btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tr-save-btn,.tr-reveal-btn{padding:7px 16px;border:none;border-radius:6px;font-size:.79rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.tr-save-btn{background:var(--lc);color:#fff}
+.tr-reveal-btn{background:#f0f0f0;color:#555}
+.tr-save-btn:hover,.tr-reveal-btn:hover{opacity:.8}
+.tr-answer{display:none;margin-top:10px;background:#f5f3f0;border-radius:8px;padding:12px 14px;font-size:.82rem;line-height:1.65}
+.tr-answer.show{display:block}
+.tr-answer strong{color:var(--lc);display:block;margin-bottom:4px}
+.tr-principle{font-size:.78rem;color:#666;font-style:italic;margin-top:6px;padding-top:6px;border-top:1px solid #ddd}
+.log-item{background:#fff;border-radius:var(--rad);padding:18px 20px;box-shadow:var(--shadow);margin-bottom:14px}
+.log-prompt{font-size:.87rem;color:#333;line-height:1.65;margin-bottom:10px;font-weight:500}
+.log-textarea{width:100%;border:2px solid #ddd;border-radius:8px;padding:10px 14px;font-size:.85rem;font-family:'Inter',sans-serif;resize:vertical;min-height:80px;outline:none;transition:border-color .15s;line-height:1.6}
+.log-textarea:focus{border-color:var(--lc)}
+.log-save-btn{margin-top:8px;padding:7px 16px;background:var(--lc);color:#fff;border:none;border-radius:6px;font-size:.79rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.log-save-btn:hover{opacity:.85}
+.log-saved{display:none;margin-top:6px;font-size:.75rem;color:#2D6A4F;font-weight:600}
+.log-saved.show{display:block}
+.log-all-btn{margin-top:4px;padding:8px 20px;background:#1a1a1a;color:#fff;border:none;border-radius:6px;font-size:.82rem;font-weight:600;cursor:pointer;transition:opacity .15s}
+.log-all-btn:hover{opacity:.8}
+.score-badge{display:inline-block;padding:3px 10px;border-radius:10px;font-size:.75rem;font-weight:700}
+.score-badge.good{background:#D8F3DC;color:#2D6A4F}
+.score-badge.mid{background:#fff3cd;color:#856404}
+.score-badge.low{background:#fde8e8;color:#c0392b}
+.sec-title{font-size:1.1rem;font-weight:700;color:var(--hdr);margin-bottom:4px}
+.sec-sub{font-size:.82rem;color:#888;margin-bottom:18px}
+@media(max-width:600px){
+  header{padding:14px 18px}
+  .lv-tabs{padding:0 12px}
+  .hero,.sec-nav,.content{padding-left:14px;padding-right:14px}
+  .theory-grid,.t4-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Huong Stella Paradigm</div>
+    <div class="hdr-title">Day 1 &middot; Interactive Practice</div>
+    <div class="hdr-sub">Word Forms &amp; Confusing Pairs</div>
+  </div>
+  <div class="hdr-dl"><button onclick="handleDownload()">&#8615; Download Report</button></div>
+</header>
+<div class="lv-tabs" id="lvTabs"></div>
+<div class="hero" id="hero"></div>
+<div class="sec-nav" id="secNav"></div>
+<div class="content" id="content"></div>
+
+<script>
+let AL='a2b1', AS=0;
+const ST={choices:{}, inputs:{}, checked:{}, logs:{}};
+
+const RUBRICS={
+  a2b1:{
+    spot:[
+      {criterion:"Error identified",max:1,desc:"Selects the correct underlined word-form error"},
+      {criterion:"Correction accurate",max:2,desc:"Supplies the grammatically correct word form"},
+      {criterion:"Category named",max:1,desc:"Can say whether the correct form is a noun, verb, adjective, or adverb"}
+    ],
+    fill:[
+      {criterion:"Word form correct",max:2,desc:"Supplies the exact grammatical form required"},
+      {criterion:"Spelling accurate",max:1,desc:"Suffix added without spelling errors"},
+      {criterion:"Context match",max:1,desc:"Chosen form fits the grammatical slot in the sentence"}
+    ],
+    log:[
+      {criterion:"Error recorded",max:2,desc:"Quotes a real word-form error from today's exercises"},
+      {criterion:"Rule stated",max:2,desc:"Explains what suffix or change creates the correct form"},
+      {criterion:"Original sentence",max:2,desc:"Writes a new sentence using the correct word form"}
+    ]
+  },
+  b1b2:{
+    spot:[
+      {criterion:"Error identified",max:1,desc:"Selects the incorrect verb pattern"},
+      {criterion:"Correction accurate",max:2,desc:"Supplies the correct infinitive or gerund form"},
+      {criterion:"Pattern named",max:1,desc:"Identifies whether the verb takes to-infinitive or gerund"}
+    ],
+    fill:[
+      {criterion:"Correct pattern used",max:2,desc:"Supplies to-infinitive or gerund as required by the governing verb"},
+      {criterion:"Form accurate",max:1,desc:"Infinitive includes 'to'; gerund ends in -ing"},
+      {criterion:"Meaning distinction noted",max:1,desc:"For dual-pattern verbs, chose the form matching the intended meaning"}
+    ],
+    log:[
+      {criterion:"Error recorded",max:2,desc:"Notes a verb pattern error from today's exercises"},
+      {criterion:"Pattern rule explained",max:2,desc:"States the governing verb and which pattern(s) it takes"},
+      {criterion:"Sentence pair",max:2,desc:"Writes two sentences showing the meaning difference for a dual-pattern verb"}
+    ]
+  },
+  b2c1:{
+    spot:[
+      {criterion:"Error identified",max:1,desc:"Locates the incorrect word form in the academic sentence"},
+      {criterion:"Correction accurate",max:2,desc:"Supplies the correct nominalised or adjectival form"},
+      {criterion:"Register justification",max:1,desc:"Explains why the correct form is more appropriate in academic writing"}
+    ],
+    fill:[
+      {criterion:"Nominalisation correct",max:2,desc:"Converts the root word into the correct noun/adjective/adverb form"},
+      {criterion:"Spelling accurate",max:1,desc:"Complex suffixes (-tion, -ity, -ance, -ment) spelled correctly"},
+      {criterion:"Slot awareness",max:1,desc:"Recognises what grammatical class the blank requires"}
+    ],
+    transform:[
+      {criterion:"Nominalisation applied",max:2,desc:"Converts verb or adjective phrases into noun-headed constructions"},
+      {criterion:"Meaning preserved",max:1,desc:"The academic sentence conveys the same proposition as the original"},
+      {criterion:"Register elevated",max:1,desc:"Final sentence is genuinely formal academic English"}
+    ],
+    log:[
+      {criterion:"Error recorded",max:2,desc:"Identifies a nominalisation or register error from today"},
+      {criterion:"Principle stated",max:2,desc:"Explains why the nominalised form is more appropriate in context"},
+      {criterion:"Revised sentence",max:2,desc:"Rewrites a sentence using the correct nominalised form"}
+    ]
+  },
+  c1c2:{
+    spot:[
+      {criterion:"Error identified",max:1,desc:"Pinpoints the style, register, or word-form error"},
+      {criterion:"Correction accurate",max:2,desc:"Supplies a precise, register-appropriate replacement"},
+      {criterion:"Discourse justification",max:1,desc:"Explains how the error weakens the argument or prose style"}
+    ],
+    fill:[
+      {criterion:"Word form precise",max:2,desc:"Selects the exact form that serves the grammatical and argumentative slot"},
+      {criterion:"Register appropriate",max:1,desc:"Form is neither pseudo-academic nor too informal"},
+      {criterion:"Argumentative function stated",max:1,desc:"Can explain what rhetorical role the chosen form plays"}
+    ],
+    transform:[
+      {criterion:"Style elevated",max:2,desc:"Eliminates zombie nouns, vague evaluatives, or choppy structure"},
+      {criterion:"Argumentative precision",max:1,desc:"Revised version makes a more specific, substantiated claim"},
+      {criterion:"C2 control",max:1,desc:"Final sentence demonstrates syntactic embedding and lexical precision"}
+    ],
+    log:[
+      {criterion:"Style audit conducted",max:2,desc:"Finds and diagnoses a real stylistic weakness in your own writing"},
+      {criterion:"Principle applied",max:2,desc:"Names the specific rule violated and explains its argumentative consequence"},
+      {criterion:"Revised passage",max:2,desc:"Rewrites the passage with demonstrable C2-level improvements"}
+    ]
+  }
+};
+
+const LEVELS={
+  a2b1:{
+    label:"A2–B1",color:"#2D6A4F",light:"#D8F3DC",
+    theme:"Word Form Drill",
+    tagline:"Build your vocabulary by learning the noun, verb, adjective, and adverb form of every word.",
+    goal:"Today you will: (1) recognise noun, verb, adjective, and adverb suffixes, (2) spot six word-form errors in context, (3) supply the correct word form for five sentences.",
+    time:"10–15 min",
+    sections:[
+      {
+        title:"Warm-up: Word Form Cards",type:"theory",
+        cards:[
+          {label:"Nouns from Verbs",badge:"verb → noun",color:"#2D6A4F",
+           examples:"act → action\ndecide → decision\ndevelop → development\nteach → teacher\ninvestigate → investigator\nachieve → achievement",
+           rule:"Common noun suffixes: -tion/-sion (act→action, decide→decision), -ment (develop→development), -er/-or (teach→teacher, investigate→investigator), -ance/-ence (perform→performance). When adding -tion to verbs ending in -e, drop the -e first: decide→decision."},
+          {label:"Adjectives from Nouns/Verbs",badge:"→ adjective",color:"#1A4A7A",
+           examples:"success → successful\ncare → careless\ncreate → creative\nnature → natural\ndanger → dangerous\nrelax → relaxed",
+           rule:"Common adjective suffixes: -ful (use→useful), -less (care→careless), -ive (create→creative), -al (nature→natural), -ous (danger→dangerous), -ed/-ing (relax→relaxed/relaxing). Note: -ed adjectives describe how people FEEL; -ing adjectives describe what causes the feeling."},
+          {label:"Adverbs from Adjectives",badge:"adj → adverb",color:"#8B1A1A",
+           examples:"clear → clearly\ncareful → carefully\nquick → quickly\nhappy → happily (y→i)\npossible → possibly (drop -e)\ngood → well (irregular!)\nfast → fast (no change)\nhard → hard (no change)",
+           rule:"Most adjectives add -ly to become adverbs. Spelling rules: adjectives ending in -y → change y to i + ly (happy→happily). Adjectives ending in -le → drop -e and add -y (possible→possibly). Irregular: good→well, fast→fast, hard→hard, early→early."},
+          {label:"Common Noun Traps",badge:"watch out",color:"#5A1A8A",
+           examples:"strong → strength (NOT strongness)\nwide → width (NOT wideness)\nlong → length (NOT longness)\nhigh → height (NOT highness)\ndeep → depth (NOT deepness)\nbroad → breadth (NOT broadness)",
+           rule:"These adjective-to-noun forms are IRREGULAR — the word changes significantly. Do not add -ness to these words. Memorise them as pairs: strong/strength, wide/width, long/length, high/height, deep/depth. These appear frequently in academic and professional writing."}
+        ]
+      },
+      {
+        title:"Spot the Error",type:"spot",rubricKey:"spot",
+        items:[
+          {sentence:"She is very talent in music and has won several competitions.",
+           underlined:"talent",wrongWord:"talent",correctWord:"talented",
+           wrongType:"noun used as adjective",correctType:"adjective",
+           rule:"After 'very' and 'is/are/was', an ADJECTIVE is needed, not a noun. 'Talent' is a noun (she has talent). 'Talented' is the adjective (she is talented). Suffixes that create adjectives include: -ed, -ful, -ous, -ive, -al.",
+           tip:"After 'very' or a form of 'be', ask: is the next word an adjective? Nouns cannot follow 'very' or be used as complements after 'be'. 'She is talent' sounds wrong — that's your signal to find the adjective form."},
+          {sentence:"The situation required immediate act to prevent further damage.",
+           underlined:"act",wrongWord:"act",correctWord:"action",
+           wrongType:"verb used as noun",correctType:"noun (-tion form)",
+           rule:"After an adjective ('immediate'), a NOUN is required. 'Act' is a verb. The noun form is 'action': 'immediate action'. Common pattern: adjective + noun (immediate action, significant development, careful consideration).",
+           tip:"Test: can you put 'the' or 'an/a' in front of the word? 'An act' works, but 'immediate act' without an article sounds unnatural in this context. The most natural noun here is 'action' — check for the -tion/-sion suffix."},
+          {sentence:"He spoke very clear about his expectations for the project.",
+           underlined:"clear",wrongWord:"clear",correctWord:"clearly",
+           wrongType:"adjective used as adverb",correctType:"adverb (-ly form)",
+           rule:"The word 'spoke' is a verb, and verbs are modified by ADVERBS, not adjectives. 'Clear' is an adjective (a clear explanation). 'Clearly' is the adverb: 'spoke clearly'. Add -ly to the adjective to form the adverb.",
+           tip:"Adjectives modify nouns ('a clear explanation'). Adverbs modify verbs ('spoke clearly'), adjectives ('very clearly'), and other adverbs. If the word is describing HOW someone does something → adverb → add -ly."},
+          {sentence:"Her behave in the meeting was considered unprofessional by the management.",
+           underlined:"behave",wrongWord:"behave",correctWord:"behaviour",
+           wrongType:"verb used as noun",correctType:"noun (-iour form)",
+           rule:"The slot before 'was' requires a NOUN (the subject of the sentence). 'Behave' is a verb. The noun form is 'behaviour': 'Her behaviour in the meeting was…' The suffix -iour/-ior is irregular — it cannot be predicted by rule, so it must be memorised.",
+           tip:"Subjects of sentences must be nouns (or pronouns). If you see a verb form in the subject position, find the noun. 'Behave' → 'behaviour'; 'succeed' → 'success'; 'fail' → 'failure'. Not all of these follow predictable patterns — learn the pairs."},
+          {sentence:"The discovery was of great significance to the scientific community." ,
+           underlined:"significance",wrongWord:"significance",correctWord:"significance",
+           wrongType:"CORRECT — no error",correctType:"significance (correct noun form)",
+           rule:"This sentence is CORRECT. 'Of great significance' is the right construction — 'significance' is the noun form of the adjective 'significant'. This item tests whether you know what IS correct, not just what is wrong.",
+           tip:"Before choosing an answer, check: is the word in the right grammatical slot? 'Of great [noun]' requires a noun — 'significance' is the correct noun here. Don't change things that are already right."},
+          {sentence:"They need to be more care about their environmental impact.",
+           underlined:"care",wrongWord:"care",correctWord:"careful",
+           wrongType:"noun used as adjective",correctType:"adjective (-ful form)",
+           rule:"After 'more' in a comparative construction, an ADJECTIVE is required: 'more careful', 'more helpful', 'more dangerous'. 'Care' is a noun or verb. The adjective form is 'careful': 'more careful about their impact'.",
+           tip:"After 'more/less/most/least', you need an adjective. 'More care' is possible as a noun phrase ('take more care') but 'be more care' is wrong. Test: does the sentence use 'be' + 'more' + word? Then the word must be an adjective."}
+        ]
+      },
+      {
+        title:"Fill in the Blank",type:"fill",rubricKey:"fill",
+        items:[
+          {template:"The ___ announced several new education reforms last week.",
+           baseWord:"govern → noun",answer:"government",
+           targetType:"noun from verb",hint:"govern + -ment",
+           explanation:"'Govern' (verb) → 'government' (noun). The subject of the sentence must be a noun. Suffix: -ment. Note: 'government' not 'governation' — this suffix is irregular and must be memorised."},
+          {template:"Her ___ to the news was one of complete and utter surprise.",
+           baseWord:"react → noun",answer:"reaction",
+           targetType:"noun from verb",hint:"react + -ion",
+           explanation:"'React' (verb) → 'reaction' (noun). The subject of the sentence must be a noun. Suffix: -tion. Spelling: 'react' + 'ion' = 'reaction' (no spelling change needed)."},
+          {template:"Research consistently shows that ___ is closely linked to strong social relationships.",
+           baseWord:"happy → noun",answer:"happiness",
+           targetType:"noun from adjective",hint:"happy → change y to i + -ness",
+           explanation:"'Happy' (adjective) → 'happiness' (noun). The subject needs a noun. Spelling rule: adjectives ending in -y → change y to i before adding -ness: happy→happiness, angry→angriness (though 'anger' is more natural), busy→business (specialised meaning)."},
+          {template:"The fundraising campaign was highly ___, attracting over 10,000 participants.",
+           baseWord:"success → adjective",answer:"successful",
+           targetType:"adjective from noun",hint:"success + -ful",
+           explanation:"'Success' (noun) → 'successful' (adjective). After 'was highly', an adjective is needed. Suffix: -ful. Note the spelling: 'success' + 'ful' — the double 's' remains: successful (not successfull)."},
+          {template:"Air ___ remains one of the most serious environmental challenges of our time.",
+           baseWord:"pollute → noun",answer:"pollution",
+           targetType:"noun from verb",hint:"pollute → drop -e, add -ion",
+           explanation:"'Pollute' (verb) → 'pollution' (noun). The subject of the sentence needs a noun. Suffix: -tion. Spelling: 'pollute' ends in -e → drop the -e before adding -ion: pollut + ion = pollution."}
+        ]
+      },
+      {
+        title:"Error Log",type:"log",rubricKey:"log",
+        prompts:[
+          "Write one word-form error you made today — the wrong form you used or selected, and the correct form. Explain what suffix creates the correct form and why.",
+          "Choose one word from today's Warm-up cards that was new to you. Write out all four forms (noun, verb, adjective, adverb) with one example sentence for each.",
+          "Write three original sentences: one where you use a noun correctly, one where you use an adjective correctly, and one where you use an adverb correctly — all from the same word root."
+        ]
+      }
+    ]
+  },
+
+  b1b2:{
+    label:"B1+–B2",color:"#1A4A7A",light:"#D6E8F7",
+    theme:"Verb Patterns I",
+    tagline:"Some verbs demand 'to', some demand '-ing', and some change meaning depending on which you use.",
+    goal:"Today you will: (1) categorise verbs into to-infinitive, gerund, and dual-pattern groups, (2) identify six verb pattern errors in context, (3) complete five sentences with the correct pattern.",
+    time:"15–20 min",
+    sections:[
+      {
+        title:"Warm-up: Verb Pattern Groups",type:"theory2",
+        groups:[
+          {label:"Verb + to-Infinitive",color:"#1A4A7A",
+           verbs:["want to","decide to","hope to","plan to","manage to","fail to","refuse to","offer to","promise to","agree to","afford to","tend to","seem to","appear to"],
+           memory:"These verbs point towards a future intention or outcome. Think of them as arrows pointing forward: 'I decided → to go'. The action described is a goal, a plan, or a result.",
+           example:"She managed to finish the report before the deadline. / He refused to sign the contract without legal advice."},
+          {label:"Verb + Gerund (-ing)",color:"#2D6A4F",
+           verbs:["enjoy","avoid","finish","consider","suggest","deny","risk","admit","keep","miss","practise","recommend","imagine","postpone","mind"],
+           memory:"These verbs describe reactions, attitudes, or habitual activities. The gerund acts like a noun — it names the activity. Think: 'I enjoy [the activity of] swimming.'",
+           example:"She avoided making eye contact during the presentation. / He denied taking the documents from the office."},
+          {label:"Dual-Pattern Verbs (meaning changes!)",color:"#8B1A1A",
+           verbs:["remember to do (future task)","remember doing (past memory)","try to do (attempt)","try doing (experiment)","stop to do (pause)","stop doing (quit)","forget to do (future task missed)","forget doing (past memory)","regret to say (formal bad news)","regret doing (wish you hadn't)"],
+           memory:"These verbs take BOTH patterns, but the MEANING changes completely. 'I remember to lock the door' = I won't forget to lock it (future task). 'I remember locking the door' = I have a memory of doing it (past event).",
+           example:"She stopped to check her notes. (paused in order to check) / She stopped checking her notes. (quit the activity of checking)"}
+        ]
+      },
+      {
+        title:"Spot the Error",type:"spot",rubricKey:"spot",
+        items:[
+          {sentence:"She really enjoys to read historical novels in her spare time.",
+           underlined:"enjoys to read",wrongWord:"to read",correctWord:"reading",
+           wrongType:"gerund verb + to-infinitive",correctType:"gerund (-ing)",
+           rule:"'Enjoy' always takes a gerund: enjoy + verb-ing. It is not followed by a to-infinitive. 'She enjoys reading' — reading is the activity she takes pleasure in.",
+           tip:"Enjoyment, pleasure, love, and hate describe ATTITUDES towards an activity. Activities → gerund (-ing). Ask: is this verb describing how you feel about an activity? → gerund."},
+          {sentence:"He decided going abroad for his postgraduate studies.",
+           underlined:"going",wrongWord:"going",correctWord:"to go",
+           wrongType:"to-infinitive verb + gerund",correctType:"to-infinitive",
+           rule:"'Decide' always takes a to-infinitive: decide + to + verb. It describes a deliberate intention or choice, pointing toward a future action. 'He decided to go abroad.'",
+           tip:"Decision, intention, plan, hope → future-pointing verbs → to-infinitive. Ask: does this verb describe a choice about what to do next? → to + verb."},
+          {sentence:"They managed finishing the construction project before the rainy season.",
+           underlined:"finishing",wrongWord:"finishing",correctWord:"to finish",
+           wrongType:"to-infinitive verb + gerund",correctType:"to-infinitive",
+           rule:"'Manage' always takes a to-infinitive: manage + to + verb. It means to succeed in doing something difficult, and always refers to a goal achieved: 'They managed to finish the project.'",
+           tip:"'Manage to' = 'succeed in + gerund'. Both are correct, but 'manage' specifically requires 'to'. Do not confuse with 'succeed in finishing' (gerund) — different verb, same meaning."},
+          {sentence:"She suggested to meet at the café near the university entrance.",
+           underlined:"to meet",wrongWord:"to meet",correctWord:"meeting",
+           wrongType:"gerund verb + to-infinitive",correctType:"gerund (-ing)",
+           rule:"'Suggest' always takes a gerund: suggest + verb-ing. It is not followed by a to-infinitive. 'She suggested meeting at the café.' Alternative structure: 'She suggested that they (should) meet at the café.'",
+           tip:"'Suggest', 'recommend', 'propose', and 'advise' are easily confused. 'Suggest' and 'recommend' take gerunds: suggest doing / recommend doing. 'Advise' can take either: advise doing OR advise someone to do."},
+          {sentence:"He admitted to steal the confidential documents from the company server.",
+           underlined:"to steal",wrongWord:"to steal",correctWord:"stealing",
+           wrongType:"gerund verb + to-infinitive",correctType:"gerund (-ing)",
+           rule:"'Admit' takes a gerund: admit + verb-ing. 'To steal' is a to-infinitive and is incorrect here. 'He admitted stealing the documents.' Note: 'admit to' (phrasal verb) also takes a gerund: 'He admitted to stealing the documents.'",
+           tip:"'Admit', 'deny', and 'confess' all describe your relationship to a past action — they look backwards, not forward. Backward-looking verbs → gerund (-ing)."},
+          {sentence:"I remember to visit that old bookshop when I was a student in Hanoi.",
+           underlined:"remember to visit",wrongWord:"to visit",correctWord:"visiting",
+           wrongType:"'remember + to-infinitive' for past memory",correctType:"'remember + gerund' (past memory)",
+           rule:"'Remember + gerund' describes a PAST MEMORY — you recall something you did. 'I remember visiting that bookshop' = I have a memory of visiting it. 'Remember + to-infinitive' means you must not forget a FUTURE task: 'Remember to visit the bookshop before it closes.'",
+           tip:"Past memory = remember + -ing. Future task = remember + to. Ask: when did the action happen? If it's already in the past → -ing. If you're reminding yourself to do it → to."}
+        ]
+      },
+      {
+        title:"Fill in the Blank",type:"fill",rubricKey:"fill",
+        items:[
+          {template:"She wants ___ medicine at a university abroad.",
+           baseWord:"want + study",answer:"to study",
+           targetType:"to-infinitive",hint:"want → to + verb",
+           explanation:"'Want' takes a to-infinitive: want + to + verb. It describes a desire pointing toward a future action. 'She wants to study medicine.'"},
+          {template:"Good academic writers avoid ___ the same mistake twice in a single paragraph.",
+           baseWord:"avoid + make",answer:"making",
+           targetType:"gerund",hint:"avoid → verb-ing",
+           explanation:"'Avoid' takes a gerund: avoid + verb-ing. It describes an activity you deliberately do not do. 'Avoid making the same mistake twice.'"},
+          {template:"Have you ever considered ___ for the national scholarship programme?",
+           baseWord:"consider + apply",answer:"applying",
+           targetType:"gerund",hint:"consider → verb-ing",
+           explanation:"'Consider' takes a gerund: consider + verb-ing. It describes thinking about doing an activity. 'Have you considered applying for the scholarship?'"},
+          {template:"He failed ___ his assignment on time and lost 10% of his final grade.",
+           baseWord:"fail + submit",answer:"to submit",
+           targetType:"to-infinitive",hint:"fail → to + verb",
+           explanation:"'Fail' takes a to-infinitive: fail + to + verb. It means to not succeed in doing something. 'He failed to submit his assignment on time.'"},
+          {template:"She stopped ___ her notes carefully before attempting to answer.",
+           baseWord:"stop + check",answer:"to check",
+           targetType:"to-infinitive (pause in order to)",hint:"she paused — in order to check",
+           explanation:"'Stop + to-infinitive' = pause what you are doing in order to do something new. 'She stopped to check her notes' = she paused her other activity and checked. Compare: 'She stopped checking her notes' = she quit the activity of checking."}
+        ]
+      },
+      {
+        title:"Error Log",type:"log",rubricKey:"log",
+        prompts:[
+          "Write one verb pattern error you made today. State the governing verb, the wrong pattern you used, and the correct pattern with an example sentence.",
+          "Choose two verbs from today's Warm-up: one from the to-infinitive group and one from the gerund group. For each, write two sentences — one correct and one deliberately wrong — to test yourself.",
+          "Explain the meaning difference between 'I stopped to look at the map' and 'I stopped looking at the map'. Write a short scene (2–3 sentences) that makes the difference clear from context."
+        ]
+      }
+    ]
+  },
+
+  b2c1:{
+    label:"B2+–C1",color:"#5A1A8A",light:"#EAD6F7",
+    theme:"Nominalisation & Register",
+    tagline:"Convert verbs and adjectives into noun phrases to write with academic authority.",
+    goal:"Today you will: (1) understand how nominalisation compresses information and elevates register, (2) correct word-form errors in academic sentences, (3) rewrite informal verb-heavy sentences into academic noun-headed constructions.",
+    time:"20–25 min",
+    sections:[
+      {
+        title:"Warm-up: Nominalisation Pairs",type:"theory3",
+        pairs:[
+          {spoken:"The team analysed the data and found that stress affects memory.",
+           academic:"Analysis of the data revealed a significant association between stress and memory impairment.",
+           change:"'analysed' → 'Analysis of' (verb nominalised as subject); 'affects' → 'association between' (verb nominalised as noun phrase); 'found' → 'revealed' (more precise academic verb)"},
+          {spoken:"The situation was critical because funding had been cut.",
+           academic:"The critical nature of the situation was attributable to substantial reductions in funding.",
+           change:"'was critical' → 'critical nature of' (adjective complement → noun phrase); 'because funding had been cut' → 'attributable to substantial reductions in funding' (clause → prepositional phrase)"},
+          {spoken:"Because technology improved rapidly, companies had to change their strategies.",
+           academic:"Rapid technological advancement necessitated a fundamental strategic reconfiguration.",
+           change:"'because technology improved rapidly' → 'Rapid technological advancement' (full clause → noun phrase subject); 'had to change their strategies' → 'necessitated… reconfiguration' (modal verb phrase → single precise verb + nominalisation)"}
+        ],
+        insight:"Nominalisation converts verbs and adjectives into noun phrases. This allows complex ideas to become subjects or objects of more precise verbs, compressing information and creating the dense, authoritative texture of academic prose. However, over-nominalisation ('the facilitation of the utilisation of') creates impenetrable 'zombie prose' — nominalise only where it increases precision or enables a better verb choice."
+      },
+      {
+        title:"Spot the Error",type:"spot",rubricKey:"spot",
+        items:[
+          {sentence:"There was a significant develop in renewable energy technology during the past decade.",
+           underlined:"develop",wrongWord:"develop",correctWord:"development",
+           wrongType:"verb used as noun",correctType:"noun (-ment form)",
+           rule:"After 'a significant', a NOUN is required. 'Develop' is a verb. The noun form is 'development': 'a significant development in renewable energy technology'. Suffix: -ment.",
+           tip:"After articles (a/an/the) and adjectives in noun phrase position, you need a noun. If you see a verb in that position, find the noun form. 'develop' → 'development'; 'achieve' → 'achievement'; 'manage' → 'management'."},
+          {sentence:"The paper provides a comprehensive analyse of key factors affecting student motivation.",
+           underlined:"analyse",wrongWord:"analyse",correctWord:"analysis",
+           wrongType:"verb used as noun",correctType:"noun (irregular: -sis form)",
+           rule:"After 'a comprehensive', a NOUN is required. 'Analyse' is a verb. The noun form is 'analysis': 'a comprehensive analysis'. This is an irregular nominalisation: analyse (verb, British) → analysis (noun). The plural is 'analyses'.",
+           tip:"'Analyse' (verb) vs 'analysis' (noun) — one of the most common errors in academic writing. Parallel pair: 'synthesise' → 'synthesis'; 'hypothesise' → 'hypothesis'. The noun ends in -sis, the verb ends in -se."},
+          {sentence:"Researchers have identified a strong relate between sustained exercise and improved mental health.",
+           underlined:"relate",wrongWord:"relate",correctWord:"relationship",
+           wrongType:"verb used as noun",correctType:"noun (-ship form)",
+           rule:"After 'a strong', a NOUN is required. 'Relate' is a verb. The most natural noun form here is 'relationship': 'a strong relationship between exercise and mental health'. 'Relation' is also possible but 'relationship' is more natural in this context.",
+           tip:"'Relate' (verb) → 'relation' or 'relationship' (noun). 'Relation' is more formal and appears in phrases like 'in relation to'. 'Relationship' is used when describing a connection between variables. Know both."},
+          {sentence:"The solution requires a collaborate between government agencies and the private sector.",
+           underlined:"collaborate",wrongWord:"collaborate",correctWord:"collaboration",
+           wrongType:"verb used as noun",correctType:"noun (-tion form)",
+           rule:"After 'a', a NOUN is required. 'Collaborate' is a verb. The noun form is 'collaboration': 'a collaboration between government and industry'. Suffix: -tion/-ation.",
+           tip:"'Collaborate' → 'collaboration'; 'communicate' → 'communication'; 'investigate' → 'investigation'. The -ate verb → -ation noun pattern is one of the most productive in academic English."},
+          {sentence:"The study concludes that the intervention was effect in reducing rates of hospital readmission.",
+           underlined:"effect",wrongWord:"effect",correctWord:"effective",
+           wrongType:"noun used as adjective",correctType:"adjective (-ive form)",
+           rule:"After 'was', an ADJECTIVE (or noun phrase) is required. 'Effect' is a noun. The adjective form is 'effective': 'the intervention was effective'. Critical distinction: 'effect' (noun) vs 'effective' (adjective) vs 'affect' (verb) vs 'affective' (adjective).",
+           tip:"effect/affect is one of the most confused pairs in English. 'Effect' = noun (the effect of X on Y). 'Affect' = verb (X affects Y). 'Effective' = adjective (an effective method). 'Affective' = adjective relating to emotion (affective disorders)."},
+          {sentence:"Her contribute to the field of computational linguistics has been acknowledged by leading international scholars.",
+           underlined:"contribute",wrongWord:"contribute",correctWord:"contribution",
+           wrongType:"verb used as noun",correctType:"noun (-tion form)",
+           rule:"'Her' is a possessive determiner — it must be followed by a NOUN. 'Contribute' is a verb. The noun form is 'contribution': 'Her contribution to the field'. Suffix: -tion.",
+           tip:"Possessive determiners (his, her, its, their, my, your, our) must be followed by a noun phrase. If you see a possessive + verb, you have a word form error. Find the noun: 'contribute' → 'contribution'."}
+        ]
+      },
+      {
+        title:"Fill in the Blank",type:"fill",rubricKey:"fill",
+        items:[
+          {template:"The ___ of this methodological framework required extensive consultation with industry partners.",
+           baseWord:"develop → noun",answer:"development",
+           targetType:"nominalisation (-ment)",hint:"verb → noun: develop + ?",
+           explanation:"'Develop' (verb) → 'development' (noun). The subject slot after 'The' requires a noun. Suffix: -ment. 'The development of this framework' = what the subject of the sentence is."},
+          {template:"The ___ of the neural imaging data revealed three distinct patterns of cortical activation.",
+           baseWord:"analyse → noun",answer:"analysis",
+           targetType:"irregular nominalisation (-sis)",hint:"analyse (verb) → ? (noun ending in -sis)",
+           explanation:"'Analyse' (verb) → 'analysis' (noun). Irregular: the verb ends in -se (British) or -ze (American), the noun ends in -sis. 'The analysis of data' is a core academic noun phrase."},
+          {template:"There is a statistically significant ___ between sleep duration and working memory capacity.",
+           baseWord:"associate → noun",answer:"association",
+           targetType:"nominalisation (-tion)",hint:"associate + -ion suffix",
+           explanation:"'Associate' (verb) → 'association' (noun). In academic writing, relationships between variables are expressed as noun phrases: 'an association between X and Y', 'a correlation between X and Y', 'a relationship between X and Y'."},
+          {template:"The government's ___ to achieving net-zero emissions by 2050 was enshrined in legislation.",
+           baseWord:"commit → noun",answer:"commitment",
+           targetType:"nominalisation (-ment)",hint:"commit + -ment",
+           explanation:"'Commit' (verb) → 'commitment' (noun). After the possessive 'government's', a noun is required. Suffix: -ment. 'Commitment to [goal]' is a fixed collocation: commitment to achieving, commitment to reducing, commitment to ensuring."},
+          {template:"The ___ of this approach in non-Western cultural contexts remains a subject of ongoing debate.",
+           baseWord:"effective → noun",answer:"effectiveness",
+           targetType:"nominalisation (-ness from adjective)",hint:"effective → what is the quality of being effective?",
+           explanation:"'Effective' (adjective) → 'effectiveness' (noun). The subject slot after 'The' requires a noun. Suffix: -ness. 'The effectiveness of [approach]' = how effective it is. Compare: 'efficacy' is the more technical term in medical/pharmaceutical contexts."}
+        ]
+      },
+      {
+        title:"Transform: Academic Upgrade",type:"transform",rubricKey:"transform",
+        items:[
+          {spoken:"Researchers studied how social media affects teenagers' mental health and found some worrying things.",
+           hint:"investigation of / revealed / significant concerns regarding / impact on / adolescent",
+           answer:"An investigation of the impact of social media on adolescent mental health revealed several significant concerns warranting further empirical attention.\n\nAlternatively: Research into the effects of social media on adolescent psychological wellbeing has yielded a number of troubling findings."},
+          {spoken:"Because the economy was growing fast during that period, companies were able to expand and hire more people.",
+           hint:"Rapid economic growth / enabled / substantial organisational expansion / employment levels",
+           answer:"Rapid economic growth during this period enabled substantial organisational expansion and a corresponding increase in employment levels.\n\nAlternatively: The period of rapid economic growth facilitated considerable expansion in both corporate operations and workforce recruitment."},
+          {spoken:"The fact that the government failed to act quickly meant that the situation got much worse.",
+           hint:"The government's failure to / resulted in / a significant deterioration / prompt intervention",
+           answer:"The government's failure to intervene promptly resulted in a significant deterioration of the situation.\n\nAlternatively: A lack of timely governmental intervention precipitated a marked worsening of conditions across the affected region."}
+        ].map((it,i)=>({...it,keyChange:["'Researchers studied' + 'found some worrying things' → nominalisation as subject ('An investigation') + precise verb ('revealed'); 'some worrying things' → 'several significant concerns'; 'how X affects Y' → 'the impact of X on Y'","'Because' clause → noun phrase subject ('Rapid economic growth'); 'were able to expand and hire more people' → 'enabled substantial organisational expansion and a corresponding increase in employment levels'","'The fact that the government failed to act quickly' → 'The government's failure to intervene promptly' (possessive + nominalised failure); 'the situation got much worse' → 'a significant deterioration of the situation'"][i], principle:["Nominalise the main process as the sentence subject. Replace vague 'some worrying things' with a precise noun phrase. Use a more specific verb than 'found' to signal the relationship.","Convert the 'because' clause of cause into a noun phrase subject. The causal relationship is then expressed by the main verb ('enabled', 'facilitated') — a single, precise verb replaces the entire modal + verb phrase.","Convert 'the fact that + clause' into a possessive + noun phrase: 'The government's failure to [infinitive]'. This is one of the most useful nominalisation patterns in academic writing."][i]}))
+      },
+      {
+        title:"Error Log",type:"log",rubricKey:"log",
+        prompts:[
+          "Find one sentence in your own academic writing that uses a weak verb ('do', 'get', 'show', 'make', 'have') as the main verb. Rewrite it using nominalisation and a more precise verb.",
+          "Explain in your own words: what is the difference between 'The team analysed the data' and 'Analysis of the data…'? When does each version serve the argument better?",
+          "Write two sentences on any academic topic — one using a nominalised subject to open an argument, and one using a direct verb construction. Then annotate each: what does that structure DO for the reader?"
+        ]
+      }
+    ]
+  },
+
+  c1c2:{
+    label:"C1+–C2",color:"#8B1A1A",light:"#F5DADA",
+    theme:"Style & Discourse Audit I",
+    tagline:"Diagnose and eliminate the four most damaging prose habits at C2 level.",
+    goal:"Today you will: (1) identify zombie nouns, pseudo-academic vocabulary, excessive hedging, and vague evaluatives in academic prose, (2) correct six style-level errors that weaken argument and register, (3) restructure passages for precision, economy, and rhetorical force.",
+    time:"20–25 min",
+    sections:[
+      {
+        title:"Warm-up: Advanced Style Strategies",type:"theory4",
+        cards:[
+          {label:"The Zombie Noun Test",color:"#8B1A1A",
+           desc:"A 'zombie noun' is a verb turned into an abstract noun by adding -tion, -ment, -ance, or -ity — and then used as the object of a vague, empty verb ('conduct', 'undertake', 'carry out', 'make', 'achieve', 'facilitate'). The result is longer but weaker: the verb that does the real work is buried in the noun, and the sentence's main verb becomes meaningless.\n\nThe test: can you replace '[empty verb] + the [zombie noun] of' with just the original verb? If yes, the zombie noun is unnecessary — use the verb directly.",
+           fix:"✗ 'The researchers conducted an investigation of the phenomenon.'\n→ 'conducted an investigation of' = 'investigated'. Three words become one.\n✓ 'The researchers investigated the phenomenon.'\n\nOther zombie constructions to eliminate:\n  'make a decision' → 'decide'\n  'carry out an analysis' → 'analyse'\n  'provide a description' → 'describe'\n  'undertake a review' → 'review'\n  'achieve a reduction' → 'reduce'"},
+          {label:"Pseudo-Academic Words",color:"#5A1A8A",
+           desc:"Some words appear in academic writing so often that they seem formal, but they are actually imprecise — or they carry a specific meaning that writers routinely ignore. Using them makes writing look sophisticated but actually signals a lack of precision.\n\nThe three worst offenders at C2 level:\n\n1. 'UTILISE' — means to make practical use of something previously unused for a purpose (repurposing). It is NOT a formal version of 'use'. When you simply use a method or tool, write 'use'.\n\n2. 'VERY' — in academic prose, intensifiers like 'very', 'really', 'quite', 'extremely' signal weak word choice. The solution is a more precise adjective, not a stronger adverb: not 'very important' but 'pivotal', 'critical', 'indispensable'.\n\n3. 'THING' / 'ASPECT' / 'FACTOR' (unspecified) — these signal that you have not identified precisely what you mean. Replace with the exact noun: not 'many things affect learning' but 'numerous contextual, motivational, and institutional variables influence learning outcomes'.",
+           fix:"✗ 'The study utilised a questionnaire to explore various aspects of student wellbeing.'\n✓ 'The study employed a validated questionnaire to assess three dimensions of student wellbeing: academic stress, social belonging, and physical health.'\n\nNote: 'employed' is acceptable (to employ a method = to use it for a purpose). 'Utilised' is not — it implies the questionnaire was previously unused for any purpose."},
+          {label:"The Epistemic Load Rule",color:"#1A4A7A",
+           desc:"Academic hedging is obligatory for claims that go beyond the data — but the hedge should appear once per claim, and it should be calibrated to the actual strength of your evidence. Stacking multiple hedges ('it might perhaps be possible that X could conceivably…') does not increase academic caution: it signals that you do not believe your own argument.\n\nThe rule: ONE hedge per claim. Choose the modal or epistemic marker that matches your certainty level:\n\n  High certainty (data strongly supports): 'X demonstrates / establishes / confirms'\n  Moderate certainty (good evidence): 'X suggests / indicates / appears to'\n  Low certainty (limited evidence): 'X may / might / could suggest'\n  Reported claim (from source): 'Smith (2020) argues / contends / proposes'\n\nOver-hedging collapses into under-arguing. Under-hedging overstates the data. Calibrate precisely.",
+           fix:"✗ 'It might perhaps be possible that stress could conceivably have some kind of negative impact on student performance in high-stakes examinations.'\n\n→ Three problems: (1) three hedges ('might', 'perhaps', 'possibly'), (2) vague 'some kind of negative impact', (3) no reference to evidence.\n\n✓ 'Evidence suggests that examination stress may impair cognitive performance, particularly working memory and attentional control (Smith, 2020).'"},
+          {label:"Word Form as Argumentative Force",color:"#2D6A4F",
+           desc:"The same root word in different grammatical forms creates different argumentative effects. This is not merely a grammar point — it is a rhetorical choice. At C2 level, you should choose the word form that places the right concept in the right grammatical position for your argument.\n\nFour positions and their functions:\n  NOUN as subject → the concept becomes the agent or topic of the argument\n  VERB as predicate → the concept becomes a dynamic process or event\n  ADJECTIVE pre-modifying a noun → the concept becomes an attribute\n  ADVERB modifying a verb → the concept becomes a quality of an action\n\nEach places a different emphasis and creates a different logical relationship.",
+           desc2:"Compare these four sentences about 'significance':\n  (1) 'The study is significant.' [adjective + weak verb — descriptive, low force]\n  (2) 'The study significantly advances the field.' [adverb + strong verb — dynamic, higher force]\n  (3) 'The significance of this study lies in its methodological innovation.' [noun as subject — analytical, formal, highest force]\n  (4) 'This study makes a significant contribution.' [adjective pre-modifying 'contribution' — mid-force, standard academic phrasing]\n\nSentences (2) and (3) are rhetorically superior to (1) and (4) because they force the writer to identify a strong verb ('advances', 'lies in') and name the specific contribution.",
+           fix:"Rule: before writing a sentence that begins 'X is [adjective]', ask — can I make [adjective] a NOUN subject with a strong verb? Or can I use [adjective] as an ADVERB with a precise verb?\n\n✗ 'The contribution of this approach is significant.'\n✓ 'The significance of this approach lies in its capacity to account for cross-cultural variation.' [noun subject + 'lies in' + specific content]\n✓✓ 'This approach significantly extends prior theoretical accounts by incorporating cross-cultural variables.' [adverb + strong verb + specific extension]"}
+        ]
+      },
+      {
+        title:"Spot the Error",type:"spot",rubricKey:"spot",
+        items:[
+          {sentence:"The research team conducted an investigation of the relationship between cortisol levels and decision-making under pressure.",
+           underlined:"conducted an investigation of",wrongWord:"conducted an investigation of",correctWord:"investigated",
+           wrongType:"zombie noun (empty verb + nominalisation)",correctType:"direct verb",
+           rule:"'Conducted an investigation of' is a zombie noun construction: the verb 'investigate' is buried in the noun 'investigation', and 'conducted' is an empty carrier verb. Replace with the verb directly: 'The research team investigated the relationship between…' — three words become one, with no loss of meaning.",
+           tip:"Apply the zombie noun test: can you replace '[empty verb] + [noun derived from verb] + of' with just the original verb? 'conduct an investigation of' → 'investigate'. 'Make a decision' → 'decide'. 'Provide a description of' → 'describe'. If the answer is yes, always use the verb."},
+          {sentence:"Researchers utilised a randomised controlled trial to assess the efficacy of the new intervention.",
+           underlined:"utilised",wrongWord:"utilised",correctWord:"used",
+           wrongType:"pseudo-academic word choice (utilise ≠ use)",correctType:"direct, accurate verb",
+           rule:"'Utilise' means to make practical or effective use of something that was previously not being used for that purpose — i.e., repurposing. A randomised controlled trial is not being repurposed; it is being used as designed. 'Used' is more precise. 'Utilise' is not a more formal version of 'use' — it has a narrower, specific meaning.",
+           tip:"Ask: am I repurposing something for a new function it wasn't designed for? If not, write 'use', not 'utilise'. The same applies to: 'commence' ≠ formal 'start'; 'terminate' ≠ formal 'end'; 'endeavour' ≠ formal 'try'. Use these words only when their specific meaning is exactly what you intend."},
+          {sentence:"The end result of the decade-long study was a significant improvement in patient survival rates.",
+           underlined:"end result",wrongWord:"end result",correctWord:"result",
+           wrongType:"tautology",correctType:"single precise noun",
+           rule:"'End result' is tautological: a result is by definition the end of a process — the word 'end' adds nothing. Academic writing must be economical: every word must earn its place. Common academic tautologies to eliminate: past history, future plans, basic fundamentals, final conclusion, advance forward, completely eliminate, free gift.",
+           tip:"The tautology test: remove the first word. Is the meaning identical? 'End result' → 'result' — same meaning. Remove it. At C2 level, tautologies signal imprecise thinking. Edit them not as stylistic preferences but as logical errors."},
+          {sentence:"The findings of this study are very interesting and very important for researchers working in this field.",
+           underlined:"very interesting and very important",wrongWord:"very interesting and very important",correctWord:"of considerable theoretical significance",
+           wrongType:"vague intensifier + weak evaluative adjective",correctType:"precise evaluative noun phrase",
+           rule:"'Very interesting' and 'very important' tell the reader that you value the findings but not WHY, HOW, or TO WHOM. In academic writing, evaluative language must be specific. Identify the DIMENSION of interest or importance: 'theoretically significant', 'methodologically innovative', 'clinically relevant', 'empirically robust'. Then nominalise: 'of considerable theoretical significance'.",
+           tip:"When you write 'very [adjective]', ask four questions: interesting/important (1) to whom? (2) in what dimension? (3) with respect to which prior work? (4) why specifically? The answers to these questions form the specific phrase you should write. 'Very important' → 'of critical significance for population-level health policy'."},
+          {sentence:"The experiment demonstrated that the new treatment was more economic than the standard pharmacological approach.",
+           underlined:"economic",wrongWord:"economic",correctWord:"economical",
+           wrongType:"'economic' (economics) vs 'economical' (cost-efficient)",correctType:"economical",
+           rule:"'Economic' = relating to the economy or economics (economic growth, economic policy, economic indicators). 'Economical' = cost-effective, not wasteful in the use of resources (an economical method, an economical use of time). Here the meaning required is 'cost-efficient' → 'economical'.",
+           tip:"Parallel pair: 'historic' (historically important — a historic moment) vs 'historical' (relating to history — a historical document). 'Electric' (powered by electricity) vs 'electrical' (relating to electricity as a field). These -ic / -ical pairs have genuine meaning differences — they are not interchangeable."},
+          {sentence:"It might perhaps be possible that prolonged screen exposure could conceivably have some negative effect on children's sleep patterns.",
+           underlined:"might perhaps be possible that",wrongWord:"might perhaps be possible that",correctWord:"may",
+           wrongType:"triple epistemic hedging (over-hedging)",correctType:"single calibrated hedge",
+           rule:"'Might', 'perhaps', 'possible', and 'could' all express uncertainty. Stacking them does not create greater academic caution — it creates epistemic overload and signals that the writer does not believe their own claim. One calibrated hedge per clause: 'Prolonged screen exposure may adversely affect children's sleep patterns.' Then cite your evidence.",
+           tip:"Count your hedges per clause. ONE = appropriate academic caution. TWO OR MORE = you are apologising for your argument rather than making it. Choose your ONE hedge: 'suggests' (confident), 'may' (moderate), 'might' (tentative). Then commit to the claim. Evidence supports the strength of the claim — cite it, don't hedge it away."}
+        ]
+      },
+      {
+        title:"Fill in the Blank",type:"fill",rubricKey:"fill",
+        items:[
+          {template:"The findings ___ advance our understanding of how legacy institutions respond to disruptive technological change.",
+           baseWord:"significant → adverb",answer:"significantly",
+           targetType:"adverb modifying a strong verb",hint:"how much do the findings advance? → adverb form of 'significant'",
+           explanation:"An adverb is needed to modify the verb 'advance'. 'Significantly' tells us the degree to which the findings advance understanding. At C2 level, this structure (adverb + strong verb) is more dynamic than 'The findings are significant because they advance…'. The adverb position creates immediate rhetorical force."},
+          {template:"The ___ between the two institutions has generated a body of interdisciplinary scholarship that neither could have produced alone.",
+           baseWord:"collaborate → noun",answer:"collaboration",
+           targetType:"nominalisation as sentence subject",hint:"the subject of the sentence — what do two institutions do together?",
+           explanation:"'Collaboration' (noun) is the subject of the sentence. 'Collaborate' is a verb and cannot serve as subject. At C2 level, choosing the noun form as subject allows the idea itself to become the agent: 'The collaboration has generated…' — stronger than 'They collaborated and generated…'"},
+          {template:"Prior theoretical accounts have been largely ___ by the emergence of more empirically grounded frameworks.",
+           baseWord:"supersede → past participle",answer:"superseded",
+           targetType:"past participle in present perfect passive",hint:"have been + ___d: to replace something that was previously dominant",
+           explanation:"'Have been superseded' = present perfect passive. The past participle 'superseded' is required after 'have been'. Spelling note: 'superseded' not 'superceded' — a very common error. Root: 'sede' (to sit). 'Supersede' literally means 'to sit above/over', hence to replace."},
+          {template:"The ___ of these findings to real-world policy contexts remains a subject of active scholarly debate.",
+           baseWord:"apply → abstract noun",answer:"applicability",
+           targetType:"abstract nominalisation (-ability)",hint:"the quality of being applicable — apply + -ability",
+           explanation:"'Applicability' = the quality or degree of being applicable to a context. 'Apply' → 'applicable' → 'applicability'. This suffix (-ability/-ibility) nominalises adjectives ending in -able/-ible into abstract nouns. 'Applicability' as subject makes the concept itself the focus of debate — a typical academic opening move."},
+          {template:"Rather than merely ___ the observed patterns, the analysis seeks to account for the structural conditions that produced them.",
+           baseWord:"describe → gerund",answer:"describing",
+           targetType:"gerund after 'rather than'",hint:"'rather than' + verb → -ing form",
+           explanation:"After 'rather than', a gerund is required: 'rather than describing'. This construction sets up a contrast between a weaker activity (mere description) and a stronger one (causal explanation) — a classic C2 rhetorical move that signals analytical ambition. 'Rather than merely describing X, the analysis explains Y.'"}
+        ]
+      },
+      {
+        title:"Transform: Style Elevation",type:"transform",rubricKey:"transform",
+        items:[
+          {spoken:"The researchers made a decision to carry out an investigation of the possible effects that the training programme might conceivably have on employee performance.",
+           hint:"decided to investigate / the effects of / on / employee performance",
+           answer:"The researchers decided to investigate the effects of the training programme on employee performance.\n\nAlternatively (more analytical): The researchers set out to assess whether the training programme produced measurable improvements in employee performance.\n\nWord count: original = 36 words. Revision = 16 words. Every deleted word was doing nothing.",
+           keyChange:"'made a decision' → 'decided' (zombie noun eliminated); 'carry out an investigation of' → 'investigate' (second zombie eliminated); 'might conceivably have' → single verb 'produced' or 'investigate the effects of' (over-hedging eliminated); 'possible effects' made specific",
+           principle:"C2 editing = systematic elimination of zombie nouns, empty verbs, and redundant hedges. Each revision is governed by a testable rule, not a stylistic preference. The result is shorter, clearer, and more forceful — three gains at once."},
+          {spoken:"It is very important to note that there are many different factors which can have a negative effect on student performance in high-stakes examinations.",
+           hint:"A range of / contextual, cognitive, and motivational / variables / may adversely affect / performance",
+           answer:"A range of contextual, cognitive, and motivational variables may adversely affect student performance in high-stakes examinations.\n\nAlternatively: Student performance in high-stakes examinations is susceptible to a broad array of contextual, affective, and cognitive influences — including examination anxiety, working memory load, and prior academic self-concept.",
+           keyChange:"'It is very important to note that' deleted entirely (empty metadiscourse); 'many different factors' → 'a range of contextual, cognitive, and motivational variables' (specific taxonomy replaces vague quantifier); 'can have a negative effect' → 'may adversely affect' (zombie eliminated, hedge calibrated to 'may')",
+           principle:"'It is important to note that…' and 'It should be pointed out that…' are metadiscourse padding — they add no information and consume 6–8 words. Delete them entirely and begin with your actual claim. Replace 'many different factors' with a named taxonomy of what those factors are — this is the analytical work the reader expects."},
+          {spoken:"This study is very significant because it looks at a new area that has not been studied very much before.",
+           hint:"This study makes a significant / original contribution to / an under-investigated / dimension of",
+           answer:"This study makes a significant original contribution to an under-investigated dimension of the literature by being the first to systematically examine [X].\n\nAlternatively: The significance of this study lies in its systematic examination of a domain that has, to date, received comparatively little empirical attention — namely, [X].",
+           keyChange:"'is very significant' → 'makes a significant original contribution' (adjective predicate → noun phrase object; strong verb 'makes'); 'looks at' → 'examine' (colloquial → academic); 'not been studied very much' → 'under-investigated' (single compound adjective); 'new area' → specific named domain",
+           principle:"Convert 'X is [adjective]' structures into 'X [strong verb] [specific noun phrase]' wherever possible. Name the significance specifically — 'original contribution to', 'first systematic examination of', 'empirical challenge to established theoretical accounts of'. Vague claims are the most common C1→C2 gap."}
+        ]
+      },
+      {
+        title:"Error Log",type:"log",rubricKey:"log",
+        prompts:[
+          "Conduct a zombie noun audit on one paragraph of your own writing. List every instance of '[empty verb] + [nominalised verb] + of' (e.g. 'conduct an analysis of', 'make a decision', 'carry out a review of'). Rewrite each using the direct verb, and count how many words you eliminated.",
+          "Take one sentence from your own writing that uses 'very [adjective]' or 'important/significant/interesting' without further specification. Rewrite it three ways: (1) using the adjective as an adverb with a strong verb, (2) using the noun form as the sentence subject, (3) replacing 'very [adjective]' with a single precise adjective or noun phrase. Compare the three versions for force and precision.",
+          "Identify one claim in your writing that contains two or more hedges in the same clause (e.g. 'might possibly', 'could perhaps'). Rewrite it with exactly one calibrated hedge. Then write a second sentence that supplies the evidence that earns the confidence of that hedge — because hedging without evidence is merely apologising."
+        ]
+      }
+    ]
+  }
+};
+
+// ── HELPERS ────────────────────────────────────────────────────────────
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/\n/g,'<br>')}
+function rubricHTML(rubKey){
+  const rows=RUBRICS[AL][rubKey];
+  if(!rows)return'';
+  const total=rows.reduce((a,r)=>a+r.max,0);
+  let html=`<button class="rub-toggle" onclick="togRub(this)">&#9776; Rubric (${total} pts)</button>
+  <table class="rub-table"><tr><th>Criterion</th><th>Max</th><th>Description</th></tr>`;
+  rows.forEach(r=>{html+=`<tr><td><strong>${esc(r.criterion)}</strong></td><td class="rub-max">${r.max}</td><td>${esc(r.desc)}</td></tr>`});
+  return html+`</table>`;
+}
+function togRub(btn){
+  const tbl=btn.nextElementSibling;
+  tbl.classList.toggle('show');
+  btn.textContent=tbl.classList.contains('show')?'× Hide Rubric':'☰ Show Rubric';
+}
+function progHTML(secIdx){
+  return`<div class="prog-label" id="prog-label-${secIdx}">Progress</div>
+  <div class="prog-wrap"><div class="prog-bar" id="prog-bar-${secIdx}" style="width:0%"></div></div>`;
+}
+function updProg(secIdx,done,total){
+  const bar=document.getElementById('prog-bar-'+secIdx);
+  const lbl=document.getElementById('prog-label-'+secIdx);
+  if(bar)bar.style.width=total?Math.round(done/total*100)+'%':'0%';
+  if(lbl)lbl.textContent=`Progress: ${done}/${total} completed`;
+}
+function scoreBadge(score,max){
+  const pct=max?score/max:0;
+  const cls=pct>=0.8?'good':pct>=0.5?'mid':'low';
+  return`<span class="score-badge ${cls}">${score}/${max}</span>`;
+}
+
+// ── RENDERERS ──────────────────────────────────────────────────────────
+function rTheory(sec){
+  let h='<div class="theory-grid">';
+  sec.cards.forEach(c=>{
+    h+=`<div class="tc" style="border-top-color:${c.color}">
+      <div class="tc-header"><span class="tc-label">${esc(c.label)}</span><span class="tc-badge" style="background:${LEVELS[AL].light};color:${LEVELS[AL].color}">${esc(c.badge)}</span></div>
+      <div class="tc-examples">${esc(c.examples)}</div>
+      <div class="tc-rule">${esc(c.rule)}</div>
+    </div>`;
+  });
+  return h+'</div>';
+}
+function rTheory2(sec){
+  let h='';
+  sec.groups.forEach(g=>{
+    h+=`<div class="t2-group" style="border-left-color:${g.color}">
+      <div class="t2-label" style="color:${g.color}">${esc(g.label)}</div>
+      <div class="t2-verbs">${g.verbs.map(v=>`<span class="t2-verb" style="background:${LEVELS[AL].light};color:${g.color}">${esc(v)}</span>`).join('')}</div>
+      <div class="t2-memory">${esc(g.memory)}</div>
+      <div class="t2-example">${esc(g.example)}</div>
+    </div>`;
+  });
+  return h;
+}
+function rTheory3(sec){
+  let h='';
+  sec.pairs.forEach(p=>{
+    h+=`<div class="t3-pair">
+      <div class="t3-spoken">✗ ${esc(p.spoken)}</div>
+      <div class="t3-academic">✓ ${esc(p.academic)}</div>
+      <div class="t3-change">💡 ${esc(p.change)}</div>
+    </div>`;
+  });
+  h+=`<div class="t3-insight">🎯 <strong>Key Insight:</strong> ${esc(sec.insight)}</div>`;
+  return h;
+}
+function rTheory4(sec){
+  let h='<div class="t4-grid">';
+  sec.cards.forEach(c=>{
+    h+=`<div class="t4-card" style="border-top-color:${c.color}">
+      <div class="t4-label">${esc(c.label)}</div>
+      <div class="t4-desc">${esc(c.desc)}</div>`;
+    if(c.desc2)h+=`<div class="t4-sub">Detail</div><div class="t4-desc">${esc(c.desc2)}</div>`;
+    h+=`<div class="t4-sub">Application</div><div class="t4-fix">${esc(c.fix)}</div></div>`;
+  });
+  return h+'</div>';
+}
+function rSpot(sec,secIdx){
+  const key=`${AL}_${secIdx}`;
+  let h=rubricHTML(sec.rubricKey)+progHTML(secIdx);
+  sec.items.forEach((it,i)=>{
+    const cid=`${key}_${i}`;
+    const sent=it.sentence.replace(it.underlined,`<u>${esc(it.underlined)}</u>`);
+    const choices=[it.wrongWord,it.correctWord].sort(()=>Math.random()-0.5);
+    h+=`<div class="spot-item" id="spot-wrap-${cid}">
+      <div class="spot-num">Item ${i+1} of ${sec.items.length}</div>
+      <div class="spot-sentence">${sent}</div>
+      <div class="spot-choices">
+        ${choices.map(ch=>`<button class="spot-choice" onclick="spotPick('${cid}','${esc(ch)}','${esc(it.correctWord)}')" id="sc-${cid}-${esc(ch)}">${esc(ch)}</button>`).join('')}
+      </div>
+      <div class="spot-feedback" id="sf-${cid}"></div>
+    </div>`;
+  });
+  const rub=RUBRICS[AL][sec.rubricKey];
+  const maxScore=rub?rub.reduce((a,r)=>a+r.max,0):0;
+  h+=`<button class="spot-check-btn" onclick="calcSpot('${key}',${sec.items.length},${maxScore})">Check All</button>
+  <div class="spot-score" id="spot-score-${key}" style="display:none"></div>`;
+  return h;
+}
+function rFill(sec,secIdx){
+  const key=`${AL}_${secIdx}`;
+  let h=rubricHTML(sec.rubricKey)+progHTML(secIdx);
+  sec.items.forEach((it,i)=>{
+    const cid=`${key}_${i}`;
+    h+=`<div class="fill-item">
+      <div style="font-size:.72rem;font-weight:700;color:#999;margin-bottom:6px;text-transform:uppercase">Item ${i+1}</div>
+      <div class="fill-template">${esc(it.template)}</div>
+      <div class="fill-base">🔑 ${esc(it.baseWord)}</div>
+      <div class="fill-input-row">
+        <input class="fill-input" id="fi-${cid}" placeholder="${esc(it.hint)}" oninput="ST.inputs['${cid}']=this.value"/>
+        <button class="fill-btn" onclick="fillChk('${cid}','${esc(it.answer)}','${esc(it.explanation)}')">Check</button>
+      </div>
+      <div class="fill-feedback" id="ff-${cid}"></div>
+    </div>`;
+  });
+  const rub=RUBRICS[AL][sec.rubricKey];
+  const maxScore=rub?rub.reduce((a,r)=>a+r.max,0):0;
+  h+=`<button class="spot-check-btn" onclick="calcFill('${key}',${sec.items.length},${maxScore})" style="margin-top:4px">Show Score</button>
+  <div class="spot-score" id="fill-score-${key}" style="display:none"></div>`;
+  return h;
+}
+function rTransform(sec,secIdx){
+  const key=`${AL}_${secIdx}`;
+  let h=rubricHTML(sec.rubricKey)+progHTML(secIdx);
+  sec.items.forEach((it,i)=>{
+    const cid=`${key}_${i}`;
+    h+=`<div class="tr-item">
+      <div class="spot-num">Item ${i+1}</div>
+      <div class="tr-spoken">"${esc(it.spoken)}"</div>
+      <div class="tr-hint">💡 Hint: ${esc(it.hint)}</div>
+      <textarea class="tr-textarea" id="tr-${cid}" placeholder="Write your version here…" oninput="ST.inputs['${cid}']=this.value"></textarea>
+      <div class="tr-btns">
+        <button class="tr-save-btn" onclick="saveTr('${cid}')">Save</button>
+        <button class="tr-reveal-btn" onclick="revealTr('${cid}','${esc(it.answer)}','${esc(it.keyChange)}','${esc(it.principle)}')">Reveal Model Answer</button>
+      </div>
+      <div class="tr-answer" id="tra-${cid}"></div>
+    </div>`;
+  });
+  return h;
+}
+function rLog(sec,secIdx){
+  const key=`${AL}_${secIdx}`;
+  let h=rubricHTML(sec.rubricKey);
+  sec.prompts.forEach((pr,i)=>{
+    const cid=`${key}_${i}`;
+    h+=`<div class="log-item">
+      <div class="log-prompt">${i+1}. ${esc(pr)}</div>
+      <textarea class="log-textarea" id="lt-${cid}" placeholder="Write your response here…" oninput="ST.logs['${cid}']=this.value"></textarea>
+      <button class="log-save-btn" onclick="saveLog('${cid}')">Save</button>
+      <div class="log-saved" id="ls-${cid}">✓ Saved</div>
+    </div>`;
+  });
+  h+=`<button class="log-all-btn" onclick="saveLogAll('${key}',${sec.prompts.length})">Save All Reflections</button>`;
+  return h;
+}
+function renderSec(secIdx){
+  const sec=LEVELS[AL].sections[secIdx];
+  AS=secIdx;
+  let html=`<div class="sec-title">${esc(sec.title)}</div>`;
+  if(sec.type==='theory')html+=`<div class="sec-sub">Study these cards before attempting the exercises.</div>`+rTheory(sec);
+  else if(sec.type==='theory2')html+=`<div class="sec-sub">Review the verb groups and their memory rules.</div>`+rTheory2(sec);
+  else if(sec.type==='theory3')html+=`<div class="sec-sub">Study the nominalisation examples, then read the key insight.</div>`+rTheory3(sec);
+  else if(sec.type==='theory4')html+=`<div class="sec-sub">Study each strategy in full — the detail here is the practice.</div>`+rTheory4(sec);
+  else if(sec.type==='spot')html+=`<div class="sec-sub">Each sentence contains exactly one error. Choose the correct replacement.</div>`+rSpot(sec,secIdx);
+  else if(sec.type==='fill')html+=`<div class="sec-sub">Use the base word given to supply the correct form.</div>`+rFill(sec,secIdx);
+  else if(sec.type==='transform')html+=`<div class="sec-sub">Rewrite each sentence using the hint. Then reveal the model answer.</div>`+rTransform(sec,secIdx);
+  else if(sec.type==='log')html+=`<div class="sec-sub">Reflect deeply. Your notes are saved for download.</div>`+rLog(sec,secIdx);
+  document.getElementById('content').innerHTML=html;
+  document.querySelectorAll('.sec-btn').forEach((b,i)=>b.classList.toggle('active',i===secIdx));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── INTERACTIONS ───────────────────────────────────────────────────────
+function spotPick(cid,chosen,correct){
+  if(document.getElementById('spot-wrap-'+cid).querySelector('.locked'))return;
+  document.querySelectorAll(`[id^="sc-${cid}-"]`).forEach(b=>{b.classList.remove('selected','correct','wrong');b.classList.add('locked')});
+  const isOk=chosen===correct;
+  const cb=document.getElementById('sc-'+cid+'-'+chosen);
+  if(cb)cb.classList.add(isOk?'correct':'wrong');
+  if(!isOk){const rb=document.getElementById('sc-'+cid+'-'+correct);if(rb)rb.classList.add('correct')}
+  ST.choices[cid]=isOk;
+  const sec=LEVELS[AL].sections[AS];
+  const it=sec.items[parseInt(cid.split('_').pop())];
+  const fb=document.getElementById('sf-'+cid);
+  fb.className='spot-feedback show '+(isOk?'ok':'err');
+  fb.innerHTML=`<strong>${isOk?'✓ Correct!':'✗ Incorrect — the correct answer is: '+esc(correct)}</strong>
+  <div class="fb-rule">📌 <em>${esc(it.wrongType)}</em> → <em>${esc(it.correctType)}</em><br>${esc(it.rule)}</div>
+  <div class="fb-tip">💡 Tip: ${esc(it.tip)}</div>`;
+}
+function calcSpot(key,total,maxScore){
+  let done=0,correct=0;
+  for(let i=0;i<total;i++){const cid=`${key}_${i}`;if(ST.choices[cid]!==undefined){done++;if(ST.choices[cid])correct++}}
+  updProg(parseInt(key.split('_').pop()),done,total);
+  const sd=document.getElementById('spot-score-'+key);
+  sd.style.display='block';
+  sd.innerHTML=`Score: ${scoreBadge(correct,total)} | Completed: ${done}/${total}`;
+}
+function fillChk(cid,answer,explanation){
+  const inp=document.getElementById('fi-'+cid);
+  const val=(inp.value||'').trim().toLowerCase();
+  const alts=answer.toLowerCase().split('/').map(a=>a.trim());
+  const isOk=alts.some(a=>val===a);
+  inp.classList.remove('correct','wrong');inp.classList.add(isOk?'correct':'wrong');
+  document.getElementById('ff-'+cid).className='fill-feedback show '+(isOk?'ok':'err');
+  document.getElementById('ff-'+cid).innerHTML=`<strong>${isOk?'✓ Correct!':'✗ The answer is: <em>'+esc(answer)+'</em>'}</strong><br>${esc(explanation)}`;
+  ST.checked[cid]=isOk;
+}
+function calcFill(key,total,maxScore){
+  let done=0,correct=0;
+  for(let i=0;i<total;i++){const cid=`${key}_${i}`;const inp=document.getElementById('fi-'+cid);if(inp&&inp.value.trim()){done++;if(ST.checked[cid])correct++}}
+  updProg(parseInt(key.split('_').pop()),done,total);
+  const sd=document.getElementById('fill-score-'+key);
+  sd.style.display='block';
+  sd.innerHTML=`Score: ${scoreBadge(correct,total)} | Completed: ${done}/${total}`;
+}
+function saveTr(cid){
+  const val=document.getElementById('tr-'+cid).value.trim();
+  ST.inputs[cid]=val;
+  alert(val?'✓ Response saved!':'Nothing to save yet.');
+}
+function revealTr(cid,answer,keyChange,principle){
+  const div=document.getElementById('tra-'+cid);
+  div.className='tr-answer show';
+  div.innerHTML=`<strong>🎯 Model Answer:</strong>${esc(answer)}<br><br><strong>🔄 Key Change:</strong> ${esc(keyChange)}<div class="tr-principle">📌 Principle: ${esc(principle)}</div>`;
+}
+function saveLog(cid){
+  const val=document.getElementById('lt-'+cid).value.trim();
+  ST.logs[cid]=val;
+  const s=document.getElementById('ls-'+cid);
+  s.className='log-saved show';
+  setTimeout(()=>s.classList.remove('show'),2000);
+}
+function saveLogAll(key,total){
+  for(let i=0;i<total;i++){const cid=`${key}_${i}`;const el=document.getElementById('lt-'+cid);if(el)ST.logs[cid]=el.value.trim()}
+  alert('✓ All reflections saved. Use Download Report to export.');
+}
+function handleDownload(){
+  const lv=LEVELS[AL];
+  const now=new Date();
+  let txt=`HUONG STELLA PARADIGM — Daily Drills Day 1\nLevel: ${lv.label} | Theme: ${lv.theme}\nDate: ${now.toISOString().slice(0,10)}\n${'='.repeat(60)}\n\n`;
+  lv.sections.forEach((sec,si)=>{
+    txt+=`SECTION: ${sec.title}\n${'-'.repeat(40)}\n`;
+    const key=`${AL}_${si}`;
+    if(sec.type==='spot'){
+      sec.items.forEach((it,i)=>{
+        const cid=`${key}_${i}`;
+        const ans=ST.choices[cid];
+        txt+=`Q${i+1}: ${it.sentence}\n  Your answer: ${ans===undefined?'(not attempted)':ans?'Correct ✓':'Incorrect ✗'}\n  Correct: ${it.correctWord}\n\n`;
+      });
+    } else if(sec.type==='fill'){
+      sec.items.forEach((it,i)=>{
+        const cid=`${key}_${i}`;
+        txt+=`Q${i+1}: ${it.template}\n  Your answer: ${ST.inputs[cid]||'(blank)'}\n  Correct: ${it.answer}\n\n`;
+      });
+    } else if(sec.type==='transform'){
+      sec.items.forEach((it,i)=>{
+        const cid=`${key}_${i}`;
+        txt+=`Transform ${i+1}: ${it.spoken}\n  Your version: ${ST.inputs[cid]||'(not attempted)'}\n  Model: ${it.answer}\n\n`;
+      });
+    } else if(sec.type==='log'){
+      sec.prompts.forEach((pr,i)=>{
+        const cid=`${key}_${i}`;
+        txt+=`Reflection ${i+1}: ${pr}\n  ${ST.logs[cid]||'(not completed)'}\n\n`;
+      });
+    }
+    txt+='\n';
+  });
+  const blob=new Blob([txt],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`HuongStella_DailyDrill_Day1_`+AL+`_`+now.toISOString().slice(0,10)+`.txt`;
+  a.click();
+}
+
+// ── NAV & INIT ─────────────────────────────────────────────────────────
+function buildLvTabs(){
+  document.getElementById('lvTabs').innerHTML=Object.keys(LEVELS).map(k=>`<div class="lv-tab${k===AL?' active':''}" onclick="switchLv('${k}')" style="${k===AL?'color:'+LEVELS[k].color+';border-bottom-color:'+LEVELS[k].color:''}">${LEVELS[k].label}</div>`).join('');
+}
+function switchLv(lv){
+  AL=lv;AS=0;ST.choices={};ST.inputs={};ST.checked={};ST.logs={};
+  applyLevel();buildLvTabs();buildSecNav();renderSec(0);
+}
+function applyLevel(){
+  const lv=LEVELS[AL];
+  document.documentElement.style.setProperty('--lc',lv.color);
+  document.documentElement.style.setProperty('--ll',lv.light);
+  document.getElementById('hero').innerHTML=`
+    <div class="hero-row">
+      <div class="hero-badge">${esc(lv.label)}</div>
+      <div class="hero-info">
+        <div class="hero-theme">${esc(lv.theme)}</div>
+        <div class="hero-tagline">${esc(lv.tagline)}</div>
+        <div class="hero-goal">${esc(lv.goal)}</div>
+        <div class="hero-time">⏱ Estimated time: ${esc(lv.time)}</div>
+      </div>
+    </div>`;
+}
+function buildSecNav(){
+  document.getElementById('secNav').innerHTML=LEVELS[AL].sections.map((s,i)=>`<button class="sec-btn${i===0?' active':''}" onclick="navSec(${i})">${esc(s.title)}</button>`).join('');
+}
+function navSec(i){
+  AS=i;document.querySelectorAll('.sec-btn').forEach((b,j)=>b.classList.toggle('active',j===i));renderSec(i);
+}
+function init(){
+  document.title='Daily Drills 1';
+  buildLvTabs();applyLevel();buildSecNav();renderSec(0);
+}
+window.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>

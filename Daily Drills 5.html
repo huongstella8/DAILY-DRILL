@@ -1,0 +1,1413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Daily Drills 5</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--lc:#2D6A4F;--ll:#D8F3DC;--bg:#F4F2EF;--hdr:#111;--radius:10px;--shadow:0 2px 12px rgba(0,0,0,.08)}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:#1a1a1a;min-height:100vh}
+a{color:inherit}
+header{background:var(--hdr);color:#fff;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:.7rem;font-weight:700;letter-spacing:.18em;opacity:.55;text-transform:uppercase}
+.hdr-centre{text-align:center}
+.hdr-day{font-size:1.35rem;font-weight:800;letter-spacing:-.01em}
+.hdr-sub{font-size:.75rem;opacity:.55;margin-top:2px}
+.hdr-right{display:flex;gap:10px;align-items:center}
+.dl-btn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:6px;padding:6px 14px;font-size:.78rem;font-weight:600;cursor:pointer;transition:background .18s}
+.dl-btn:hover{background:rgba(255,255,255,.22)}
+#lvTabs{display:flex;gap:0;border-bottom:2px solid #e0ddd8;background:#fff;padding:0 20px;overflow-x:auto}
+.lv-tab{padding:12px 22px;font-size:.82rem;font-weight:600;cursor:pointer;border:none;background:none;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .18s;white-space:nowrap;color:#666}
+.lv-tab.active{border-bottom-color:var(--lc);color:var(--lc)}
+#secNav{background:#fff;border-bottom:1px solid #e8e5e0;padding:10px 20px;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sec-btn{padding:6px 14px;border-radius:20px;border:1.5px solid #ddd;background:#fff;font-size:.78rem;font-weight:500;cursor:pointer;transition:all .18s;color:#555}
+.sec-btn.active{background:var(--lc);border-color:var(--lc);color:#fff}
+main{max-width:860px;margin:0 auto;padding:28px 20px 60px}
+.sec-header{margin-bottom:22px}
+.sec-title{font-size:1.15rem;font-weight:700;color:#111;margin-bottom:4px}
+.level-banner{background:var(--ll);border-left:4px solid var(--lc);border-radius:8px;padding:14px 18px;margin-bottom:24px}
+.level-banner h2{font-size:1rem;font-weight:700;color:var(--lc);margin-bottom:3px}
+.level-banner .tagline{font-size:.85rem;color:#444;margin-bottom:6px}
+.level-banner .goal{font-size:.82rem;color:#555;line-height:1.55}
+.level-banner .time-badge{display:inline-block;background:var(--lc);color:#fff;border-radius:12px;padding:2px 10px;font-size:.72rem;font-weight:600;margin-top:8px}
+/* Theory cards */
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px}
+.theory-card{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);border-top:4px solid var(--lc)}
+.theory-card .tc-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.theory-card .tc-label{font-weight:800;font-size:.95rem;color:#111}
+.badge{display:inline-block;border-radius:4px;padding:2px 8px;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.theory-card .tc-examples{font-family:'JetBrains Mono',monospace;font-size:.8rem;background:#f5f3f0;border-radius:6px;padding:10px 12px;margin-bottom:10px;line-height:1.65;color:#2a2a2a}
+.theory-card .tc-rule{font-size:.82rem;color:#444;line-height:1.6}
+/* Theory2 groups */
+.theory2-grid{display:grid;gap:16px;margin-bottom:24px}
+.theory2-card{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);border-left:5px solid var(--lc)}
+.theory2-card .t2-label{font-weight:700;font-size:.9rem;margin-bottom:10px;color:#111}
+.verb-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.verb-chip{background:var(--ll);color:var(--lc);border-radius:4px;padding:3px 10px;font-size:.78rem;font-weight:600;font-family:'JetBrains Mono',monospace}
+.theory2-card .memory{font-size:.8rem;background:#fafaf8;border:1px solid #e8e5e0;border-radius:6px;padding:8px 12px;margin-bottom:8px;color:#555;line-height:1.55}
+.theory2-card .example{font-family:'JetBrains Mono',monospace;font-size:.8rem;color:#2a2a2a;background:#f5f3f0;padding:8px 12px;border-radius:6px}
+/* Theory3 pairs */
+.theory3-grid{display:grid;gap:14px;margin-bottom:24px}
+.theory3-pair{background:#fff;border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+.t3-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px}
+.t3-box{border-radius:6px;padding:10px 12px;font-size:.82rem;line-height:1.55}
+.t3-spoken{background:#fff3cd;border:1px solid #ffd96e}
+.t3-academic{background:#d4edda;border:1px solid #80c780}
+.t3-box .t3-lbl{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px;opacity:.65}
+.t3-change{font-size:.78rem;color:#555;background:#f5f3f0;border-radius:6px;padding:8px 12px;line-height:1.55}
+.theory3-insight{background:var(--ll);border:1px solid var(--lc);border-radius:8px;padding:14px 18px;margin-bottom:24px;font-size:.84rem;line-height:1.6;color:#333}
+.theory3-insight strong{color:var(--lc)}
+/* Theory4 cards */
+.theory4-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:24px}
+.theory4-card{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);border-top:4px solid var(--lc)}
+.theory4-card .t4-label{font-weight:800;font-size:.88rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;color:var(--lc)}
+.theory4-card .t4-desc{font-size:.81rem;color:#444;line-height:1.6;margin-bottom:10px}
+.theory4-card .t4-fix{font-size:.8rem;background:#f5f3f0;border-radius:6px;padding:10px 12px;color:#2a2a2a;line-height:1.6}
+.theory4-card .t4-fix::before{content:"✦ Apply: ";font-weight:700;color:var(--lc)}
+/* Spot the Error */
+.spot-item{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+.spot-num{font-size:.7rem;font-weight:700;color:var(--lc);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.spot-sentence{font-size:.92rem;line-height:1.65;margin-bottom:14px;color:#111}
+.spot-sentence .underline{text-decoration:underline;text-decoration-color:var(--lc);text-decoration-thickness:2px;font-weight:600;color:var(--lc)}
+.spot-choices{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.spot-choice{padding:7px 16px;border-radius:6px;border:1.5px solid #ddd;background:#fafaf8;font-size:.83rem;cursor:pointer;transition:all .18s;font-weight:500}
+.spot-choice:hover{border-color:var(--lc);background:var(--ll)}
+.spot-choice.correct{background:#d4edda;border-color:#28a745;color:#155724}
+.spot-choice.wrong{background:#f8d7da;border-color:#dc3545;color:#721c24}
+.spot-feedback{font-size:.8rem;border-radius:6px;padding:10px 14px;line-height:1.6;margin-top:6px;display:none}
+.spot-feedback.show{display:block}
+.spot-feedback.correct-fb{background:#d4edda;border:1px solid #c3e6cb;color:#155724}
+.spot-feedback.wrong-fb{background:#f8d7da;border:1px solid #f5c6cb;color:#721c24}
+.spot-tip{font-size:.78rem;background:#fff9e6;border:1px solid #ffd96e;border-radius:6px;padding:8px 12px;margin-top:8px;color:#5a4000}
+.spot-tip::before{content:"💡 Tip: ";font-weight:700}
+.calc-btn{margin-top:16px;background:var(--lc);color:#fff;border:none;border-radius:6px;padding:9px 22px;font-size:.85rem;font-weight:600;cursor:pointer;transition:background .18s}
+.calc-btn:hover{filter:brightness(1.12)}
+.score-box{margin-top:14px;padding:12px 16px;border-radius:8px;background:var(--ll);font-size:.88rem;font-weight:600;display:none}
+.score-box.show{display:block}
+/* Fill */
+.fill-item{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
+.fill-num{font-size:.7rem;font-weight:700;color:var(--lc);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.fill-template{font-size:.9rem;line-height:1.65;margin-bottom:12px;color:#111}
+.fill-base{display:inline-block;background:var(--ll);color:var(--lc);border-radius:4px;padding:2px 8px;font-size:.78rem;font-weight:600;font-family:'JetBrains Mono',monospace;margin-bottom:10px}
+.fill-row{display:flex;gap:10px;align-items:flex-start;flex-wrap:wrap}
+.fill-input{border:1.5px solid #ddd;border-radius:6px;padding:7px 12px;font-size:.88rem;font-family:'Inter',sans-serif;min-width:160px;outline:none;transition:border-color .18s}
+.fill-input:focus{border-color:var(--lc)}
+.fill-input.correct{border-color:#28a745;background:#d4edda}
+.fill-input.wrong{border-color:#dc3545;background:#f8d7da}
+.chk-btn{padding:7px 16px;border-radius:6px;border:1.5px solid var(--lc);background:var(--ll);color:var(--lc);font-size:.83rem;font-weight:600;cursor:pointer;transition:all .18s}
+.chk-btn:hover{background:var(--lc);color:#fff}
+.fill-fb{font-size:.8rem;border-radius:6px;padding:9px 13px;line-height:1.6;margin-top:8px;display:none}
+.fill-fb.show{display:block}
+.fill-fb.correct-fb{background:#d4edda;border:1px solid #c3e6cb;color:#155724}
+.fill-fb.wrong-fb{background:#f8d7da;border:1px solid #f5c6cb;color:#721c24}
+/* Transform */
+.transform-item{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:16px}
+.tr-num{font-size:.7rem;font-weight:700;color:var(--lc);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.tr-spoken{background:#fff9e6;border:1px solid #ffd96e;border-radius:6px;padding:10px 14px;font-size:.87rem;line-height:1.6;margin-bottom:10px;color:#3a3000}
+.tr-spoken::before{content:"Spoken: ";font-weight:700}
+.tr-hint-box{font-size:.78rem;color:#666;background:#f5f3f0;border-radius:6px;padding:7px 12px;margin-bottom:10px;font-family:'JetBrains Mono',monospace}
+.tr-hint-box::before{content:"Hint: ";font-weight:700;font-family:'Inter',sans-serif}
+.tr-textarea{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:10px 13px;font-size:.87rem;font-family:'Inter',sans-serif;min-height:80px;resize:vertical;outline:none;transition:border-color .18s;line-height:1.6}
+.tr-textarea:focus{border-color:var(--lc)}
+.tr-btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.tr-save-btn{padding:7px 16px;border-radius:6px;border:1.5px solid var(--lc);background:var(--ll);color:var(--lc);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .18s}
+.tr-save-btn:hover{background:var(--lc);color:#fff}
+.tr-reveal-btn{padding:7px 16px;border-radius:6px;border:1.5px solid #aaa;background:#f5f3f0;color:#555;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .18s}
+.tr-reveal-btn:hover{background:#e0ddd8}
+.tr-model{display:none;margin-top:12px;border-radius:8px;overflow:hidden}
+.tr-model.show{display:block}
+.tr-model-answer{background:#d4edda;border:1px solid #c3e6cb;padding:12px 14px;font-size:.85rem;line-height:1.6;color:#155724}
+.tr-model-answer::before{content:"Model answer: ";font-weight:700}
+.tr-model-meta{background:#f5f3f0;border:1px solid #e0ddd8;padding:10px 14px}
+.tr-key-change{font-size:.79rem;color:#444;margin-bottom:6px;line-height:1.55}
+.tr-key-change::before{content:"Key change: ";font-weight:700;color:#111}
+.tr-principle{font-size:.79rem;color:#5A1A8A;font-style:italic;line-height:1.55}
+.tr-principle::before{content:"Principle: ";font-weight:700;font-style:normal}
+/* Log */
+.log-item{background:#fff;border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);margin-bottom:14px}
+.log-num{font-size:.7rem;font-weight:700;color:var(--lc);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.log-prompt{font-size:.88rem;line-height:1.6;margin-bottom:12px;color:#222}
+.log-textarea{width:100%;border:1.5px solid #ddd;border-radius:6px;padding:10px 13px;font-size:.86rem;font-family:'Inter',sans-serif;min-height:90px;resize:vertical;outline:none;transition:border-color .18s;line-height:1.6}
+.log-textarea:focus{border-color:var(--lc)}
+.log-save-btn{margin-top:8px;padding:6px 16px;border-radius:6px;border:1.5px solid var(--lc);background:var(--ll);color:var(--lc);font-size:.82rem;font-weight:600;cursor:pointer;transition:all .18s}
+.log-save-btn:hover{background:var(--lc);color:#fff}
+.log-saved{font-size:.75rem;color:#28a745;margin-left:10px;display:none}
+.log-saved.show{display:inline}
+.log-save-all-btn{background:var(--lc);color:#fff;border:none;border-radius:6px;padding:9px 22px;font-size:.85rem;font-weight:600;cursor:pointer;margin-top:8px;transition:background .18s}
+.log-save-all-btn:hover{filter:brightness(1.12)}
+/* Rubric */
+.rubric-toggle{font-size:.78rem;color:var(--lc);cursor:pointer;font-weight:600;background:none;border:none;padding:4px 0;margin-top:16px;text-decoration:underline}
+.rubric-box{display:none;margin-top:10px;border:1px solid #e0ddd8;border-radius:8px;overflow:hidden}
+.rubric-box.show{display:block}
+.rubric-row{display:grid;grid-template-columns:1fr auto;align-items:start;gap:12px;padding:10px 14px;border-bottom:1px solid #f0ede8}
+.rubric-row:last-child{border-bottom:none}
+.rubric-row:nth-child(even){background:#fafaf8}
+.rubric-crit{font-size:.81rem;font-weight:600;color:#222;margin-bottom:2px}
+.rubric-desc{font-size:.77rem;color:#666;line-height:1.5}
+.rubric-max{background:var(--lc);color:#fff;border-radius:12px;padding:2px 9px;font-size:.75rem;font-weight:700;white-space:nowrap}
+/* Progress */
+.prog-bar-wrap{height:6px;background:#e0ddd8;border-radius:3px;margin-bottom:16px;overflow:hidden}
+.prog-bar{height:100%;background:var(--lc);border-radius:3px;transition:width .35s ease}
+.score-badge{display:inline-block;border-radius:6px;padding:3px 10px;font-size:.78rem;font-weight:700;margin-left:8px}
+.score-badge.good{background:#d4edda;color:#155724}
+.score-badge.mid{background:#fff3cd;color:#856404}
+.score-badge.low{background:#f8d7da;color:#721c24}
+@media(max-width:600px){
+  .t3-row{grid-template-columns:1fr}
+  header{flex-direction:column;text-align:center;gap:8px}
+  .hdr-right{justify-content:center}
+}
+</style>
+</head>
+<body>
+<header>
+  <span class="brand">Huong Stella Paradigm</span>
+  <div class="hdr-centre">
+    <div class="hdr-day">Day 5 · Interactive Practice</div>
+    <div class="hdr-sub">Quantifiers &amp; Comparison</div>
+  </div>
+  <div class="hdr-right">
+    <button class="dl-btn" onclick="handleDownload()">⬇ Download</button>
+  </div>
+</header>
+<nav id="lvTabs"></nav>
+<div id="secNav"></div>
+<main id="content"></main>
+
+<script>
+const DAY = 5;
+const THEME = "Quantifiers & Comparison";
+
+const RUBRICS = {
+  a2b1: {
+    spot: [
+      {criterion:"Identifies the incorrect quantifier",max:1,desc:"Selects the underlined error correctly"},
+      {criterion:"Understands countable vs uncountable distinction",max:1,desc:"Can explain why much/many/few/little is wrong"},
+      {criterion:"Applies correct replacement",max:1,desc:"Chooses the appropriate quantifier for the noun type"}
+    ],
+    fill: [
+      {criterion:"Correct quantifier selected",max:2,desc:"Chooses the right quantifier (much/many/few/little/a few/a little) for each gap"},
+      {criterion:"Noun type awareness",max:1,desc:"Demonstrates awareness of whether the noun is countable or uncountable"}
+    ],
+    log: [
+      {criterion:"Error identified and corrected",max:2,desc:"Finds a real error and applies the correct rule"},
+      {criterion:"Rule explained clearly",max:2,desc:"Articulates the countable/uncountable distinction in own words"},
+      {criterion:"Original sentences are accurate",max:2,desc:"Uses quantifiers correctly in self-generated examples"}
+    ]
+  },
+  b1b2: {
+    spot: [
+      {criterion:"Identifies the comparison error",max:1,desc:"Correctly pinpoints the error (double comparative, missing 'the', wrong form, etc.)"},
+      {criterion:"Selects the correct form",max:1,desc:"Provides the correct comparative or superlative"},
+      {criterion:"Demonstrates rule awareness",max:1,desc:"Distinguishes short vs long adjective rules and as...as structure"}
+    ],
+    fill: [
+      {criterion:"Correct comparative/superlative form",max:2,desc:"Produces the right form for short and long adjectives"},
+      {criterion:"Correct use of 'the' with superlatives",max:1,desc:"Does not omit the definite article before superlatives"}
+    ],
+    log: [
+      {criterion:"Error analysis is accurate",max:2,desc:"Correctly identifies and explains the comparison mistake"},
+      {criterion:"Forms recalled correctly",max:2,desc:"Comparative and superlative forms for irregular adjectives are correct"},
+      {criterion:"Comparison sentences are accurate and varied",max:2,desc:"Uses all three structures (comparative, superlative, as...as) correctly"}
+    ]
+  },
+  b2c1: {
+    spot: [
+      {criterion:"Identifies the quantifier/scope error",max:1,desc:"Correctly locates and names the error type"},
+      {criterion:"Provides an academically appropriate correction",max:2,desc:"The replacement is both grammatically correct and academically precise"},
+      {criterion:"Explains the principle",max:1,desc:"Articulates why the original phrasing is problematic in academic writing"}
+    ],
+    fill: [
+      {criterion:"Correct academic quantifier selected",max:2,desc:"Uses 'number of', 'majority of', 'relatively few', etc. correctly"},
+      {criterion:"Appropriate register maintained",max:1,desc:"Response is academic in tone, not colloquial"}
+    ],
+    transform: [
+      {criterion:"Quantifier upgraded accurately",max:2,desc:"Vague quantifier replaced with precise academic alternative"},
+      {criterion:"Hedging applied appropriately",max:1,desc:"Certainty is not overstated; hedging verbs and adverbs used where needed"},
+      {criterion:"Sentence is grammatically accurate",max:1,desc:"No grammatical errors introduced in the transformation"}
+    ],
+    log: [
+      {criterion:"Quantifier revision is well-motivated",max:2,desc:"Identifies a genuine improvement and applies correct academic form"},
+      {criterion:"Countable/uncountable rule applied to academic context",max:2,desc:"Explains 'number of' vs 'amount of' accurately"},
+      {criterion:"Original academic sentence is hedged and precise",max:2,desc:"Produces a qualified generalisation using appropriate academic quantifier"}
+    ]
+  },
+  c1c2: {
+    spot: [
+      {criterion:"Identifies the scope/epistemic error",max:1,desc:"Correctly names the logical or rhetorical problem"},
+      {criterion:"Provides a fully qualified correction",max:2,desc:"Replacement includes appropriate hedging and scope restriction"},
+      {criterion:"Explanation addresses discourse-level logic",max:1,desc:"Goes beyond grammar to discuss the argumentative implications"}
+    ],
+    fill: [
+      {criterion:"Correct academic term or form supplied",max:2,desc:"Identifies the precise lexical item required by academic convention"},
+      {criterion:"Demonstrates awareness of research design vocabulary",max:1,desc:"Terms like 'generalisability', 'internal validity', 'ecological validity' used correctly"}
+    ],
+    transform: [
+      {criterion:"Epistemic hedging is sophisticated and precise",max:2,desc:"Uses modal verbs, adverbs, and qualifiers at C2 level"},
+      {criterion:"Register is consistently academic",max:1,desc:"No colloquial language; all lexis is field-appropriate"},
+      {criterion:"Generalisability constraints are explicitly acknowledged",max:1,desc:"Scope of claims is clearly bounded in the transformed sentence"}
+    ],
+    log: [
+      {criterion:"Critical evaluation of source text is perceptive",max:2,desc:"Identifies specific hedging strategies or their absence with textual evidence"},
+      {criterion:"Distinction between validity and generalisability is accurate",max:2,desc:"Explanation is conceptually correct and well-illustrated"},
+      {criterion:"Self-generated claims show C2 precision",max:2,desc:"Annotated versions demonstrate mastery of epistemic hedging and scope qualification"}
+    ]
+  }
+};
+
+const LEVELS = {
+  a2b1: {
+    label:"A2–B1", color:"#2D6A4F", light:"#D8F3DC",
+    theme:"Quantifiers: much / many / few / little",
+    tagline:"Master the four core quantifiers by matching them to noun type.",
+    goal:"Today you will: (1) distinguish countable from uncountable nouns; (2) choose the correct quantifier (much, many, few, little, a few, a little); (3) spot and fix typical quantifier errors.",
+    time:"10–15 min",
+    sections:[
+      {
+        title:"Warm-Up: Quantifier Cards",
+        type:"theory",
+        cards:[
+          {
+            label:"MUCH",
+            badge:"uncountable",
+            color:"#2D6A4F",
+            examples:"I don’t have <b>much</b> time. | There isn’t <b>much</b> water in the bottle. | How <b>much</b> money do you need?",
+            rule:"Use <b>much</b> with <em>uncountable</em> nouns (nouns with no plural form: time, water, money, information, advice, traffic, furniture, homework). Mainly used in negatives and questions; in positive sentences, prefer ‘a lot of’."
+          },
+          {
+            label:"MANY",
+            badge:"countable plural",
+            color:"#1A6B3A",
+            examples:"There aren’t <b>many</b> seats left. | How <b>many</b> students are in your class? | <b>Many</b> people disagree.",
+            rule:"Use <b>many</b> with <em>countable plural</em> nouns (nouns you can count: seats, students, people, problems, books, countries). Works in negatives, questions, and positive sentences."
+          },
+          {
+            label:"A FEW vs FEW",
+            badge:"countable",
+            color:"#0D5C3E",
+            examples:"I have <b>a few</b> friends here. (= some — positive) | <b>Few</b> students passed the exam. (= not many — negative meaning)",
+            rule:"<b>A few</b> = a small number, enough — positive tone. <b>Few</b> = not many, not enough — negative tone. Both go with <em>countable plural</em> nouns only. Tip: the article ‘a’ makes it positive, just like ‘a’ adds hope."
+          },
+          {
+            label:"A LITTLE vs LITTLE",
+            badge:"uncountable",
+            color:"#145233",
+            examples:"She has <b>a little</b> money saved. (= some — positive) | <b>Little</b> time remains before the deadline. (= not much — negative meaning)",
+            rule:"<b>A little</b> = a small amount, enough — positive tone. <b>Little</b> = not much, not enough — negative tone. Both go with <em>uncountable</em> nouns only. Memory trick: ‘little’ matches ‘little hope’ — gloomy without the article."
+          }
+        ]
+      },
+      {
+        title:"Spot the Error",
+        type:"spot",
+        rubricKey:"spot",
+        items:[
+          {
+            sentence:"She doesn’t have many money to buy new clothes for the holiday.",
+            underlined:"many money",
+            wrongWord:"many money",
+            correctWord:"much money",
+            wrongType:"wrong quantifier (countable form with uncountable noun)",
+            correctType:"much + uncountable noun",
+            rule:"'Money' is an uncountable noun — it has no plural and you cannot count individual 'moneys'. Use 'much' with uncountable nouns, not 'many' (which requires countable plurals).",
+            tip:"Ask: Can I say 'one money, two moneys'? No → uncountable → use 'much'."
+          },
+          {
+            sentence:"I have few time to finish this report before my manager arrives.",
+            underlined:"few time",
+            wrongWord:"few time",
+            correctWord:"little time",
+            wrongType:"wrong quantifier (countable form with uncountable noun)",
+            correctType:"little + uncountable noun",
+            rule:"'Time' is uncountable. Use 'little' (negative meaning: not much) or 'a little' (positive: some) with uncountable nouns. 'Few' is reserved for countable plurals only.",
+            tip:"'Few friends' (you can count friends) vs 'little time' (you cannot count 'times'). If the noun has no plural, use little/a little."
+          },
+          {
+            sentence:"There are much options on the menu, so it is hard for me to decide.",
+            underlined:"much options",
+            wrongWord:"much options",
+            correctWord:"many options",
+            wrongType:"wrong quantifier (uncountable form with countable noun)",
+            correctType:"many + countable plural",
+            rule:"'Options' is a countable plural noun (one option, two options, three options). Use 'many' with countable plurals, not 'much' (which goes with uncountable nouns).",
+            tip:"If the noun wears an -s and you could number it, reach for 'many' not 'much'."
+          },
+          {
+            sentence:"Only a little students attended the morning lecture because of the heavy rain.",
+            underlined:"a little students",
+            wrongWord:"a little students",
+            correctWord:"a few students",
+            wrongType:"wrong quantifier (uncountable form with countable noun)",
+            correctType:"a few + countable plural",
+            rule:"'Students' is countable (one student, two students). Use 'a few' with countable plurals to express 'some'. 'A little' is reserved for uncountable nouns such as water, sugar, or patience.",
+            tip:"Count the noun in your head: one student, two students → countable → a few, not a little."
+          },
+          {
+            sentence:"We don’t have many furniture in our new apartment yet.",
+            underlined:"many furniture",
+            wrongWord:"many furniture",
+            correctWord:"much furniture",
+            wrongType:"wrong quantifier (countable form with uncountable noun)",
+            correctType:"much + uncountable noun",
+            rule:"'Furniture' is an uncountable noun in English — you cannot say 'one furniture' or 'furnitures'. Use 'much' (or 'a lot of' in positive sentences). This is a common error for Vietnamese speakers, who often treat it as countable.",
+            tip:"Memorise this list as a set: furniture, luggage, equipment, information, advice — all uncountable in English, never 'many'."
+          },
+          {
+            sentence:"He has little friends at his new school and spends most lunchtimes alone.",
+            underlined:"little friends",
+            wrongWord:"little friends",
+            correctWord:"few friends",
+            wrongType:"wrong quantifier (uncountable form with countable noun)",
+            correctType:"few + countable plural",
+            rule:"'Friends' is countable (one friend, two friends). Use 'few' to say 'not many' with countable nouns. 'Little' means 'not much' and only goes with uncountable nouns.",
+            tip:"Picture the noun: can it stand in a line and be counted? Friends can → 'few friends'. Water can't → 'little water'."
+          }
+        ]
+      },
+      {
+        title:"Fill in the Blank",
+        type:"fill",
+        rubricKey:"fill",
+        items:[
+          {
+            template:"We don’t have ___ time left before the presentation starts, so let’s begin.",
+            baseWord:"much / many",
+            answer:"much",
+            targetType:"uncountable quantifier",
+            hint:"much or many?",
+            explanation:"'Time' is uncountable (no plural: 'times' has a different meaning). Use 'much' in negative sentences with uncountable nouns."
+          },
+          {
+            template:"There are ___ new cafés in this neighbourhood — I can’t decide where to go!",
+            baseWord:"much / many",
+            answer:"many",
+            targetType:"countable quantifier",
+            hint:"much or many?",
+            explanation:"'Cafés' is a countable plural noun. Use 'many' with countable plurals."
+          },
+          {
+            template:"I only have ___ money left in my wallet — just enough for a bus ride home.",
+            baseWord:"a little / a few",
+            answer:"a little",
+            targetType:"uncountable positive quantifier",
+            hint:"a little or a few?",
+            explanation:"'Money' is uncountable. Use 'a little' (= some, positive meaning) with uncountable nouns."
+          },
+          {
+            template:"___ people came to the community meeting, so the organisers were disappointed.",
+            baseWord:"few / little",
+            answer:"Few",
+            targetType:"countable negative quantifier",
+            hint:"few or little?",
+            explanation:"'People' is countable. 'Few' (without 'a') means 'not many' — a negative meaning. It is used here to show disappointingly low attendance."
+          },
+          {
+            template:"She made ___ mistakes on the grammar test — she got almost everything right.",
+            baseWord:"few / little",
+            answer:"few",
+            targetType:"countable negative quantifier (positive context)",
+            hint:"few or little?",
+            explanation:"'Mistakes' is countable. 'Few mistakes' = not many mistakes — which is a compliment here. Notice how context determines whether 'few' sounds positive or negative."
+          }
+        ]
+      },
+      {
+        title:"Error Log",
+        type:"log",
+        rubricKey:"log",
+        prompts:[
+          "Record one mistake you made today with 'much', 'many', 'few', or 'little'. Write the wrong sentence, then write the corrected version and explain which rule you applied.",
+          "In your own words, explain: when do you use 'few' and when do you use 'little'? Give one original example of each.",
+          "Write two sentences about your daily life: one using 'much' or 'many', and one using 'a few' or 'a little'. Make sure they are grammatically correct."
+        ]
+      }
+    ]
+  },
+  b1b2: {
+    label:"B1+–B2", color:"#1A4A7A", light:"#D6E8F7",
+    theme:"Comparison Structures",
+    tagline:"Build accurate comparisons using comparative, superlative, and as…as forms.",
+    goal:"Today you will: (1) form comparatives and superlatives for short and long adjectives; (2) use as…as and not as…as correctly; (3) avoid the double-comparative and missing-article traps.",
+    time:"15–20 min",
+    sections:[
+      {
+        title:"Warm-Up: Comparison Groups",
+        type:"theory2",
+        groups:[
+          {
+            label:"Comparative Adjectives",
+            color:"#1A4A7A",
+            verbs:["faster","better","more important","more efficient","worse","further/farther"],
+            memory:"1 syllable → add -er (fast→faster). 3+ syllables → more + adjective (more important). 2 syllables: -y ending → -ier (easy→easier); others → more (more modern). NEVER double-up: 'more faster' is always wrong.",
+            example:"This algorithm is <b>more efficient</b> than the one we used last year."
+          },
+          {
+            label:"Superlative Adjectives",
+            color:"#0D3A6A",
+            verbs:["the fastest","the best","the most important","the most significant","the worst","the furthest"],
+            memory:"Superlatives ALWAYS need <b>the</b> before them — no exceptions. Add -est for short adjectives; use 'the most' for long ones. Irregular: good→the best, bad→the worst, far→the furthest.",
+            example:"Of all the methods tested, this produced <b>the most accurate</b> results."
+          },
+          {
+            label:"As…As Comparisons",
+            color:"#1E5A8A",
+            verbs:["as good as","not as reliable as","twice as fast as","just as important as","not as straightforward as"],
+            memory:"Structure: as + adjective + as. The adjective stays in BASE form — never comparative. Negative: 'not as…as' (NOT 'not so…than'). For multiples: 'twice as fast as', 'three times as expensive as'.",
+            example:"The results of the second trial were <b>not as conclusive as</b> those of the first."
+          }
+        ]
+      },
+      {
+        title:"Spot the Error",
+        type:"spot",
+        rubricKey:"spot",
+        items:[
+          {
+            sentence:"She is more smarter than her sister when it comes to solving maths problems.",
+            underlined:"more smarter",
+            wrongWord:"more smarter",
+            correctWord:"smarter",
+            wrongType:"double comparative",
+            correctType:"single comparative (-er)",
+            rule:"'Smart' is a one-syllable adjective — form the comparative by adding -er: 'smarter'. Using 'more' AND '-er' at the same time creates a double comparative, which is always wrong in standard English.",
+            tip:"Use either 'more' OR '-er', never both. If the adjective already ends in -er, delete 'more' immediately."
+          },
+          {
+            sentence:"This is the most best solution the engineering team has found so far.",
+            underlined:"most best",
+            wrongWord:"most best",
+            correctWord:"the best",
+            wrongType:"double superlative",
+            correctType:"irregular superlative (the best)",
+            rule:"'Best' is already the superlative of 'good'. Adding 'most' creates a double superlative. Irregular superlatives: good→better→the best; bad→worse→the worst; far→further→the furthest.",
+            tip:"Irregular forms are complete in themselves. If you can’t trace the -est ending on the word, you already have the superlative — don’t add 'most'."
+          },
+          {
+            sentence:"The new software update is as faster as the old version, so users see no difference.",
+            underlined:"as faster as",
+            wrongWord:"as faster as",
+            correctWord:"as fast as",
+            wrongType:"comparative form inside as...as",
+            correctType:"base adjective in as...as",
+            rule:"In an as…as structure, the adjective must be in its BASE form, not comparative. 'As fast as' (base) = equal speed. 'Faster than' (comparative) = one is quicker. Mixing them ('as faster as') breaks both constructions.",
+            tip:"Think of 'as…as' as a sandwich: the bread is 'as', the filling is the plain adjective. Never put a comparative inside the sandwich."
+          },
+          {
+            sentence:"John’s report was more better organised than his presentation from last month.",
+            underlined:"more better",
+            wrongWord:"more better",
+            correctWord:"better",
+            wrongType:"double comparative",
+            correctType:"irregular comparative (better)",
+            rule:"'Better' is already the comparative of 'good'. It needs no 'more'. This is a double comparative — one of the most common errors among intermediate learners.",
+            tip:"Test: remove 'more'. Does the sentence still make sense? If yes, 'more' was unnecessary and wrong."
+          },
+          {
+            sentence:"Of all the candidates we interviewed, she is more experienced and confident.",
+            underlined:"more experienced",
+            wrongWord:"more experienced",
+            correctWord:"the most experienced",
+            wrongType:"comparative used instead of superlative",
+            correctType:"superlative (the most + adjective)",
+            rule:"When comparing three or more things (signalled by 'of all…'), use the superlative, not the comparative. 'More experienced' compares two items. 'The most experienced' compares within a group of three or more.",
+            tip:"'Of all' and 'among all' are superlative triggers. Whenever you see them, switch to 'the most…' or '-est'."
+          },
+          {
+            sentence:"The weather in Hanoi is not as cold than in Sa Pa during the winter months.",
+            underlined:"as cold than",
+            wrongWord:"cold than",
+            correctWord:"cold as",
+            wrongType:"wrong connector in as...as",
+            correctType:"as...as (not as...than)",
+            rule:"The as…as structure requires 'as' on both sides: 'not as cold <em>as</em>'. Using 'than' breaks the structure; 'than' belongs to comparative forms ('colder than'), not as…as.",
+            tip:"Pair as…as like bookends: whatever opens the comparison ('as') must also close it ('as'), never 'than'."
+          }
+        ]
+      },
+      {
+        title:"Fill in the Blank",
+        type:"fill",
+        rubricKey:"fill",
+        items:[
+          {
+            template:"The Mekong Delta is ___ river delta in Southeast Asia in terms of agricultural output. (large)",
+            baseWord:"large",
+            answer:"the largest",
+            targetType:"superlative",
+            hint:"superlative form of 'large'",
+            explanation:"'Large' is a one-syllable adjective ending in -e: add -st → 'largest'. Superlatives always take 'the'. 'The largest' when comparing within a group (all river deltas)."
+          },
+          {
+            template:"This revised edition of the textbook is ___ to understand than the previous one. (easy)",
+            baseWord:"easy",
+            answer:"easier",
+            targetType:"comparative (-y → -ier)",
+            hint:"comparative of 'easy'",
+            explanation:"'Easy' ends in -y preceded by a consonant: change y → i and add -er → 'easier'. No 'more' needed — 'more easier' would be a double comparative."
+          },
+          {
+            template:"The café near my office is not ___ the one in the city centre. (expensive)",
+            baseWord:"as...as / expensive",
+            answer:"as expensive as",
+            targetType:"negative equal comparison (as...as)",
+            hint:"not as ___ as",
+            explanation:"'Not as…as' expresses that two things are unequal, with the first being less. The adjective stays in base form between the two 'as' markers: 'as expensive as'."
+          },
+          {
+            template:"Electric vehicles are becoming ___ petrol cars in cities across Europe. (popular)",
+            baseWord:"popular",
+            answer:"more popular than",
+            targetType:"comparative (3-syllable adjective)",
+            hint:"more ___ than",
+            explanation:"'Popular' has 3 syllables — use 'more' for the comparative, not '-er'. The comparative is always followed by 'than' when the second element is mentioned."
+          },
+          {
+            template:"Of all the strategies proposed, the mentoring programme produced ___ outcomes. (significant)",
+            baseWord:"significant",
+            answer:"the most significant",
+            targetType:"superlative (long adjective)",
+            hint:"the most ___",
+            explanation:"'Significant' (4 syllables) uses 'the most' for the superlative. 'Of all…' signals a group comparison, requiring the superlative, not the comparative."
+          }
+        ]
+      },
+      {
+        title:"Error Log",
+        type:"log",
+        rubricKey:"log",
+        prompts:[
+          "Write down one comparison error you made in today's exercises. Rewrite the sentence correctly and explain which rule you applied (double comparative? missing 'the'? wrong form for syllable count?).",
+          "Without looking at your notes, write the comparative AND superlative of these five adjectives: good, bad, far, beautiful, fast. Then check your answers against the Warm-Up.",
+          "Write three sentences comparing two things you know well (two cities, two courses, two phones). Use: (1) a comparative adjective, (2) a superlative adjective, (3) an as…as structure."
+        ]
+      }
+    ]
+  },
+  b2c1: {
+    label:"B2+–C1", color:"#5A1A8A", light:"#EAD6F7",
+    theme:"Academic Quantifiers & Generalisations",
+    tagline:"Replace vague, informal quantifiers with precise, hedged academic expressions.",
+    goal:"Today you will: (1) distinguish countable vs uncountable quantifiers in academic writing; (2) choose between 'number of', 'amount of', 'proportion of', and other academic quantifiers; (3) hedge generalisations appropriately.",
+    time:"20–25 min",
+    sections:[
+      {
+        title:"Warm-Up: From Spoken to Academic",
+        type:"theory3",
+        pairs:[
+          {
+            spoken:"Most people think that social media is making teenagers more anxious.",
+            academic:"The majority of respondents indicated that social media use is associated with heightened anxiety among adolescents.",
+            change:"'Most people' → 'The majority of respondents' (specifies the group); 'think that' → 'indicated that' (reporting verb adds evidential precision); 'making more anxious' → 'associated with heightened anxiety' (hedges causation; nominalises adjective)."
+          },
+          {
+            spoken:"There are a lot of studies that show stress affects your health.",
+            academic:"A considerable body of research demonstrates a link between psychological stress and adverse health outcomes.",
+            change:"'A lot of studies' → 'A considerable body of research' (academic collective noun + evaluative modifier); 'show' → 'demonstrates' (stronger academic reporting verb); 'your health' → 'adverse health outcomes' (technical, impersonal nominalisation)."
+          },
+          {
+            spoken:"Not many countries have done this kind of policy before.",
+            academic:"Relatively few nations have implemented comparable policy measures, limiting the available comparative evidence.",
+            change:"'Not many' → 'Relatively few' (hedged quantifier signals awareness of proportionality); 'done this' → 'implemented comparable policy measures' (precise verb + noun phrase); added a consequence clause to contextualise the scarcity."
+          }
+        ],
+        insight:"In academic writing, vague spoken quantifiers (a lot of, most, not many) are replaced with hedged, specific, or proportional expressions. This signals to the reader that you are aware of the limits of your evidence and are not overclaiming."
+      },
+      {
+        title:"Spot the Error",
+        type:"spot",
+        rubricKey:"spot",
+        items:[
+          {
+            sentence:"Much of scholars have argued that globalisation inevitably increases economic inequality.",
+            underlined:"Much of scholars",
+            wrongWord:"Much of scholars",
+            correctWord:"Many scholars",
+            wrongType:"wrong quantifier (uncountable with countable noun)",
+            correctType:"many + countable plural",
+            rule:"'Scholars' is countable (one scholar, two scholars). Use 'many' with countable nouns. 'Much of' is reserved for uncountable nouns or noun phrases with a determiner: 'much of the literature' (correct) vs 'much of scholars' (wrong).",
+            tip:"'Much of' needs a specific noun phrase with 'the': 'much of the research', 'much of the data'. Without 'the', switch to 'many'."
+          },
+          {
+            sentence:"The majority of the evidence clearly proves that climate change is primarily human-caused.",
+            underlined:"clearly proves",
+            wrongWord:"clearly proves",
+            correctWord:"strongly suggests",
+            wrongType:"epistemic overreach (overclaimed certainty)",
+            correctType:"hedged reporting verb (suggests / indicates)",
+            rule:"In academic writing, 'proves' is rarely appropriate unless the claim is logically or mathematically certain. Use hedged verbs such as 'suggests', 'indicates', 'demonstrates', or 'provides evidence that'. 'Clearly' amplifies the overreach — replace or remove it.",
+            tip:"Ask: could a reasonable researcher contest this? If yes, hedge. 'Proves' = 100% certain. Science almost never is."
+          },
+          {
+            sentence:"All researches show a positive correlation between regular exercise and improved mental health.",
+            underlined:"All researches",
+            wrongWord:"researches",
+            correctWord:"research",
+            wrongType:"false plural of uncountable noun",
+            correctType:"uncountable mass noun (no plural)",
+            rule:"'Research' is an uncountable noun in academic English — it has no plural form. You cannot write 'researches' (except in rare archaic usage). Write 'All research shows…' or, better, 'The available research suggests…'.",
+            tip:"Words that don't pluralise: research, evidence, knowledge, feedback, information, equipment. If you feel the urge to add -s, stop and check."
+          },
+          {
+            sentence:"A large amount of students reported feeling significantly stressed during the examination period.",
+            underlined:"amount of students",
+            wrongWord:"amount of students",
+            correctWord:"number of students",
+            wrongType:"wrong quantifier (amount with countable noun)",
+            correctType:"number of + countable plural",
+            rule:"'Amount of' collocates with uncountable nouns (an amount of money, an amount of data). 'Number of' collocates with countable plurals (a number of students, a number of studies). This is one of the most frequent academic writing errors.",
+            tip:"Swap test: can you replace the noun with 'money'? Use 'amount'. Can you replace it with 'people'? Use 'number'."
+          },
+          {
+            sentence:"There is few evidence to support the hypothesis that bilingualism delays cognitive decline.",
+            underlined:"few evidence",
+            wrongWord:"few evidence",
+            correctWord:"little evidence",
+            wrongType:"wrong quantifier (countable form with uncountable noun)",
+            correctType:"little + uncountable noun",
+            rule:"'Evidence' is an uncountable noun. Use 'little' (negative: not much) or 'some' with uncountable nouns. 'Few' is reserved for countable plurals. 'There is little evidence' is correct and common in academic writing.",
+            tip:"Diagnose the noun: can you write 'one evidence, two evidences'? No → uncountable → little, not few."
+          },
+          {
+            sentence:"Most of the population believes that taxes are too high, which proves the policy has failed.",
+            underlined:"proves the policy has failed",
+            wrongWord:"proves",
+            correctWord:"suggests",
+            wrongType:"unwarranted causal inference from survey data",
+            correctType:"hedged reporting verb (suggests / indicates)",
+            rule:"Public opinion data tells us what people believe, not what is objectively true. Drawing a factual conclusion ('proves the policy has failed') from belief data is a logical leap. Use 'suggests', 'may indicate', or 'lends weight to the view that'.",
+            tip:"Survey data → reports beliefs. Academic writing → hedges the gap between belief and fact. 'Proves' jumps the gap illegally."
+          }
+        ]
+      },
+      {
+        title:"Fill in the Blank",
+        type:"fill",
+        rubricKey:"fill",
+        items:[
+          {
+            template:"A ___ of longitudinal studies have examined the relationship between diet and cognitive decline.",
+            baseWord:"number / amount",
+            answer:"number",
+            targetType:"number of + countable noun",
+            hint:"number or amount?",
+            explanation:"'Studies' is countable. Use 'a number of' with countable plurals. 'An amount of studies' is incorrect because 'amount of' collocates only with uncountable nouns."
+          },
+          {
+            template:"The ___ of available evidence suggests that dietary habits influence long-term cognitive performance.",
+            baseWord:"majority / minority",
+            answer:"majority",
+            targetType:"proportional academic quantifier",
+            hint:"majority or minority?",
+            explanation:"'The majority of evidence' = most of the evidence — a hedged way to assert a prevailing pattern without claiming that every piece of evidence agrees. 'Majority' collocates with both countable and uncountable nouns preceded by 'of'."
+          },
+          {
+            template:"Relatively ___ longitudinal studies have tracked participants for more than a decade.",
+            baseWord:"few / little",
+            answer:"few",
+            targetType:"negative academic quantifier + countable noun",
+            hint:"few or little?",
+            explanation:"'Studies' is countable. 'Relatively few' means 'not many, proportionally speaking'. The adverb 'relatively' hedges the claim by signalling that the scarcity is contextual, not absolute."
+          },
+          {
+            template:"The findings are applicable to ___ contexts where formal regulatory institutions remain weak.",
+            baseWord:"a range of / much",
+            answer:"a range of",
+            targetType:"scope qualifier (academic)",
+            hint:"a range of / much",
+            explanation:"'A range of' specifies applicability across several contexts without overclaiming universality. 'Much' does not collocate with countable 'contexts'. 'A range of' is preferred over 'many' in formal academic writing."
+          },
+          {
+            template:"There is ___ evidence to suggest a causal link between prolonged screen time and disrupted sleep.",
+            baseWord:"growing / grow",
+            answer:"growing",
+            targetType:"academic adjective collocation",
+            hint:"adjective form of 'grow'",
+            explanation:"'Growing evidence' is a fixed academic collocation meaning 'an accumulating body of evidence'. It is the participial adjective 'growing', not the verb. Other collocations: 'mounting evidence', 'emerging evidence', 'compelling evidence'."
+          }
+        ]
+      },
+      {
+        title:"Transform: Spoken → Academic",
+        type:"transform",
+        rubricKey:"transform",
+        items:[
+          {
+            spoken:"A lot of research has been done on this, and it seems to show that stress affects your health.",
+            hint:"a considerable body of research / suggest / demonstrable link / psychological stress / adverse health outcomes",
+            answer:"A considerable body of research suggests a demonstrable link between psychological stress and adverse health outcomes.",
+            keyChange:"'A lot of research' → 'A considerable body of research' (academic collective noun); 'seems to show' → 'suggests' (single hedged verb replaces wordy phrase); 'your health' → 'adverse health outcomes' (impersonal nominalisation).",
+            principle:"Academic writing replaces vague, spoken-register quantifiers with precise collective noun phrases and uses single hedged reporting verbs instead of multi-word hedges."
+          },
+          {
+            spoken:"Not many people in rural areas have access to good healthcare, and this is a big problem.",
+            hint:"a relatively small proportion / rural populations / access to adequate healthcare / constitute a significant challenge",
+            answer:"A relatively small proportion of rural populations have access to adequate healthcare, a situation that constitutes a significant policy challenge.",
+            keyChange:"'Not many people in rural areas' → 'A relatively small proportion of rural populations' (proportional quantifier + academic noun); 'a big problem' → 'a significant policy challenge' (domain-qualified noun replaces vague evaluative).",
+            principle:"Scope must be specified (which people? what region?); value judgements are replaced with domain-specific evaluative nouns that carry more analytical weight."
+          },
+          {
+            spoken:"Most countries that tried this policy had good results, so it must be a good policy.",
+            hint:"the majority of / have implemented / yielded positive outcomes / tentatively suggest / broader applicability / cross-national variation",
+            answer:"The majority of countries that have implemented this policy have yielded positive outcomes; this pattern tentatively suggests broader applicability, though cross-national variation warrants further investigation.",
+            keyChange:"'Most' → 'The majority of'; 'had good results' → 'yielded positive outcomes'; 'must be a good policy' → 'tentatively suggests broader applicability' + caveat clause. The logical leap from correlation to endorsement is removed.",
+            principle:"Generalisability claims require epistemic hedging ('tentatively suggests') and explicit acknowledgement of limiting factors (cross-national variation), not confident prescriptions ('must be')."
+          }
+        ]
+      },
+      {
+        title:"Error Log",
+        type:"log",
+        rubricKey:"log",
+        prompts:[
+          "Find one instance in your own recent writing where you used a vague quantifier (e.g., many, a lot of, most). Rewrite the sentence with a more precise academic quantifier and explain your choice.",
+          "Explain the difference between 'a number of' and 'an amount of'. Why do learners confuse these? Write one correct academic sentence using each.",
+          "Write an academic sentence making a qualified generalisation about a topic in your field. Use a hedged quantifier (e.g., 'the majority of', 'a considerable proportion of', 'relatively few') and include an appropriate hedging verb."
+        ]
+      }
+    ]
+  },
+  c1c2: {
+    label:"C1+–C2", color:"#8B1A1A", light:"#F5DADA",
+    theme:"Qualifying Scope & Generalisability",
+    tagline:"Master the epistemic and rhetorical tools that separate defensible academic claims from overreach.",
+    goal:"Today you will: (1) identify and correct logical overreach in quantified claims; (2) apply scope-qualifying language with precision; (3) evaluate the generalisability of research findings using academic conventions.",
+    time:"20–25 min",
+    sections:[
+      {
+        title:"Warm-Up: Advanced Strategy Cards",
+        type:"theory4",
+        cards:[
+          {
+            label:"Scope Qualification",
+            color:"#8B1A1A",
+            desc:"Unqualified generalisations ('all studies show', 'every expert agrees') are logically untenable and academically indefensible. Even well-supported claims must be bounded by the evidence base. Scope qualification signals critical awareness and protects your argument from easy refutation.",
+            fix:"Replace 'All research shows X leads to Y' with: 'The preponderance of empirical evidence suggests a robust association between X and Y, at least within the populations studied to date.' Note the hedge verb, scope restriction, and temporal qualifier."
+          },
+          {
+            label:"Proportional Quantification",
+            color:"#7B0A0A",
+            desc:"'Many', 'few', and 'most' are logically empty without a reference class. Academic writing anchors quantities proportionally and, where possible, numerically. Saying 'many participants disagreed' tells the reader nothing about the actual distribution.",
+            fix:"Instead of 'Many participants disagreed', write: 'Approximately 62% of participants (n=248) expressed disagreement with the proposed intervention, compared with 31% who were broadly supportive.' Numerical precision eliminates interpretive ambiguity."
+          },
+          {
+            label:"Hedged Universality",
+            color:"#6B1515",
+            desc:"Even apparently universal empirical regularities require epistemic hedging — reality may produce counter-examples not yet documented in the literature. Presenting universal patterns as absolute laws exposes the writer to immediate falsification. The history of science is a graveyard of 'always' and 'never'.",
+            fix:"Instead of 'This always leads to conflict', write: 'This dynamic has, in the substantial majority of documented cases, been associated with heightened inter-group conflict, though context-specific factors may moderate this relationship.' The hedge does not weaken the claim; it makes it academically robust."
+          },
+          {
+            label:"Generalisability Claims",
+            color:"#5B1010",
+            desc:"Transferring findings beyond the study’s sample requires explicit methodological justification. Asserting broad applicability without warrant is a category error: the study may have high internal validity while remaining entirely non-generalisable. Failure to acknowledge this is a common logical fallacy in weak academic writing.",
+            fix:"Add explicit scope constraints: 'Within the constraints of the present sample (n=120, undergraduate students, single institution), these findings suggest… Replication across demographically diverse populations would be required before broader generalisability could be claimed.' This pre-empts reviewer criticism and demonstrates methodological literacy."
+          }
+        ]
+      },
+      {
+        title:"Spot the Error",
+        type:"spot",
+        rubricKey:"spot",
+        items:[
+          {
+            sentence:"The findings of this study can be generalised to all populations worldwide without reservation.",
+            underlined:"can be generalised to all populations worldwide without reservation",
+            wrongWord:"can be generalised to all populations worldwide without reservation",
+            correctWord:"may be cautiously extrapolated to comparable populations, subject to further validation",
+            wrongType:"unwarranted universal generalisability claim",
+            correctType:"hedged, conditionally bounded generalisability statement",
+            rule:"No single study can legitimately claim universal generalisability. The phrasing must acknowledge the sample’s constraints and signal that replication is needed. 'Without reservation' removes all epistemic caution — unacceptable in peer-reviewed academic writing.",
+            tip:"Ask: what is the n? who is the sample? what context? Every limitation on those three is a limitation on generalisability. Map the gap before claiming the transfer."
+          },
+          {
+            sentence:"Invariably, higher levels of formal education lead to greater social mobility across all societies.",
+            underlined:"Invariably",
+            wrongWord:"Invariably",
+            correctWord:"In the majority of documented cases",
+            wrongType:"unhedged universal adverb",
+            correctType:"proportionally hedged scope qualifier",
+            rule:"'Invariably' means 'in every single case, without exception' — a universal claim that is empirically indefensible across diverse societies with vastly different structural conditions. Replace with proportional qualifiers that acknowledge variation: 'typically', 'in the majority of documented cases', 'across most high-income contexts'.",
+            tip:"Universals are falsified by a single counter-example. Before writing 'always', 'invariably', 'never', or 'all', ask: can I guarantee this holds in every conceivable context? If not, hedge."
+          },
+          {
+            sentence:"These results prove conclusively that early-age bilingual instruction is effective for all learners.",
+            underlined:"prove conclusively",
+            wrongWord:"prove conclusively",
+            correctWord:"provide compelling evidence that",
+            wrongType:"epistemic overreach (overcertification of claim)",
+            correctType:"evidential reporting phrase with hedge",
+            rule:"'Prove conclusively' is almost never appropriate in empirical social science. Studies provide evidence; they do not 'prove' in the logical/mathematical sense. 'Conclusively' compounds the overreach by eliminating all doubt. Use evidential phrases: 'provide strong/compelling/preliminary evidence that'.",
+            tip:"Substitute 'provide evidence that' for 'prove'. If the sentence still works, you’ve likely hedged correctly. 'Prove' should survive only when the logic is deductive and airtight."
+          },
+          {
+            sentence:"The amount of variables that affect this outcome are too numerous to control for adequately.",
+            underlined:"amount of variables… are",
+            wrongWord:"amount of variables",
+            correctWord:"number of variables",
+            wrongType:"wrong quantifier (amount with countable noun) + subject-verb disagreement",
+            correctType:"number of + countable plural + singular verb",
+            rule:"'Variables' is countable — use 'the number of variables'. 'The number of…' takes a singular verb: 'the number of variables IS too large'. (By contrast: 'A number of variables ARE influential' — 'a number of' takes a plural verb.) This double error (wrong quantifier + wrong verb) is common at C1 level.",
+            tip:"'The number of X is…' (singular) vs 'A number of Xs are…' (plural). 'The number' focuses on the count itself; 'a number' introduces the items."
+          },
+          {
+            sentence:"As the data clearly shows, income inequality has risen sharply in virtually every nation since 1990.",
+            underlined:"clearly shows",
+            wrongWord:"clearly shows",
+            correctWord:"suggests",
+            wrongType:"overclaiming certainty from aggregate data",
+            correctType:"hedged reporting verb",
+            rule:"Data does not 'show' or 'clearly show' facts — it provides evidence from which inferences are drawn. The adverb 'clearly' pre-empts legitimate counter-interpretation, which is epistemically dishonest. Use 'suggests', 'indicates', or 'points to' to maintain appropriate hedging.",
+            tip:"Replace 'the data shows X' with 'the data suggest X' (note: 'data' is plural in formal academic English — 'data suggest', not 'data suggests')."
+          },
+          {
+            sentence:"A majority of researches in this field support the theoretical framework proposed by Chen (2019).",
+            underlined:"researches",
+            wrongWord:"researches",
+            correctWord:"research studies",
+            wrongType:"false plural of uncountable noun",
+            correctType:"uncountable noun + countable head noun",
+            rule:"'Research' is uncountable and has no plural. Write 'research' (mass noun) or, when you want to count individual pieces, 'research studies', 'research papers', or 'investigations'. 'Researches' is not used as a noun in modern academic English (it exists only as a third-person singular verb: 'She researches…').",
+            tip:"If you mean 'multiple pieces of research', write 'studies', 'investigations', or 'papers'. The noun 'research' itself never takes -s."
+          }
+        ]
+      },
+      {
+        title:"Fill in the Blank",
+        type:"fill",
+        rubricKey:"fill",
+        items:[
+          {
+            template:"The authors acknowledge that their sample size may limit the ___ of the findings to broader populations.",
+            baseWord:"general",
+            answer:"generalisability",
+            targetType:"nominalisation (general → generalisability)",
+            hint:"noun form denoting 'how far findings can be applied'",
+            explanation:"'Generalisability' is the standard academic noun for the degree to which findings can be transferred to other contexts. Formed: general → generalise → generalisability. Not 'generality' (a different meaning) or 'generalization' (American spelling, acceptable but less common in British academic English)."
+          },
+          {
+            template:"A statistically significant correlation does not ___ establish a causal relationship between the variables.",
+            baseWord:"necessary",
+            answer:"necessarily",
+            targetType:"epistemic adverb",
+            hint:"adverb form of 'necessary'",
+            explanation:"'Necessarily' is the epistemic adverb that prevents logical overreach: 'does not necessarily' = 'this does not automatically or inevitably follow'. It is a critical hedge when moving from correlation to causation, two of the most commonly conflated concepts in empirical writing."
+          },
+          {
+            template:"The ___ of this intervention approach varies considerably depending on the socioeconomic context.",
+            baseWord:"effect",
+            answer:"effectiveness",
+            targetType:"nominalisation (adjective → noun)",
+            hint:"noun: the quality of producing desired results",
+            explanation:"'Effectiveness' (noun) = the quality of being effective. Not 'effect' (which means 'result' or 'impact') nor 'effectivity' (non-standard). The nominalisations 'efficacy' and 'effectiveness' are near-synonyms in academic writing, with 'efficacy' often used in clinical/experimental contexts."
+          },
+          {
+            template:"These results ___ with findings reported in comparable studies conducted across Nordic welfare states.",
+            baseWord:"accord",
+            answer:"accord",
+            targetType:"academic verb of alignment (accord with)",
+            hint:"verb: to be consistent or in agreement with",
+            explanation:"'Accord with' = to be consistent with, to align with. It is a more precise academic alternative to 'match' or 'fit'. Fixed collocation: 'These results accord with…' or 'This is in accordance with…'. Do not confuse with 'afford' (to provide) or 'record' (to document)."
+          },
+          {
+            template:"The experimental design has high ___ validity but limited ecological validity in real-world, naturalistic settings.",
+            baseWord:"internal / external",
+            answer:"internal",
+            targetType:"research design term",
+            hint:"internal or external?",
+            explanation:"'Internal validity' = the rigour of the study design; the degree to which observed effects can be attributed to the independent variable rather than confounds. 'Ecological validity' = how well findings reflect real-world conditions. A highly controlled experiment may have high internal validity but low ecological validity — a classic trade-off."
+          }
+        ]
+      },
+      {
+        title:"Transform: Weak → Academically Defensible",
+        type:"transform",
+        rubricKey:"transform",
+        items:[
+          {
+            spoken:"The study found that most teenagers use social media too much, and this is causing mental health problems.",
+            hint:"a substantial proportion / adolescents / excessive social media use / associated with / adverse effects on psychological wellbeing / what the authors characterise as",
+            answer:"The study found that a substantial proportion of adolescents engage in what the authors characterise as excessive social media use, a pattern that has been associated with adverse effects on psychological wellbeing.",
+            keyChange:"Added authorial attribution ('what the authors characterise as') to avoid adopting their evaluative label uncritically; 'causing' → 'associated with' (hedges causation); 'teenagers' → 'adolescents'; 'mental health problems' → 'adverse effects on psychological wellbeing' (precise, impersonal).",
+            principle:"Causal claims ('causing') require hedging as associations ('associated with') unless a controlled experimental design has established mechanism. Attribution phrases signal critical distance from the source."
+          },
+          {
+            spoken:"All the evidence shows that early childhood education is very important for development.",
+            hint:"the preponderance of / available evidence / indicates / formative role / cognitive and socio-emotional development",
+            answer:"The preponderance of available evidence indicates that early childhood education plays a formative role in both cognitive and socio-emotional development.",
+            keyChange:"'All the evidence shows' → 'The preponderance of available evidence indicates' (quantifier qualified; 'available' acknowledges evidence may be incomplete; verb hedged). 'Very important' → 'formative role' (precise, domain-appropriate; avoids vague intensifier).",
+            principle:"'Preponderance of' is the academically preferred way to assert a dominant evidential pattern without claiming unanimity. 'All evidence' is logically indefensible unless you have surveyed every study ever conducted."
+          },
+          {
+            spoken:"These findings can be used in other countries because this problem exists everywhere.",
+            hint:"may be cautiously extrapolated / countries sharing comparable socioeconomic conditions / apparent ubiquity / lends some support / broader transferability / warrants",
+            answer:"These findings may be cautiously extrapolated to countries sharing comparable socioeconomic conditions; the apparent ubiquity of the phenomenon lends some support to the claim of broader transferability, though systematic cross-national replication would be required to substantiate this.",
+            keyChange:"'Can be used' → 'may be cautiously extrapolated' (modal hedge + epistemic adverb + precise academic verb); 'this problem exists everywhere' → 'apparent ubiquity of the phenomenon' (nominalisation + epistemic modifier 'apparent'); replication caveat added explicitly.",
+            principle:"Generalisability requires (a) conditional framing (similar contexts), (b) epistemic hedging ('may', 'cautiously'), and (c) an explicit acknowledgement that replication is the proper mechanism for validating transfer claims."
+          }
+        ]
+      },
+      {
+        title:"Error Log",
+        type:"log",
+        rubricKey:"log",
+        prompts:[
+          "Find a generalisation in a recent academic text you have read. Evaluate it: does the author adequately qualify the scope of the claim? Identify the specific hedging devices they use (or fail to use) and quote the relevant sentence.",
+          "Explain in your own words the distinction between 'internal validity' and 'generalisability' in empirical research. How do these two concepts constrain the kinds of quantitative claims an author can defensibly make?",
+          "Draft two versions of a claim relevant to your own field or research: (1) an unhedged, logically overreaching version; (2) a fully qualified, academically defensible version. Annotate the specific changes you made and the rhetorical or epistemic principle behind each change."
+        ]
+      }
+    ]
+  }
+};
+
+
+let AL = 'a2b1', AS = 0;
+const ST = {choices:{}, inputs:{}, checked:{}, logs:{}};
+
+function init() {
+  document.title = 'Daily Drills 5';
+  buildLvTabs();
+  applyLevel();
+}
+
+function buildLvTabs() {
+  const nav = document.getElementById('lvTabs');
+  nav.innerHTML = '';
+  Object.keys(LEVELS).forEach(k => {
+    const btn = document.createElement('button');
+    btn.className = 'lv-tab' + (k === AL ? ' active' : '');
+    btn.textContent = LEVELS[k].label;
+    btn.style.setProperty('--lc', LEVELS[k].color);
+    btn.onclick = () => switchLv(k);
+    nav.appendChild(btn);
+  });
+}
+
+function switchLv(lv) {
+  AL = lv; AS = 0;
+  document.querySelectorAll('.lv-tab').forEach((b,i) => {
+    b.classList.toggle('active', Object.keys(LEVELS)[i] === lv);
+  });
+  applyLevel();
+}
+
+function applyLevel() {
+  const lv = LEVELS[AL];
+  document.documentElement.style.setProperty('--lc', lv.color);
+  document.documentElement.style.setProperty('--ll', lv.light);
+  buildSecNav();
+  renderSec();
+}
+
+function buildSecNav() {
+  const lv = LEVELS[AL];
+  const nav = document.getElementById('secNav');
+  nav.innerHTML = '';
+  lv.sections.forEach((sec, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'sec-btn' + (i === AS ? ' active' : '');
+    btn.textContent = (i+1) + '. ' + sec.title;
+    btn.onclick = () => navSec(i);
+    nav.appendChild(btn);
+  });
+}
+
+function navSec(i) {
+  AS = i;
+  document.querySelectorAll('.sec-btn').forEach((b,j) => b.classList.toggle('active', j===i));
+  renderSec();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderSec() {
+  const lv = LEVELS[AL];
+  const sec = lv.sections[AS];
+  const el = document.getElementById('content');
+  let html = '';
+  if (AS === 0) {
+    html += `<div class="level-banner">
+      <h2>${esc(lv.label)} — ${esc(lv.theme)}</h2>
+      <div class="tagline">${esc(lv.tagline)}</div>
+      <div class="goal">${esc(lv.goal)}</div>
+      <span class="time-badge">⏱ ${esc(lv.time)}</span>
+    </div>`;
+  }
+  html += `<div class="sec-header"><div class="sec-title">${esc(sec.title)}</div></div>`;
+  if (sec.type === 'theory') html += rTheory(sec);
+  else if (sec.type === 'theory2') html += rTheory2(sec);
+  else if (sec.type === 'theory3') html += rTheory3(sec);
+  else if (sec.type === 'theory4') html += rTheory4(sec);
+  else if (sec.type === 'spot') html += rSpot(sec);
+  else if (sec.type === 'fill') html += rFill(sec);
+  else if (sec.type === 'transform') html += rTransform(sec);
+  else if (sec.type === 'log') html += rLog(sec);
+  el.innerHTML = html;
+}
+
+function rTheory(sec) {
+  return `<div class="theory-grid">${sec.cards.map(c => `
+    <div class="theory-card" style="border-top-color:${c.color}">
+      <div class="tc-head">
+        <span class="tc-label">${esc(c.label)}</span>
+        ${badge(c.badge, c.color)}
+      </div>
+      <div class="tc-examples">${c.examples}</div>
+      <div class="tc-rule">${c.rule}</div>
+    </div>`).join('')}</div>`;
+}
+
+function rTheory2(sec) {
+  return `<div class="theory2-grid">${sec.groups.map(g => `
+    <div class="theory2-card" style="border-left-color:${g.color}">
+      <div class="t2-label">${esc(g.label)}</div>
+      <div class="verb-chips">${g.verbs.map(v=>`<span class="verb-chip">${esc(v)}</span>`).join('')}</div>
+      <div class="memory">🧠 ${esc(g.memory)}</div>
+      <div class="example">${g.example}</div>
+    </div>`).join('')}</div>`;
+}
+
+function rTheory3(sec) {
+  let html = `<div class="theory3-grid">`;
+  sec.pairs.forEach(p => {
+    html += `<div class="theory3-pair">
+      <div class="t3-row">
+        <div class="t3-box t3-spoken"><div class="t3-lbl">Spoken</div>${esc(p.spoken)}</div>
+        <div class="t3-box t3-academic"><div class="t3-lbl">Academic</div>${esc(p.academic)}</div>
+      </div>
+      <div class="t3-change">🔄 ${p.change}</div>
+    </div>`;
+  });
+  html += `</div>`;
+  if (sec.insight) {
+    html += `<div class="theory3-insight"><strong>Key Principle:</strong> ${esc(sec.insight)}</div>`;
+  }
+  return html;
+}
+
+function rTheory4(sec) {
+  return `<div class="theory4-grid">${sec.cards.map(c => `
+    <div class="theory4-card" style="border-top-color:${c.color}">
+      <div class="t4-label" style="color:${c.color}">${esc(c.label)}</div>
+      <div class="t4-desc">${esc(c.desc)}</div>
+      <div class="t4-fix">${esc(c.fix)}</div>
+    </div>`).join('')}</div>`;
+}
+
+function rSpot(sec) {
+  const sKey = AL+'_'+AS;
+  let html = '';
+  sec.items.forEach((item, i) => {
+    const sentParts = item.sentence.replace(item.underlined,
+      `<span class="underline">${esc(item.underlined)}</span>`);
+    const choice = ST.choices[sKey+'_'+i];
+    const isCorrect = choice === 'correct';
+    const isWrong = choice === 'wrong';
+    html += `<div class="spot-item" id="spot_${AS}_${i}">
+      <div class="spot-num">Item ${i+1} of ${sec.items.length}</div>
+      <div class="spot-sentence">${sentParts}</div>
+      <div class="spot-choices">
+        <button class="spot-choice${choice==='correct'?' correct':choice==='wrong_a'?' wrong':''}" onclick="spotPick(${AS},${i},'wrong_a','${esc(item.wrongWord)}','${esc(item.correctWord)}')">
+          A: Keep as is (correct)
+        </button>
+        <button class="spot-choice${choice==='correct_b'?' correct':choice==='wrong'?' wrong':''}" onclick="spotPick(${AS},${i},'correct_b','${esc(item.wrongWord)}','${esc(item.correctWord)}')">
+          B: "${esc(item.correctWord)}" — ${esc(item.correctType)}
+        </button>
+      </div>
+      <div class="spot-feedback${isCorrect||choice==='correct_b'?' correct-fb show':isWrong||choice==='wrong_a'?' wrong-fb show':''}" id="spfb_${AS}_${i}">
+        ${choice ? (choice==='correct_b' ?
+          `✓ Correct! ${esc(item.rule)}` :
+          `✗ The underlined phrase contains an error. ${esc(item.rule)}`)
+        : ''}
+      </div>
+      ${choice ? `<div class="spot-tip">${esc(item.tip)}</div>` : ''}
+    </div>`;
+  });
+  const rubKey = sec.rubricKey || 'spot';
+  html += `<button class="calc-btn" onclick="calcSpot(${AS})">Calculate Score</button>`;
+  html += `<div class="score-box" id="score_spot_${AS}"></div>`;
+  html += `<button class="rubric-toggle" onclick="togRub('rub_spot_${AS}')">Show rubric</button>`;
+  html += `<div class="rubric-box" id="rub_spot_${AS}">${rubricHTML(RUBRICS[AL][rubKey])}</div>`;
+  return html;
+}
+
+function spotPick(secIdx, itemIdx, choice, wrongWord, correctWord) {
+  const sKey = AL+'_'+secIdx+'_'+itemIdx;
+  ST.choices[sKey] = choice;
+  const isCorrect = choice === 'correct_b';
+  const fbEl = document.getElementById(`spfb_${secIdx}_${itemIdx}`);
+  const sec = LEVELS[AL].sections[secIdx];
+  const item = sec.items[itemIdx];
+  const itemEl = document.getElementById(`spot_${secIdx}_${itemIdx}`);
+  // update choice buttons
+  const btns = itemEl.querySelectorAll('.spot-choice');
+  btns[0].className = 'spot-choice' + (choice==='wrong_a'?' wrong':'');
+  btns[1].className = 'spot-choice' + (choice==='correct_b'?' correct':'');
+  // update feedback
+  fbEl.className = 'spot-feedback show ' + (isCorrect ? 'correct-fb' : 'wrong-fb');
+  fbEl.innerHTML = isCorrect
+    ? `✓ Correct! ${esc(item.rule)}`
+    : `✗ The underlined phrase contains an error. ${esc(item.rule)}`;
+  // show tip
+  let tip = itemEl.querySelector('.spot-tip');
+  if (!tip) {
+    tip = document.createElement('div');
+    tip.className = 'spot-tip';
+    itemEl.appendChild(tip);
+  }
+  tip.textContent = item.tip;
+}
+
+function calcSpot(secIdx) {
+  const sec = LEVELS[AL].sections[secIdx];
+  let correct = 0;
+  sec.items.forEach((_, i) => {
+    const sKey = AL+'_'+secIdx+'_'+i;
+    if (ST.choices[sKey] === 'correct_b') correct++;
+  });
+  const total = sec.items.length;
+  const el = document.getElementById(`score_spot_${secIdx}`);
+  el.className = 'score-box show';
+  el.innerHTML = `Spot-the-Error: ${correct}/${total} correct ${scoreBadge(correct, total)}`;
+}
+
+function rFill(sec) {
+  const sKey = AL+'_'+AS;
+  let html = '';
+  sec.items.forEach((item, i) => {
+    const checked = ST.checked[sKey+'_'+i];
+    const userVal = ST.inputs[sKey+'_'+i] || '';
+    html += `<div class="fill-item">
+      <div class="fill-num">Item ${i+1} of ${sec.items.length}</div>
+      <div class="fill-template">${esc(item.template)}</div>
+      <div class="fill-base">${esc(item.baseWord)}</div>
+      <div class="fill-row">
+        <input class="fill-input${checked==='correct'?' correct':checked==='wrong'?' wrong':''}"
+          id="fill_${AS}_${i}" type="text" placeholder="${esc(item.hint)}"
+          value="${esc(userVal)}"
+          onkeydown="if(event.key==='Enter')fillChk(${AS},${i})">
+        <button class="chk-btn" onclick="fillChk(${AS},${i})">Check</button>
+      </div>
+      <div class="fill-fb${checked==='correct'?' correct-fb show':checked==='wrong'?' wrong-fb show':''}" id="fillfb_${AS}_${i}">
+        ${checked==='correct' ? `✓ Correct! ${esc(item.explanation)}` :
+          checked==='wrong' ? `✗ The answer is: <strong>${esc(item.answer)}</strong>. ${esc(item.explanation)}` : ''}
+      </div>
+    </div>`;
+  });
+  const rubKey = sec.rubricKey || 'fill';
+  html += `<button class="calc-btn" onclick="calcFill(${AS})">Calculate Score</button>`;
+  html += `<div class="score-box" id="score_fill_${AS}"></div>`;
+  html += `<button class="rubric-toggle" onclick="togRub('rub_fill_${AS}')">Show rubric</button>`;
+  html += `<div class="rubric-box" id="rub_fill_${AS}">${rubricHTML(RUBRICS[AL][rubKey])}</div>`;
+  return html;
+}
+
+function fillChk(secIdx, itemIdx) {
+  const sec = LEVELS[AL].sections[secIdx];
+  const item = sec.items[itemIdx];
+  const inp = document.getElementById(`fill_${secIdx}_${itemIdx}`);
+  const userVal = inp.value.trim();
+  const sKey = AL+'_'+secIdx+'_'+itemIdx;
+  ST.inputs[sKey] = userVal;
+  const correct = userVal.toLowerCase() === item.answer.toLowerCase();
+  ST.checked[sKey] = correct ? 'correct' : 'wrong';
+  inp.className = 'fill-input ' + (correct ? 'correct' : 'wrong');
+  const fb = document.getElementById(`fillfb_${secIdx}_${itemIdx}`);
+  fb.className = 'fill-fb show ' + (correct ? 'correct-fb' : 'wrong-fb');
+  fb.innerHTML = correct
+    ? `✓ Correct! ${esc(item.explanation)}`
+    : `✗ The answer is: <strong>${esc(item.answer)}</strong>. ${esc(item.explanation)}`;
+}
+
+function calcFill(secIdx) {
+  const sec = LEVELS[AL].sections[secIdx];
+  let correct = 0;
+  sec.items.forEach((_, i) => {
+    const sKey = AL+'_'+secIdx+'_'+i;
+    if (ST.checked[sKey] === 'correct') correct++;
+  });
+  const total = sec.items.length;
+  const el = document.getElementById(`score_fill_${secIdx}`);
+  el.className = 'score-box show';
+  el.innerHTML = `Fill in the Blank: ${correct}/${total} correct ${scoreBadge(correct, total)}`;
+}
+
+function rTransform(sec) {
+  let html = '';
+  sec.items.forEach((item, i) => {
+    const savedKey = AL+'_'+AS+'_'+i;
+    const savedVal = ST.inputs['tr_'+savedKey] || '';
+    const revealed = ST.checked['tr_reveal_'+savedKey];
+    html += `<div class="transform-item">
+      <div class="tr-num">Item ${i+1} of ${sec.items.length}</div>
+      <div class="tr-spoken">${esc(item.spoken)}</div>
+      <div class="tr-hint-box">${esc(item.hint)}</div>
+      <textarea class="tr-textarea" id="tr_${AS}_${i}" placeholder="Write your academic version here…">${esc(savedVal)}</textarea>
+      <div class="tr-btns">
+        <button class="tr-save-btn" onclick="saveTr(${AS},${i})">Save</button>
+        <button class="tr-reveal-btn" onclick="revealTr(${AS},${i})">Reveal model answer</button>
+      </div>
+      <div class="tr-model${revealed?' show':''}" id="trmodel_${AS}_${i}">
+        <div class="tr-model-answer">${esc(item.answer)}</div>
+        <div class="tr-model-meta">
+          <div class="tr-key-change">${esc(item.keyChange)}</div>
+          <div class="tr-principle">${esc(item.principle)}</div>
+        </div>
+      </div>
+    </div>`;
+  });
+  const rubKey = sec.rubricKey || 'transform';
+  html += `<button class="rubric-toggle" onclick="togRub('rub_tr_${AS}')">Show rubric</button>`;
+  html += `<div class="rubric-box" id="rub_tr_${AS}">${rubricHTML(RUBRICS[AL][rubKey])}</div>`;
+  return html;
+}
+
+function saveTr(secIdx, itemIdx) {
+  const key = AL+'_'+secIdx+'_'+itemIdx;
+  const val = document.getElementById(`tr_${secIdx}_${itemIdx}`).value;
+  ST.inputs['tr_'+key] = val;
+  // brief visual feedback
+  const btn = event.target;
+  btn.textContent = 'Saved ✓';
+  setTimeout(() => btn.textContent = 'Save', 1500);
+}
+
+function revealTr(secIdx, itemIdx) {
+  const key = AL+'_'+secIdx+'_'+itemIdx;
+  ST.checked['tr_reveal_'+key] = true;
+  const el = document.getElementById(`trmodel_${secIdx}_${itemIdx}`);
+  el.classList.add('show');
+}
+
+function rLog(sec) {
+  let html = '';
+  sec.prompts.forEach((prompt, i) => {
+    const sKey = AL+'_'+AS+'_'+i;
+    const savedVal = ST.logs[sKey] || '';
+    const isSaved = ST.checked['log_saved_'+sKey];
+    html += `<div class="log-item">
+      <div class="log-num">Reflection ${i+1}</div>
+      <div class="log-prompt">${esc(prompt)}</div>
+      <textarea class="log-textarea" id="log_${AS}_${i}" placeholder="Write your reflection here…">${esc(savedVal)}</textarea>
+      <div>
+        <button class="log-save-btn" onclick="saveLog(${AS},${i})">Save</button>
+        <span class="log-saved${isSaved?' show':''}" id="logsaved_${AS}_${i}">✓ Saved</span>
+      </div>
+    </div>`;
+  });
+  const rubKey = sec.rubricKey || 'log';
+  html += `<button class="log-save-all-btn" onclick="saveLogAll(${AS})">Save all reflections</button>`;
+  html += `<button class="rubric-toggle" onclick="togRub('rub_log_${AS}')">Show rubric</button>`;
+  html += `<div class="rubric-box" id="rub_log_${AS}">${rubricHTML(RUBRICS[AL][rubKey])}</div>`;
+  return html;
+}
+
+function saveLog(secIdx, promptIdx) {
+  const sKey = AL+'_'+secIdx+'_'+promptIdx;
+  ST.logs[sKey] = document.getElementById(`log_${secIdx}_${promptIdx}`).value;
+  ST.checked['log_saved_'+sKey] = true;
+  const span = document.getElementById(`logsaved_${secIdx}_${promptIdx}`);
+  if (span) span.classList.add('show');
+}
+
+function saveLogAll(secIdx) {
+  const sec = LEVELS[AL].sections[secIdx];
+  sec.prompts.forEach((_, i) => saveLog(secIdx, i));
+}
+
+// Helpers
+function esc(s) {
+  if (!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function badge(text, color) {
+  return `<span class="badge" style="background:${color}22;color:${color}">${esc(text)}</span>`;
+}
+
+function rubricHTML(items) {
+  if (!items) return '<p style="padding:12px;font-size:.8rem;color:#888">No rubric available.</p>';
+  return items.map(r => `
+    <div class="rubric-row">
+      <div>
+        <div class="rubric-crit">${esc(r.criterion)}</div>
+        <div class="rubric-desc">${esc(r.desc)}</div>
+      </div>
+      <span class="rubric-max">${r.max} pt${r.max>1?'s':''}</span>
+    </div>`).join('');
+}
+
+function togRub(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('show');
+  const btn = el.previousElementSibling;
+  if (btn) btn.textContent = el.classList.contains('show') ? 'Hide rubric' : 'Show rubric';
+}
+
+function progHTML(correct, total) {
+  const pct = total ? Math.round(correct/total*100) : 0;
+  return `<div class="prog-bar-wrap"><div class="prog-bar" style="width:${pct}%"></div></div>`;
+}
+
+function scoreBadge(score, max) {
+  const pct = max ? score/max : 0;
+  const cls = pct >= 0.8 ? 'good' : pct >= 0.5 ? 'mid' : 'low';
+  return `<span class="score-badge ${cls}">${Math.round(pct*100)}%</span>`;
+}
+
+function handleDownload() {
+  const lv = LEVELS[AL];
+  const now = new Date();
+  let txt = `HUONG STELLA PARADIGM — Daily Drills Day 5\n`;
+  txt += `Level: ${lv.label} | Theme: ${lv.theme}\n`;
+  txt += `Downloaded: ${now.toISOString()}\n`;
+  txt += '='.repeat(60) + '\n\n';
+
+  lv.sections.forEach((sec, si) => {
+    txt += `SECTION ${si+1}: ${sec.title}\n` + '-'.repeat(40) + '\n';
+    if (sec.type === 'spot') {
+      sec.items.forEach((item, ii) => {
+        const sKey = AL+'_'+si+'_'+ii;
+        const choice = ST.choices[sKey] || '(not answered)';
+        txt += `Item ${ii+1}: ${item.sentence}\n`;
+        txt += `Your choice: ${choice === 'correct_b' ? 'Correct — '+item.correctWord : choice === 'wrong_a' ? 'Keep as is (incorrect)' : choice}\n`;
+        txt += `Answer: ${item.correctWord} | Rule: ${item.rule}\n\n`;
+      });
+    } else if (sec.type === 'fill') {
+      sec.items.forEach((item, ii) => {
+        const sKey = AL+'_'+si+'_'+ii;
+        const val = ST.inputs[sKey] || '(blank)';
+        const status = ST.checked[sKey] || 'unchecked';
+        txt += `Item ${ii+1}: ${item.template}\n`;
+        txt += `Your answer: ${val} [${status}] | Correct: ${item.answer}\n`;
+        txt += `Explanation: ${item.explanation}\n\n`;
+      });
+    } else if (sec.type === 'transform') {
+      sec.items.forEach((item, ii) => {
+        const key = AL+'_'+si+'_'+ii;
+        const val = ST.inputs['tr_'+key] || '(blank)';
+        txt += `Item ${ii+1}: ${item.spoken}\n`;
+        txt += `Your version: ${val}\nModel: ${item.answer}\n\n`;
+      });
+    } else if (sec.type === 'log') {
+      sec.prompts.forEach((prompt, ii) => {
+        const sKey = AL+'_'+si+'_'+ii;
+        const val = ST.logs[sKey] || '(not written)';
+        txt += `Reflection ${ii+1}: ${prompt}\nYour response: ${val}\n\n`;
+      });
+    }
+    txt += '\n';
+  });
+
+  const blob = new Blob([txt], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = `HuongStella_DailyDrill_Day5_${AL}_${now.toISOString().slice(0,10)}.txt`;
+  a.click();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>

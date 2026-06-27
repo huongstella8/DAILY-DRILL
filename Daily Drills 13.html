@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daily Drills 13</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--lc:#2D6A4F;--ll:#D8F3DC}
+body{font-family:'Inter',sans-serif;background:#F4F2EF;color:#1a1a1a;min-height:100vh}
+header{background:#111;color:#fff;padding:18px 32px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.brand{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;opacity:.55}
+.header-center{text-align:center}
+.day-label{font-size:12px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;opacity:.6;margin-bottom:3px}
+.day-title{font-size:20px;font-weight:800;letter-spacing:-.3px}
+.header-right{font-size:11px;opacity:.45;text-align:right}
+.lv-tabs{display:flex;gap:6px;padding:16px 24px 0;flex-wrap:wrap}
+.lv-tab{padding:9px 18px;border-radius:8px 8px 0 0;font-size:13px;font-weight:600;cursor:pointer;border:none;background:#e0deda;color:#555;transition:all .2s}
+.lv-tab.active{color:#fff;background:var(--lc)}
+.lv-tab:hover:not(.active){background:#ccc}
+.main{max-width:860px;margin:0 auto;padding:0 16px 60px}
+.level-card{background:#fff;border-radius:0 12px 12px 12px;box-shadow:0 2px 12px rgba(0,0,0,.07);padding:28px;margin-bottom:20px}
+.lc-header{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:20px;padding-bottom:18px;border-bottom:2px solid var(--ll)}
+.lc-badge{background:var(--lc);color:#fff;font-size:11px;font-weight:700;letter-spacing:1.5px;padding:4px 10px;border-radius:20px;text-transform:uppercase}
+.lc-theme{font-size:19px;font-weight:800;color:var(--lc);margin:6px 0 3px}
+.lc-tagline{font-size:13px;color:#666;font-style:italic}
+.lc-meta{display:flex;gap:16px;font-size:12px;color:#888;margin-top:8px}
+.lc-meta span{display:flex;align-items:center;gap:4px}
+.goal-box{background:var(--ll);border-left:4px solid var(--lc);border-radius:6px;padding:12px 16px;margin-bottom:20px;font-size:13.5px;line-height:1.6}
+.goal-box strong{color:var(--lc);font-weight:700}
+.sec-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.sec-btn{padding:7px 15px;border-radius:20px;border:2px solid var(--lc);background:#fff;color:var(--lc);font-size:12px;font-weight:600;cursor:pointer;transition:all .15s}
+.sec-btn.active,.sec-btn:hover{background:var(--lc);color:#fff}
+.section-wrap{animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+/* Theory */
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:14px;margin-bottom:20px}
+.theory-card{border-radius:10px;padding:16px;border:1px solid #e5e0da}
+.tc-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.tc-badge{display:inline-block;background:#111;color:#fff;font-size:10px;padding:2px 7px;border-radius:10px;margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+.tc-ex{font-family:'JetBrains Mono',monospace;font-size:12px;background:rgba(0,0,0,.05);padding:6px 8px;border-radius:6px;margin-bottom:8px;line-height:1.5}
+.tc-rule{font-size:12.5px;color:#444;line-height:1.5}
+/* Theory2 */
+.t2-group{border:1px solid #e5e0da;border-radius:10px;padding:16px;margin-bottom:14px}
+.t2-label{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px}
+.t2-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.t2-chip{padding:4px 11px;border-radius:16px;font-size:12px;font-weight:600;color:#fff}
+.t2-mem{font-size:12.5px;color:#555;margin-bottom:7px;font-style:italic}
+.t2-ex{font-family:'JetBrains Mono',monospace;font-size:12.5px;background:#F4F2EF;padding:8px 10px;border-radius:6px;line-height:1.5}
+/* Theory3 */
+.t3-pair{background:#F4F2EF;border-radius:10px;padding:14px;margin-bottom:14px}
+.t3-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+.t3-box{padding:10px 12px;border-radius:8px;font-size:13px;line-height:1.5}
+.t3-spoken{background:#fff3cd;border-left:3px solid #e6a817}
+.t3-acad{background:#d4edda;border-left:3px solid #28a745}
+.t3-lbl{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px;opacity:.7}
+.t3-change{font-size:12px;color:#555;background:#fff;padding:7px 10px;border-radius:6px;border:1px dashed #ccc}
+.t3-insight{background:var(--ll);border-left:4px solid var(--lc);border-radius:8px;padding:14px;margin-top:16px;font-size:13px;line-height:1.6}
+/* Theory4 */
+.t4-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(185px,1fr));gap:14px}
+.t4-card{border-radius:10px;padding:16px;border:1px solid #e5e0da}
+.t4-label{font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.t4-desc{font-size:12.5px;color:#444;line-height:1.5;margin-bottom:10px}
+.t4-fix{font-family:'JetBrains Mono',monospace;font-size:11.5px;background:rgba(0,0,0,.05);padding:8px;border-radius:6px;line-height:1.6}
+/* Spot */
+.spot-item{border:2px solid #e5e0da;border-radius:10px;padding:16px;margin-bottom:14px;transition:border-color .2s}
+.spot-item.correct{border-color:#28a745;background:#f0fff4}
+.spot-item.incorrect{border-color:#dc3545;background:#fff5f5}
+.spot-sentence{font-size:15px;line-height:1.7;margin-bottom:12px}
+.spot-underline{text-decoration:underline;text-decoration-color:#e6a817;text-decoration-thickness:2px;font-weight:600}
+.spot-choices{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.spot-choice{padding:7px 16px;border-radius:20px;border:2px solid #ddd;background:#fff;font-size:13px;cursor:pointer;transition:all .15s;font-weight:500}
+.spot-choice:hover{border-color:var(--lc);background:var(--ll)}
+.spot-choice.selected-correct{border-color:#28a745;background:#d4edda;color:#155724}
+.spot-choice.selected-wrong{border-color:#dc3545;background:#f8d7da;color:#721c24}
+.spot-choice.reveal-correct{border-color:#28a745;background:#d4edda;color:#155724}
+.spot-feedback{margin-top:10px;font-size:13px;line-height:1.5;display:none}
+.spot-feedback.show{display:block}
+.spot-rule{background:#fff3cd;border-left:3px solid #e6a817;padding:8px 12px;border-radius:6px;margin-bottom:6px}
+.spot-tip{background:#cce5ff;border-left:3px solid #004085;padding:8px 12px;border-radius:6px;font-style:italic}
+.spot-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+/* Fill */
+.fill-item{border:1px solid #e5e0da;border-radius:10px;padding:16px;margin-bottom:14px}
+.fill-template{font-size:15px;line-height:1.7;margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+.fill-base{font-size:12px;color:#888;margin-bottom:10px}
+.fill-base span{background:#e9e5e0;padding:2px 8px;border-radius:4px;font-weight:600;color:#555;margin-right:4px}
+.fill-input-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.fill-input{border:2px solid #ddd;border-radius:8px;padding:8px 14px;font-size:14px;font-family:'Inter',sans-serif;outline:none;min-width:160px;transition:border-color .2s}
+.fill-input:focus{border-color:var(--lc)}
+.fill-input.correct{border-color:#28a745;background:#f0fff4}
+.fill-input.incorrect{border-color:#dc3545;background:#fff5f5}
+.fill-fb{margin-top:10px;font-size:13px;display:none;line-height:1.5}
+.fill-fb.show{display:block}
+.fill-correct-ans{color:#155724;font-weight:700;margin-bottom:4px}
+.fill-exp{color:#444}
+/* Transform */
+.tr-item{border:1px solid #e5e0da;border-radius:10px;padding:18px;margin-bottom:14px}
+.tr-spoken{background:#fff3cd;border-left:3px solid #e6a817;padding:10px 14px;border-radius:6px;margin-bottom:10px;font-size:14px;line-height:1.6}
+.tr-spoken-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#856404;margin-bottom:3px}
+.tr-hint{font-size:12px;color:#888;margin-bottom:10px;font-style:italic}
+.tr-textarea{width:100%;border:2px solid #ddd;border-radius:8px;padding:10px 14px;font-size:14px;font-family:'Inter',sans-serif;resize:vertical;min-height:80px;outline:none;transition:border-color .2s}
+.tr-textarea:focus{border-color:var(--lc)}
+.tr-fb{margin-top:12px;display:none}
+.tr-fb.show{display:block}
+.tr-model{background:#d4edda;border-left:3px solid #28a745;padding:10px 14px;border-radius:6px;margin-bottom:8px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.6}
+.tr-model-lbl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#155724;margin-bottom:3px}
+.tr-key{background:#e8d5f5;border-left:3px solid #5A1A8A;padding:8px 12px;border-radius:6px;font-size:12.5px;color:#3d0d5c;margin-bottom:6px}
+.tr-principle{background:#cce5ff;border-left:3px solid #004085;padding:8px 12px;border-radius:6px;font-size:12.5px;color:#002752;font-style:italic}
+/* Log */
+.log-item{margin-bottom:16px}
+.log-prompt{font-size:13.5px;font-weight:600;color:var(--lc);margin-bottom:8px;line-height:1.5}
+.log-textarea{width:100%;border:2px solid #ddd;border-radius:8px;padding:10px 14px;font-size:13.5px;font-family:'Inter',sans-serif;resize:vertical;min-height:90px;outline:none;transition:border-color .2s;line-height:1.6}
+.log-textarea:focus{border-color:var(--lc)}
+/* Buttons */
+.btn{padding:9px 20px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s}
+.btn-primary{background:var(--lc);color:#fff}
+.btn-primary:hover{opacity:.85}
+.btn-outline{background:#fff;border:2px solid var(--lc);color:var(--lc)}
+.btn-outline:hover{background:var(--ll)}
+.btn-sm{padding:6px 14px;font-size:12px}
+/* Progress */
+.prog-bar-wrap{background:#e9e5e0;border-radius:20px;height:6px;margin-top:12px;overflow:hidden}
+.prog-bar{height:100%;background:var(--lc);border-radius:20px;transition:width .4s}
+.score-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700;margin-left:8px}
+.score-hi{background:#d4edda;color:#155724}
+.score-mid{background:#fff3cd;color:#856404}
+.score-lo{background:#f8d7da;color:#721c24}
+/* Rubric */
+.rub-toggle{font-size:12px;color:var(--lc);cursor:pointer;font-weight:600;margin-top:10px;display:inline-block;text-decoration:underline}
+.rub-panel{display:none;margin-top:10px;border:1px solid #e5e0da;border-radius:8px;overflow:hidden}
+.rub-panel.open{display:block}
+.rub-row{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:8px 12px;font-size:12.5px;border-bottom:1px solid #f0ece6}
+.rub-row:last-child{border-bottom:none}
+.rub-row:nth-child(even){background:#faf8f5}
+.rub-max{color:#888;font-size:11px}
+.section-title{font-size:17px;font-weight:800;color:var(--lc);margin-bottom:4px}
+.section-subtitle{font-size:13px;color:#888;margin-bottom:18px}
+.download-bar{position:fixed;bottom:0;left:0;right:0;background:#111;padding:12px 24px;display:flex;align-items:center;justify-content:space-between;z-index:100}
+.dl-info{color:#ccc;font-size:13px}
+.dl-info strong{color:#fff}
+@media(max-width:600px){.t3-row{grid-template-columns:1fr}.lv-tabs{padding:12px 12px 0}.main{padding:0 8px 80px}.theory-grid,.t4-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">Huong Stella Paradigm</div>
+  <div class="header-center">
+    <div class="day-label">Day 13 · Interactive Practice</div>
+    <div class="day-title">Adjectives &amp; Adverbs</div>
+  </div>
+  <div class="header-right">Grammar Programme<br>Daily Drills</div>
+</header>
+
+<div class="lv-tabs" id="lvTabs"></div>
+<div class="main">
+  <div id="lvCard"></div>
+</div>
+
+<div class="download-bar">
+  <div class="dl-info"><strong id="dlLvName">A2–B1</strong> · Day 13</div>
+  <button class="btn btn-primary btn-sm" onclick="handleDownload()">⬇ Download Report</button>
+</div>
+
+<script>
+// ─── DATA ────────────────────────────────────────────────────────────────────
+const RUBRICS = {
+  a2b1: {
+    spot: [
+      {criterion:"Identified the error correctly",max:1,desc:"Underlined phrase selected as wrong"},
+      {criterion:"Chose the correct replacement",max:1,desc:"Selected grammatically correct option"},
+      {criterion:"Can explain the rule",max:1,desc:"Understands why the error occurred"}
+    ],
+    fill: [
+      {criterion:"Correct answer supplied",max:1,desc:"Exact answer or acceptable variant"},
+      {criterion:"Explanation understood",max:1,desc:"Can justify the form used"},
+      {criterion:"Applied rule accurately",max:1,desc:"Form matches the grammatical context"}
+    ],
+    log: [
+      {criterion:"Error recorded with correction",max:2,desc:"Prompt 1 completed meaningfully"},
+      {criterion:"Original phrase written correctly",max:2,desc:"Prompt 2 completed with correct order"},
+      {criterion:"Two contrast sentences written",max:2,desc:"Linking verb + action verb distinguished"}
+    ]
+  },
+  b1b2: {
+    spot: [
+      {criterion:"Identified the error correctly",max:1,desc:"Selected wrong phrase"},
+      {criterion:"Chose the correct replacement",max:1,desc:"Correct intensifier / adverb form"},
+      {criterion:"Can explain the rule",max:1,desc:"Understands gradable vs extreme adjective logic"}
+    ],
+    fill: [
+      {criterion:"Correct adverb selected",max:1,desc:"Correct item from choices"},
+      {criterion:"Justification given",max:1,desc:"Can explain why other options are wrong"},
+      {criterion:"Collocational accuracy",max:1,desc:"Adverb fits the adjective/context naturally"}
+    ],
+    log: [
+      {criterion:"Intensifier sentences written",max:2,desc:"Prompt 1 — both sentences correctly labelled"},
+      {criterion:"Hedged rewrite produced",max:2,desc:"Prompt 2 — meaning shift explained"},
+      {criterion:"Negative adverb sentence correct",max:2,desc:"No double negative; 'barely/hardly/scarcely' used well"}
+    ]
+  },
+  b2c1: {
+    spot: [
+      {criterion:"Error identified accurately",max:1,desc:"Focused on placement or logical contradiction"},
+      {criterion:"Correction applied correctly",max:1,desc:"Adverb repositioned or replaced correctly"},
+      {criterion:"Principle articulated",max:1,desc:"Understands why placement/logic matters"}
+    ],
+    fill: [
+      {criterion:"Correct item selected",max:1,desc:"Right adverb for semantic context"},
+      {criterion:"Explanation grounded in grammar",max:1,desc:"Not just intuition — rule cited"},
+      {criterion:"Register appropriate",max:1,desc:"Academic / formal register maintained"}
+    ],
+    transform: [
+      {criterion:"Informal element removed",max:1,desc:"Phrasal verb / vague word replaced"},
+      {criterion:"Adverb correctly placed",max:1,desc:"Pre-verbal, post-auxiliary, or sentence-initial as appropriate"},
+      {criterion:"Academic register achieved",max:1,desc:"Nominalisation, passive, or formal vocab used"},
+      {criterion:"Meaning fully preserved",max:1,desc:"No information lost or distorted"}
+    ],
+    log: [
+      {criterion:"Misplaced adverb corrected",max:2,desc:"Prompt 1 — genuine example from own writing"},
+      {criterion:"Two adverb types demonstrated",max:2,desc:"Prompt 2 — sentence adverb + focusing adverb"},
+      {criterion:"Transformation produced",max:2,desc:"Prompt 3 — informal → academic with adverb shift"}
+    ]
+  },
+  c1c2: {
+    spot: [
+      {criterion:"Contradiction or misuse identified",max:1,desc:"Epistemic clash or wrong adverb type spotted"},
+      {criterion:"Precise correction supplied",max:1,desc:"Replacement matches the logical relationship"},
+      {criterion:"Rhetorical principle stated",max:2,desc:"Deeper analysis of why the error undermines the argument"}
+    ],
+    fill: [
+      {criterion:"Correct adverb selected",max:1,desc:"Semantically precise for context"},
+      {criterion:"Epistemic calibration explained",max:2,desc:"Why this adverb and not a stronger/weaker one"},
+      {criterion:"Register and collocational fit",max:1,desc:"Sounds natural in academic prose"}
+    ],
+    transform: [
+      {criterion:"First-person / informal removed",max:1,desc:"Impersonal academic voice achieved"},
+      {criterion:"Stance adverb correctly chosen and placed",max:1,desc:"Evidential/epistemic/attitudinal adverb fits"},
+      {criterion:"Nominalisation or formal structure used",max:1,desc:"Density and formality of academic prose"},
+      {criterion:"Argument logic preserved and sharpened",max:1,desc:"No meaning loss; optional: meaning gains precision"}
+    ],
+    log: [
+      {criterion:"Overclaim identified and recalibrated",max:2,desc:"Prompt 1 — correct adverb chosen with justification"},
+      {criterion:"Three adverb categories demonstrated",max:2,desc:"Prompt 2 — evidential / epistemic / attitudinal each used"},
+      {criterion:"Paragraph audit completed",max:2,desc:"Prompt 3 — repetition and contradiction fixed"}
+    ]
+  }
+};
+
+const LEVELS = {
+  a2b1: {
+    label:"A2–B1", color:"#2D6A4F", light:"#D8F3DC",
+    theme:"Order of Adjectives",
+    tagline:"Put adjectives in the right sequence; know when to use adjective vs adverb",
+    goal:"Today you will: (1) memorise the adjective order sequence, (2) distinguish adjectives from adverbs after action and linking verbs, (3) correct six common ordering errors.",
+    time:"10–15 min",
+    sections:[
+      { id:"warmup", label:"Warm-up", type:"theory",
+        title:"Adjective Order — The Four Key Categories",
+        subtitle:"Memorise this sequence: Opinion → Size → Age → Shape → Color → Origin → Material → Noun",
+        cards:[
+          { label:"Opinion", badge:"adj", color:"#2D6A4F",
+            examples:"beautiful, ugly, strange, lovely, boring, comfortable",
+            rule:"Opinion adjectives describe your personal view. They ALWAYS come first — before any factual adjective. 'A lovely old house' ✓  'An old lovely house' ✗" },
+          { label:"Size → Age", badge:"order", color:"#1A4A7A",
+            examples:"big old house / small new phone / tiny ancient coin",
+            rule:"Size (big, small, tiny, tall) comes before Age (old, new, young, ancient). Never say 'old big house' — say 'big old house'." },
+          { label:"Color → Origin", badge:"order", color:"#5A1A8A",
+            examples:"a red Italian scarf / blue Chinese silk / green French wine",
+            rule:"Color comes before Origin (nationality). So: 'a black Japanese car', never 'a Japanese black car'." },
+          { label:"Material (closest to noun)", badge:"adj", color:"#8B1A1A",
+            examples:"a silver metal ring / a wooden dining table / a cotton summer dress",
+            rule:"Material sits closest to the noun. Full golden rule: Opinion→Size→Age→Shape→Color→Origin→Material→Noun. A 'lovely little old round black Chinese silver box' is correct (though rare)." }
+        ]
+      },
+      { id:"spot", label:"Spot-the-Error", type:"spot", rubricKey:"spot",
+        title:"Spot the Error", subtitle:"Each sentence contains ONE error. Identify the underlined mistake and choose the correction.",
+        items:[
+          { sentence:"She bought a leather beautiful Italian bag at the market.",
+            underlined:"leather beautiful Italian", wrongWord:"leather beautiful Italian", correctWord:"beautiful Italian leather",
+            wrongType:"Wrong adjective order", correctType:"Opinion → Origin → Material",
+            rule:"Adjectives follow a fixed sequence: Opinion first (beautiful), then Origin (Italian), then Material closest to the noun (leather).",
+            tip:"Ask yourself: What's my opinion? (beautiful) → Where is it from? (Italian) → What is it made of? (leather). That gives the correct order." },
+          { sentence:"He introduced himself as a Chinese young engineer at the conference.",
+            underlined:"Chinese young", wrongWord:"Chinese young", correctWord:"young Chinese",
+            wrongType:"Wrong adjective order (Origin before Age)", correctType:"Age → Origin",
+            rule:"Age adjectives (young, old, new) come BEFORE origin/nationality adjectives (Chinese, French, Italian).",
+            tip:"SIZE and AGE always beat ORIGIN. Put them before the country adjective: 'young Chinese', never 'Chinese young'." },
+          { sentence:"They rented a round small apartment near the university.",
+            underlined:"round small", wrongWord:"round small", correctWord:"small round",
+            wrongType:"Wrong adjective order (Shape before Size)", correctType:"Size → Shape",
+            rule:"Size (small, large, tiny) comes before Shape (round, square, flat, triangular).",
+            tip:"S before S: Size → Shape. Think 'small round table', never 'round small table'." },
+          { sentence:"The children played very happy in the garden all afternoon.",
+            underlined:"played very happy", wrongWord:"happy", correctWord:"happily",
+            wrongType:"Adjective used to modify action verb", correctType:"Adverb (-ly form) modifying verb",
+            rule:"Action verbs (play, run, speak, work) are modified by adverbs, not adjectives. 'Happy' → 'happily' (drop y, add -ily).",
+            tip:"Ask HOW did they play? → you need an adverb. Ask WHAT KIND of children? → you need an adjective. 'Played' = action → adverb." },
+          { sentence:"After the long journey, the soup tasted wonderfully.",
+            underlined:"tasted wonderfully", wrongWord:"wonderfully", correctWord:"wonderful",
+            wrongType:"Adverb after linking verb", correctType:"Adjective after linking verb",
+            rule:"Linking verbs (taste, smell, look, feel, seem, sound, appear) are followed by adjectives, not adverbs. The adjective describes the subject (soup), not the action.",
+            tip:"Test: replace the verb with 'is'. 'The soup IS wonderful' ✓ → use adjective. 'The soup IS wonderfully' ✗ → wrong. Linking verbs = adjective." },
+          { sentence:"She performed very good in her final piano examination.",
+            underlined:"performed very good", wrongWord:"good", correctWord:"well",
+            wrongType:"Adjective instead of adverb (good/well)", correctType:"Adverb 'well' modifying verb",
+            rule:"'Good' is an adjective (a good result). 'Well' is its adverb form. Use 'well' to describe how someone performs an action.",
+            tip:"Good = WHAT KIND (a good performance). Well = HOW (she performed well). 'Did/performed well' = did in a good manner. This is one of the most common errors." }
+        ]
+      },
+      { id:"fill", label:"Fill-in-the-Blank", type:"fill", rubricKey:"fill",
+        title:"Fill in the Blank", subtitle:"Supply the missing word or phrase using the cue given.",
+        items:[
+          { template:"She carried a ___ ___ ___ bag everywhere she went. (small / old / leather)",
+            baseWord:"small / old / leather", answer:"small old leather",
+            targetType:"Size → Age → Material", hint:"Size → Age → Material",
+            explanation:"The correct order is Size (small) → Age (old) → Material (leather). Material always sits closest to the noun." },
+          { template:"The student answered all the questions ___. (confident → adverb)",
+            baseWord:"confident", answer:"confidently",
+            targetType:"Adjective → adverb (-ly)", hint:"-ly ending",
+            explanation:"'Answer' is an action verb. To describe HOW the student answered, use the adverb form. 'Confident' ends in a consonant + t, so add -ly: confidently." },
+          { template:"The street food here ___ absolutely delicious. (taste → linking verb)",
+            baseWord:"taste", answer:"tastes",
+            targetType:"Linking verb + adjective", hint:"Present simple, 3rd person",
+            explanation:"'Tastes' is a linking verb connecting 'street food' to the adjective 'delicious'. Use present simple, third person singular. 'Delicious' (adjective, not adverb) is correct after a linking verb." },
+          { template:"We visited a ___ ___ ___ ___ temple in the mountains. (ancient / small / Buddhist / beautiful)",
+            baseWord:"beautiful / small / ancient / Buddhist", answer:"beautiful small ancient Buddhist",
+            targetType:"Opinion → Size → Age → Origin", hint:"Opinion → Size → Age → Origin",
+            explanation:"Opinion (beautiful) comes first, then Size (small), then Age (ancient), then Origin/type (Buddhist). 'Buddhist' here functions as an origin-type adjective." },
+          { template:"He drives extremely ___. (careful → adverb)",
+            baseWord:"careful", answer:"carefully",
+            targetType:"Adjective → adverb", hint:"Add -ly",
+            explanation:"'Careful' (adjective) modifies nouns. To describe HOW he drives (a verb), use the adverb 'carefully'. Rule: careful → carefully (add -ly)." }
+        ]
+      },
+      { id:"log", label:"Error Log", type:"log", rubricKey:"log",
+        title:"Error Log & Reflection",
+        prompts:[
+          "Write one sentence where you placed adjectives in the wrong order today (or a mistake you've made before). Write the corrected version and explain which rule you broke.",
+          "Think of a noun and choose three adjectives: one opinion, one size, one color. Write the correct noun phrase in full.",
+          "Write two sentences: (1) using an adjective after a linking verb (look / smell / taste / feel), and (2) using an adverb after an action verb (speak / run / work / sing). Label each."
+        ]
+      }
+    ]
+  },
+
+  b1b2: {
+    label:"B1+–B2", color:"#1A4A7A", light:"#D6E8F7",
+    theme:"Intensifiers & Hedging Adverbs",
+    tagline:"Calibrate meaning with strong intensifiers, mild hedges, and restrictive adverbs",
+    goal:"Today you will: (1) distinguish gradable from extreme adjectives, (2) choose the right intensifier for each type, (3) use hedging and restrictive adverbs accurately.",
+    time:"15–20 min",
+    sections:[
+      { id:"warmup", label:"Warm-up", type:"theory2",
+        title:"Three Families of Degree Adverbs",
+        subtitle:"Each family does a different job — match the right one to your adjective.",
+        groups:[
+          { label:"Strong Intensifiers", color:"#1A4A7A",
+            verbs:["absolutely","completely","entirely","utterly","perfectly"],
+            memory:"Use with EXTREME adjectives (furious, exhausted, freezing, brilliant) — never with 'very'. You can't be 'very furious'; you can be 'absolutely furious'.",
+            example:"She was absolutely exhausted after working a double shift at the hospital." },
+          { label:"Hedging Adverbs", color:"#2D6A4F",
+            verbs:["rather","fairly","quite","somewhat","relatively"],
+            memory:"Use to SOFTEN a claim — signals partial truth or politeness. 'Fairly good' = decent but not great. Hedging makes academic and polite speech more credible.",
+            example:"The presentation was fairly convincing, though it lacked concrete supporting data." },
+          { label:"Restrictive / Minimising Adverbs", color:"#8B1A1A",
+            verbs:["barely","hardly","scarcely","merely","only"],
+            memory:"These LIMIT or MINIMISE — 'barely' ≈ almost not at all; 'merely' ≈ only (with a dismissive tone). All are negative in meaning — never combine with 'not'.",
+            example:"He had barely finished speaking when the fire alarm interrupted the meeting." }
+        ]
+      },
+      { id:"spot", label:"Spot-the-Error", type:"spot", rubricKey:"spot",
+        title:"Spot the Error", subtitle:"Each sentence contains ONE error. Select the wrong word and choose the correction.",
+        items:[
+          { sentence:"The manager was very furious when she discovered the missing files.",
+            underlined:"very furious", wrongWord:"very furious", correctWord:"absolutely furious",
+            wrongType:"Gradable intensifier + extreme adjective", correctType:"Absolute intensifier + extreme adjective",
+            rule:"'Furious' is an extreme adjective — it already implies maximum anger. Use absolute intensifiers (absolutely, utterly, completely) rather than gradable ones (very, really, quite).",
+            tip:"Can you be 'a little bit furious'? No — it's all-or-nothing → extreme adjective → use 'absolutely/utterly', never 'very'." },
+          { sentence:"The proposal was enough detailed to be approved by the board.",
+            underlined:"enough detailed", wrongWord:"enough detailed", correctWord:"detailed enough",
+            wrongType:"'Enough' placed before adjective", correctType:"'Enough' follows the adjective",
+            rule:"'Enough' always FOLLOWS the adjective it modifies: 'detailed enough', 'good enough', 'clear enough'. It never precedes the adjective.",
+            tip:"'Enough' is a follower, never a leader — it always comes AFTER the adjective. Swap: 'detailed enough', 'tall enough', 'fast enough'." },
+          { sentence:"After three days without sleep, he was fairly exhausted.",
+            underlined:"fairly exhausted", wrongWord:"fairly exhausted", correctWord:"completely exhausted",
+            wrongType:"Hedging adverb with extreme/absolute adjective", correctType:"Absolute intensifier + extreme adjective",
+            rule:"'Exhausted' already means 100% depleted — it's an extreme adjective. Hedging it with 'fairly' contradicts its meaning. Use 'completely', 'utterly', or 'absolutely'.",
+            tip:"If the adjective means '100%' (exhausted = fully drained), you can't 'fairly' it. You can't be 'fairly dead'. Use a full intensifier." },
+          { sentence:"She hardly never arrives late to her morning lectures.",
+            underlined:"hardly never", wrongWord:"hardly never", correctWord:"hardly ever",
+            wrongType:"Double negative (hardly + never)", correctType:"Single negative: hardly ever",
+            rule:"'Hardly' is already negative in meaning (= almost not). Adding 'never' creates a double negative, which — in standard English — produces the opposite meaning (she often arrives late).",
+            tip:"Hardly + never = double negative = the sentence now means she almost always arrives late. Use 'hardly ever' for the intended negative meaning." },
+          { sentence:"Their approach to the problem was very unique and unlike anything we had seen.",
+            underlined:"very unique", wrongWord:"very unique", correctWord:"truly unique",
+            wrongType:"Gradable intensifier + non-gradable/absolute adjective", correctType:"Absolute intensifier + absolute adjective",
+            rule:"'Unique' means 'one of a kind' — it is absolute. Something cannot be 'more unique' or 'very unique'. Use 'truly', 'absolutely', or 'genuinely unique'.",
+            tip:"Test: can this quality exist on a scale? 'Unique' = yes or no — not a scale → absolute adjective → absolute intensifier only." },
+          { sentence:"The sauce was too much spicy for young children to enjoy.",
+            underlined:"too much spicy", wrongWord:"too much spicy", correctWord:"too spicy",
+            wrongType:"'Too much' before adjective (wrong structure)", correctType:"'Too' + adjective directly",
+            rule:"'Too' goes directly before an adjective with NO 'much': 'too spicy', 'too loud', 'too warm'. 'Too much' is used before uncountable nouns: 'too much salt', 'too much noise'.",
+            tip:"Too + ADJECTIVE (no 'much'). Too much + NOUN. 'Too much spicy' mixes the two patterns — drop 'much' when followed by an adjective." }
+        ]
+      },
+      { id:"fill", label:"Fill-in-the-Blank", type:"fill", rubricKey:"fill",
+        title:"Fill in the Blank", subtitle:"Choose the best adverb from the options given.",
+        items:[
+          { template:"The project was ___ successful — we exceeded every single target.",
+            baseWord:"remarkably / very / enough", answer:"remarkably",
+            targetType:"Intensifier: exceptional degree", hint:"Exceptionally, notably",
+            explanation:"'Remarkably' signals extraordinary degree and suits a context of exceeding all targets. 'Very' is too weak for this register; 'enough' means 'sufficient', not 'exceptional'." },
+          { template:"I could ___ hear the speaker from the back of the crowded lecture hall.",
+            baseWord:"barely / very / absolutely", answer:"barely",
+            targetType:"Restrictive adverb (almost not)", hint:"Almost unable to",
+            explanation:"'Barely' = almost not — exactly right when hearing was difficult. 'Very' and 'absolutely' would make the sentence strongly positive, contradicting the context." },
+          { template:"The audience was ___ amazed by the magician's final trick.",
+            baseWord:"absolutely / very / fairly", answer:"absolutely",
+            targetType:"Absolute intensifier + extreme adjective", hint:"Extreme adjective needs absolute intensifier",
+            explanation:"'Amazed' is a strong/extreme adjective. Use 'absolutely' (not 'very' or 'fairly') to intensify extreme adjectives. 'Very amazed' is a common but incorrect collocation." },
+          { template:"The explanation was ___ clear, but I still had a few remaining questions.",
+            baseWord:"quite / absolutely / utterly", answer:"quite",
+            targetType:"Hedging adverb in concession", hint:"Partially, not completely",
+            explanation:"'Quite' hedges the claim — the explanation was clear to a degree, not entirely. This fits the concession marker 'but I still had questions'. 'Absolutely' or 'utterly' would contradict the 'but'." },
+          { template:"She is ___ the most dedicated student I have taught in fifteen years.",
+            baseWord:"by far / very much / too", answer:"by far",
+            targetType:"Emphatic superlative intensifier", hint:"Emphasises the superlative degree",
+            explanation:"'By far' strengthens superlatives: 'by far the most dedicated'. 'Very much' does not collocate with superlatives this way; 'too' means excessively — not appropriate here." }
+        ]
+      },
+      { id:"log", label:"Error Log", type:"log", rubricKey:"log",
+        title:"Error Log & Reflection",
+        prompts:[
+          "Write two sentences using intensifiers: (1) one with an extreme adjective (use absolutely/utterly/completely) and (2) one with a gradable adjective (use very/quite/rather). Label each clearly.",
+          "Think of a claim you want to soften. Write the original, then rewrite it using a hedging adverb (fairly, rather, somewhat, relatively). Explain how the meaning changes.",
+          "Write a sentence using 'barely', 'hardly', or 'scarcely'. Check carefully that there is no double negative. Write a note explaining why double negatives are wrong here."
+        ]
+      }
+    ]
+  },
+
+  b2c1: {
+    label:"B2+–C1", color:"#5A1A8A", light:"#EAD6F7",
+    theme:"Adverb Placement & Focus",
+    tagline:"Control meaning through precise adverb positioning in complex sentences",
+    goal:"Today you will: (1) identify how adverb placement changes focus and meaning, (2) avoid misplacements that cause ambiguity or contradiction, (3) transform informal adverb use into academic register.",
+    time:"20–25 min",
+    sections:[
+      { id:"warmup", label:"Warm-up", type:"theory3",
+        title:"From Spoken to Academic: Adverb Placement",
+        subtitle:"Observe how adverb choice and position shift register from informal to academic.",
+        pairs:[
+          { spoken:"They probably will change the policy very soon.",
+            academic:"The policy will in all likelihood be revised in the near future.",
+            change:"'Probably' → prepositional phrase 'in all likelihood'; 'very soon' → 'in the near future'; passive construction shifts focus to the policy (not the actors)" },
+          { spoken:"Scientists are quickly finding out new things about the brain.",
+            academic:"Significant advances in our understanding of neural mechanisms are being rapidly identified.",
+            change:"'Quickly' → 'rapidly' placed pre-verbally in passive; vague 'new things about the brain' → nominalised noun phrase; passive foregrounds the advances, not the scientists" },
+          { spoken:"The government already tried this before and it didn't really work.",
+            academic:"Previous governmental initiatives of this kind have consistently yielded inconclusive results.",
+            change:"'Already tried before' → 'previous … initiatives' (nominalisation removes the adverb); 'didn't really work' → 'yielded inconclusive results'; 'consistently' as a stance adverb asserts pattern" }
+        ],
+        insight:"In academic prose, informal adverbs (probably, quickly, really) are either replaced with formal adverb equivalents positioned pre-verbally in passive constructions, or eliminated through nominalisation. 'Consistently', 'substantially', and 'demonstrably' are high-value academic adverbs."
+      },
+      { id:"spot", label:"Spot-the-Error", type:"spot", rubricKey:"spot",
+        title:"Spot the Error", subtitle:"Each sentence contains ONE placement or logic error. Identify and correct it.",
+        items:[
+          { sentence:"The researchers only found three specimens in the northern region of the forest.",
+            underlined:"only found", wrongWord:"only found", correctWord:"found only three specimens",
+            wrongType:"Misplaced focusing adverb 'only'", correctType:"'Only' immediately before the element it restricts",
+            rule:"'Only' must immediately precede the element it restricts. 'Only found' restricts the verb (they just found, didn't do anything else); 'found only three' restricts the number (just three, not more).",
+            tip:"Move 'only' next to what it actually limits. Ask: is it the finding or the number that is restricted? Here: the number of specimens." },
+          { sentence:"She even has not responded to the third and final warning issued by the committee.",
+            underlined:"even has not", wrongWord:"even has not", correctWord:"has not even responded",
+            wrongType:"Wrong position of 'even' with negation", correctType:"'Even' after first auxiliary in negatives",
+            rule:"In negative sentences, 'even' comes after the first auxiliary: 'has not even', 'did not even', 'cannot even'. Placing 'even' before the auxiliary is ungrammatical.",
+            tip:"In negatives: Aux + not + EVEN + main verb. 'She has not even responded'. The 'even' slots into the middle, after the negative." },
+          { sentence:"The study demonstrates conclusively that soil temperature affects crop yield significantly conclusively.",
+            underlined:"conclusively … conclusively", wrongWord:"conclusively … conclusively", correctWord:"demonstrates conclusively that temperature significantly affects yield",
+            wrongType:"Duplicated adverb / displaced degree adverb", correctType:"Each adverb placed once in correct position",
+            rule:"Each adverb should appear once. 'Conclusively' (sentence adverb) modifies the demonstration; 'significantly' (degree adverb) precedes 'affects'. Duplication signals editing error.",
+            tip:"Read your sentence aloud. If an adverb appears twice or sits in an awkward position, move it directly before the verb it modifies — and delete the duplicate." },
+          { sentence:"He decided suddenly to resign from his position without giving notice.",
+            underlined:"decided suddenly to resign", wrongWord:"suddenly", correctWord:"suddenly decided to resign",
+            wrongType:"Adverb placed between main verb and infinitive complement", correctType:"Adverb before the main verb it modifies",
+            rule:"Do not insert an adverb between a main verb and its infinitive complement. 'Suddenly' modifies the decision, so it should precede 'decided'.",
+            tip:"If the adverb modifies the main verb, keep it with the main verb — before it. Don't let the infinitive split the adverb away from what it describes." },
+          { sentence:"Hardly the students in the lecture hall passed the final written examination.",
+            underlined:"Hardly the students", wrongWord:"Hardly the students passed", correctWord:"Hardly any of the students passed",
+            wrongType:"'Hardly' used as sentence adverb without inversion or 'any'", correctType:"'Hardly any' as quantifier phrase",
+            rule:"Sentence-initial 'hardly' triggers subject-auxiliary inversion: 'Hardly had they left…'. For the meaning 'almost none', use 'hardly any of': 'Hardly any of the students passed'.",
+            tip:"Sentence-initial 'hardly' = inversion (Hardly had X done Y). For 'almost none' = 'hardly any of the + noun'. These are two different constructions." },
+          { sentence:"The committee unanimously approved the proposal with a majority vote of seven to three.",
+            underlined:"unanimously … majority vote", wrongWord:"unanimously", correctWord:"approved the proposal with a majority vote",
+            wrongType:"Contradictory adverb (unanimously ≠ majority vote)", correctType:"Single, consistent modifier",
+            rule:"'Unanimously' means 100% agreement. 'Majority vote' (7–3) means NOT all agreed. These contradict. Remove 'unanimously' or change to 'approved by a majority'.",
+            tip:"Check that your adverbs are logically consistent with the surrounding context. Contradictions often hide in long sentences — read the full clause after adding an adverb." }
+        ]
+      },
+      { id:"fill", label:"Fill-in-the-Blank", type:"fill", rubricKey:"fill",
+        title:"Fill in the Blank", subtitle:"Select or supply the most precise adverb for each academic context.",
+        items:[
+          { template:"The committee has ___ revised its position on climate adaptation policy.",
+            baseWord:"repeatedly", answer:"repeatedly",
+            targetType:"Frequency adverb, pre-verbal position in perfect aspect", hint:"Multiple times, pre-verbal",
+            explanation:"'Repeatedly' (frequency adverb) sits between the auxiliary 'has' and the past participle 'revised' — standard pre-verbal position. It asserts a pattern without specifying a number." },
+          { template:"The data ___ support a causal interpretation, though they are consistent with one.",
+            baseWord:"broadly / absolutely / always", answer:"broadly",
+            targetType:"Hedging degree adverb in academic claim", hint:"Generally, but not completely",
+            explanation:"'Broadly' hedges the claim — data generally but not definitively support causation. 'Absolutely' overclaims; 'always' is a dangerous universal — rejected by reviewers unless proven." },
+          { template:"It was ___ until the third replication trial that statistically significant results emerged.",
+            baseWord:"not", answer:"not",
+            targetType:"'It was not until…' cleft construction", hint:"Negative cleft for temporal emphasis",
+            explanation:"'It was not until X that Y' is a fronted cleft sentence placing emphasis on the time condition (the third trial). The 'not' is structurally essential to this pattern." },
+          { template:"Researchers have ___ acknowledged the limitations of retrospective self-report data.",
+            baseWord:"long", answer:"long",
+            targetType:"Stance adverb 'long' = for a long time", hint:"For a long time (established consensus)",
+            explanation:"'Have long acknowledged' = have known for a long time. 'Long' sits between auxiliary and main verb and signals established consensus — a useful academic distancing device." },
+          { template:"The methodological flaws were ___ significant to be overlooked in the peer-review process.",
+            baseWord:"too", answer:"too",
+            targetType:"'Too + adjective + infinitive' expressing impossibility", hint:"So significant that they could not be ignored",
+            explanation:"'Too significant to overlook' = so significant that overlooking them was impossible. The structure 'too + adj + infinitive' expresses that the degree of a quality prevents an action." }
+        ]
+      },
+      { id:"transform", label:"Transform", type:"transform", rubricKey:"transform",
+        title:"Transform: Spoken → Academic", subtitle:"Rewrite each informal sentence as a polished academic sentence, focusing on adverb choice and placement.",
+        items:[
+          { spoken:"The drug quickly gets rid of the bacteria in the patient's bloodstream.",
+            hint:"rapidly / eliminates / passive / pre-verbal adverb placement",
+            answer:"The bacteria are rapidly eliminated from the bloodstream by the drug. / The drug rapidly eliminates the bacteria present in the patient's bloodstream.",
+            keyChange:"'Gets rid of' (phrasal verb) → 'eliminates' (single formal verb); 'quickly' → 'rapidly' placed pre-verbally; passive option foregrounds the bacteria as the focus.",
+            principle:"Replace informal phrasal verbs with single-word formal equivalents. Position adverbs before the main verb (pre-verbal), especially in passive constructions." },
+          { spoken:"We really don't know yet if the treatment actually works in the long run.",
+            hint:"as yet / remains uncertain / long-term efficacy / impersonal construction",
+            answer:"The long-term efficacy of the treatment remains, as yet, uncertain.",
+            keyChange:"'Really don't know' → 'remains uncertain' (impersonal + adjective); 'yet' → 'as yet' (formal); 'the treatment actually works' → 'long-term efficacy of the treatment' (nominalisation removes the adverb 'actually').",
+            principle:"Replace first-person + informal adverbs with impersonal constructions; nominalise verbs into noun phrases; use formal adverbials (as yet, hitherto) for temporal reference." },
+          { spoken:"Almost everyone agrees that the policy failed really badly.",
+            hint:"overwhelming consensus / demonstrably / proved ineffective / attitudinal adverb",
+            answer:"There is an overwhelming consensus that the policy proved demonstrably ineffective.",
+            keyChange:"'Almost everyone agrees' → 'there is an overwhelming consensus' (impersonal noun phrase); 'failed really badly' → 'proved demonstrably ineffective'; 'demonstrably' (evidential adverb) placed before the adjective.",
+            principle:"Replace informal quantifiers (almost everyone) with formal noun phrases (overwhelming consensus). Use evidential stance adverbs (demonstrably, empirically) to signal evidential grounding." }
+        ]
+      },
+      { id:"log", label:"Error Log", type:"log", rubricKey:"log",
+        title:"Error Log & Reflection",
+        prompts:[
+          "Find a sentence you have written this week with a misplaced adverb. Write the original, identify the placement error, and produce the corrected version.",
+          "Write two sentences: (1) one using a sentence adverb (conclusively, notably, strikingly) at the start, and (2) one using a focusing adverb (only, even, merely) in the middle. Check that each is positioned correctly.",
+          "Take an informal sentence containing an adverb (quickly, really, just, already) and rewrite it as academic prose using nominalisation, a formal adverb, or a passive construction."
+        ]
+      }
+    ]
+  },
+
+  c1c2: {
+    label:"C1+–C2", color:"#8B1A1A", light:"#F5DADA",
+    theme:"Stance Adverbs & Epistemic Marking",
+    tagline:"Deploy stance adverbs to calibrate certainty, signal evidence type, and shape argument",
+    goal:"Today you will: (1) distinguish evidential, epistemic, and attitudinal stance adverbs, (2) audit arguments for contradictory epistemic marking, (3) transform vague hedges into precise academic stance language.",
+    time:"20–25 min",
+    sections:[
+      { id:"warmup", label:"Warm-up", type:"theory4",
+        title:"Four Families of Stance Adverbs",
+        subtitle:"Each family positions the writer differently relative to the claim.",
+        cards:[
+          { label:"Evidential Stance", color:"#8B1A1A",
+            desc:"Adverbs that signal the SOURCE or BASIS of evidence: demonstrably, empirically, theoretically, observationally, historically. They tell the reader HOW you know something, not just that you believe it.",
+            fix:"Weak: 'The approach works in practice.' Evidential: 'The approach demonstrably reduces error rates, as confirmed by three independent replication studies.' — the adverb signals the evidence type." },
+          { label:"Epistemic Modality", color:"#5A1A8A",
+            desc:"Adverbs marking the writer's DEGREE OF CERTAINTY: certainly, probably, presumably, arguably, conceivably, plausibly. They calibrate confidence and signal intellectual honesty. Overclaiming destroys credibility.",
+            fix:"Overclaiming: 'This proves that intervention X causes Y.' Calibrated: 'This arguably demonstrates a causal link between X and Y, though confounding factors cannot be entirely excluded.'" },
+          { label:"Attitudinal / Evaluative", color:"#1A4A7A",
+            desc:"Adverbs that signal the writer's EVALUATION of the content: remarkably, disappointingly, crucially, paradoxically, tellingly, worryingly. They shape reader interpretation and reveal the writer's stance on significance.",
+            fix:"Neutral: 'The rate declined.' Shaped: 'Tellingly, the rate declined most sharply during the period when interventions were at their most intensive — suggesting possible iatrogenic effects.'" },
+          { label:"Discourse Architecture", color:"#2D6A4F",
+            desc:"Adverbs that ORGANISE the argument at a macro level: furthermore, nonetheless, conversely, accordingly, hitherto, henceforth. Overuse of 'however' and 'therefore' signals weak discourse control.",
+            fix:"Weak: 'However, the results differ.' Precise: 'Conversely, the results diverge markedly from prior predictions, suggesting the operation of a confounding variable not captured in the original design.'" }
+        ]
+      },
+      { id:"spot", label:"Spot-the-Error", type:"spot", rubricKey:"spot",
+        title:"Spot the Error", subtitle:"Each sentence contains a stance adverb error — contradictory marking, wrong adverb type, or misused discourse adverb.",
+        items:[
+          { sentence:"The evidence undoubtedly suggests that further longitudinal research is needed.",
+            underlined:"undoubtedly suggests", wrongWord:"undoubtedly suggests", correctWord:"strongly suggests",
+            wrongType:"Contradictory epistemic marking (certainty + hedge verb)", correctType:"Consistent epistemic frame",
+            rule:"'Undoubtedly' marks absolute certainty; 'suggests' is a hedging verb signalling tentativeness. These directly contradict. If the evidence 'suggests', it does NOT do so 'undoubtedly'.",
+            tip:"Match your stance adverb to your verb: 'undoubtedly shows/proves' (certain) OR 'tentatively/strongly suggests' (hedged). Never combine a certainty adverb with a hedging verb." },
+          { sentence:"The findings are importantly for the broader field of behavioural neuroscience.",
+            underlined:"are importantly", wrongWord:"importantly", correctWord:"important",
+            wrongType:"Stance adverb used as predicative adjective", correctType:"Adjective in predicative position after 'be'",
+            rule:"After a linking verb like 'are', use an adjective (important), not an adverb (importantly). 'Importantly' is a sentence adverb — it modifies whole clauses, not predicates.",
+            tip:"'Importantly' belongs at the start of a clause: 'Importantly, the findings…' After 'are/is/were', you always need the adjective form: 'The findings are important.'" },
+          { sentence:"Accordingly, the hypothesis could not be confirmed; accordingly, the team proposed further testing.",
+            underlined:"Accordingly … accordingly", wrongWord:"Accordingly … accordingly", correctWord:"Accordingly … consequently",
+            wrongType:"Repeated discourse adverb in adjacent clauses", correctType:"Varied discourse connectors for cohesion",
+            rule:"Repeating 'accordingly' in consecutive clauses signals poor lexical range and weak cohesive control. Use varied connectors: accordingly → consequently, therefore → as a result, thus → hence.",
+            tip:"Build a repertoire: accordingly → consequently → as a result → hence → therefore. Never use the same discourse adverb twice in adjacent independent clauses." },
+          { sentence:"Paradoxically, the findings of the present study confirm those of all three prior investigations.",
+            underlined:"Paradoxically", wrongWord:"Paradoxically", correctWord:"Notably",
+            wrongType:"Attitudinal adverb mismatched to logical relationship", correctType:"Adverb matching actual logical content",
+            rule:"'Paradoxically' signals a surprising CONTRADICTION. If the study confirms prior findings (agreement, consistency), there is no paradox. 'Notably' or 'significantly' would be appropriate.",
+            tip:"Before writing 'paradoxically' or 'surprisingly', check: is there an actual contradiction? Confirmation → 'notably/consistently'. Reversal → 'paradoxically/unexpectedly'." },
+          { sentence:"The researchers arguably proved their central claim beyond reasonable doubt.",
+            underlined:"arguably proved … beyond reasonable doubt", wrongWord:"arguably proved beyond reasonable doubt", correctWord:"arguably demonstrated their central claim",
+            wrongType:"Contradictory epistemic markers in single clause", correctType:"Single consistent epistemic frame",
+            rule:"'Arguably' hedges (= it can be argued, open to debate); 'beyond reasonable doubt' asserts near-certainty. These epistemic stances are mutually exclusive. Choose one.",
+            tip:"Write your epistemic stance once and consistently. 'Arguably' opens debate; 'beyond doubt' closes it. Stacking them reveals uncertainty about what the evidence actually shows." },
+          { sentence:"Hitherto, the research team will investigate the newly synthesised compound in Phase II trials.",
+            underlined:"Hitherto", wrongWord:"Hitherto", correctWord:"Henceforth",
+            wrongType:"Temporal discourse adverb in wrong time direction", correctType:"'Henceforth' for future reference",
+            rule:"'Hitherto' = up to this point (refers BACKWARD in time). 'Henceforth' = from this point forward (refers FORWARD). The future tense 'will investigate' requires a forward-looking adverb.",
+            tip:"Hitherto = BACKWARD (up to now; past or present perfect context). Henceforth = FORWARD (from now on; future context). Match the adverb to the tense direction of the verb." }
+        ]
+      },
+      { id:"fill", label:"Fill-in-the-Blank", type:"fill", rubricKey:"fill",
+        title:"Fill in the Blank", subtitle:"Supply the most epistemically precise adverb for each academic context.",
+        items:[
+          { template:"The mechanism by which this process occurs remains ___ poorly understood.",
+            baseWord:"largely", answer:"largely",
+            targetType:"Degree adverb hedging extent of knowledge gap", hint:"To a great extent, but not completely",
+            explanation:"'Largely' precisely hedges 'poorly understood' — most of the mechanism is unclear, but partial knowledge exists. It is more accurate and credible than 'completely' or 'absolutely'." },
+          { template:"___, the intervention group showed no improvement despite the initial promise of the treatment.",
+            baseWord:"Disappointingly / Accordingly / Hitherto", answer:"Disappointingly",
+            targetType:"Attitudinal stance adverb signalling evaluative reaction", hint:"Signals outcome fell short of expectation",
+            explanation:"'Disappointingly' signals the writer's evaluative stance — the outcome failed to meet expectation. 'Accordingly' signals consequence (logic); 'hitherto' signals prior time — neither fits the evaluative content." },
+          { template:"The data ___ support a causal interpretation, though correlation alone is established here.",
+            baseWord:"do not necessarily / arguably / certainly", answer:"do not necessarily",
+            targetType:"Epistemic restriction with negation", hint:"Do not definitely (but possibly)",
+            explanation:"'Do not necessarily support' means the data could be consistent with causation but do not require it. 'Necessarily' in negative contexts = 'it does not have to follow'. This is the epistemically most precise option." },
+          { template:"It is ___ the case that increased funding alone guarantees improved outcomes.",
+            baseWord:"not necessarily / certainly / undoubtedly", answer:"not necessarily",
+            targetType:"Epistemic negation in cleft construction", hint:"Does not automatically follow",
+            explanation:"'Not necessarily the case' is a formal, calibrated epistemic claim. It avoids absolute negation (which would be too strong) while signalling that the relationship is not automatic or universal." },
+          { template:"The author ___ understates the methodological limitations of the adopted approach.",
+            baseWord:"arguably", answer:"arguably",
+            targetType:"Epistemic stance in critical academic writing", hint:"In the writer's view, contestably",
+            explanation:"'Arguably' marks the claim as the writer's contestable interpretation, not established fact. It is essential in critical writing — it invites reasoned response and positions the writer as a participant in scholarly debate." }
+        ]
+      },
+      { id:"transform", label:"Transform", type:"transform", rubricKey:"transform",
+        title:"Transform: Imprecise → Epistemically Calibrated", subtitle:"Rewrite each sentence to achieve precise epistemic stance and formal academic voice.",
+        items:[
+          { spoken:"It seems like the results show something important about how people make decisions.",
+            hint:"evidently illuminate / decision-making processes / significant implications / noun phrase density",
+            answer:"The results evidently illuminate key dimensions of human decision-making, with significant implications for behavioural economics and policy design.",
+            keyChange:"'Seems like … show something important' → 'evidently illuminate' (evidential adverb + precise verb); vague 'how people make decisions' → nominalised 'human decision-making'; added implication clause increases argumentative weight.",
+            principle:"Replace vague hedged phrases with evidential stance adverbs (evidently, demonstrably) paired with precise nominalised noun phrases. Each clause should advance the argument, not merely gesture toward it." },
+          { spoken:"Even though the critics say it doesn't work, I think it probably does in certain situations.",
+            hint:"notwithstanding / efficacy / may well / context-dependent / impersonal",
+            answer:"Notwithstanding critical assessments of its efficacy, the approach may well prove effective within specific contextual configurations.",
+            keyChange:"'Even though critics say' → 'notwithstanding critical assessments of its efficacy' (formal concession + nominalisation); 'I think probably' → 'may well' (impersonal epistemic modal, signals likelihood); 'in certain situations' → 'within specific contextual configurations'.",
+            principle:"Replace first-person hedges with impersonal modal constructions. 'May well' signals calibrated likelihood (stronger than 'might', weaker than 'will'). 'Notwithstanding' introduces formal concession without subordination." },
+          { spoken:"Scientists now know more about this than they used to, but there are still things they don't understand.",
+            hint:"has been substantially advanced / hitherto / lacunae / nonetheless / nominalise",
+            answer:"Scientific understanding of this phenomenon has been substantially advanced in recent decades; nonetheless, significant lacunae remain in the extant literature.",
+            keyChange:"'Know more than they used to' → 'has been substantially advanced' (passive nominalisation of knowledge growth); 'things they don't understand' → 'significant lacunae' (field-specific vocabulary); 'nonetheless' as a formal discourse adverb replacing informal 'but'.",
+            principle:"Nominalise epistemic states ('knowing more' → 'advancement of understanding'). Replace vague expressions with field-specific vocabulary. Use formal discourse adverbs (nonetheless, hitherto) to signal argumentative structure at the macro level." }
+        ]
+      },
+      { id:"log", label:"Error Log", type:"log", rubricKey:"log",
+        title:"Error Log & Reflection",
+        prompts:[
+          "Identify one overclaimed or underclaimed statement from your recent academic writing. Rewrite it with precise epistemic marking — choose from: arguably, evidently, presumably, conceivably. Justify your choice in one sentence.",
+          "Write three sentences, each demonstrating a different stance adverb category: (1) evidential (demonstrably / empirically / theoretically), (2) epistemic (arguably / presumably / conceivably), (3) attitudinal (tellingly / paradoxically / worryingly).",
+          "Audit one paragraph you have written: underline every discourse adverb (however, therefore, furthermore, etc.). Are any repeated? Are any logically inconsistent with the surrounding argument? Rewrite at least one to improve discourse architecture."
+        ]
+      }
+    ]
+  }
+};
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+let AL = 'a2b1', AS = 0;
+const ST = { choices:{}, inputs:{}, checked:{}, logs:{} };
+
+// ─── HELPERS ─────────────────────────────────────────────────────────────────
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+
+function badge(text, cls){ return `<span class="tc-badge">${esc(text)}</span>`; }
+
+function rubricHTML(rubricKey){
+  const rules = RUBRICS[AL][rubricKey];
+  if(!rules) return '';
+  const rows = rules.map(r=>`<div class="rub-row"><span>${esc(r.criterion)}</span><span class="rub-max">/${r.max}</span><span style="color:#888;font-size:11px">${esc(r.desc)}</span></div>`).join('');
+  return `<span class="rub-toggle" onclick="togRub(this)">▸ View rubric</span><div class="rub-panel">${rows}</div>`;
+}
+
+function togRub(el){ const p=el.nextElementSibling; p.classList.toggle('open'); el.textContent=p.classList.contains('open')?'▾ Hide rubric':'▸ View rubric'; }
+
+function progHTML(id, done, total){
+  const pct = total>0?Math.round(done/total*100):0;
+  return `<div style="margin-top:10px;font-size:12px;color:#888">${done}/${total} completed <span id="sb_${id}"></span><div class="prog-bar-wrap"><div class="prog-bar" id="pb_${id}" style="width:${pct}%"></div></div></div>`;
+}
+
+function updProg(id, done, total){
+  const pb=document.getElementById('pb_'+id), sb=document.getElementById('sb_'+id);
+  if(!pb||!sb) return;
+  const pct=total>0?Math.round(done/total*100):0;
+  pb.style.width=pct+'%';
+  sb.innerHTML=scoreBadge(done,total);
+}
+
+function scoreBadge(done,total){
+  if(!total||!done) return '';
+  const pct=done/total;
+  const cls=pct>=.8?'score-hi':pct>=.5?'score-mid':'score-lo';
+  return `<span class="score-badge ${cls}">${done}/${total}</span>`;
+}
+
+// ─── INIT ────────────────────────────────────────────────────────────────────
+function init(){
+  document.title='Daily Drills 13';
+  buildLvTabs();
+  applyLevel();
+}
+
+function buildLvTabs(){
+  const wrap=document.getElementById('lvTabs');
+  const lvs=[['a2b1','A2–B1'],['b1b2','B1+–B2'],['b2c1','B2+–C1'],['c1c2','C1+–C2']];
+  wrap.innerHTML=lvs.map(([k,l])=>`<button class="lv-tab${AL===k?' active':''}" onclick="switchLv('${k}')">${l}</button>`).join('');
+}
+
+function switchLv(k){ AL=k; AS=0; buildLvTabs(); applyLevel(); }
+
+function applyLevel(){
+  const lv=LEVELS[AL];
+  document.documentElement.style.setProperty('--lc',lv.color);
+  document.documentElement.style.setProperty('--ll',lv.light);
+  document.getElementById('dlLvName').textContent=lv.label;
+  const card=document.getElementById('lvCard');
+  card.innerHTML=`
+    <div class="level-card">
+      <div class="lc-header">
+        <div>
+          <div class="lc-badge">${esc(lv.label)}</div>
+          <div class="lc-theme">${esc(lv.theme)}</div>
+          <div class="lc-tagline">${esc(lv.tagline)}</div>
+          <div class="lc-meta"><span>⏱ ${esc(lv.time)}</span><span>📅 Day 13</span></div>
+        </div>
+      </div>
+      <div class="goal-box"><strong>Today you will:</strong> ${esc(lv.goal)}</div>
+      <div class="sec-nav" id="secNav"></div>
+      <div id="secWrap"></div>
+    </div>`;
+  buildSecNav();
+  navSec(AS);
+}
+
+function buildSecNav(){
+  const lv=LEVELS[AL];
+  const nav=document.getElementById('secNav');
+  nav.innerHTML=lv.sections.map((s,i)=>`<button class="sec-btn${i===AS?' active':''}" onclick="navSec(${i})">${esc(s.label)}</button>`).join('');
+}
+
+function navSec(i){
+  AS=i;
+  const btns=document.querySelectorAll('.sec-btn');
+  btns.forEach((b,j)=>b.classList.toggle('active',j===i));
+  renderSec(LEVELS[AL].sections[i]);
+}
+
+function renderSec(sec){
+  const wrap=document.getElementById('secWrap');
+  wrap.innerHTML='';
+  const div=document.createElement('div');
+  div.className='section-wrap';
+  switch(sec.type){
+    case 'theory':   div.innerHTML=rTheory(sec); break;
+    case 'theory2':  div.innerHTML=rTheory2(sec); break;
+    case 'theory3':  div.innerHTML=rTheory3(sec); break;
+    case 'theory4':  div.innerHTML=rTheory4(sec); break;
+    case 'spot':     div.innerHTML=rSpot(sec); break;
+    case 'fill':     div.innerHTML=rFill(sec); break;
+    case 'transform':div.innerHTML=rTransform(sec); break;
+    case 'log':      div.innerHTML=rLog(sec); break;
+  }
+  wrap.appendChild(div);
+}
+
+// ─── RENDERERS ───────────────────────────────────────────────────────────────
+function rTheory(sec){
+  const cards=sec.cards.map(c=>`
+    <div class="theory-card" style="border-top:3px solid ${c.color}">
+      <div class="tc-label" style="color:${c.color}">${esc(c.label)}</div>
+      <span class="tc-badge">${esc(c.badge)}</span>
+      <div class="tc-ex">${esc(c.examples)}</div>
+      <div class="tc-rule">${esc(c.rule)}</div>
+    </div>`).join('');
+  return `<div class="section-title">${esc(sec.title)}</div>
+    <div class="section-subtitle">${esc(sec.subtitle)}</div>
+    <div class="theory-grid">${cards}</div>`;
+}
+
+function rTheory2(sec){
+  const groups=sec.groups.map(g=>`
+    <div class="t2-group" style="border-top:3px solid ${g.color}">
+      <div class="t2-label" style="color:${g.color}">${esc(g.label)}</div>
+      <div class="t2-chips">${g.verbs.map(v=>`<span class="t2-chip" style="background:${g.color}">${esc(v)}</span>`).join('')}</div>
+      <div class="t2-mem">${esc(g.memory)}</div>
+      <div class="t2-ex">${esc(g.example)}</div>
+    </div>`).join('');
+  return `<div class="section-title">${esc(sec.title)}</div>
+    <div class="section-subtitle">${esc(sec.subtitle)}</div>
+    ${groups}`;
+}
+
+function rTheory3(sec){
+  const pairs=sec.pairs.map(p=>`
+    <div class="t3-pair">
+      <div class="t3-row">
+        <div class="t3-box t3-spoken"><div class="t3-lbl">Spoken / Informal</div>${esc(p.spoken)}</div>
+        <div class="t3-box t3-acad"><div class="t3-lbl">Academic</div>${esc(p.academic)}</div>
+      </div>
+      <div class="t3-change">🔄 ${esc(p.change)}</div>
+    </div>`).join('');
+  return `<div class="section-title">${esc(sec.title)}</div>
+    <div class="section-subtitle">${esc(sec.subtitle)}</div>
+    ${pairs}
+    <div class="t3-insight"><strong>💡 Principle:</strong> ${esc(sec.insight)}</div>`;
+}
+
+function rTheory4(sec){
+  const cards=sec.cards.map(c=>`
+    <div class="t4-card" style="border-top:3px solid ${c.color}">
+      <div class="t4-label" style="color:${c.color}">${esc(c.label)}</div>
+      <div class="t4-desc">${esc(c.desc)}</div>
+      <div class="t4-fix">${esc(c.fix)}</div>
+    </div>`).join('');
+  return `<div class="section-title">${esc(sec.title)}</div>
+    <div class="section-subtitle">${esc(sec.subtitle)}</div>
+    <div class="t4-grid">${cards}</div>`;
+}
+
+function rSpot(sec){
+  const key=AL+'_spot';
+  const items=sec.items.map((it,i)=>`
+    <div class="spot-item" id="sp_${i}">
+      <div class="spot-sentence">${buildSpotSentence(it)}</div>
+      <div class="spot-choices">
+        <button class="spot-choice" onclick="spotPick(${i},'keep')" id="spc_${i}_keep">✓ Sentence is correct</button>
+        <button class="spot-choice" onclick="spotPick(${i},'error')" id="spc_${i}_error">✗ Contains an error → ${esc(it.correctWord)}</button>
+      </div>
+      <div class="spot-feedback" id="spf_${i}">
+        <div class="spot-rule">📖 <strong>Rule:</strong> ${esc(it.rule)}</div>
+        <div class="spot-tip" style="margin-top:6px">💡 <strong>Tip:</strong> ${esc(it.tip)}</div>
+        <div style="margin-top:8px;font-size:12.5px;color:#555"><strong>Error type:</strong> ${esc(it.wrongType)} → <strong>Correction:</strong> ${esc(it.correctType)}</div>
+      </div>
+    </div>`).join('');
+  const total=sec.items.length;
+  return `<div class="section-title">${esc(sec.title)}</div>
+    <div class="section-subtitle">${esc(sec.subtitle)}</div>
+    ${items}
+    <div class="spot-actions">
+      <button class="btn btn-primary" onclick="calcSpot('${sec.id}',${total})">Check All</button>
+      <button class="btn btn-outline" onclick="resetSpot(${total})">Reset</button>
+    </div>
+    ${progHTML(sec.id,0,total)}
+    ${rubricHTML(sec.rubricKey)}`;
+}
+
+function buildSpotSentence(it){
+  const s=esc(it.sentence);
+  const uw=esc(it.underlined);
+  return s.replace(uw,`<span class="spot-underline">${uw}</span>`);
+}
+
+function spotPick(i, choice){
+  ST.choices[AL+'_sp_'+i]=choice;
+  ['keep','error'].forEach(c=>{
+    const b=document.getElementById(`spc_${i}_${c}`);
+    if(b) b.classList.remove('selected-correct','selected-wrong');
+  });
+  const btn=document.getElementById(`spc_${i}_${choice}`);
+  if(btn) btn.classList.add('selected-correct');
+}
+
+function calcSpot(secId, total){
+  let done=0;
+  for(let i=0;i<total;i++){
+    const chosen=ST.choices[AL+'_sp_'+i];
+    const item=document.getElementById('sp_'+i);
+    const fb=document.getElementById('spf_'+i);
+    if(!item) continue;
+    // All sentences contain errors
+    const correct = (chosen==='error');
+    item.classList.remove('correct','incorrect');
+    item.classList.add(correct?'correct':'incorrect');
+    ['keep','error'].forEach(c=>{
+      const b=document.getElementById(`spc_${i}_${c}`);
+      if(b) b.classList.remove('selected-correct','selected-wrong','reveal-correct');
+    });
+    const errBtn=document.getElementById(`spc_${i}_error`);
+    if(errBtn) errBtn.classList.add('reveal-correct');
+    if(chosen){
+      const chosenBtn=document.getElementById(`spc_${i}_${chosen}`);
+      if(chosenBtn && !correct) chosenBtn.classList.add('selected-wrong');
+    }
+    if(fb){ fb.classList.add('show'); }
+    if(correct) done++;
+  }
+  updProg(secId, done, total);
+}
+
+function resetSpot(total){
+  for(let i=0;i<total;i++){
+    ST.choices[AL+'_sp_'+i]=null;
+    const item=document.getElementById('sp_'+i);
+    if(item) item.classList.remove('correct','incorrect');
+    ['keep','error'].forEach(c=>{
+      const b=document.getElementById(`spc_${i}_${c}`);
+      if(b) b.classList.remove('selected-correct','selected-wrong','reveal-correct');
+    });
+    const fb=document.getElementById('spf_'+i);
+    if(fb) fb.classList.remove('show');
+  }
+}
+
+function rFill(sec){
+  const items=sec.items.map((it,i)=>`
+    <div class="fill-item">
+      <div class="fill-template">${esc(it.template)}</div>
+      <div class="fill-base">Cue: <span>${esc(it.baseWord)}</span></div>
+      <div class="fill-input-row">
+        <input class="fill-input" id="fi_${i}" type="text" placeholder="${esc(it.hint)}" oninput="saveFill(${i})">
+        <button class="btn btn-primary btn-sm" onclick="fillChk(${i},'${esc(it.answer)}','${esc(it.explanation)}')">Check</button>
+      </div>
+      <div class="fill-fb" id="ff_${i}">
+        <div class="fill-correct-ans">✓ Model answer: ${esc(it.answer)}</div>
+        <div class="fill-exp">${esc(it.explanation)}</div>
+      </div>
+    </div>`).join('');
+  const total=sec.items.length;
+  return `<div class="section-title">${esc(sec.title)}</div>
+    <div class="section-subtitle">${esc(sec.subtitle)}</div>
+    ${items}
+    <div style="margin-top:10px">
+      <button class="btn btn-primary" onclick="calcFill('${sec.id}',${total})">Check All</button>
+      <button class="btn btn-outline" onclick="resetFill(${total})" style="margin-left:8px">Reset</button>
+    </div>
+    ${progHTML(sec.id,0,total)}
+    ${rubricHTML(sec.rubricKey)}`;
+}
+
+function saveFill(i){
+  const el=document.getElementById('fi_'+i);
+  if(el) ST.inputs[AL+'_fi_'+i]=el.value;
+}
+
+function fillChk(i, ans, exp){
+  const el=document.getElementById('fi_'+i);
+  const fb=document.getElementById('ff_'+i);
+  if(!el||!fb) return;
+  const val=el.value.trim().toLowerCase();
+  const correct=ans.toLowerCase().split('/').map(a=>a.trim()).some(a=>val===a||val.replace(/\s+/g,' ')===a);
+  el.classList.remove('correct','incorrect');
+  el.classList.add(correct?'correct':'incorrect');
+  fb.classList.add('show');
+  ST.checked[AL+'_fi_'+i]=correct;
+}
+
+function calcFill(secId, total){
+  let done=0;
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===secId);
+  if(!sec) return;
+  sec.items.forEach((it,i)=>{
+    fillChk(i, it.answer, it.explanation);
+    if(ST.checked[AL+'_fi_'+i]) done++;
+  });
+  updProg(secId, done, total);
+}
+
+function resetFill(total){
+  for(let i=0;i<total;i++){
+    const el=document.getElementById('fi_'+i);
+    if(el){ el.value=''; el.classList.remove('correct','incorrect'); }
+    const fb=document.getElementById('ff_'+i);
+    if(fb) fb.classList.remove('show');
+    ST.checked[AL+'_fi_'+i]=null;
+  }
+}
+
+function rTransform(sec){
+  const items=sec.items.map((it,i)=>`
+    <div class="tr-item">
+      <div class="tr-spoken"><div class="tr-spoken-lbl">Spoken / Informal</div>${esc(it.spoken)}</div>
+      <div class="tr-hint">💡 Hint: ${esc(it.hint)}</div>
+      <textarea class="tr-textarea" id="tr_${i}" placeholder="Write your academic version here…" oninput="saveTr(${i})"></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap">
+        <button class="btn btn-primary btn-sm" onclick="revealTr(${i})">Reveal Model Answer</button>
+      </div>
+      <div class="tr-fb" id="trf_${i}">
+        <div class="tr-model"><div class="tr-model-lbl">Model Answer</div>${esc(it.answer)}</div>
+        <div class="tr-key">🔄 <strong>Key changes:</strong> ${esc(it.keyChange)}</div>
+        <div class="tr-principle">📐 <strong>Principle:</strong> ${esc(it.principle)}</div>
+      </div>
+    </div>`).join('');
+  return `<div class="section-title">${esc(sec.title)}</div>
+    <div class="section-subtitle">${esc(sec.subtitle)}</div>
+    ${items}
+    ${rubricHTML(sec.rubricKey)}`;
+}
+
+function saveTr(i){
+  const el=document.getElementById('tr_'+i);
+  if(el) ST.inputs[AL+'_tr_'+i]=el.value;
+}
+
+function revealTr(i){
+  const fb=document.getElementById('trf_'+i);
+  if(fb) fb.classList.add('show');
+  const el=document.getElementById('tr_'+i);
+  if(el) ST.inputs[AL+'_tr_'+i]=el.value;
+}
+
+function rLog(sec){
+  const items=sec.prompts.map((p,i)=>`
+    <div class="log-item">
+      <div class="log-prompt">${i+1}. ${esc(p)}</div>
+      <textarea class="log-textarea" id="log_${i}" placeholder="Write your response here…" oninput="saveLog(${i})"></textarea>
+    </div>`).join('');
+  return `<div class="section-title">${esc(sec.title)}</div>
+    ${items}
+    <button class="btn btn-primary" onclick="saveLogAll(${sec.prompts.length})">Save Reflection</button>
+    ${rubricHTML(sec.rubricKey)}`;
+}
+
+function saveLog(i){
+  const el=document.getElementById('log_'+i);
+  if(el) ST.logs[AL+'_log_'+i]=el.value;
+}
+
+function saveLogAll(n){
+  for(let i=0;i<n;i++){
+    const el=document.getElementById('log_'+i);
+    if(el) ST.logs[AL+'_log_'+i]=el.value;
+  }
+  alert('Reflection saved! Download your report to keep a full record.');
+}
+
+// ─── DOWNLOAD ────────────────────────────────────────────────────────────────
+function handleDownload(){
+  const lv=LEVELS[AL];
+  const now=new Date();
+  let txt=`HUONG STELLA PARADIGM — Daily Drills Day 13\n`;
+  txt+=`Level: ${lv.label} | Theme: ${lv.theme}\n`;
+  txt+=`Date: ${now.toISOString().slice(0,10)}\n`;
+  txt+='='.repeat(60)+'\n\n';
+
+  txt+='SPOT-THE-ERROR RESPONSES\n'+'-'.repeat(40)+'\n';
+  const spotSec=lv.sections.find(s=>s.type==='spot');
+  if(spotSec){
+    spotSec.items.forEach((it,i)=>{
+      const ch=ST.choices[AL+'_sp_'+i]||'(no answer)';
+      txt+=`Q${i+1}: "${it.sentence}"\n  Your answer: ${ch}\n  Correct: error → ${it.correctWord}\n  Rule: ${it.rule}\n\n`;
+    });
+  }
+
+  txt+='\nFILL-IN-THE-BLANK RESPONSES\n'+'-'.repeat(40)+'\n';
+  const fillSec=lv.sections.find(s=>s.type==='fill');
+  if(fillSec){
+    fillSec.items.forEach((it,i)=>{
+      const val=ST.inputs[AL+'_fi_'+i]||'(blank)';
+      txt+=`Q${i+1}: ${it.template}\n  Your answer: ${val}\n  Model: ${it.answer}\n  ${it.explanation}\n\n`;
+    });
+  }
+
+  if(AL==='b2c1'||AL==='c1c2'){
+    txt+='\nTRANSFORM RESPONSES\n'+'-'.repeat(40)+'\n';
+    const trSec=lv.sections.find(s=>s.type==='transform');
+    if(trSec){
+      trSec.items.forEach((it,i)=>{
+        const val=ST.inputs[AL+'_tr_'+i]||'(blank)';
+        txt+=`Q${i+1}: "${it.spoken}"\n  Your version: ${val}\n  Model: ${it.answer}\n  Key changes: ${it.keyChange}\n\n`;
+      });
+    }
+  }
+
+  txt+='\nERROR LOG / REFLECTION\n'+'-'.repeat(40)+'\n';
+  const logSec=lv.sections.find(s=>s.type==='log');
+  if(logSec){
+    logSec.prompts.forEach((p,i)=>{
+      const val=ST.logs[AL+'_log_'+i]||'(blank)';
+      txt+=`Prompt ${i+1}: ${p}\n  Response: ${val}\n\n`;
+    });
+  }
+
+  txt+='\n'+'='.repeat(60)+'\nEnd of Daily Drills Day 13 Report\n';
+
+  const blob=new Blob([txt],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`HuongStella_DailyDrill_Day13_${AL}_${now.toISOString().slice(0,10)}.txt`;
+  a.click();
+}
+
+// ─── START ───────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
