@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daily Drills 14</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:#F4F2EF;color:#1A1A1A;min-height:100vh}
+button,textarea,input{font-family:'Inter',sans-serif}
+button{cursor:pointer}
+.wrap{max-width:740px;margin:0 auto;padding:0 20px}
+#app-header{background:#111;border-bottom:3px solid var(--lc,#2D6A4F);transition:border-color .3s}
+.header-inner{max-width:740px;margin:0 auto;padding:16px 20px 0}
+.brand-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.logo-mark{display:flex;align-items:center;gap:10px}
+.logo-text-main{font-size:13px;font-weight:900;color:#fff;line-height:1.1}
+.logo-text-sub{font-size:9px;font-weight:700;color:#E8C84A;letter-spacing:3px;text-transform:uppercase}
+.lesson-label{font-size:11px;letter-spacing:3px;color:#555;text-transform:uppercase;margin-bottom:3px}
+.lesson-title{font-size:17px;font-weight:800;color:#fff;margin-bottom:3px}
+.lesson-meta{font-size:12px;color:#888;margin-bottom:14px}
+.level-tabs{display:flex}
+.level-tab{padding:8px 18px;border:none;border-bottom:3px solid transparent;background:none;color:#555;font-weight:500;font-size:13px;transition:all .2s}
+.level-tab.active{border-bottom-color:var(--lc);color:var(--lc);font-weight:700}
+.main-body{max-width:740px;margin:0 auto;padding:20px 20px 16px}
+.goal-row{display:flex;gap:10px;align-items:flex-start;margin-bottom:16px;flex-wrap:wrap}
+.goal-box{flex:1;border-radius:12px;padding:12px 16px;min-width:240px;border:1px solid rgba(0,0,0,.08)}
+.goal-label{font-size:10px;font-weight:800;letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.goal-text{font-size:12px;color:#333;line-height:1.6}
+.dl-btn{background:var(--lc);color:#fff;border:none;border-radius:12px;padding:12px 18px;font-size:12px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;min-width:110px;transition:opacity .2s}
+.dl-btn:hover{opacity:.88}
+.dl-btn .ic{font-size:20px}
+.dl-btn .sb{font-size:10px;opacity:.8}
+.sec-nav{display:flex;gap:6px;margin-bottom:20px;overflow-x:auto;padding-bottom:2px}
+.sec-tab{padding:7px 14px;border-radius:20px;border:1.5px solid #DDD;background:#fff;color:#555;font-size:12px;font-weight:500;white-space:nowrap;transition:all .2s}
+.sec-tab.active{background:var(--lc);border-color:var(--lc);color:#fff;font-weight:700}
+.sec-title{font-size:16px;font-weight:800;color:#1A1A1A;margin-bottom:2px}
+.sec-subtitle{font-size:13px;color:#666;margin-bottom:18px}
+.theory-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.th-card{background:#fff;border-radius:12px;border:1.5px solid rgba(0,0,0,.08);padding:14px 16px}
+.th-head{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.tbadge{border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+.th-rule{font-size:12px;color:#555;margin-bottom:6px;line-height:1.5}
+.th-ex{font-size:11px;color:#888;font-style:italic;font-family:'JetBrains Mono',monospace}
+.g-card{background:#fff;border-radius:12px;padding:14px 18px;margin-bottom:10px}
+.g-title{font-weight:800;font-size:14px;margin-bottom:8px}
+.verbs-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+.v-chip{border-radius:6px;padding:2px 10px;font-size:12px;font-family:'JetBrains Mono',monospace;font-weight:600}
+.g-mem{font-size:12px;color:#666;margin-bottom:6px;font-style:italic}
+.g-ex{font-size:12px;color:#333;background:#F7F6F3;border-radius:6px;padding:6px 10px;font-family:'JetBrains Mono',monospace}
+.pair-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;overflow:hidden;margin-bottom:10px}
+.pair-sp{padding:12px 16px;border-left:3px solid #CCC}
+.pair-sp-lbl{font-size:10px;color:#999;margin-bottom:3px;font-weight:700;letter-spacing:1px}
+.pair-sp-txt{font-size:13px;color:#555;font-style:italic}
+.pair-ac{padding:12px 16px;border-left:3px solid var(--lc)}
+.pair-ac-lbl{font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:3px}
+.pair-ac-txt{font-size:13px;font-weight:600;color:#222}
+.pair-chg{font-size:11px;color:#888;margin-top:4px;font-family:'JetBrains Mono',monospace}
+.insight{border-radius:10px;padding:12px 16px;font-size:13px;line-height:1.6;color:#fff}
+.rub-toggle{display:flex;align-items:center;gap:8px;background:none;border:1px solid rgba(0,0,0,.15);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:700;margin-bottom:12px;color:var(--lc)}
+.rub-panel{border-radius:10px;padding:12px 16px;margin-bottom:16px;display:none}
+.rub-panel.open{display:block}
+.rub-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;padding-bottom:10px;margin-bottom:10px;border-bottom:1px solid rgba(0,0,0,.08)}
+.rub-row:last-child{padding-bottom:0;margin-bottom:0;border-bottom:none}
+.rub-crit{font-size:13px;font-weight:700;margin-bottom:2px}
+.rub-desc{font-size:11px;color:#666}
+.rub-pts{color:#fff;border-radius:6px;padding:2px 10px;font-size:12px;font-weight:800;white-space:nowrap;background:var(--lc)}
+.prog-wrap{margin-bottom:12px}
+.prog-bg{background:#E8E5E0;border-radius:99px;height:5px;overflow:hidden}
+.prog-fill{height:100%;border-radius:99px;transition:width .4s;background:var(--lc)}
+.prog-lbl{font-size:11px;color:#999;margin-top:3px}
+.spot-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:12px;overflow:hidden;transition:border-color .2s}
+.spot-num{font-size:11px;color:#999;margin-bottom:6px;font-weight:600;letter-spacing:1px}
+.spot-top{padding:14px 18px 10px}
+.spot-sen{font-size:15px;color:#1A1A1A;line-height:1.7}
+.ul-word{text-decoration:underline;text-decoration-style:wavy;text-decoration-color:#AAA}
+.ul-word.revealed{text-decoration-color:#CC3333;color:#CC3333;font-weight:700}
+.spot-acts{padding:0 18px 14px;display:flex;gap:8px;align-items:center}
+.spot-acts span{font-size:12px;color:#777}
+.btn-wrong{background:#FEE2E2;border:1px solid #FCA5A5;color:#CC3333;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700}
+.btn-right{background:#DCFCE7;border:1px solid #86EFAC;color:#1A7A3A;border-radius:6px;padding:5px 14px;font-size:12px;font-weight:700}
+.spot-ans{border-top:1px solid rgba(0,0,0,.08);padding:12px 18px;display:none}
+.spot-ans.open{display:block}
+.ans-row{display:flex;gap:8px;align-items:center;margin-bottom:8px;flex-wrap:wrap}
+.wrong-wd{font-size:12px;color:#CC3333;text-decoration:line-through;font-style:italic}
+.corr-wd{font-size:13px;color:#1A7A3A;font-weight:700}
+.arr{color:#999}
+.ans-rule{font-size:12px;color:#444;margin-bottom:8px;line-height:1.5}
+.ans-tip{background:#fff;border-radius:6px;padding:6px 10px;font-size:12px;font-style:italic}
+.sc-inline{margin-top:8px;font-size:12px;font-weight:700;display:none}
+.sc-inline.good{color:#1A7A3A}
+.sc-inline.bad{color:#CC3333}
+.warn-miss{font-size:12px;color:#CC3333;font-weight:600;margin-top:6px;display:none}
+.fill-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:12px;overflow:hidden}
+.fill-card.ok{border-color:#22C55E}
+.fill-card.no{border-color:#EF4444}
+.fill-body{padding:14px 18px}
+.fill-base{font-size:11px;color:#999;margin-bottom:8px;font-weight:600;letter-spacing:1px}
+.fill-tmpl{font-size:14px;color:#1A1A1A;line-height:1.8;margin-bottom:12px}
+.fill-irow{display:flex;gap:8px;align-items:center}
+.fill-inp{flex:1;padding:8px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:14px;outline:none;transition:border-color .2s}
+.fill-inp.ok{background:#F0FDF4;border-color:#22C55E}
+.fill-inp.no{background:#FEF2F2;border-color:#EF4444}
+.fill-chk{background:var(--lc);color:#fff;border:none;border-radius:8px;padding:9px 18px;font-size:13px;font-weight:700}
+.fill-ic{font-size:20px}
+.fill-ans{border-top:1px solid rgba(0,0,0,.08);padding:10px 18px;display:none}
+.fill-ans.open{display:block}
+.fill-ca{font-size:13px;font-weight:700;color:#1A7A3A;margin-bottom:4px}
+.fill-expl{font-size:12px;color:#444;line-height:1.5}
+.tr-card{background:#fff;border-radius:12px;border:1.5px solid #E2DDD8;margin-bottom:14px;overflow:hidden}
+.tr-body{padding:14px 18px}
+.tr-num{font-size:11px;color:#999;margin-bottom:8px;font-weight:600;letter-spacing:1px}
+.tr-spoken{background:#F5F3F0;border-radius:8px;padding:10px 14px;font-size:14px;color:#444;margin-bottom:12px;font-style:italic;border-left:3px solid #CCC}
+.tr-hint{font-size:12px;color:#777;margin-bottom:10px}
+.tr-ta{width:100%;padding:8px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:13px;resize:vertical;outline:none;line-height:1.6;transition:border-color .2s}
+.tr-reveal{background:var(--lc);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-size:13px;font-weight:700;margin-top:8px}
+.tr-ans{border-top:1px solid rgba(0,0,0,.08);padding:12px 18px;display:none}
+.tr-ans.open{display:block}
+.model-lbl{font-size:12px;font-weight:700;color:#999;margin-bottom:4px}
+.model-txt{font-size:13px;color:#1A1A1A;font-weight:600;line-height:1.6;margin-bottom:8px}
+.kc-chip{background:#fff;border-radius:6px;padding:4px 10px;font-size:11px;display:inline-block;margin-bottom:6px}
+.princ{font-size:12px;color:#555;font-style:italic;line-height:1.5}
+.log-note{background:#FFFBEB;border:1px solid #FCD34D;border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:13px;color:#92400E}
+.log-prompt{margin-bottom:14px}
+.log-lbl{display:block;font-size:13px;font-weight:700;color:#333;margin-bottom:6px}
+.log-ta{width:100%;padding:10px 12px;border-radius:8px;border:1.5px solid #DDD;font-size:13px;resize:vertical;outline:none;line-height:1.6;transition:border-color .2s}
+.log-save{border:none;border-radius:8px;padding:10px 24px;font-size:14px;font-weight:700;color:#fff;background:var(--lc);transition:background .2s}
+.score-badge{background:#fff;border-radius:12px;padding:14px 20px;text-align:center;margin-bottom:16px;margin-top:4px;border:2px solid var(--lc)}
+.score-badge .slbl{font-size:11px;color:#999;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:4px}
+.score-badge .snum{font-size:32px;font-weight:900;color:var(--lc)}
+.score-badge .snum .den{font-size:16px;font-weight:400;color:#999}
+.score-badge .sgrade{font-size:13px;font-weight:700;margin-top:2px}
+.score-cta{background:var(--lc);color:#fff;border:none;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:800;width:100%;margin-top:4px;display:none}
+.warn-box{background:#FFFBEB;border:1px solid #FCD34D;border-radius:8px;padding:10px 14px;margin-bottom:16px;font-size:12px;color:#92400E}
+.sec-nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:28px;padding-top:20px;border-top:1px solid #E2DDD8}
+.nav-btn{border-radius:8px;padding:10px 20px;font-size:13px;font-weight:600;border:none}
+.nav-prev{background:#fff;border:1.5px solid #DDD;color:#333}
+.nav-prev:disabled{color:#CCC}
+.nav-next{background:var(--lc);color:#fff;font-weight:700}
+.nav-next:disabled{background:#E8E5E0;color:#AAA}
+.nav-cnt{font-size:12px;color:#999}
+#app-footer{background:#1A1A1A;border-top:1px solid #2A2A2A;padding:24px 20px}
+.footer-inner{max-width:740px;margin:0 auto}
+.disc-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:16px}
+.ai-badge{background:#2A2A2A;border:1px solid rgba(232,200,74,.3);border-radius:8px;padding:6px 10px;font-size:11px;color:#E8C84A;font-weight:800;letter-spacing:1px;white-space:nowrap}
+.disc-txt{font-size:12px;color:#666;line-height:1.7}
+.disc-txt strong{color:#AAA}
+.disc-txt .bn{color:#E8C84A}
+.footer-bot{border-top:1px solid #2A2A2A;padding-top:14px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+.footer-logo{display:flex;align-items:center;gap:8px}
+.footer-copy{font-size:11px;color:#444}
+@media(max-width:520px){.theory-grid{grid-template-columns:1fr}.goal-row{flex-direction:column}.dl-btn{width:100%;flex-direction:row}.brand-row{flex-direction:column;gap:10px;align-items:flex-start}}
+</style>
+</head>
+<body>
+<header id="app-header">
+<div class="header-inner">
+  <div class="brand-row">
+    <div class="logo-mark">
+      <div><div class="logo-text-main">HUONG STELLA PARADIGM</div></div>
+    </div>
+  </div>
+  <div class="lesson-label">Day 14 · Interactive Practice</div>
+  <div class="lesson-title" id="hdr-theme"></div>
+  <div class="lesson-meta" id="hdr-meta"></div>
+  <div class="level-tabs" id="level-tabs"></div>
+</div>
+</header>
+<main>
+<div class="main-body">
+  <div class="goal-row">
+    <div class="goal-box" id="goal-box">
+      <div class="goal-label" id="goal-label">Today's Objectives</div>
+      <div class="goal-text" id="goal-text"></div>
+    </div>
+    <button class="dl-btn" onclick="handleDownload()">
+      <span class="ic">&#x2B07;&#xFE0F;</span><span>Download Report</span><span class="sb">Your answers + Model answers</span>
+    </button>
+  </div>
+  <div class="sec-nav" id="sec-nav"></div>
+  <div class="sec-title" id="sec-title"></div>
+  <div class="sec-subtitle" id="sec-sub"></div>
+  <div id="sec-content"></div>
+  <div class="sec-nav-row">
+    <button class="nav-btn nav-prev" id="btn-prev" onclick="navSec(-1)">&#x2190; Previous</button>
+    <span class="nav-cnt" id="nav-cnt"></span>
+    <button class="nav-btn nav-next" id="btn-next" onclick="navSec(1)">Next &#x2192;</button>
+  </div>
+</div>
+</main>
+<footer id="app-footer">
+<div class="footer-inner">
+  <div class="disc-row">
+    <div class="ai-badge">AI-ASSISTED</div>
+    <div class="disc-txt">
+      This material is produced with AI support as part of the <span class="bn">Huong Stella Paradigm</span> academic programme. Content has been reviewed against pedagogical standards; however, learners are advised to <strong>cross-reference with authoritative sources</strong> and <strong>consult their instructor</strong> for clarification. Auto-scoring is indicative only and does not replace teacher assessment.
+    </div>
+  </div>
+  <div class="footer-bot">
+    <div class="footer-logo">
+      <span style="font-size:12px;color:#888;font-weight:700;letter-spacing:.5px">HUONG STELLA PARADIGM</span>
+      <span style="font-size:11px;color:#444">· Daily Drills</span>
+    </div>
+  </div>
+</div>
+</footer>
+<script>
+const RUBRICS={
+a2b1:{
+  spot:[
+    {criterion:"Identify the misplaced or missing element in the noun phrase",max:1,desc:"Pinpoint exactly which word is in the wrong position or missing"},
+    {criterion:"Supply the correctly ordered noun phrase",max:1,desc:"Write the full corrected noun phrase — article + adjectives + noun in the right order"},
+    {criterion:"State the rule that was violated",max:1,desc:"Name the adjective-order rule, article rule, or position rule that applies"}
+  ],
+  fill:[
+    {criterion:"Correct adjective position and order",max:1,desc:"Adjectives placed before the noun in the correct sequence"},
+    {criterion:"Correct article choice (a/an/the/none)",max:1,desc:"Article matches the noun (countable/uncountable, singular/plural, definite/indefinite)"},
+    {criterion:"Noun phrase fits the sentence context",max:1,desc:"The completed noun phrase is logical, grammatical, and natural-sounding"}
+  ],
+  log:[
+    {criterion:"Record a noun phrase error with the corrected form",max:2,desc:"State both incorrect and correct forms — not just the wrong word in isolation"},
+    {criterion:"Explain the English adjective-order rule in your own words",max:2,desc:"Paraphrase the rule — do not copy; show you understand why opinion precedes size precedes colour etc."},
+    {criterion:"Write three original noun phrases using two adjectives each",max:2,desc:"Each must be grammatically correct: article + adj + adj + noun in the right order"}
+  ]
+},
+b1b2:{
+  spot:[
+    {criterion:"Identify the incorrect or ambiguous pronoun/reference word",max:1,desc:"Name the wrong reference device and state which noun it was supposed to refer to"},
+    {criterion:"Provide the correct pronoun or restructured reference",max:2,desc:"Supply the correct word (its/their, this + noun, the latter) or rewrite to remove ambiguity"},
+    {criterion:"Explain the cohesion problem",max:1,desc:"State whether the error is ambiguity, number mismatch, bare demonstrative, or wrong register"}
+  ],
+  fill:[
+    {criterion:"Select the correct pronoun or reference device",max:2,desc:"Choose between it/its/their, this/that, the former/latter, one with precision"},
+    {criterion:"Grammatical agreement with the antecedent",max:1,desc:"Pronoun matches antecedent in number (singular/plural) and type (person/thing)"},
+    {criterion:"Clear cohesive link to the correct antecedent",max:1,desc:"The chosen device unambiguously refers back to the right noun or idea"}
+  ],
+  log:[
+    {criterion:"Write 3 linked sentences with clear pronoun chains",max:2,desc:"Every pronoun can be traced back to exactly one unambiguous antecedent"},
+    {criterion:"Record one cohesion error you made and correct it",max:2,desc:"Honest self-assessment: name the error type (ambiguity, bare 'this', number mismatch)"},
+    {criterion:"Explain in one sentence when to use 'this + noun' vs bare 'this'",max:2,desc:"Show you understand that bare 'this' is unclear in academic writing when the referent is a complex idea"}
+  ]
+},
+b2c1:{
+  spot:[
+    {criterion:"Identify the weak, vague, or structurally flawed noun phrase",max:1,desc:"Name the element that reduces academic precision (vague head noun, wrong preposition, informal adj, redundant clause)"},
+    {criterion:"Supply an academically appropriate replacement NP",max:2,desc:"Replacement uses precise pre-modification and/or post-modification typical of academic prose"},
+    {criterion:"Explain the structural improvement",max:2,desc:"State whether you used pre-modification, post-modification, nominalisation, or a fixed academic collocation, and why it is stronger"}
+  ],
+  transform:[
+    {criterion:"Accurate noun phrase pre-modification",max:2,desc:"Pre-modifiers (adjectives, participial, compound) are correctly formed and sequenced"},
+    {criterion:"Accurate noun phrase post-modification",max:2,desc:"Post-modifiers (prepositional phrase, relative clause, participial) are grammatically correct and attached to the right head noun"},
+    {criterion:"Appropriate nominalisation within the NP",max:2,desc:"Verbal or adjectival ideas converted to noun forms with correct prepositions and collocations"},
+    {criterion:"Academic register sustained throughout",max:2,desc:"No informal vocabulary; lexical choices match the conventions of academic prose"}
+  ],
+  log:[
+    {criterion:"Paragraph contains at least 2 complex NPs",max:3,desc:"Complex NPs with both pre- and post-modification used purposefully, not padded"},
+    {criterion:"Consistent academic register throughout",max:2,desc:"No register slippage into informal vocabulary or sentence structure"},
+    {criterion:"Self-identify one NP you would revise and explain how",max:2,desc:"Specific, accurate identification of a weak NP with a concrete revised version"}
+  ]
+},
+c1c2:{
+  spot:[
+    {criterion:"Diagnose the discourse reference failure precisely",max:2,desc:"Identify whether the error is reference fog, ambiguous anaphora, misapplied 'the latter', bare 'this', or pronoun pile-up"},
+    {criterion:"Propose a restructured passage with full commentary",max:3,desc:"Rewrite resolves the reference problem AND improves discourse coherence and argumentative force"},
+    {criterion:"Explain the reader-processing cost of the original error",max:2,desc:"State how the error forces the reader to backtrack, reinterpret, or lose the argumentative thread"}
+  ],
+  transform:[
+    {criterion:"Anaphoric chains are unambiguous across all clauses",max:3,desc:"Each pronoun/demonstrative links to exactly one unambiguous antecedent; no pronoun pile-up"},
+    {criterion:"Cataphoric and bridging devices deployed expertly",max:3,desc:"Forward-pointing and inferential reference devices used purposefully and correctly"},
+    {criterion:"Balance of full NP repetition vs pronominal substitution is controlled",max:2,desc:"Neither over-repeats the full NP nor over-uses pronouns — the balance is calibrated for reader clarity"},
+    {criterion:"Passage reads as publishable academic prose",max:2,desc:"Discourse reference contributes to, rather than distracts from, the argument"}
+  ],
+  log:[
+    {criterion:"Paragraph demonstrates controlled anaphoric, cataphoric, and bridging reference",max:3,desc:"All reference chains are traceable and purposeful; each contributes to cohesion or argument"},
+    {criterion:"Reflection names a specific discourse reference technique and its effect",max:3,desc:"Analysis is precise: 'I used cataphora to foreground the topic before naming it' — not vague or generic"},
+    {criterion:"Forward transfer: one specific technique to apply in next writing task",max:2,desc:"Actionable and specific — names the technique and the type of text where it is most effective"}
+  ]
+}
+};
+
+const LEVELS={
+a2b1:{label:"A2–B1",color:"#2D6A4F",light:"#D8F3DC",theme:"Noun Phrases & Adjectives — Day 14",tagline:"Building correct noun phrases with adjectives in the right position",goal:"Today you will: learn the four rules for adjectives in noun phrases → spot adjective-position and article errors → practise ordering adjectives correctly → record your patterns in the error log.",time:"10–15 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (2 min)",subtitle:"Four rules for adjectives in English noun phrases — internalise, do not just memorise",type:"theory",
+content:[
+{label:"Article + Adj + Noun",badge:"NP",color:"#2D6A4F",examples:"a tall man, the old church, an interesting book",rule:"Adjectives go BEFORE the noun in English. Unlike Vietnamese, they never follow the noun. The article (a/an/the) comes first, then the adjective, then the noun."},
+{label:"Adj after linking verbs",badge:"pred",color:"#1A5276",examples:"He is tall. She seems kind. It looks old.",rule:"Adjectives also go AFTER linking verbs: be / seem / look / feel / appear / sound. Here the adjective describes the subject, not a noun it precedes. These two positions are the only correct positions."},
+{label:"Order of adjectives",badge:"order",color:"#7D3C98",examples:"a beautiful old Italian painting",rule:"Opinion → Size → Age → Shape → Colour → Origin → Material → Noun. In practice, use 2–3 adjectives at most — but always follow this order. 'A small black bag' (size → colour) not 'a black small bag'."},
+{label:"Noun + Noun compounds",badge:"n+n",color:"#B7500A",examples:"grammar book, traffic light, university student",rule:"Nouns can modify other nouns. The modifying noun comes FIRST: 'grammar book' not 'book grammar'. The second noun is the main one. Never reverse the order."}
+]},
+{id:"spot",title:"🔍 Part 1 — Spot the Error (4 min)",subtitle:"6 sentences — each has an adjective position or noun phrase error",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"She always wears dresses beautiful to every party she attends.",underlined:"dresses beautiful",wrongWord:"dresses beautiful",correctWord:"beautiful dresses",wrongType:"adj after noun",correctType:"adj before noun",rule:"In English, adjectives precede the noun: beautiful dresses, not dresses beautiful. Vietnamese word order (váy đẹp = dress beautiful) causes this transfer error.",tip:"Quick test: try putting 'the' in front — 'the dresses beautiful' sounds wrong. The adjective is in the wrong place. Flip it: 'beautiful dresses'. This test works for almost any adjective-position error."},
+{sentence:"I live in a house big white near the city centre.",underlined:"a house big white",wrongWord:"house big white",correctWord:"a big white house",wrongType:"adjectives after noun; wrong order",correctType:"size + colour + noun (adjectives before noun)",rule:"Two errors: adjectives must precede the noun, AND the order must be size → colour: a big white house, not 'house big white'.",tip:"'House big white' follows the Vietnamese pattern (nhà to trắng). In English, flip it all: adjectives first, then noun. Order: SIZE (big) before COLOUR (white)."},
+{sentence:"My neighbour is a woman very intelligent and hard-working.",underlined:"a woman very intelligent and hard-working",wrongWord:"woman very intelligent and hard-working",correctWord:"a very intelligent and hard-working woman",wrongType:"adj phrase after noun",correctType:"adj phrase before noun",rule:"Even complex adjective phrases ('very intelligent and hard-working') must precede the noun in a simple noun phrase: a very intelligent and hard-working woman.",tip:"Only relative clauses (who/that/which) follow the noun. Adjective phrases — including those with 'very' — still go BEFORE the noun. Test: can you replace it with a who-clause? No → put the adjective before the noun."},
+{sentence:"They found a black small wallet on the pavement outside the station.",underlined:"a black small wallet",wrongWord:"black small",correctWord:"small black",wrongType:"colour before size (wrong order)",correctType:"size before colour",rule:"Adjective order: SIZE before COLOUR. Correct: a small black wallet. 'Black' (colour) must follow 'small' (size), not precede it.",tip:"Remember OSAC: Opinion → Size → Age → Colour. Size beats colour every time. 'A small black bag', 'a large red car', 'a tiny white flower' — size always comes first."},
+{sentence:"He is student hardworking but he rarely participates in class discussions.",underlined:"student hardworking",wrongWord:"student hardworking",correctWord:"a hardworking student",wrongType:"missing article; adj after noun",correctType:"a + adj + noun",rule:"Two errors: (1) adjective must precede noun — 'hardworking student' not 'student hardworking'; (2) singular countable nouns require an article: 'a hardworking student'.",tip:"Singular countable nouns always need a / an / the. 'He is student' → wrong. 'He is a student'. Then check adjective position: adjective before noun → 'a hardworking student'. Two rules, both must be applied."},
+{sentence:"The professor showed us a research very important paper about climate change.",underlined:"a research very important paper",wrongWord:"research very important paper",correctWord:"a very important research paper",wrongType:"adjective phrase in wrong position; noun compound split",correctType:"art + adj phrase + noun compound",rule:"'Research paper' is a compound noun — the modifier noun 'research' must stay with 'paper'. The adjective 'very important' must go before the whole compound: a very important research paper.",tip:"Noun compounds are treated as a single unit: research paper, traffic light, bank account. Adjectives go before the whole compound, not between its parts. 'A research very important paper' splits the compound — always wrong."}
+]},
+{id:"fill",title:"✏️ Part 2 — Build the Noun Phrase (4 min)",subtitle:"Arrange the words in brackets to form a correct noun phrase",type:"fill",rubricKey:"fill",
+items:[
+{template:"She bought ___ at the antique market on Saturday. (old / an / wooden / table)",baseWord:"old, an, wooden, table",answer:"an old wooden table",targetType:"art + age + material + noun",hint:"an + age adjective + material adjective + noun",explanation:"an old wooden table: article 'an' (before vowel sound is wrong here — 'old' starts with a vowel sound so 'an' is correct) + age (old) + material (wooden) + noun. Age comes before material in adjective order."},
+{template:"My professor gave ___ on academic writing last Thursday. (interesting / a / lecture / very)",baseWord:"a, very, interesting, lecture",answer:"a very interesting lecture",targetType:"art + adv + adj + noun",hint:"article + very + adjective + noun",explanation:"a very interesting lecture: 'very' is an adverb modifying the adjective 'interesting'. The whole phrase (very interesting) precedes the noun. Article comes first."},
+{template:"The park has ___ where children play every afternoon. (beautiful / several / areas / green)",baseWord:"several, beautiful, green, areas",answer:"several beautiful green areas",targetType:"quantifier + opinion + colour + noun (plural)",hint:"quantifier + opinion adj + colour adj + noun (no article needed — 'several' determines the noun)",explanation:"several beautiful green areas: quantifier + opinion (beautiful) + colour (green) + noun. No article because 'several' already determines the noun phrase. Opinion before colour."},
+{template:"She has always wanted to work in ___ . (French / old / an / firm)",baseWord:"an, old, French, firm",answer:"an old French firm",targetType:"art + age + origin + noun",hint:"an + age + origin + noun",explanation:"an old French firm: article (an — before 'old' which starts with a vowel sound) + age (old) + origin (French) + noun. Age always precedes origin in the adjective order."},
+{template:"He is ___ and everyone in the office respects him greatly. (dedicated / person / a / highly)",baseWord:"a, highly, dedicated, person",answer:"a highly dedicated person",targetType:"art + adv + adj + noun",hint:"a + adverb + adjective + noun",explanation:"a highly dedicated person: adverb 'highly' modifies adjective 'dedicated'; both precede the noun 'person'. Adverbs modifying adjectives stay directly before the adjective they modify."}
+]},
+{id:"errorlog",title:"📓 Error Log — Today (2 min)",subtitle:"Record your own errors — this step builds long-term accuracy faster than any other",type:"log",rubricKey:"log",
+prompts:[
+"Write the noun phrase you found most difficult today. Record the incorrect form first, then the corrected form, and name the rule you violated:",
+"Explain in your own words: why do adjectives come BEFORE the noun in English but AFTER in Vietnamese? What memory trick will you use so you never place them after the noun again?",
+"Write three original noun phrases using two adjectives each. Use a different combination of size, colour, age, or material in each:"
+]}
+]},
+
+b1b2:{label:"B1+–B2",color:"#1A4A7A",light:"#D6E8F7",theme:"Pronoun Reference & Cohesion — Day 14",tagline:"Using pronouns and reference devices to create coherent, reader-friendly text",goal:"Today you will: understand personal and demonstrative reference systems → spot ambiguous and incorrect pronoun use → practise choosing the right reference device → record cohesion patterns in your error log.",time:"15–20 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"Three reference systems that hold English text together — understand the logic, not just the labels",type:"theory2",
+groups:[
+{label:"Personal Reference — it / they / he / she",color:"#1A4A7A",verbs:["it","its","they","their","he","his","she","her","them"],memory:"A personal pronoun must match its antecedent in NUMBER and TYPE. The most common errors: 'their' for a singular noun, or 'it' for a group of people. Institutions (government, committee, company) take 'it/its' in formal academic writing.",example:"The committee announced its decision. (not 'their' — singular institution). The students submitted their assignments. (not 'its' — plural people). The company revised its policy. (not 'their')"},
+{label:"Demonstrative Reference — this / these / that / those",color:"#7D1A4A",verbs:["this","these","that","those","such","the former","the latter"],memory:"'This' points to something nearby or just mentioned. 'That' refers to something more distant in text or time. In academic writing, ALWAYS add a noun after 'this/these' when referring to a complex idea: 'this finding', 'these results', 'this approach'. Bare 'this' at the start of a sentence creates reference fog.",example:"The study found a significant correlation. This finding suggests that further research is needed. (NOT just 'This is important' — the noun label 'finding' tells the reader exactly what you mean)"},
+{label:"Substitution — one / ones / do so / the former / the latter",color:"#2D6A1A",verbs:["one","ones","do so","the former","the latter","such"],memory:"'One/ones' substitutes for a previously mentioned countable noun. 'Do so' substitutes for a verb phrase. 'The former/the latter' refer precisely to the first/second of two previously mentioned items. These devices avoid repetition while maintaining clarity.",example:"I need a notebook. Could you lend me one? (one = a notebook). She planned to attend and eventually did so. (did so = attended). The course offers two tracks: research and practice. The former suits academics; the latter suits practitioners."}
+]},
+{id:"spot",title:"🔍 Part 1 — Reference Error Hunt (5 min)",subtitle:"6 sentences — identify pronoun or reference errors",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"The government announced their new infrastructure policy last Tuesday.",underlined:"their",wrongWord:"their",correctWord:"its",wrongType:"plural pronoun for singular institution",correctType:"its (singular)",rule:"'Government' is a singular institutional noun and takes the singular pronoun 'its' in formal and academic writing. 'Their' is informal/journalistic usage for collective nouns.",tip:"Institution test: replace with 'it' or 'they'. Academic writing defaults to 'it/its' for institutions: government, company, university, committee, team (as institution). Reserve 'they/their' for groups of named individuals."},
+{sentence:"When the director met the investor, he was clearly nervous throughout the entire meeting.",underlined:"he",wrongWord:"he",correctWord:"the director / the investor",wrongType:"ambiguous pronoun — two male antecedents",correctType:"specific noun to remove ambiguity",rule:"'He' could refer to either the director or the investor. This ambiguity forces the reader to guess. Fix by naming: 'When the director met the investor, the director was clearly nervous' or restructure: 'Nervous at meeting the investor, the director...'",tip:"Two male nouns + 'he' = guaranteed ambiguity. Apply the two-antecedent test: can your pronoun point to either of two nouns? If yes, it is ambiguous. Fix by repeating the noun or restructuring the sentence."},
+{sentence:"Scientists found that regular exercise improves memory retention. This is very significant.",underlined:"This is very significant",wrongWord:"This",correctWord:"This finding / This result",wrongType:"bare 'this' with no noun label",correctType:"'this' + noun label (this finding, this result)",rule:"Bare 'this' at the start of a sentence in academic or B2 writing creates reference fog — the reader must guess what 'this' means. Always add a noun: 'This finding', 'This result', 'This relationship'.",tip:"Every time you write 'This...' at the start of a sentence, complete the test: 'This WHAT?' If you can name it, you must name it. 'This is significant' tells the reader almost nothing. 'This finding is significant' is clear and precise."},
+{sentence:"The manager asked the assistant to rewrite the report, but she found it extremely difficult.",underlined:"she",wrongWord:"she",correctWord:"the assistant",wrongType:"ambiguous pronoun — two possible female antecedents",correctType:"specific noun reference",rule:"'She' could refer to either the manager or the assistant. If both are female, the pronoun is completely ambiguous. Name the person: 'but the assistant found it extremely difficult.'",tip:"After any sentence with two same-gender people, name the subject of the next clause explicitly. Pronouns are only safe when there is only one possible antecedent of that gender in the preceding context."},
+{sentence:"The company offers two packages: the standard and the premium. Customers usually choose them.",underlined:"them",wrongWord:"them",correctWord:"the premium package / the latter",wrongType:"'them' — could mean both packages or just one",correctType:"specific reference: 'the premium package' or 'the latter'",rule:"'Them' could mean both packages collectively or the preferred one. Ambiguous. The sentence implies a preference for one. Use 'the latter' (refers to the second: premium) or 'the premium package' to clarify.",tip:"'The former / the latter' are precise academic tools for two-item lists. 'The latter' = the second item mentioned. 'The former' = the first. Use them whenever 'it/them/this' would be ambiguous between two previously mentioned items."},
+{sentence:"He submitted the application on time and also completed the interview well. It impressed the panel greatly.",underlined:"It",wrongWord:"It",correctWord:"His performance / Both achievements",wrongType:"'it' — unclear antecedent: the application, the interview, or both?",correctType:"specific noun phrase reference",rule:"'It' could refer to the application, the interview, or his overall performance. Three possible antecedents in one sentence is too many. Replace with a precise noun phrase that captures what actually impressed the panel.",tip:"Count the nouns in the sentence before the pronoun. If there are three or more, a single pronoun almost always fails. Choose a noun phrase that also summarises or evaluates: 'His performance', 'This combination of achievements', 'Both accomplishments'."}
+]},
+{id:"fill",title:"✏️ Part 2 — Choose the Right Reference Device (5 min)",subtitle:"Fill in the correct pronoun or reference word from the options given",type:"fill",rubricKey:"fill",
+items:[
+{template:"The university revised ___ admissions policy after reviewing the data. (its / their / her)",baseWord:"its/their/her",answer:"its",targetType:"singular institutional pronoun",hint:"'University' = singular institution → which pronoun?",explanation:"'its' — university is a singular institution. In academic writing, institutions take 'it/its', not 'they/their'. 'Their' would be used for a named group of people."},
+{template:"There are two approaches to this problem: the qualitative and the quantitative. ___ tends to produce more generalisable findings. (The latter / The former / It)",baseWord:"the former/the latter",answer:"The latter",targetType:"the latter (second item = quantitative)",hint:"The quantitative approach is mentioned second → which device?",explanation:"'The latter' refers to the second of two previously mentioned items — here, the quantitative approach. 'The former' would refer to the qualitative approach (first mentioned)."},
+{template:"I have read two versions of this report. ___ is far more detailed and includes statistical appendices. (The latter / The former / They)",baseWord:"the former/the latter",answer:"The latter",targetType:"the latter (second version mentioned)",hint:"The second version = the one with appendices",explanation:"'The latter' refers to the second version mentioned. Without more context it is impossible to be certain, but if the second was described as more detailed, 'the latter' correctly identifies it."},
+{template:"The researchers published their findings in 2023. ___ study has since been cited over 300 times. (This / That / Its)",baseWord:"this/that/its",answer:"This",targetType:"this + noun (recent anaphoric reference)",hint:"Referring back to something just mentioned — near, recent reference → which demonstrative?",explanation:"'This study' — 'this' refers back to the research just mentioned. 'That' is used for more distant or contrasted reference. 'This' signals that the reference is close and just established."},
+{template:"Students may submit either a written essay or an oral presentation. Those who struggle with writing often prefer ___. (the latter / the former / it)",baseWord:"the former/the latter",answer:"the latter",targetType:"the latter (oral presentation = second item)",hint:"Oral presentation was mentioned second",explanation:"'the latter' = the oral presentation, which was mentioned second. Students who struggle with writing would prefer the oral option. 'The former' would be the written essay."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (4 min)",subtitle:"Write and reflect on your use of reference devices",type:"log",rubricKey:"log",
+prompts:[
+"Write 3 sentences on any topic. In sentences 2 and 3, use a pronoun or reference device that refers back clearly to sentence 1. Underline each reference device and write its antecedent in brackets:",
+"Which reference error do you make most often — ambiguous 'he/she', 'their' for singular institutions, or bare 'this' without a noun label? Record it with the corrected version:",
+"Write one sentence explaining in your own words the difference between bare 'this' and 'this + noun' in academic writing and why the second is always better:"
+]}
+]},
+
+b2c1:{label:"B2+–C1",color:"#5A1A8A",light:"#EAD6F7",theme:"Complex Noun Phrases in Academic Writing — Day 14",tagline:"Expanding and precision-loading noun phrases for academic prose",goal:"Today you will: understand pre- and post-modification in NPs → audit weak NPs and replace them → transform informal descriptions into precise academic noun phrases → write a short paragraph using complex NPs.",time:"20–25 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"How noun phrases expand in academic writing — three transformation patterns",type:"theory3",
+pairs:[
+{spoken:"a study that looked at how students learn vocabulary",academic:"a longitudinal investigation into the vocabulary acquisition strategies of adult learners",change:"a study that looked at → a longitudinal investigation into; how students learn vocabulary → vocabulary acquisition strategies of adult learners"},
+{spoken:"The report said that the policy did not work well.",academic:"The report highlighted the limited effectiveness of the policy in achieving its stated objectives.",change:"said that the policy did not work well → highlighted [the limited effectiveness of the policy] [in achieving its stated objectives] — one complex NP replaces a whole subordinate clause"},
+{spoken:"There are many problems caused by too many cars in cities.",academic:"The proliferation of private vehicles in urban centres gives rise to a range of interlocking environmental, infrastructural, and public health challenges.",change:"many problems → a range of interlocking...challenges (pre-modified + post-modified); too many cars → the proliferation of private vehicles; in cities → in urban centres"}
+],
+insight:"Academic NPs compress and precision-load information that informal writing spreads across multiple clauses. A complex NP is not longer for its own sake — it is more precise, more information-dense, and frees up clause structure for argument rather than description."},
+{id:"spot",title:"🔍 Part 1 — Noun Phrase Audit (5 min)",subtitle:"6 sentences — identify weak, vague, or structurally flawed noun phrases",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"The thing that happened when the new drug was given to patients was completely unexpected.",underlined:"The thing that happened when the new drug was given to patients",wrongWord:"The thing that happened when the new drug was given to patients",correctWord:"The unexpected adverse response to drug administration",wrongType:"vague NP 'the thing'; over-long relative clause replacing a simple NP",correctType:"pre- + post-modified NP with nominalisation",rule:"'The thing that happened' is too vague for academic prose. Nominalise and pre-modify: 'the unexpected adverse response to drug administration' compresses the same information with far greater precision. 'Thing' has almost no place in academic writing.",tip:"Any NP built around 'thing/stuff/issue' followed by a long relative clause is a red flag. Ask: what EXACTLY is the thing? Name it with a precise noun and pre-modify it. 'The thing that happened' → 'the adverse response / the unexpected outcome / the observed phenomenon'."},
+{sentence:"There was a big increase of CO2 emissions recorded across the northern hemisphere last year.",underlined:"a big increase of CO2 emissions",wrongWord:"big increase of",correctWord:"a significant increase in CO2 emissions",wrongType:"informal adj 'big'; wrong preposition 'of' after 'increase'",correctType:"significant increase in (fixed academic collocation)",rule:"'Big' is informal at B2+/C1; use 'significant', 'substantial', 'marked', or 'dramatic'. The fixed collocation is 'increase IN something', not 'increase of'. 'Increase of' is a direct transfer from Vietnamese (sự tăng của).",tip:"'Big' in academic NPs is almost always replaceable: big increase → marked / significant / substantial / dramatic increase. And remember: increase IN (not of), decrease IN, rise IN, fall IN, reduction IN — all take 'in'."},
+{sentence:"The research shows many interesting points about how technology affects learning outcomes.",underlined:"many interesting points about how technology affects learning outcomes",wrongWord:"many interesting points about",correctWord:"a range of salient insights into the influence of technology on learning outcomes",wrongType:"vague NP 'interesting points'; 'about' informal; clause where NP is needed",correctType:"quantifier + evaluative adj + precise head noun + post-modifier with academic preposition",rule:"'Interesting points about' is structurally weak. Academic NPs use: [quantifier + evaluative adj + precise head noun] [+ post-modifier]. 'About' is generally informal; prefer 'into', 'regarding', 'concerning', or 'with respect to'.",tip:"Replace 'interesting points about' with: insights into / implications for / dimensions of / considerations regarding. These are precise academic post-modifiers. Also: 'affects learning' → 'influence on learning outcomes / student achievement'."},
+{sentence:"The findings of this study which lasted three years have several important implications.",underlined:"this study which lasted three years",wrongWord:"this study which lasted three years",correctWord:"this three-year study",wrongType:"relative clause where pre-modification suffices",correctType:"pre-modified NP: three-year study",rule:"'Which lasted three years' can be reduced to the pre-modifier 'three-year': 'this three-year study'. Relative clauses should be reserved for information that cannot be efficiently pre-modified. Unnecessary relative clauses make prose heavy.",tip:"Reduction test: can the relative clause become an adjective before the noun? 'A study which lasted three years' → 'a three-year study'. 'A policy that covers five areas' → 'a five-area policy'. If yes, always prefer the pre-modified form in academic writing."},
+{sentence:"She wrote a paper about the effects that come from globalisation on traditional cultural practices.",underlined:"the effects that come from globalisation on traditional cultural practices",wrongWord:"effects that come from globalisation on traditional cultural practices",correctWord:"the effects of globalisation on traditional cultural practices",wrongType:"'effects that come from' verbose; should be 'effects of'",correctType:"effects of + NP post-modified with 'on'",rule:"'Effects that come from' → 'effects of' (simpler and more academic). Fixed structure: the effects of X on Y. 'Come from' is informal; in academic prose the relationship is expressed through the preposition 'of'.",tip:"'Changes/effects that come from' = changes/effects of. 'Problems that result from' = problems resulting from OR problems of. Always test: can 'that + verb' be replaced by 'of' or a participial? In academic NPs, it almost always can."},
+{sentence:"There needs to be a solution to solve the many very serious problems that currently exist in the public healthcare system.",underlined:"a solution to solve the many very serious problems that currently exist",wrongWord:"a solution to solve the many very serious problems that currently exist",correctWord:"viable solutions to the systemic challenges confronting the public healthcare sector",wrongType:"redundant 'to solve' after 'solution'; 'very serious problems that exist' verbose; 'healthcare system' less precise",correctType:"solutions to systemic challenges [participial post-modifier]; 'healthcare sector' (academic)",rule:"'A solution to solve' is redundant — 'solution' already implies solving. 'The many very serious problems that exist' → 'systemic challenges'. 'Healthcare system' → 'healthcare sector'. Adverb pile-ups ('many very serious') weaken rather than strengthen.",tip:"Don't embed a verb that repeats the noun's meaning: 'solution to solve', 'attempt to try', 'plan to plan'. Also, 'very serious' + 'that exist' is over-specified. Replace with one precise modifier: 'systemic / profound / critical / deep-rooted challenges'."}
+]},
+{id:"transform",title:"✏️ Part 2 — Construct the Academic Noun Phrase (8 min)",subtitle:"Transform informal descriptions into precise academic NPs — change structure, not only vocabulary",type:"transform",rubricKey:"transform",
+items:[
+{spoken:"Young people today use their phones too much, and this is causing them a lot of mental health problems.",hint:"excessive/prolonged use (NP), adverse effects (NP), psychological well-being (NP), 'give rise to', 'is associated with', 'among adolescents'",answer:"The excessive use of smartphones among young people has been associated with a range of adverse mental health outcomes, including elevated rates of anxiety and depression. / Prolonged smartphone use in adolescents gives rise to significant challenges to psychological well-being, a pattern now extensively documented in the literature.",keyChange:"'use their phones too much' → the excessive use of smartphones; 'a lot of mental health problems' → adverse mental health outcomes / challenges to psychological well-being",principle:"Convert each informal verbal clause into a precise NP: verb + noun → nominalisation + pre-modifier + post-modifier. 'Use too much' → 'excessive use of'. 'Mental health problems' → 'adverse mental health outcomes'. The NP carries more information in fewer words."},
+{spoken:"The way people work has changed because of computers and the internet, and this affects how companies are organised.",hint:"transformation (NP), adoption of digital technologies (NP), organisational structures (NP), 'has precipitated', 'fundamentally altered', 'working practices'",answer:"The widespread adoption of digital technologies has precipitated a fundamental transformation in working practices and has fundamentally altered the organisational structures of modern enterprises. / The integration of computing and digital connectivity into professional environments has reshaped both working patterns and the organisational architecture of contemporary institutions.",keyChange:"'the way people work has changed because of' → a fundamental transformation in working practices precipitated by; 'how companies are organised' → organisational structures of modern enterprises",principle:"Identify the key processes and objects. Nominalise: 'the way people work' → working practices; 'how companies are organised' → organisational structures. Then select a precise verb ('precipitate', 'reshape', 'fundamentally alter') to connect the NPs."},
+{spoken:"Scientists are still arguing about whether social media really makes depression worse or not.",hint:"ongoing debate (NP), the relationship between (NP), causal role (NP), 'remains contested', 'the extent to which', 'empirical evidence'",answer:"The causal relationship between social media use and the exacerbation of depressive symptoms remains a subject of ongoing scholarly debate, with empirical evidence yet to establish a definitive directional link. / The extent to which social media exposure contributes to the deterioration of mental health outcomes remains contested within the research community.",keyChange:"'Scientists are arguing about' → remains a subject of ongoing scholarly debate; 'whether social media really makes depression worse' → causal relationship between social media use and exacerbation of depressive symptoms",principle:"Replace 'arguing about whether' with 'remains contested' + 'the extent to which'. Wrap the disputed causal claim in a precise NP: 'causal relationship between X and Y'. The NP acknowledges uncertainty without eliminating the claim's argumentative force."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (5 min)",subtitle:"Write with complex NPs and self-analyse your structures",type:"log",rubricKey:"log",
+prompts:[
+"Write 80–100 words on 'The challenges of urban planning in rapidly growing cities'. Include at least 2 complex NPs — underline each one and label it in brackets: [pre-modified], [post-modified], or [nominalised]:",
+"Take one complex NP from your paragraph. Analyse it: what pre-modifier(s) did you use? Is there a post-modifier? Could a participial phrase ('...resulting from / ...confronting / ...affecting...') make it more precise?",
+"Record one NP you used that you are uncertain about. Write what you wanted to say in plain English, then write what you actually produced, and check: is the pre-modifier in the right position? Is the preposition between head noun and post-modifier correct?"
+]}
+]},
+
+c1c2:{label:"C1+–C2",color:"#8B1A1A",light:"#F5DADA",theme:"Anaphora, Cataphora & Discourse Reference — Day 14",tagline:"Mastering reference chains for coherent, argument-driven academic prose",goal:"Today you will: distinguish anaphora, cataphora, bridging, and extended reference → diagnose discourse reference failures at the passage level → repair reference chains → deploy these devices purposefully in your own writing.",time:"20–25 min",
+sections:[
+{id:"warmup",title:"🌅 Warm-up (3 min)",subtitle:"Four advanced reference strategies used in C2-level academic prose",type:"theory4",
+cards:[
+{label:"Anaphora — Reference Backward",color:"#8B1A1A",desc:"Anaphora is the most common form of reference: a pronoun or demonstrative NP points back to an entity already established in the text. The risk is ambiguity when multiple plausible antecedents exist. At C2, the danger is not wrong pronouns — it is accumulated reference fog across a long paragraph.",fix:"Use 'this + noun label' rather than bare 'this/it/they' for extended reference to propositions or complex NPs. 'This mechanism' > 'this' > 'it' in terms of precision. Re-anchor with the full NP every 3–4 clauses in long paragraphs. The noun label itself can carry evaluative weight: 'this reductive framing', 'this telling omission'."},
+{label:"Cataphora — Reference Forward",color:"#5A2D82",desc:"Cataphoric reference creates anticipation: a pronoun or demonstrative appears BEFORE its antecedent, inviting the reader forward. It is used to foreground a topic structurally before naming it. Mishandled, it creates confusion; well-managed, it is a mark of sophisticated information architecture.",fix:"Classic cataphoric patterns: 'It is this assumption — that standardised tests measure potential — that most deserves scrutiny.' ('It' is cataphoric; antecedent is 'this assumption'). 'The following three considerations explain why...' / 'Those who claim that...' / 'It is clear that economic growth alone cannot...'. Cataphora signals rhetorical control."},
+{label:"Bridging Reference — Inferential Links",color:"#1A4A7A",desc:"Bridging reference relies on the reader's knowledge to infer a connection. 'The study was conducted over five years. The methodology was validated externally.' — 'the methodology' presupposes that a study has a methodology. The link is inferred, not stated. Bridging compresses discourse; it also breaks when the reader cannot make the inference.",fix:"Signal ambiguous bridges explicitly: 'the methodology employed in this study' rather than bare 'the methodology' when a different study was just mentioned. Bridging is powerful when the link is obvious and domain-shared; it is a liability when the connection requires specialist knowledge the reader may not share."},
+{label:"Extended / Propositional Reference",color:"#2D6A1A",desc:"Extended reference ('this', 'such an approach', 'the above') can refer to an entire preceding proposition — not just a noun but a clause, argument, or paragraph. This is the highest-risk reference type: if the boundaries of the reference are unclear, the reader loses the argumentative thread entirely.",fix:"Rule: every extended reference must be anchored with a noun. 'This → this claim / this approach / this conclusion / this pattern.' Test: can you replace 'this' with a specific noun phrase that names what 'this' refers to? If not, your reference is too loose. At C2, the noun label should also perform an evaluative function: 'this reductive claim', 'such unwarranted generalisation', 'this productive tension'."}
+]},
+{id:"spot",title:"🔍 Part 1 — Discourse Reference Audit (5 min)",subtitle:"6 passages — each contains a reference chain failure at the discourse level",type:"spot",rubricKey:"spot",
+items:[
+{sentence:"The professor's research into urban migration is groundbreaking. She has been working on it for twelve years, and it has attracted major funding. It was also featured in Nature last year.",underlined:"it has attracted major funding. It was also featured in Nature",wrongWord:"it has attracted major funding. It was also featured in Nature",correctWord:"This research has attracted major funding. Her work was also featured in Nature last year.",wrongType:"'it' repeated — antecedent drifts across three clauses (research? career? lab?)",correctType:"re-anchor with NP label ('this research', 'her work') to reset the chain",rule:"Three consecutive uses of 'it' in different clauses create reference fog: the first 'it' = the research, the second is ambiguous (research or funding?), the third could refer to the research, the lab, or the professor herself. Re-anchor with a full NP at the third use.",tip:"C2 rule: never use a pronoun more than twice consecutively without re-anchoring with a full NP. Count your 'it/this/they' chains. Three or more in succession requires a noun reset. The noun label can also do evaluative work: 'this pioneering research', 'her landmark contribution'."},
+{sentence:"Those who argue that standardised testing accurately measures academic potential are mistaken, as they clearly do not understand the extensive body of research demonstrating its limitations.",underlined:"they clearly do not understand",wrongWord:"they clearly do not understand",correctWord:"such proponents evidently overlook / those holding this view appear unfamiliar with",wrongType:"'clearly do not understand' — dismissive register replacing argument; 'they' acceptable but the whole clause is rhetorical overreach",correctType:"hedged engagement: 'such proponents appear to overlook' + 'the extent to which...'",rule:"'They clearly do not understand' is both a reference issue and a register failure. In academic argumentation, engage with the opposing position charitably and precisely: 'such proponents appear to overlook' or 'this position does not adequately account for the evidence that...'",tip:"Apply the 'clearly test': every time you write 'clearly' in academic prose, ask whether you are substituting certainty for argument. 'Clearly' often signals weak argumentation. Replace with: 'the evidence suggests', 'as the literature demonstrates', 'closer examination reveals that'."},
+{sentence:"Urban inequality is a growing concern. This affects access to education, healthcare, and housing. This has been linked to adverse mental health outcomes. This is why urgent policy intervention is needed.",underlined:"This affects... This has been linked... This is why",wrongWord:"This affects... This has been linked... This is why",correctWord:"Such inequality restricts access... This restricted access has in turn been linked to... This compound disadvantage underlies the case for urgent policy intervention.",wrongType:"bare 'This' repeated four times — each refers to something slightly different, creating reference fog and structural monotony",correctType:"'This + evaluative noun label' at each use, with labels that build a cumulative argument",rule:"Four consecutive bare 'This' sentences is one of the most diagnostically clear C1 ceiling markers. Each 'This' shifts referent slightly, forcing the reader to constantly re-interpret. Fix: name what 'this' is each time, choosing nouns that advance the argument.",tip:"C2 extended reference: choose noun labels that do argumentative work. 'This finding' is neutral. 'This alarming pattern' is evaluative. 'This structural inequity' names and frames. 'This compound disadvantage' builds a cumulative logic. Your noun label shapes how the reader interprets the reference — choose consciously."},
+{sentence:"The review assessed three policy frameworks. They were each evaluated for cost-effectiveness, scalability, and political feasibility, and they all had significant limitations, though some were more pronounced than others in them.",underlined:"some were more pronounced than others in them",wrongWord:"some were more pronounced than others in them",correctWord:"though certain limitations were more pronounced in some frameworks than in others",wrongType:"'them' at sentence-end — antecedent is unclear (limitations? frameworks? some? others?)",correctType:"explicit NP replaces final ambiguous pronoun",rule:"By the end of this sentence, 'them' could refer to: the limitations, the frameworks, 'some frameworks', or 'others'. This is a classic pronoun pile-up. When three or more pronouns in a clause refer to different entities, at least one must be replaced with a full NP.",tip:"Sentence-level pronoun audit: underline every pronoun. If three or more are present referring to different entities, restructure. 'Them' at the end of a clause with multiple possible antecedents is almost always a reader trap. Replace with 'in some frameworks', 'across certain dimensions', or repeat the precise noun."},
+{sentence:"It is often argued that economic growth and environmental protection are fundamentally incompatible. This view is, however, challenged by recent evidence from Nordic countries, which demonstrates that it is possible to achieve both simultaneously.",underlined:"it is possible to achieve both simultaneously",wrongWord:"it is possible to achieve both simultaneously",correctWord:"that these two objectives can be pursued in tandem",wrongType:"'both' refers across a complex sentence structure; 'it is possible' is redundant impersonal after relative clause; 'simultaneously' informal at C2",correctType:"'these two objectives' (bridging NP resuming both antecedents) + 'in tandem' (academic collocation)",rule:"'Achieve both simultaneously' is imprecise after a complex sentence: 'both' must carry two antecedents across a clause boundary and a relative clause. Restate with 'these two objectives'. 'In tandem' is more academic than 'simultaneously'. 'It is possible' is redundant after 'demonstrates that'.",tip:"After a 'which' relative clause, the main referent can drift. When resuming argument after a relative clause, re-state the key NP: 'these two objectives', 'the goals in question', 'the framework under examination'. Avoid relying on 'both/all/each' to carry cross-sentence reference across complex syntax."},
+{sentence:"Climate change threatens biodiversity globally. This is particularly evident in coral reef systems, where rising sea temperatures have caused widespread bleaching events. The latter has been extensively documented, and scientists warn it may become irreversible.",underlined:"The latter has been extensively documented",wrongWord:"The latter",correctWord:"This bleaching phenomenon / Coral bleaching",wrongType:"'the latter' misapplied — no two-item list preceded it; there is only one entity (bleaching events)",correctType:"'this bleaching phenomenon' or 'coral bleaching' (specific NP resuming the single entity)",rule:"'The latter' requires exactly two previously mentioned items at the same discourse level ('the former' and 'the latter'). Only bleaching events are mentioned — there is no 'former'. 'The latter' is therefore a technical misapplication. Use 'this bleaching phenomenon' or 'coral bleaching'.",tip:"'The former / the latter' are precision tools for a two-item list. Never use 'the latter' unless you have explicitly introduced exactly two parallel items at the same discourse level. When in doubt, repeat the noun or use 'this + noun label'. Misusing 'the latter' is an immediate C2-audit failure."}
+]},
+{id:"transform",title:"✏️ Part 2 — Repair the Reference Chain (8 min)",subtitle:"Restructure passages with discourse reference failures to achieve C2-level cohesion and argumentative force",type:"transform",rubricKey:"transform",
+items:[
+{spoken:"Poverty affects health. It causes stress. It also means people cannot afford medicine. It makes the situation worse. This shows we need to act.",hint:"Use: 'Such deprivation', 'This chronic stress', 'The resulting inability to access healthcare', 'This compound disadvantage', cataphoric 'It is this...that' for the final sentence",answer:"Poverty generates chronic stress and forecloses access to adequate healthcare — two mechanisms through which it exerts its most severe effects on physical and psychological well-being. This compound disadvantage, systematically excluded from mainstream policy discourse, constitutes a powerful case for targeted intervention. It is, above all, the structural nature of this deprivation that demands urgent redress.",keyChange:"Five bare pronouns replaced with labelled NPs ('chronic stress', 'this compound disadvantage', 'this deprivation'); cataphoric 'It is X that Y' used in final sentence for rhetorical emphasis; argument made explicit through NP labels",principle:"Convert pronoun chains into noun label chains. Each label should do evaluative work: 'compound', 'chronic', 'structural'. End with cataphora ('It is X that Y') to foreground the key claim rhetorically. The reader now knows exactly what each reference points to AND how the writer evaluates it."},
+{spoken:"The experiment had three results. The first one showed a link. The second one was about age differences. The third one was the most surprising.",hint:"'The first result established...', 'The second revealed...age-related variation in...', 'The most striking finding, however,...', nominalize each result with a precise head noun",answer:"The experiment yielded three principal results. The first established a robust positive association between intervention dosage and long-term behavioural change. The second revealed significant age-related variation in response patterns, with younger participants demonstrating markedly greater adaptability across all conditions. The third — and most striking — result identified a previously undetected moderating variable that had been systematically overlooked in prior theoretical accounts.",keyChange:"'one' replaced with precise noun 'result/finding' at each occurrence; bare descriptors ('about age differences', 'the most surprising') replaced with precise academic NPs; third reference made cataphoric by delaying the full NP label until after the dash",principle:"'One' as a substitute is efficient but imprecise; in academic prose, repeat the noun with a new label that does additional work: 'the first result / the second finding / the third — and most striking — result'. The repetition is strategic — the label advances the argument each time."},
+{spoken:"Some people say free trade is good for everyone. Others disagree. The evidence is mixed. In conclusion, both sides have a point.",hint:"'Proponents contend that...', 'Critics counter that...', 'The empirical record on this question...', 'This evidential complexity does not...', end with a qualified position rather than 'both have a point'",answer:"Proponents of free trade contend that the removal of protectionist barriers enhances aggregate welfare by stimulating competition, expanding consumer choice, and integrating developing economies into global supply chains. Critics counter that such liberalisation disproportionately disadvantages low-wage workers and exacerbates structural inequality within and between nations. The empirical record on this question is far from settled; meta-analyses yield inconsistent findings contingent on the specific industries, time horizons, and distributional metrics employed. This evidential complexity does not, however, license agnosticism: the balance of available data suggests that free trade generates net gains in aggregate output while simultaneously concentrating costs among already-marginalised populations — a finding that carries direct implications for redistributive policy design.",keyChange:"'some/others' → 'proponents/critics'; 'the evidence is mixed' → 'the empirical record...yields inconsistent findings contingent on...'; 'both have a point' → 'this evidential complexity does not license agnosticism: the balance...'; 'this question' and 'this evidential complexity' (anaphoric with evaluative label); 'a finding' (bridging)",principle:"C2 conclusions must: (a) characterise the evidential landscape precisely, (b) acknowledge the conditions under which each position holds, and (c) commit to a qualified but definite position. 'Both have a point' satisfies none of these. 'This evidential complexity does not license agnosticism' acknowledges complexity while refusing to abdicate argumentative responsibility."}
+]},
+{id:"errorlog",title:"📓 Output + Error Log (5 min)",subtitle:"Write and reflect at the level of discourse architecture",type:"log",rubricKey:"log",
+prompts:[
+"Write 100–120 words on: 'The relationship between economic inequality and educational attainment'. Use at least: one cataphoric structure, two instances of 'this + evaluative noun label', and one bridging reference. Underline each device and label it in brackets, e.g. [cataphora], [bridging], [anaphora: this inequality]:",
+"Map the reference chain in your paragraph: list each pronoun or demonstrative, what it refers to, and whether the reference is anaphoric, cataphoric, bridging, or extended. Are there any ambiguous links? If so, repair them:",
+"Name one discourse reference technique from today that you had not previously used consciously. Write a sentence demonstrating it in a context different from today's examples. Explain what argumentative or structural purpose it serves in your sentence:"
+]}
+]}
+};
+
+// ── STATE ──
+let AL='a2b1',AS=0;
+const ST={choices:{},inputs:{},checked:{},logs:{}};
+
+// ── INIT ──
+function init(){
+  document.title='Daily Drills 14';
+  buildLvTabs();
+  applyLevel('a2b1');
+}
+
+function buildLvTabs(){
+  const c=document.getElementById('level-tabs');
+  c.innerHTML='';
+  Object.entries(LEVELS).forEach(([id,lv])=>{
+    const b=document.createElement('button');
+    b.className='level-tab'+(id===AL?' active':'');
+    b.textContent=lv.label;
+    b.onclick=()=>switchLv(id);
+    c.appendChild(b);
+  });
+}
+
+function switchLv(id){
+  AL=id; AS=0;
+  ST.choices={}; ST.inputs={}; ST.checked={}; ST.logs={};
+  document.querySelectorAll('.level-tab').forEach((b,i)=>b.classList.toggle('active',Object.keys(LEVELS)[i]===id));
+  applyLevel(id);
+}
+
+function applyLevel(id){
+  const lv=LEVELS[id];
+  document.documentElement.style.setProperty('--lc',lv.color);
+  document.getElementById('hdr-theme').textContent=lv.theme;
+  document.getElementById('hdr-meta').textContent=lv.tagline+' · ⏱ '+lv.time;
+  const gb=document.getElementById('goal-box');
+  gb.style.background=lv.light; gb.style.borderColor=lv.color+'30';
+  document.getElementById('goal-label').textContent="Today's Objectives";
+  document.getElementById('goal-label').style.color=lv.color;
+  document.getElementById('goal-text').textContent=lv.goal;
+  buildSecNav(lv);
+  renderSec();
+}
+
+function buildSecNav(lv){
+  const nav=document.getElementById('sec-nav');
+  nav.innerHTML='';
+  lv.sections.forEach((s,i)=>{
+    const b=document.createElement('button');
+    b.className='sec-tab'+(i===AS?' active':'');
+    const label=s.title.replace(/[\u{1F300}-\u{1FFFF}]/gu,'').replace('—',' —').trim().split(' — ')[0].trim();
+    b.textContent=label;
+    b.onclick=()=>{AS=i;updSecNav();renderSec();};
+    nav.appendChild(b);
+  });
+}
+
+function updSecNav(){
+  document.querySelectorAll('.sec-tab').forEach((b,i)=>b.classList.toggle('active',i===AS));
+}
+
+function navSec(d){
+  const lv=LEVELS[AL];
+  const n=AS+d;
+  if(n<0||n>=lv.sections.length)return;
+  AS=n; updSecNav(); renderSec();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function renderSec(){
+  const lv=LEVELS[AL];
+  const sec=lv.sections[AS];
+  document.getElementById('sec-title').textContent=sec.title;
+  document.getElementById('sec-sub').textContent=sec.subtitle;
+  const total=lv.sections.length;
+  document.getElementById('nav-cnt').textContent=(AS+1)+' / '+total;
+  const pp=document.getElementById('btn-prev'),np=document.getElementById('btn-next');
+  pp.disabled=AS===0; np.disabled=AS===total-1;
+  np.style.background=AS===total-1?'#E8E5E0':lv.color;
+  np.style.color=AS===total-1?'#AAA':'#fff';
+  const el=document.getElementById('sec-content');
+  el.innerHTML='';
+  const t=sec.type;
+  if(t==='theory')rTheory(el,sec,lv);
+  else if(t==='theory2')rTheory2(el,sec,lv);
+  else if(t==='theory3')rTheory3(el,sec,lv);
+  else if(t==='theory4')rTheory4(el,sec,lv);
+  else if(t==='spot')rSpot(el,sec,lv);
+  else if(t==='fill')rFill(el,sec,lv);
+  else if(t==='transform')rTransform(el,sec,lv);
+  else if(t==='log')rLog(el,sec,lv);
+}
+
+// ── HELPERS ──
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function badge(type,color){return `<span class="tbadge" style="background:${color}18;color:${color};border:1px solid ${color}40">${esc(type)}</span>`;}
+
+function rubricHTML(rubric,lv){
+  if(!rubric)return'';
+  const total=rubric.reduce((s,r)=>s+r.max,0);
+  const rows=rubric.map(r=>`<div class="rub-row"><div><div class="rub-crit">${esc(r.criterion)}</div><div class="rub-desc">${esc(r.desc)}</div></div><div class="rub-pts" style="background:${lv.color}">${r.max} pt</div></div>`).join('');
+  return `<button class="rub-toggle" style="color:${lv.color};border-color:${lv.color}40" onclick="togRub(this)">📊 Assessment Criteria (${total} pts) <span>▼</span></button><div class="rub-panel" style="background:${lv.light};border:1px solid ${lv.color}30">${rows}</div>`;
+}
+
+function togRub(btn){
+  const p=btn.nextElementSibling;
+  const o=p.classList.toggle('open');
+  btn.querySelector('span').textContent=o?'▲':'▼';
+}
+
+function progHTML(id,total,lv){
+  return `<div class="prog-wrap"><div class="prog-bg"><div class="prog-fill" id="pf-${id}" style="background:${lv.color};width:0%"></div></div><div class="prog-lbl" id="pl-${id}">0/${total} completed · 0%</div></div>`;
+}
+
+function updProg(sid,done,total){
+  const pct=total===0?0:Math.round(done/total*100);
+  const pf=document.getElementById('pf-'+sid),pl=document.getElementById('pl-'+sid);
+  if(pf)pf.style.width=pct+'%';
+  if(pl)pl.textContent=done+'/'+total+' completed · '+pct+'%';
+}
+
+function scoreBadge(score,max,color){
+  const pct=max===0?0:Math.round(score/max*100);
+  const g=pct>=90?{l:'Excellent',c:'#1A7A3A'}:pct>=70?{l:'Good',c:'#1A4A7A'}:pct>=50?{l:'Fair',c:'#B7500A'}:{l:'Needs review',c:'#CC3333'};
+  return `<div class="score-badge" style="border-color:${color}"><div class="slbl">Kết quả tự động</div><div class="snum" style="color:${color}">${score}<span class="den">/${max}</span></div><div class="sgrade" style="color:${g.c}">${g.l} · ${pct}%</div></div>`;
+}
+
+// ── THEORY RENDERERS ──
+function rTheory(el,sec,lv){
+  el.innerHTML='<div class="theory-grid">'+sec.content.map(item=>`<div class="th-card" style="border-color:${item.color}30"><div class="th-head">${badge(item.badge,item.color)}<span style="font-weight:700;font-size:14px;color:${item.color}">${esc(item.label)}</span></div><div class="th-rule">${esc(item.rule)}</div><div class="th-ex">${esc(item.examples)}</div></div>`).join('')+'</div>';
+}
+
+function rTheory2(el,sec,lv){
+  el.innerHTML=sec.groups.map(g=>`<div class="g-card" style="border:1.5px solid ${g.color}30"><div class="g-title" style="color:${g.color}">${esc(g.label)}</div><div class="verbs-row">${g.verbs.map(v=>`<span class="v-chip" style="background:${g.color}12;color:${g.color};border:1px solid ${g.color}30">${v}</span>`).join('')}</div><div class="g-mem">💡 ${esc(g.memory)}</div><div class="g-ex">${esc(g.example)}</div></div>`).join('');
+}
+
+function rTheory3(el,sec,lv){
+  el.innerHTML=sec.pairs.map(p=>`<div class="pair-card"><div class="pair-sp"><div class="pair-sp-lbl">SPOKEN / INFORMAL</div><div class="pair-sp-txt">${esc(p.spoken)}</div></div><div class="pair-ac" style="background:${lv.light}60"><div class="pair-ac-lbl" style="color:${lv.color}">WRITTEN / ACADEMIC</div><div class="pair-ac-txt">${esc(p.academic)}</div><div class="pair-chg">→ ${esc(p.change)}</div></div></div>`).join('')+`<div class="insight" style="background:${lv.color}">📌 ${esc(sec.insight)}</div>`;
+}
+
+function rTheory4(el,sec,lv){
+  el.innerHTML=sec.cards.map(card=>`<div class="g-card" style="border:1.5px solid ${card.color}30;margin-bottom:10px">
+    <div class="g-title" style="color:${card.color}">${esc(card.label)}</div>
+    <div style="font-size:13px;color:#333;line-height:1.6;margin-bottom:10px">${esc(card.desc)}</div>
+    <div style="background:#fff;border-left:3px solid ${card.color};border-radius:0 6px 6px 0;padding:8px 12px;font-size:12px;color:${card.color};font-weight:600">&#x2192; ${esc(card.fix)}</div>
+  </div>`).join('');
+}
+
+// ── SPOT ──
+function rSpot(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+progHTML(sec.id,sec.items.length,lv)+
+    sec.items.map((item,i)=>{
+      const sen=esc(item.sentence).replace(esc(item.underlined),`<span class="ul-word" id="ulw-${sec.id}-${i}">${esc(item.underlined)}</span>`);
+      return `<div class="spot-card" id="sc-${sec.id}-${i}">
+        <div class="spot-top"><div class="spot-num">SENTENCE ${i+1}</div><div class="spot-sen">${sen}</div></div>
+        <div class="spot-acts" id="sa-${sec.id}-${i}">
+          <span>This sentence:</span>
+          <button class="btn-wrong" onclick="spotPick('${sec.id}',${i},'wrong')">❌ Has an error</button>
+          <button class="btn-right" onclick="spotPick('${sec.id}',${i},'right')">✅ Correct</button>
+        </div>
+        <div class="spot-ans" id="saa-${sec.id}-${i}" style="background:${lv.light}80">
+          <div class="ans-row">
+            <span class="wrong-wd">${esc(item.wrongWord)}</span>${badge(item.wrongType,'#CC3333')}
+            <span class="arr">→</span><span class="corr-wd">${esc(item.correctWord)}</span>${badge(item.correctType,'#1A7A3A')}
+          </div>
+          <div class="ans-rule">${esc(item.rule)}</div>
+          <div class="ans-tip" style="border:1px solid ${lv.color}30;color:${lv.color}">💡 ${esc(item.tip)}</div>
+          <div class="sc-inline" id="ssi-${sec.id}-${i}"></div>
+          <div class="warn-miss" id="swm-${sec.id}-${i}">⚠️ Câu này thực ra có lỗi — ghi vào sổ nhé!</div>
+        </div>
+      </div>`;
+    }).join('')+
+    `<button class="score-cta" id="scta-${sec.id}" onclick="calcSpot('${sec.id}')">📊 View auto-score</button><div id="sbdg-${sec.id}"></div>`;
+}
+
+function spotPick(sid,idx,choice){
+  if(!ST.choices[sid])ST.choices[sid]={};
+  if(ST.choices[sid][idx]!==undefined)return;
+  ST.choices[sid][idx]=choice;
+  document.getElementById('sa-'+sid+'-'+idx).style.display='none';
+  document.getElementById('saa-'+sid+'-'+idx).classList.add('open');
+  const lv=LEVELS[AL];
+  document.getElementById('sc-'+sid+'-'+idx).style.borderColor=lv.color+'50';
+  const ulw=document.getElementById('ulw-'+sid+'-'+idx);
+  if(ulw)ulw.classList.add('revealed');
+  if(choice==='right'){const w=document.getElementById('swm-'+sid+'-'+idx);if(w)w.style.display='block';}
+  const sec=lv.sections.find(s=>s.id===sid);
+  const done=Object.keys(ST.choices[sid]).length;
+  updProg(sid,done,sec.items.length);
+  if(done===sec.items.length){const c=document.getElementById('scta-'+sid);if(c)c.style.display='block';}
+}
+
+function calcSpot(sid){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  let score=0,max=0;
+  sec.items.forEach((_,i)=>{
+    const chose=(ST.choices[sid]||{})[i];
+    const pts=chose==='wrong'?3:0;
+    score+=pts;max+=3;
+    const el=document.getElementById('ssi-'+sid+'-'+i);
+    if(el){el.textContent=pts>0?'✓ +'+pts+' pt':'✗ 0/3 pt — sentence was actually incorrect';el.className='sc-inline '+(pts>0?'good':'bad');el.style.display='block';}
+  });
+  const cta=document.getElementById('scta-'+sid);if(cta)cta.style.display='none';
+  const bdg=document.getElementById('sbdg-'+sid);if(bdg)bdg.innerHTML=scoreBadge(score,max,lv.color);
+}
+
+// ── FILL ──
+function rFill(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+progHTML(sec.id,sec.items.length,lv)+
+    sec.items.map((item,i)=>`<div class="fill-card" id="fc-${sec.id}-${i}">
+      <div class="fill-body">
+        <div class="fill-base">SENTENCE ${i+1} — Từ gốc: <span style="color:${lv.color};font-family:'JetBrains Mono',monospace">${esc(item.baseWord||'')}</span></div>
+        <div class="fill-tmpl">${esc(item.template)}</div>
+        <div class="fill-irow">
+          <input class="fill-inp" id="fi-${sec.id}-${i}" placeholder="${esc(item.hint)}" onkeydown="if(event.key==='Enter')fillChk('${sec.id}',${i})"/>
+          <button class="fill-chk" id="fb-${sec.id}-${i}" style="background:${lv.color}" onclick="fillChk('${sec.id}',${i})">Check</button>
+          <span class="fill-ic" id="fic-${sec.id}-${i}"></span>
+        </div>
+      </div>
+      <div class="fill-ans" id="fa-${sec.id}-${i}" style="background:${lv.light}80">
+        <div class="fill-ca" id="fca-${sec.id}-${i}"></div>
+        <div class="fill-expl">${esc(item.explanation)}</div>
+        <div class="sc-inline" id="fsi-${sec.id}-${i}"></div>
+      </div>
+    </div>`).join('')+
+    `<button class="score-cta" id="fcta-${sec.id}" onclick="calcFill('${sec.id}')">📊 View auto-score</button><div id="fbdg-${sec.id}"></div>`;
+}
+
+function fillChk(sid,idx){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  const item=sec.items[idx];
+  const inp=document.getElementById('fi-'+sid+'-'+idx);
+  if(!inp||inp.disabled)return;
+  const uv=inp.value.trim().toLowerCase();
+  const ok=uv===item.answer.toLowerCase();
+  inp.disabled=true;
+  inp.classList.add(ok?'ok':'no');
+  document.getElementById('fc-'+sid+'-'+idx).classList.add(ok?'ok':'no');
+  const btn=document.getElementById('fb-'+sid+'-'+idx);if(btn)btn.style.display='none';
+  const ic=document.getElementById('fic-'+sid+'-'+idx);if(ic)ic.textContent=ok?'✅':'❌';
+  document.getElementById('fa-'+sid+'-'+idx).classList.add('open');
+  const ca=document.getElementById('fca-'+sid+'-'+idx);
+  if(ca)ca.textContent=ok?'':`Correct answer: ${item.answer}`;
+  if(!ST.inputs[sid])ST.inputs[sid]={};
+  ST.inputs[sid][idx]=inp.value;
+  if(!ST.checked[sid])ST.checked[sid]={};
+  ST.checked[sid][idx]={ok,uv};
+  const done=Object.keys(ST.checked[sid]).length;
+  updProg(sid,done,sec.items.length);
+  if(done===sec.items.length){const c=document.getElementById('fcta-'+sid);if(c)c.style.display='block';}
+}
+
+function calcFill(sid){
+  const lv=LEVELS[AL];
+  const sec=lv.sections.find(s=>s.id===sid);
+  let score=0,max=0;
+  sec.items.forEach((_,i)=>{
+    const r=(ST.checked[sid]||{})[i];
+    const pts=r?.ok?3:0;
+    score+=pts;max+=3;
+    const el=document.getElementById('fsi-'+sid+'-'+i);
+    if(el){el.textContent=pts>0?'✓ +3 pt':'✗ 0/3 pt';el.className='sc-inline '+(pts>0?'good':'bad');el.style.display='block';}
+  });
+  const cta=document.getElementById('fcta-'+sid);if(cta)cta.style.display='none';
+  const bdg=document.getElementById('fbdg-'+sid);if(bdg)bdg.innerHTML=scoreBadge(score,max,lv.color);
+}
+
+// ── TRANSFORM ──
+function rTransform(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+
+    `<div class="warn-box">📝 Write your transformed sentence before viewing the model. The model is a suggestion — multiple correct formulations are possible.</div>`+
+    sec.items.map((item,i)=>`<div class="tr-card" id="tc-${sec.id}-${i}">
+      <div class="tr-body">
+        <div class="tr-num">TRANSFORM ${i+1}</div>
+        <div class="tr-spoken">🗣 ${esc(item.spoken)}</div>
+        <div class="tr-hint">Vocabulary hint: <span style="color:${lv.color};font-family:'JetBrains Mono',monospace">${esc(item.hint)}</span></div>
+        <textarea class="tr-ta" rows="2" id="ta-${sec.id}-${i}" placeholder="Write your academic sentence here..." oninput="saveTr('${sec.id}',${i},this.value)"></textarea>
+        <button class="tr-reveal" style="background:${lv.color}" onclick="revealTr('${sec.id}',${i})">View model answer</button>
+      </div>
+      <div class="tr-ans" id="tr-${sec.id}-${i}" style="background:${lv.light}90">
+        <div class="model-lbl">MODEL ANSWER (for reference):</div>
+        <div class="model-txt">${esc(item.answer)}</div>
+        <span class="kc-chip" style="border:1px solid ${lv.color}30;color:${lv.color}">Key change: ${esc(item.keyChange)}</span>
+        <div class="princ" style="margin-top:6px">📌 ${esc(item.principle)}</div>
+      </div>
+    </div>`).join('');
+}
+
+function saveTr(sid,idx,val){
+  if(!ST.inputs[sid])ST.inputs[sid]={};
+  ST.inputs[sid][idx]=val;
+  const ta=document.getElementById('ta-'+sid+'-'+idx);
+  if(ta)ta.style.borderColor=val?LEVELS[AL].color+'60':'#DDD';
+}
+
+function revealTr(sid,idx){
+  document.getElementById('tr-'+sid+'-'+idx).classList.add('open');
+  document.getElementById('tc-'+sid+'-'+idx).style.borderColor=LEVELS[AL].color+'50';
+  const btn=document.getElementById('tc-'+sid+'-'+idx).querySelector('.tr-reveal');
+  if(btn)btn.style.display='none';
+}
+
+// ── LOG ──
+function rLog(el,sec,lv){
+  const rub=RUBRICS[AL][sec.rubricKey];
+  el.innerHTML=rubricHTML(rub,lv)+
+    `<div class="log-note">📌 The error log is the single most valuable learning tool in self-study. The more specific your notes, the faster your progress.</div>`+
+    sec.prompts.map((p,i)=>`<div class="log-prompt"><label class="log-lbl">${i+1}. ${esc(p)}</label><textarea class="log-ta" rows="3" id="la-${sec.id}-${i}" placeholder="Write here..." oninput="saveLog('${sec.id}',${i},this.value)"></textarea></div>`).join('')+
+    `<button class="log-save" id="ls-${sec.id}" onclick="saveLogAll('${sec.id}')" style="background:${lv.color}">💾 Save error log</button>`;
+}
+
+function saveLog(sid,idx,val){
+  if(!ST.logs[sid])ST.logs[sid]={};
+  ST.logs[sid][idx]=val;
+  const ta=document.getElementById('la-'+sid+'-'+idx);
+  if(ta)ta.style.borderColor=val?LEVELS[AL].color+'60':'#DDD';
+}
+
+function saveLogAll(sid){
+  const btn=document.getElementById('ls-'+sid);
+  if(btn){btn.textContent='✅ Saved!';btn.style.background='#22C55E';}
+}
+
+// ── DOWNLOAD ──
+function handleDownload(){
+  const lv=LEVELS[AL];
+  const now=new Date();
+  const ds=now.toLocaleDateString('vi-VN',{year:'numeric',month:'long',day:'numeric'});
+  const ts=now.toLocaleTimeString('vi-VN',{hour:'2-digit',minute:'2-digit'});
+  const L=[];
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('       HUONG STELLA PARADIGM');
+  L.push('       PRACTICE SESSION REPORT · '+lv.label);
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('Date : '+ds+' at '+ts);
+  L.push('Topic : '+lv.theme);
+  L.push('');
+  lv.sections.forEach(sec=>{
+    if(['theory','theory2','theory3','theory4'].includes(sec.type))return;
+    L.push('──────────────────────────────────────────────────────────');
+    L.push('  '+sec.title.replace(/[\u{1F300}-\u{1FFFF}]/gu,'').trim().toUpperCase());
+    L.push('──────────────────────────────────────────────────────────');
+    if(sec.type==='spot'){
+      sec.items.forEach((item,i)=>{
+        L.push('  Sentence '+(i+1)+': '+item.sentence);
+        L.push('  -> Correct: '+item.sentence.replace(item.wrongWord,item.correctWord));
+        L.push('  -> Wrong: '+item.wrongWord+' ['+item.wrongType+']  ->  Right: '+item.correctWord+' ['+item.correctType+']');
+        L.push('  -> Rule: '+item.rule);
+        const chose=(ST.choices[sec.id]||{})[i];
+        if(chose!==undefined)L.push('  -> Your assessment: '+(chose==='wrong'?'[v] Correctly identified as INCORRECT':'[x] Marked as correct — actually has an error'));
+        L.push('');
+      });
+    }
+    if(sec.type==='fill'){
+      sec.items.forEach((item,i)=>{
+        const ua=(ST.inputs[sec.id]||{})[i]||'(chua tra loi)';
+        const ok=ua.trim().toLowerCase()===item.answer.toLowerCase();
+        L.push('  Sentence '+(i+1)+': '+item.template);
+        L.push('  -> Your answer       : '+ua);
+        L.push('  -> Correct answer    : '+item.answer+' ['+item.targetType+']');
+        L.push('  -> Result            : '+(ok?'[v] Correct':'[x] Incorrect'));
+        L.push('  -> Explanation       : '+item.explanation);
+        L.push('');
+      });
+    }
+    if(sec.type==='transform'){
+      sec.items.forEach((item,i)=>{
+        L.push('  Transform '+(i+1)+' — Original: "'+item.spoken+'"');
+        L.push('  -> Model answer: "'+item.answer+'"');
+        L.push('  -> Key change: '+item.keyChange);
+        L.push('  -> Principle: '+item.principle);
+        const ua=(ST.inputs[sec.id]||{})[i]||'';
+        if(ua)L.push('  -> Your sentence: '+ua);
+        L.push('');
+      });
+    }
+    if(sec.type==='log'){
+      sec.prompts.forEach((p,i)=>{
+        const note=(ST.logs[sec.id]||{})[i]||'(chua dien)';
+        L.push('  '+(i+1)+'. '+p);
+        L.push('     '+note);
+        L.push('');
+      });
+    }
+  });
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  ASSESSMENT CRITERIA (RUBRIC)');
+  L.push('════════════════════════════════════════════════════════════');
+  const rubs=RUBRICS[AL];
+  Object.entries(rubs).forEach(([key,rubric])=>{
+    L.push('  Section '+key+':');
+    rubric.forEach(r=>L.push('    . '+r.criterion.padEnd(42,' ')+r.max+' pts'));
+    L.push('');
+  });
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  DISCLAIMER');
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('  This practice material was developed with the support of an');
+  L.push('  AI system within the academic programme of Huong Stella');
+  L.push('  Paradigm. While content has been reviewed against pedagogical');
+  L.push('  standards, learners are advised to cross-reference with');
+  L.push('  authoritative sources and consult their instructor for');
+  L.push('  clarification of specific points. Auto-scoring is indicative');
+  L.push('  only and does not replace teacher assessment.');
+  L.push('');
+  L.push('════════════════════════════════════════════════════════════');
+  L.push('════════════════════════════════════════════════════════════');
+  const blob=new Blob([L.join('\n')],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a');
+  a.href=url;
+  a.download='HuongStella_DailyDrill_Day14_'+AL+'_'+now.toISOString().slice(0,10)+'.txt';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+init();
+</script>
+</body>
+</html>

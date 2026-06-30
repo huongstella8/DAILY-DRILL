@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daily Drills 15</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--lc:#2D6A4F;--ll:#D8F3DC;--bg:#F4F2EF;--hdr:#111;--radius:10px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:#1a1a1a;min-height:100vh}
+header{background:var(--hdr);color:#fff;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.brand{font-size:.7rem;letter-spacing:.18em;opacity:.55;text-transform:uppercase}
+.hdr-title{font-size:1.05rem;font-weight:700;letter-spacing:.04em}
+.hdr-sub{font-size:.75rem;opacity:.6;margin-top:2px}
+.main{max-width:860px;margin:0 auto;padding:24px 16px 60px}
+/* Level tabs */
+.lv-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.lv-tab{padding:7px 16px;border-radius:20px;border:2px solid transparent;cursor:pointer;font-size:.8rem;font-weight:600;background:#fff;transition:.15s}
+.lv-tab.active{color:#fff;border-color:var(--lc);background:var(--lc)}
+/* Level header */
+.lv-header{border-radius:var(--radius);padding:20px 24px;margin-bottom:20px;color:#fff}
+.lv-header h2{font-size:1.15rem;margin-bottom:4px}
+.lv-header p{font-size:.82rem;opacity:.85}
+.lv-meta{display:flex;gap:16px;margin-top:10px;font-size:.78rem;opacity:.8;flex-wrap:wrap}
+.lv-meta span{display:flex;align-items:center;gap:4px}
+/* Section nav */
+.sec-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.sec-btn{padding:6px 14px;border-radius:16px;border:2px solid var(--lc);background:#fff;color:var(--lc);font-size:.78rem;font-weight:600;cursor:pointer;transition:.15s}
+.sec-btn.active{background:var(--lc);color:#fff}
+/* Cards */
+.card{background:#fff;border-radius:var(--radius);padding:20px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.card h3{font-size:.95rem;margin-bottom:10px;color:var(--lc)}
+/* Theory */
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.t-card{border-radius:8px;padding:14px;background:var(--ll)}
+.t-card .t-label{font-weight:700;font-size:.88rem;color:var(--lc);margin-bottom:4px;display:flex;align-items:center;gap:6px}
+.t-badge{font-size:.65rem;padding:2px 7px;border-radius:10px;background:var(--lc);color:#fff;font-weight:600}
+.t-card .t-ex{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:#333;background:#fff;border-radius:5px;padding:6px 8px;margin:7px 0}
+.t-card .t-rule{font-size:.78rem;color:#444;line-height:1.5}
+/* Theory2 */
+.t2-card{border-radius:8px;padding:14px;margin-bottom:10px}
+.t2-label{font-weight:700;font-size:.9rem;margin-bottom:6px}
+.t2-verbs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.t2-verb{padding:3px 10px;border-radius:12px;font-size:.78rem;font-weight:600;background:#fff}
+.t2-mem{font-size:.78rem;color:#555;margin-bottom:6px;font-style:italic}
+.t2-ex{font-family:'JetBrains Mono',monospace;font-size:.77rem;background:#fff;border-radius:5px;padding:6px 8px}
+/* Theory3 */
+.t3-pair{border-radius:8px;padding:14px;background:#f9f6ff;border-left:4px solid var(--lc);margin-bottom:10px}
+.t3-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:8px}
+.t3-box{border-radius:6px;padding:8px 10px}
+.t3-box.spoken{background:#fee;border:1px solid #f5c6c6}
+.t3-box.acad{background:#eef5ff;border:1px solid #b3d0f5}
+.t3-box label{font-size:.65rem;font-weight:700;text-transform:uppercase;opacity:.6;display:block;margin-bottom:3px}
+.t3-box p{font-size:.8rem;font-family:'JetBrains Mono',monospace}
+.t3-change{font-size:.77rem;color:#555;margin-top:4px}
+.t3-insight{background:var(--ll);border-radius:8px;padding:12px 14px;font-size:.8rem;line-height:1.6;margin-top:6px}
+/* Theory4 */
+.t4-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.t4-card{border-radius:8px;padding:14px;color:#fff}
+.t4-label{font-weight:700;font-size:.88rem;margin-bottom:6px}
+.t4-desc{font-size:.77rem;opacity:.9;margin-bottom:8px;line-height:1.5}
+.t4-fix{font-size:.75rem;background:rgba(255,255,255,.15);border-radius:6px;padding:7px 9px;line-height:1.5}
+.t4-fix::before{content:"✦ ";font-size:.7rem}
+/* Spot */
+.spot-item{border-radius:8px;padding:14px;margin-bottom:10px;background:#f9f9f7;border:2px solid #e0ddd7;transition:.2s}
+.spot-item.correct{border-color:#2D6A4F;background:#f0faf3}
+.spot-item.wrong{border-color:#c0392b;background:#fff5f5}
+.spot-sentence{font-size:.88rem;line-height:1.7;margin-bottom:10px;font-family:'JetBrains Mono',monospace}
+.spot-sentence u{text-decoration:underline;text-decoration-color:#c0392b;text-decoration-style:wavy}
+.spot-opts{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px}
+.spot-opt{padding:5px 13px;border-radius:16px;border:2px solid #ccc;background:#fff;cursor:pointer;font-size:.8rem;transition:.15s}
+.spot-opt.selected{border-color:var(--lc);background:var(--ll)}
+.spot-opt.right{border-color:#2D6A4F;background:#D8F3DC}
+.spot-opt.bad{border-color:#c0392b;background:#fde}
+.spot-fb{font-size:.8rem;line-height:1.55;margin-top:8px;display:none}
+.spot-fb .rule{color:#1a1a1a;margin-bottom:4px}
+.spot-fb .tip{color:#5A1A8A;font-style:italic}
+/* Fill */
+.fill-item{border-radius:8px;padding:14px;margin-bottom:10px;background:#f9f9f7;border:2px solid #e0ddd7;transition:.2s}
+.fill-item.correct{border-color:#2D6A4F;background:#f0faf3}
+.fill-item.wrong{border-color:#c0392b;background:#fff5f5}
+.fill-template{font-size:.88rem;line-height:1.7;font-family:'JetBrains Mono',monospace;margin-bottom:8px}
+.fill-meta{font-size:.75rem;color:#777;margin-bottom:6px}
+.fill-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fill-inp{padding:6px 12px;border-radius:6px;border:2px solid #ccc;font-size:.85rem;font-family:'JetBrains Mono',monospace;width:180px;transition:.15s;outline:none}
+.fill-inp:focus{border-color:var(--lc)}
+.fill-inp.ok{border-color:#2D6A4F;background:#f0faf3}
+.fill-inp.err{border-color:#c0392b;background:#fff5f5}
+.btn-check{padding:6px 14px;border-radius:6px;background:var(--lc);color:#fff;border:none;cursor:pointer;font-size:.8rem;font-weight:600;transition:.15s}
+.btn-check:hover{opacity:.85}
+.fill-fb{font-size:.78rem;margin-top:6px;display:none;line-height:1.5}
+/* Transform */
+.tr-item{border-radius:8px;padding:14px;margin-bottom:10px;background:#f9f9f7;border:2px solid #e0ddd7}
+.tr-spoken{font-family:'JetBrains Mono',monospace;font-size:.82rem;background:#fff0f0;border-radius:6px;padding:7px 10px;margin-bottom:8px}
+.tr-hint{font-size:.75rem;color:#666;margin-bottom:8px;font-style:italic}
+.tr-hint strong{color:var(--lc)}
+.tr-ta{width:100%;min-height:70px;border-radius:6px;border:2px solid #ccc;padding:8px;font-size:.83rem;font-family:'JetBrains Mono',monospace;resize:vertical;outline:none;transition:.15s}
+.tr-ta:focus{border-color:var(--lc)}
+.tr-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.btn-save{padding:6px 14px;border-radius:6px;background:var(--lc);color:#fff;border:none;cursor:pointer;font-size:.8rem;font-weight:600}
+.btn-reveal{padding:6px 14px;border-radius:6px;background:#fff;color:var(--lc);border:2px solid var(--lc);cursor:pointer;font-size:.8rem;font-weight:600}
+.tr-model{display:none;margin-top:10px;background:#eef5ff;border-radius:6px;padding:10px 12px;font-size:.8rem;line-height:1.6}
+.tr-model .ans{font-family:'JetBrains Mono',monospace;margin-bottom:6px}
+.tr-model .kc{color:#1A4A7A;font-style:italic;font-size:.75rem}
+.tr-model .pr{color:#5A1A8A;font-size:.75rem;margin-top:4px}
+/* Log */
+.log-item{margin-bottom:12px}
+.log-label{font-size:.82rem;font-weight:600;margin-bottom:5px;color:#333}
+.log-ta{width:100%;min-height:60px;border-radius:6px;border:2px solid #ccc;padding:8px;font-size:.83rem;font-family:'JetBrains Mono',monospace;resize:vertical;outline:none;transition:.15s}
+.log-ta:focus{border-color:var(--lc)}
+.log-actions{display:flex;gap:8px;margin-top:10px}
+.btn-save-all{padding:7px 18px;border-radius:6px;background:var(--lc);color:#fff;border:none;cursor:pointer;font-size:.83rem;font-weight:600}
+/* Progress */
+.prog-bar-wrap{background:#e8e4dd;border-radius:8px;height:7px;margin:16px 0 4px;overflow:hidden}
+.prog-bar{height:100%;border-radius:8px;background:var(--lc);transition:.4s}
+.prog-label{font-size:.73rem;color:#666;margin-bottom:14px}
+/* Rubric */
+.rub-toggle{font-size:.75rem;color:var(--lc);cursor:pointer;text-decoration:underline;margin-top:6px;display:inline-block}
+.rub-panel{display:none;background:#f0f8f3;border-radius:6px;padding:10px 12px;margin-top:6px}
+.rub-row{display:flex;justify-content:space-between;font-size:.77rem;padding:3px 0;border-bottom:1px solid #ddf0e4}
+.rub-row:last-child{border:none}
+.rub-desc{color:#555;font-size:.72rem;margin-top:1px}
+.rub-max{font-weight:700;color:var(--lc);white-space:nowrap;margin-left:10px}
+/* Score badge */
+.score-badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:700;margin-left:8px;vertical-align:middle}
+/* Calc btn */
+.btn-calc{padding:7px 16px;border-radius:6px;background:var(--lc);color:#fff;border:none;cursor:pointer;font-size:.82rem;font-weight:600;margin-top:10px;display:block}
+/* Download */
+.dl-section{margin-top:30px;background:#fff;border-radius:var(--radius);padding:20px;border:2px solid var(--lc)}
+.dl-section h3{font-size:.95rem;margin-bottom:8px;color:var(--lc)}
+.dl-section p{font-size:.8rem;color:#555;margin-bottom:12px}
+.btn-dl{padding:9px 20px;border-radius:6px;background:var(--lc);color:#fff;border:none;cursor:pointer;font-size:.85rem;font-weight:700}
+@media(max-width:600px){.t3-row{grid-template-columns:1fr}.theory-grid,.t4-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Huong Stella Paradigm</div>
+    <div class="hdr-title">Daily Drills</div>
+    <div class="hdr-sub">Day 15 · Interactive Practice</div>
+  </div>
+  <div style="text-align:right;font-size:.75rem;opacity:.6">Academic Writing Structures</div>
+</header>
+<div class="main" id="app"></div>
+
+<script>
+// ── State ──────────────────────────────────────────────────────────────────
+let AL = 'a2b1', AS = 0;
+const ST = { choices: {}, inputs: {}, checked: {}, logs: {} };
+
+// ── Data ───────────────────────────────────────────────────────────────────
+const RUBRICS = {
+  a2b1: {
+    spot: [
+      { criterion: "Identifies the correct error", max: 1, desc: "Selects the right option from the two choices" },
+      { criterion: "Understands the grammar rule", max: 1, desc: "Reads the rule explanation and can paraphrase it" },
+      { criterion: "Remembers the tip", max: 1, desc: "Can apply the diagnostic question independently" }
+    ],
+    fill: [
+      { criterion: "Correct word / phrase inserted", max: 2, desc: "Exact answer or acceptable paraphrase" },
+      { criterion: "Spells the word correctly", max: 1, desc: "No spelling errors in the inserted word" }
+    ],
+    log: [
+      { criterion: "Records a genuine error or gap", max: 2, desc: "Entry is specific, not generic ('I find articles hard')" },
+      { criterion: "Explains the rule in own words", max: 2, desc: "Shows understanding, not just copying the rule" },
+      { criterion: "Original sentence is grammatically correct", max: 2, desc: "Sentence uses today's target structure accurately" }
+    ]
+  },
+  b1b2: {
+    spot: [
+      { criterion: "Identifies the correct error", max: 1, desc: "Selects the right option" },
+      { criterion: "Can name the grammar category of the error", max: 1, desc: "e.g. 'tense', 'agreement', 'collocation'" },
+      { criterion: "Tip is retained and applicable", max: 1, desc: "Can apply the tip to a new sentence" }
+    ],
+    fill: [
+      { criterion: "Correct item inserted", max: 2, desc: "Exact answer or acceptable paraphrase" },
+      { criterion: "Register is appropriate", max: 1, desc: "Formal academic tone maintained" }
+    ],
+    log: [
+      { criterion: "Records specific error from today", max: 2, desc: "Names the sentence or structure, not just 'I made a mistake'" },
+      { criterion: "Explanation links rule to a principle", max: 2, desc: "e.g. 'will + base form because it's a modal'" },
+      { criterion: "Original sentence is accurate and academic", max: 2, desc: "Correct grammar AND appropriate register" }
+    ]
+  },
+  b2c1: {
+    spot: [
+      { criterion: "Correct error identified", max: 1, desc: "Right option chosen" },
+      { criterion: "Error classified by type", max: 1, desc: "Names the linguistic phenomenon (e.g. 'double conjunction', 'verb agreement')" },
+      { criterion: "Rule explanation is precise", max: 2, desc: "Goes beyond surface correction to underlying principle" }
+    ],
+    fill: [
+      { criterion: "Correct item in the right form", max: 2, desc: "Exact answer or justifiable paraphrase" },
+      { criterion: "Explanation of choice is articulated", max: 1, desc: "Can say why this word and not an alternative" }
+    ],
+    transform: [
+      { criterion: "Vocabulary is appropriately academic", max: 2, desc: "At least 2 formal lexical upgrades per sentence" },
+      { criterion: "Structure is grammatically correct", max: 2, desc: "No new errors introduced in the transformation" },
+      { criterion: "Register shift is complete", max: 2, desc: "No informal residue remaining" }
+    ],
+    log: [
+      { criterion: "Identifies pattern across multiple errors", max: 2, desc: "Notes that a recurring problem connects two exercises" },
+      { criterion: "Rule is explained with a linguistic term", max: 2, desc: "e.g. 'subordination', 'nominalisation', 'hedging'" },
+      { criterion: "Original paragraph-level output is coherent", max: 2, desc: "Sentence connects logically to a wider argument" }
+    ]
+  },
+  c1c2: {
+    spot: [
+      { criterion: "Correct error identified", max: 1, desc: "Right option chosen" },
+      { criterion: "Error classified with precision", max: 2, desc: "Names phenomenon at discourse/rhetorical level if relevant" },
+      { criterion: "Rule explanation shows C2-level insight", max: 2, desc: "Links error to broader academic writing convention" }
+    ],
+    fill: [
+      { criterion: "Correct item in appropriate form", max: 2, desc: "Exact answer or justifiable alternative" },
+      { criterion: "Justification of choice shows lexical awareness", max: 1, desc: "Can explain connotation/collocation preference" }
+    ],
+    transform: [
+      { criterion: "Nominalisation and passive voice applied correctly", max: 2, desc: "At least one nominalisation and appropriate passive" },
+      { criterion: "Lexical precision: no informal residue", max: 2, desc: "Every content word is appropriate for abstract/executive register" },
+      { criterion: "Information structure: given→new principle observed", max: 2, desc: "Sentence flow is cohesive, not just vocabulary-swapped" }
+    ],
+    log: [
+      { criterion: "Critique engages with rhetorical or discourse-level issue", max: 2, desc: "Goes beyond sentence grammar to argument structure" },
+      { criterion: "Principle explained links to scholarly convention", max: 2, desc: "References IMRaD, hedging norms, tense sequencing, etc." },
+      { criterion: "Original sentence is publishable-quality prose", max: 2, desc: "Could appear in an academic abstract without revision" }
+    ]
+  }
+};
+
+const LEVELS = {
+  a2b1: {
+    label: 'A2–B1', color: '#2D6A4F', light: '#D8F3DC',
+    theme: 'Paragraph Structure Basics',
+    tagline: 'Build a correct English paragraph step by step',
+    goal: 'Today you will: identify the four parts of a paragraph, spot structure errors, and practise paragraph language.',
+    time: '10–15 min',
+    sections: [
+      {
+        id: 'warmup', title: 'Warmup: Paragraph Parts', type: 'theory',
+        cards: [
+          { label: 'Topic Sentence', badge: 'structure', color: '#2D6A4F', examples: 'Online learning has many advantages.', rule: 'The FIRST sentence. It states the main idea. The whole paragraph supports this one idea.' },
+          { label: 'Supporting Sentence', badge: 'support', color: '#1A4A7A', examples: 'Students can study at home and save travel time.', rule: 'These sentences explain the topic sentence. They give REASONS, FACTS, or DETAILS.' },
+          { label: 'Example Sentence', badge: 'example', color: '#5A1A8A', examples: 'For instance, a student in Hanoi can attend a course in London.', rule: 'Use "For example," or "For instance," to introduce a SPECIFIC case that proves your point.' },
+          { label: 'Concluding Sentence', badge: 'conclude', color: '#8B1A1A', examples: 'Therefore, online learning is a valuable option for many students.', rule: 'The LAST sentence. It summarises the paragraph. Use "Therefore," "Overall," or "In conclusion,".' }
+        ]
+      },
+      {
+        id: 'spot', title: 'Spot the Error', type: 'spot', rubricKey: 'spot',
+        items: [
+          { sentence: 'Although the city has many parks, but residents rarely use them.', underlined: 'Although … but', wrongWord: 'Although … but', correctWord: 'Although … (no "but")', wrongType: 'Double conjunction', correctType: 'Single conjunction', rule: '"Although" already expresses contrast, so "but" is redundant. Choose one: "Although X, Y" OR "X, but Y" — never both together.', tip: 'Ask: "Does my sentence already have a contrast word at the start?" If yes, delete the second one.' },
+          { sentence: 'The main idea of my paragraph is about pollution causes many problems.', underlined: 'is about pollution causes', wrongWord: 'is about pollution causes', correctWord: 'is that pollution causes', wrongType: 'Wrong connector', correctType: '"is that" + clause', rule: 'Use "The main idea is THAT + subject + verb." The word "about" introduces a noun phrase, not a full clause with a verb.', tip: 'Test: can you replace "about" with "that"? If yes, use "that".' },
+          { sentence: 'In conclusion, exercise is good. Also, it helps you sleep better.', underlined: 'Also, it helps you sleep better.', wrongWord: 'Also, it helps you sleep better', correctWord: '(remove this — it adds new information)', wrongType: 'New info in conclusion', correctType: 'Conclusion = summary only', rule: 'A concluding sentence SUMMARISES the paragraph. It does NOT introduce new information. "Also" adds a new point, which belongs in the supporting sentences.', tip: 'Ask: "Did I say this before in the paragraph?" If the answer is no, move the sentence up.' },
+          { sentence: 'For example, there are many reasons why people travel.', underlined: 'For example, there are many reasons', wrongWord: 'For example, there are many reasons', correctWord: 'One reason is that… / For example, people travel to experience new cultures.', wrongType: '"For example" before a general statement', correctType: '"For example" before a specific case', rule: '"For example" must be followed by ONE specific case, not a general statement. "There are many reasons" is still general.', tip: 'After "For example," ask: "Is this ONE specific thing?" If not, give a real example.' },
+          { sentence: 'The paragraph have three main points about education.', underlined: 'paragraph have', wrongWord: 'have', correctWord: 'has', wrongType: 'Subject-verb agreement error', correctType: 'Singular subject → "has"', rule: '"The paragraph" is singular (one paragraph), so the verb must be "has" not "have". Check: one thing = has/is/does; two or more things = have/are/do.', tip: 'Cover "main points about education" and read: "The paragraph ___ three." Fill it — you would say "has".' },
+          { sentence: 'In the other hand, some people prefer living in cities.', underlined: 'In the other hand', wrongWord: 'In the other hand', correctWord: 'On the other hand', wrongType: 'Wrong preposition in fixed phrase', correctType: '"On the other hand"', rule: 'The fixed phrase is "ON the other hand," not "IN the other hand." It is a fixed collocation — you cannot change the preposition.', tip: 'Remember: you hold a pen IN your hand, but you contrast ideas ON the other hand.' }
+        ]
+      },
+      {
+        id: 'fill', title: 'Fill in the Blank', type: 'fill', rubricKey: 'fill',
+        items: [
+          { template: 'A good paragraph always begins with a ___ sentence that states the main idea.', baseWord: 'topic / support', answer: 'topic', targetType: 'Paragraph structure vocabulary', hint: 'topic or support?', explanation: '"Topic sentence" is the technical term for the first sentence of a paragraph. It names the subject and states the main point.' },
+          { template: '___ example, many students in Vietnam study English every day to improve their careers.', baseWord: 'for / in / at', answer: 'For', targetType: 'Discourse marker', hint: 'for / in / at', explanation: 'The fixed phrase is "For example," — it introduces a specific illustration. "In example" and "At example" are not English.' },
+          { template: 'In ___, practising paragraph structure every day will make your writing much clearer.', baseWord: 'conclusion / summary / total', answer: 'conclusion', targetType: 'Concluding discourse marker', hint: 'conclusion / summary / total', explanation: '"In conclusion" is the standard phrase to signal the end of a paragraph or essay. "In total" is for numbers; "In summary" is also possible but less common at A2–B1.' },
+          { template: 'Supporting sentences ___ reasons, facts, or details about the topic sentence.', baseWord: 'give / gives / gave', answer: 'give', targetType: 'Subject-verb agreement (plural subject)', hint: 'give / gives / gave', explanation: '"Supporting sentences" is plural, so the verb is "give" (no -s). If the subject were singular ("A supporting sentence"), it would be "gives".' },
+          { template: 'The ___ sentence at the end of the paragraph reminds the reader of the main point.', baseWord: 'concluding / beginning / topic', answer: 'concluding', targetType: 'Paragraph structure vocabulary', hint: 'concluding / beginning / topic', explanation: 'The last sentence is called the "concluding sentence." It "concludes" = finishes and summarises the paragraph.' }
+        ]
+      },
+      {
+        id: 'log', title: 'Error Log', type: 'log', rubricKey: 'log',
+        prompts: [
+          'Write one paragraph structure error you made today (or often make). Copy the wrong sentence and write the correct version below it.',
+          'Choose ONE rule from the Warmup. Explain it in your own words — do not copy the rule card. Use a Vietnamese example if it helps you remember.',
+          'Write a short paragraph (3–4 sentences) about a topic you enjoy. Include a topic sentence, one supporting sentence, one example sentence, and a concluding sentence. Label each one.'
+        ]
+      }
+    ]
+  },
+
+  b1b2: {
+    label: 'B1+–B2', color: '#1A4A7A', light: '#D6E8F7',
+    theme: 'Introduction & Conclusion Formulas',
+    tagline: 'Open and close essays with professional, academic language',
+    goal: 'Today you will: learn key introduction and conclusion phrases, identify formula errors, and practise inserting them correctly.',
+    time: '15–20 min',
+    sections: [
+      {
+        id: 'warmup', title: 'Warmup: Intro & Conclusion Phrases', type: 'theory2',
+        groups: [
+          { label: 'Opening Hooks', color: '#1A4A7A', verbs: ['It is widely acknowledged that', 'In recent years,', 'There is growing concern about', 'One of the most significant issues today is'], memory: 'These contextualise your essay with a broad, accepted statement before narrowing to your thesis.', example: 'In recent years, the rapid expansion of social media has transformed the way people communicate.' },
+          { label: 'Thesis Statement Openers', color: '#5A1A8A', verbs: ['This essay argues that', 'This essay will examine', 'The aim of this essay is to', 'This paper seeks to demonstrate that'], memory: 'These signal your position or purpose — they appear at the END of the introduction, not the beginning.', example: 'This essay argues that remote work offers significant economic benefits to both employers and employees.' },
+          { label: 'Conclusion Signals', color: '#8B1A1A', verbs: ['In conclusion,', 'To summarise,', 'Overall, it is clear that', 'The evidence presented suggests that'], memory: 'These close the essay by echoing the thesis. NEVER introduce a new argument after these phrases.', example: 'In conclusion, the evidence strongly supports the view that renewable energy is essential for sustainable development.' }
+        ]
+      },
+      {
+        id: 'spot', title: 'Spot the Error', type: 'spot', rubricKey: 'spot',
+        items: [
+          { sentence: 'In conclusion, a new point about carbon taxes should also be considered.', underlined: 'a new point … should also be considered', wrongWord: 'a new point … should also be considered', correctWord: '(remove — conclusions must not add new arguments)', wrongType: 'New argument in conclusion', correctType: 'Conclusion = synthesis, not addition', rule: 'A conclusion summarises and reinforces what has already been argued. Introducing a new point signals the essay is unfinished and confuses the reader.', tip: 'Ask: "Did I discuss this in the body paragraphs?" If no → delete it from the conclusion.' },
+          { sentence: 'This essay will discusses the main causes of urban air pollution.', underlined: 'will discusses', wrongWord: 'will discusses', correctWord: 'will discuss', wrongType: 'Modal + inflected verb', correctType: 'Modal + base form', rule: 'After a modal verb (will, can, should, must), always use the BASE form of the verb — no -s, -ed, or -ing ending.', tip: 'Remove "will" and read the sentence. If it sounds like a normal present tense sentence, your verb form is correct.' },
+          { sentence: 'In recently years, technology has dramatically changed the field of education.', underlined: 'recently years', wrongWord: 'recently', correctWord: 'recent', wrongType: 'Adverb modifying noun', correctType: 'Adjective modifying noun', rule: '"Years" is a noun. Nouns are modified by ADJECTIVES, not adverbs. "Recent" (adjective) modifies "years"; "recently" is an adverb that modifies verbs or adjectives.', tip: 'Ask: what word does this describe? If it describes a NOUN → use the adjective form (-ent, -al, -ive). If it describes a VERB → use -ly.' },
+          { sentence: 'The aim of this essay is examining the long-term effects of deforestation.', underlined: 'is examining', wrongWord: 'is examining', correctWord: 'is to examine', wrongType: 'Gerund after "aim … is"', correctType: 'Infinitive after "aim … is"', rule: 'The structure is "The aim is TO + base verb." The infinitive expresses purpose. A gerund after "is" would describe what something looks like, not what it intends to do.', tip: 'Say it aloud: "The aim is to examine" vs "The aim is examining." The first sounds like a plan; the second sounds like a description of a current action.' },
+          { sentence: 'To summarise, I think that stricter regulations on plastic would be more effective.', underlined: 'I think', wrongWord: 'I think', correctWord: 'the evidence suggests / it is evident', wrongType: 'Informal personal opinion marker', correctType: 'Impersonal academic marker', rule: '"I think" is too informal and personal for academic writing. Use impersonal phrases: "the evidence suggests," "it is evident that," or "this essay has demonstrated that."', tip: 'Replace "I think" with "it appears that" or "the evidence indicates" — if the sentence still makes sense, the upgrade is correct.' },
+          { sentence: 'This essay argue that access to education is a fundamental human right.', underlined: 'essay argue', wrongWord: 'argue', correctWord: 'argues', wrongType: 'Subject-verb agreement', correctType: 'Third-person singular -s', rule: '"This essay" is third-person singular. The simple present tense of the verb must have -s: "This essay argues." The same rule applies to "This paper shows," "This report highlights."', tip: 'Test: replace "This essay" with "It." If you would say "It argues," then the sentence needs -s.' }
+        ]
+      },
+      {
+        id: 'fill', title: 'Fill in the Blank', type: 'fill', rubricKey: 'fill',
+        items: [
+          { template: 'This essay ___ that access to clean water is a fundamental human right that must be protected.', baseWord: 'argue / argues / argued', answer: 'argues', targetType: 'Subject-verb agreement (thesis phrase)', hint: 'argue / argues / argued', explanation: '"This essay" is third-person singular, present tense — the verb must be "argues." This is the standard thesis opener in academic English.' },
+          { template: '___ recent years, the relationship between diet and mental health has attracted significant research attention.', baseWord: 'in / on / at / for', answer: 'In', targetType: 'Fixed prepositional phrase', hint: 'in / on / at / for', explanation: '"In recent years" is a fixed time expression. "On," "at," and "for" do not collocate with this phrase.' },
+          { template: 'The aim of this essay is ___ the relationship between social inequality and educational outcomes.', baseWord: 'examine / to examine / examining', answer: 'to examine', targetType: 'Infinitive after "aim is"', hint: 'examine / to examine / examining', explanation: '"The aim is TO + base verb" is the fixed structure. The infinitive expresses the intended purpose of the essay.' },
+          { template: 'In ___, the evidence clearly supports the need for a coordinated international response to climate change.', baseWord: 'conclusion / summary / total', answer: 'conclusion', targetType: 'Conclusion discourse marker', hint: 'conclusion / summary / total', explanation: '"In conclusion" is the standard academic phrase to signal the final paragraph. "In total" is for quantities; "In summary" is acceptable but slightly less formal.' },
+          { template: 'There is growing ___ about the long-term impact of artificial intelligence on labour markets worldwide.', baseWord: 'concern / concerned / concerns', answer: 'concern', targetType: 'Noun in fixed phrase', hint: 'concern / concerned / concerns', explanation: '"Growing concern" is a fixed collocation — "concern" functions as an uncountable noun here. "Concerned" is an adjective; "concerns" would need "growing" to become "increasing" for the plural form.' }
+        ]
+      },
+      {
+        id: 'log', title: 'Error Log', type: 'log', rubricKey: 'log',
+        prompts: [
+          'Write down one mistake you made today. Copy the incorrect sentence, then write the corrected version. What rule did you break?',
+          'Explain in your own words why you CANNOT introduce new information in a conclusion. Why would this confuse the reader?',
+          'Write an introduction paragraph (3–5 sentences) for an essay titled "The Advantages of Learning English." Use at least one opening hook phrase and one thesis statement opener from the Warmup cards.'
+        ]
+      }
+    ]
+  },
+
+  b2c1: {
+    label: 'B2+–C1', color: '#5A1A8A', light: '#EAD6F7',
+    theme: 'Argument & Counter-argument Paragraphs',
+    tagline: 'Build academically rigorous argument structures with effective concession and rebuttal',
+    goal: 'Today you will: transform spoken concession into academic register, identify structural argument errors, and produce full counter-argument moves.',
+    time: '20–25 min',
+    sections: [
+      {
+        id: 'warmup', title: 'Warmup: Concede → Rebut → Reinforce', type: 'theory3',
+        pairs: [
+          { spoken: 'But some people might say the opposite.', academic: 'Critics of this position contend that the evidence does not support such a sweeping claim.', change: '"Say the opposite" → "contend" (formal verb of assertion); vague "some people" → precise "critics of this position"; the academic version names the nature of the objection.' },
+          { spoken: 'Even though that might be true, my point is still right.', academic: 'While this perspective has some merit, it fails to account for the structural factors that underpin the phenomenon.', change: '"Even though that might be true" → "While this perspective has some merit" (hedged concession); "still right" → "fails to account for" (identifies the gap in the opposing argument rather than asserting superiority).' },
+          { spoken: 'So, the evidence backs up the main argument in the end.', academic: 'The foregoing evidence thus substantiates the central claim that coordinated policy intervention is indispensable.', change: '"Backs up" → "substantiates"; "main argument" → "central claim"; "in the end" removed (redundant); "foregoing" signals this reinforces what came before — a cohesive discourse marker.' }
+        ],
+        insight: 'Counter-argument paragraphs follow a concede–rebut–reinforce structure: (1) acknowledge the opposing view\'s merit with a hedged concession marker ("While," "Although," "Granted that,"); (2) pivot with a rebuttal ("however," "nevertheless," "yet"); (3) reinforce your position with evidence. Never simply assert "I am right" — show where the opposing argument is incomplete.'
+      },
+      {
+        id: 'spot', title: 'Spot the Error', type: 'spot', rubricKey: 'spot',
+        items: [
+          { sentence: 'Although the proposed policy has clear benefits, but critics argue that implementation costs are prohibitive.', underlined: 'Although … but', wrongWord: 'Although … but', correctWord: 'Although … (remove "but")', wrongType: 'Double conjunction (Vietnamese transfer error)', correctType: 'Single subordinating conjunction', rule: '"Although" is a subordinating conjunction that creates a concession clause. Adding "but" creates a double conjunction, which is ungrammatical in English. The pattern is: "Although X, Y" — no second connector needed.', tip: 'If your sentence begins with "Although," "Even though," or "While," scan for "but" or "however" mid-sentence. If found — delete one.' },
+          { sentence: 'Proponents of this view claims that digital technology fundamentally enhances cognitive development.', underlined: 'Proponents … claims', wrongWord: 'claims', correctWord: 'claim', wrongType: 'Subject-verb agreement (noun phrase head)', correctType: 'Plural subject → plural verb', rule: '"Proponents" is the head noun of the subject — it is plural. Even though the phrase ends with "this view" (singular), the verb must agree with "Proponents," not the nearest noun.', tip: 'Strip the sentence to subject + verb: "Proponents ___ that…" — you would say "claim," not "claims."' },
+          { sentence: 'On the contrary, several researchers support the hypothesis that sleep deprivation impairs decision-making.', underlined: 'On the contrary', wrongWord: 'On the contrary', correctWord: 'In contrast / However', wrongType: 'Wrong discourse marker for contrast', correctType: '"In contrast" or "However" for introducing a different viewpoint', rule: '"On the contrary" means "what you just said is wrong, and the opposite is true." It is used to directly negate. "In contrast" and "However" simply introduce a different perspective without negation. If researchers "support" a hypothesis, they are not negating the previous statement.', tip: 'Ask: "Am I saying the previous sentence is completely wrong?" If no → use "In contrast" or "However" instead.' },
+          { sentence: 'This paragraph will rebut against the opposing argument by presenting new empirical data.', underlined: 'rebut against', wrongWord: 'rebut against', correctWord: 'rebut', wrongType: 'Redundant preposition', correctType: '"rebut" is transitive — no preposition needed', rule: '"Rebut" is a transitive verb that already contains the meaning of opposition — "against" is redundant. Compare: "refute" (no "against"), "challenge" (no "against"), "contest" (no "against"). Only "argue against" and "protest against" require a preposition.', tip: 'Test transitivity: "rebut [the argument]" — if the noun fits directly after the verb without a preposition, the preposition is wrong.' },
+          { sentence: 'Admittedly, there are practical limitations; nevertheless it is important to note that these are relatively minor.', underlined: 'nevertheless it', wrongWord: 'nevertheless it', correctWord: 'nevertheless, it', wrongType: 'Missing comma after conjunctive adverb', correctType: '"nevertheless," + comma', rule: 'When a conjunctive adverb ("nevertheless," "however," "therefore," "moreover") begins an independent clause after a semicolon, it must be followed by a comma.', tip: 'After a semicolon, any conjunctive adverb needs a comma. Pattern: [clause]; [conjunctive adverb], [clause].' },
+          { sentence: 'The argument of that digital tools enhance engagement is well supported by current pedagogical research.', underlined: 'The argument of that', wrongWord: 'of that', correctWord: 'that', wrongType: 'Spurious preposition before noun clause', correctType: '"The argument that" (no preposition)', rule: '"The argument THAT + clause" is the correct structure. The subordinator "that" introduces a noun clause directly after "argument" — no preposition is needed or possible.', tip: 'Compare: "the idea that," "the fact that," "the claim that," "the suggestion that" — none of these take a preposition before "that."' }
+        ]
+      },
+      {
+        id: 'fill', title: 'Fill in the Blank', type: 'fill', rubricKey: 'fill',
+        items: [
+          { template: '___ this view enjoys considerable scholarly support, it overlooks several critical structural factors.', baseWord: 'while / although / despite', answer: 'While', targetType: 'Concession subordinator', hint: 'while / although / despite', explanation: '"While" and "Although" both introduce concession clauses correctly here. "Despite" requires a noun phrase, not a clause ("Despite its support, it overlooks…"), so it cannot be followed by "this view enjoys."' },
+          { template: 'Critics ___ that the proposed fiscal reforms are economically unviable in the current climate.', baseWord: 'contend / contents / contends', answer: 'contend', targetType: 'Verb agreement with plural subject', hint: 'contend / contents / contends', explanation: '"Critics" is plural — the verb is "contend" (no -s). "Contents" is a noun, not a verb form.' },
+          { template: 'The ___ evidence thus supports the conclusion that targeted intervention is both necessary and effective.', baseWord: 'foregoing / following / ongoing', answer: 'foregoing', targetType: 'Academic discourse cohesion marker', hint: 'foregoing / following / ongoing', explanation: '"Foregoing" means "previously presented" — it signals that you are now drawing a conclusion from what came before. "Following" would mean what comes next; "ongoing" means continuing.' },
+          { template: 'This position fails to ___ for the compounding long-term environmental consequences of deregulation.', baseWord: 'account / accounts / accounting', answer: 'account', targetType: 'Infinitive after modal verb phrase', hint: 'account / accounts / accounting', explanation: '"Fails to + base verb" is the structure — the infinitive "account" is required. "Fails to accounts" is ungrammatical.' },
+          { template: '___, the weight of evidence overwhelmingly supports the case for immediate and comprehensive policy reform.', baseWord: 'overall / notwithstanding / in sum', answer: 'Overall', targetType: 'Concluding/reinforcing discourse marker', hint: 'overall / notwithstanding / in sum', explanation: '"Overall" signals a final synthesis. "Notwithstanding" introduces a concession (less suitable here). "In sum" is also acceptable as an alternative.' }
+        ]
+      },
+      {
+        id: 'transform', title: 'Academic Transformation', type: 'transform', rubricKey: 'transform',
+        items: [
+          { spoken: 'Some people say this idea doesn\'t work, but I think it does work in real life.', hint: 'proponents / contend / while critics argue / empirical evidence / demonstrates viability', answer: 'While critics contend that this approach lacks practical applicability, proponents argue that the available empirical evidence clearly demonstrates its operational viability. / Although detractors maintain that the proposal is unworkable, a growing body of evidence supports its feasibility in real-world contexts.', keyChange: 'Vague "some people" → "critics/proponents" (named voices); "I think" removed (impersonal); "doesn\'t work" → "lacks practical applicability"; coordination replaced by subordination.', principle: 'Counter-argument sentences must name the opposing voice precisely and use formal verbs of assertion ("contend," "maintain," "argue") rather than "say" or "think."' },
+          { spoken: 'The government should do something about housing prices because they are too high now.', hint: 'policymakers / it is imperative that / address / escalating / housing affordability / targeted fiscal measures', answer: 'It is imperative that policymakers address the escalating crisis of housing affordability through targeted fiscal and regulatory measures. / Given the rapid escalation of residential property prices, urgent policy intervention is warranted to safeguard housing accessibility for lower-income households.', keyChange: '"The government should do something" → "It is imperative that policymakers address" (formal urgency structure); "too high" → "escalating"; "housing prices" nominalised to "housing affordability."', principle: 'Academic argument specifies agents precisely ("policymakers" not "the government") and uses formal urgency structures ("it is imperative that") rather than direct commands.' },
+          { spoken: 'Even if you think about those points, my argument is still better than theirs.', hint: 'notwithstanding these considerations / the central argument / remains intact / causal relationship / adduced evidence', answer: 'Notwithstanding these considerations, the central argument remains intact: the evidence adduced consistently demonstrates a robust causal relationship between the variables under examination. / Even granting the validity of the aforementioned objections, the fundamental thesis is not undermined, as the methodological rigour of the present study withstands scrutiny.', keyChange: '"Even if" → "Notwithstanding" (formal concession); "my argument is better" → "the central argument remains intact" (impersonal); "theirs" removed entirely; added evidential clause to justify the claim.', principle: 'Academic rebuttals do not claim superiority over opposing views — they demonstrate that the counter-evidence fails to invalidate the core claim.' }
+        ]
+      },
+      {
+        id: 'log', title: 'Error Log', type: 'log', rubricKey: 'log',
+        prompts: [
+          'Identify one structural error you made or tend to make in counter-argument writing (e.g. double conjunction, wrong discourse marker, informal voice). Write the wrong version and the corrected version, then name the linguistic phenomenon.',
+          'Explain the "concede–rebut–reinforce" structure in your own words. Use a specific example from today\'s exercises or from a topic you are studying.',
+          'Write a counter-argument paragraph (4–6 sentences) on this topic: "Social media has a negative effect on academic performance." Use at least one concession marker, one rebuttal marker, and one formal verb of assertion.'
+        ]
+      }
+    ]
+  },
+
+  c1c2: {
+    label: 'C1+–C2', color: '#8B1A1A', light: '#F5DADA',
+    theme: 'Abstract & Executive Summary Writing',
+    tagline: 'Achieve publishable precision in abstracts and executive summaries',
+    goal: 'Today you will: apply IMRaD miniaturisation, master tense sequencing and nominalisation, identify register failures, and produce abstract-quality prose.',
+    time: '20–25 min',
+    sections: [
+      {
+        id: 'warmup', title: 'Warmup: Four Abstract Writing Principles', type: 'theory4',
+        cards: [
+          { label: 'IMRaD Miniaturisation', color: '#8B1A1A', desc: 'An abstract compresses Introduction, Methods, Results, and Discussion into 150–250 words. Each element must appear — omitting any one signals incomplete scholarship. Background sets the gap; Methods describe what was done; Results report what was found; Discussion states what it means.', fix: 'Audit your abstract against four questions: (1) What gap did you address? (2) How did you investigate it? (3) What did you find? (4) What does it mean? A missing answer = a missing section.' },
+          { label: 'Tense Sequencing', color: '#5A1A8A', desc: 'Tense choice in an abstract signals the status of each element. Background context → simple present ("Research demonstrates that…"); Methods and Results → simple past ("Data were collected…; Three themes emerged…"); Conclusions and implications → simple present ("These findings suggest that…").', fix: 'Error: "We will examine 200 transcripts and find three themes." Correct: "Two hundred transcripts were examined; three recurring themes were identified." The passive past foregrounds the research, not the researcher.' },
+          { label: 'Lexical Density via Nominalisation', color: '#1A4A7A', desc: 'Abstracts achieve high lexical density — more content words per clause — through nominalisation (converting verbs and adjectives into noun phrases). Verb-heavy prose dilutes precision and sounds informal. Each nominalisation packs more information into fewer words.', fix: 'Weak: "We analysed how prices changed quickly." Dense: "An analysis of rapid price fluctuation was conducted." "Price fluctuation" replaces the clause "prices changed quickly" — two dense nouns replace a verb phrase.' },
+          { label: 'Calibrated Hedging', color: '#2D6A4F', desc: 'Abstracts report findings authoritatively. Over-hedging ("it seems possible that," "there might perhaps be") undermines the force of results and signals weak methodology. Under-hedging ("proves conclusively that all X") over-generalises. Hedging belongs in implications, not in results statements.', fix: 'Results: "Temperatures increased by 3.2°C over the study period" — no hedge needed. Implications: "These findings suggest that similar patterns may emerge in temperate climates" — hedge is appropriate here, as you are generalising beyond your data.' }
+        ]
+      },
+      {
+        id: 'spot', title: 'Spot the Error', type: 'spot', rubricKey: 'spot',
+        items: [
+          { sentence: 'This paper will investigate the relationship between chronic workplace stress and employee productivity in knowledge industries.', underlined: 'will investigate', wrongWord: 'will investigate', correctWord: 'investigates', wrongType: 'Future tense in abstract for completed research', correctType: 'Simple present (state-of-paper) or simple past (completed study)', rule: 'An abstract describes research that has already been completed. Using "will investigate" implies the work is future — acceptable only in a prospectus, not a published abstract. Use simple present to describe what the paper does ("This paper investigates…") or simple past ("This study investigated…").', tip: 'Ask: "Is this paper finished?" If yes — no future tense. Use present for state-of-paper statements and past for completed actions.' },
+          { sentence: 'The study found that participants were performed significantly better under moderate pressure conditions than under low-pressure conditions.', underlined: 'were performed better', wrongWord: 'were performed', correctWord: 'performed', wrongType: 'Erroneous passive construction', correctType: 'Active past tense OR full passive re-cast', rule: '"Performed" is here used in the active sense (participants did the performing). "Were performed" would mean participants had a procedure done to them. If passive is intended: "significantly better performance was demonstrated by participants under moderate pressure." But active "participants performed better" is cleaner.', tip: 'Ask: "Is the subject doing the action or receiving it?" If doing → active. "Were + past participle" = passive (subject receives the action).' },
+          { sentence: 'In conclusion of this abstract, the results suggest significant implications for urban planning policy and infrastructure investment.', underlined: 'In conclusion of this abstract,', wrongWord: 'In conclusion of this abstract,', correctWord: '(delete — simply state the implication directly)', wrongType: 'Unidiomatic meta-commentary in abstract', correctType: 'Direct implication statement without signposting phrase', rule: 'Abstracts are already understood to be condensed — meta-phrases like "In conclusion of this abstract" are redundant and unidiomatic. The implication sentence stands alone: "These results have significant implications for urban planning policy and infrastructure investment."', tip: 'Read your abstract with all meta-commentary removed. If the content survives, the commentary was unnecessary.' },
+          { sentence: 'The findings of this research is consistent with the existing literature on cognitive load and working memory limitations.', underlined: 'findings … is', wrongWord: 'is', correctWord: 'are', wrongType: 'Subject-verb agreement (noun phrase head)', correctType: 'Plural head noun "findings" → "are"', rule: '"Findings" is the head noun of the subject and it is plural. The intervening phrase "of this research" does not change the agreement. The verb must be "are."', tip: 'Strip the prepositional phrase: "The findings ___ consistent." You would say "are" — restore the phrase, keep "are."' },
+          { sentence: 'This executive summary provide a comprehensive overview of the key findings and strategic recommendations of the full report.', underlined: 'summary provide', wrongWord: 'provide', correctWord: 'provides', wrongType: 'Subject-verb agreement (singular subject)', correctType: '"This executive summary provides"', rule: '"This executive summary" is third-person singular. The simple present verb requires -s: "provides." This is the same rule as "This essay argues," "This report highlights."', tip: 'Replace "This executive summary" with "It." You would say "It provides" — restore the subject, keep "provides."' },
+          { sentence: 'The research methodology involve a mixed-methods design comprising semi-structured interviews and a validated quantitative survey instrument.', underlined: 'methodology involve', wrongWord: 'involve', correctWord: 'involved', wrongType: 'Tense error in methods description', correctType: 'Simple past for completed methods', rule: 'Methods in an abstract are described in the simple past ("was conducted," "were analysed," "involved") because the data collection has been completed. Using present tense implies the methodology is ongoing.', tip: 'Methods sentence test: can you add "last year"? If yes (and the study is complete) → use past tense.' }
+        ]
+      },
+      {
+        id: 'fill', title: 'Fill in the Blank', type: 'fill', rubricKey: 'fill',
+        items: [
+          { template: 'Three recurring themes ___ identified through systematic thematic analysis of the interview transcripts.', baseWord: 'were / was / have been', answer: 'were', targetType: 'Simple past passive for completed results', hint: 'were / was / have been', explanation: '"Three recurring themes" is plural → "were" (not "was"). Simple past passive is used for completed results: "were identified." "Have been identified" (present perfect) would suggest the identification is ongoing or just completed — less appropriate in a published abstract.' },
+          { template: 'The findings carry significant ___ for the design of evidence-based public health intervention programmes.', baseWord: 'implication / implications / implying', answer: 'implications', targetType: 'Collocational noun (plural)', hint: 'implication / implications / implying', explanation: '"Implications for" is the standard academic collocation. Plural "implications" is used because the findings typically point to multiple consequences. "Implication" (singular) is possible but unusual without a specific article; "implying" is a gerund/participle, not a noun.' },
+          { template: 'This paper ___ the hypothesis that sustained exposure to bilingual input accelerates syntactic acquisition in early childhood.', baseWord: 'examined / examines / will examine', answer: 'examines', targetType: 'State-of-paper present tense in abstract', hint: 'examined / examines / will examine', explanation: '"This paper examines" is a state-of-paper statement describing what the paper does — simple present is standard. "Examined" (past) is also acceptable. "Will examine" is wrong for a completed study.' },
+          { template: 'The ___ of rapid urbanisation on regional biodiversity loss was quantified using geospatial analysis techniques.', baseWord: 'impact / impacts / impacting', answer: 'impact', targetType: 'Uncountable noun in academic collocation', hint: 'impact / impacts / impacting', explanation: '"The impact of X on Y" is the fixed academic collocation. "Impact" is uncountable in this formal use (no article needed if used with "the"). "Impacts" (plural) is increasingly used but "impact" (singular) remains more formal.' },
+          { template: 'These findings suggest that further investigation into the long-term ___ consequences of microplastic exposure is warranted.', baseWord: 'environmental / environment / environmentally', answer: 'environmental', targetType: 'Adjective modifying noun', hint: 'environmental / environment / environmentally', explanation: '"Consequences" is a noun — it requires an adjective modifier. "Environmental" (adjective) is correct. "Environment" is a noun (cannot modify another noun directly in this structure). "Environmentally" is an adverb.' }
+        ]
+      },
+      {
+        id: 'transform', title: 'Abstract Transformation', type: 'transform', rubricKey: 'transform',
+        items: [
+          { spoken: 'We looked at how social media affects teenagers\' mental health by doing surveys and interviews with young people.', hint: 'investigate / adolescent psychological wellbeing / mixed-methods / was conducted / comprising / semi-structured', answer: 'The relationship between social media use and adolescent psychological wellbeing was investigated through a mixed-methods design comprising structured surveys (n = 320) and semi-structured interviews (n = 24). / Social media\'s influence on adolescent psychological wellbeing was examined via a convergent mixed-methods study incorporating quantitative surveys and qualitative in-depth interviews.', keyChange: 'Passive voice foregrounds design over researcher; "teenagers" → "adolescent" (formal register); "doing surveys and interviews" → nominalised "comprising structured surveys…and semi-structured interviews"; participant numbers quantified.', principle: 'Abstract methods sentences foreground study design through passive constructions and nominalisations, ensuring the methodology, not the researcher, is the grammatical subject.' },
+          { spoken: 'The results show that people who exercise regularly are less stressed, which is a really important finding for health.', hint: 'analysis revealed / statistically significant / inverse correlation / regular physical activity / psychological distress / theoretical import', answer: 'Analysis revealed a statistically significant inverse correlation between regular physical activity and self-reported psychological distress (r = −0.67, p < 0.01), a finding of considerable theoretical and clinical import. / The data demonstrated a robust negative association between habitual exercise and indices of psychological stress, with effect sizes of practical significance (d = 0.74).', keyChange: '"Show" → "revealed"; "less stressed" → "inverse correlation…psychological distress" (nominalisation + technical precision); "really important" → "considerable theoretical and clinical import"; statistical values added.', principle: 'Results sentences in abstracts require quantified precision, formal evaluative vocabulary, and technical nominalisation rather than colloquial assessment.' },
+          { spoken: 'Basically, companies should train their managers better if they want to get better results from their teams.', hint: 'these findings suggest / sustained investment / managerial development / optimise / organisational outcomes / it is recommended that / evidence-based', answer: 'These findings suggest that sustained investment in evidence-based managerial development programmes is likely to optimise team-level organisational outcomes; accordingly, it is recommended that senior leadership prioritise systematic training initiatives aligned with identified competency gaps. / The results indicate that organisations seeking to enhance operational performance should direct resources towards structured managerial capacity-building grounded in current pedagogical evidence.', keyChange: '"Basically" removed; "should train better" → hedged recommendation structure "it is recommended that"; "better results" → "optimise organisational outcomes"; "companies" → "organisations/senior leadership" (precise agent).', principle: 'Executive summary recommendations employ hedged imperative structures ("it is recommended that," "the evidence suggests that organisations should") rather than direct commands, projecting institutional authority without overreach.' }
+        ]
+      },
+      {
+        id: 'log', title: 'Error Log', type: 'log', rubricKey: 'log',
+        prompts: [
+          'Identify the most challenging principle from today\'s Warmup for your own writing. Describe a specific passage you have written (or tend to write) where this principle is violated, and rewrite it to abstract standard.',
+          'Explain in your own words why tense sequencing in an abstract is not merely a grammar rule but a rhetorical and epistemological choice. What does each tense signal to a scholarly reader?',
+          'Write an abstract (150–200 words) for a hypothetical study on a topic you know well. Ensure all four IMRaD elements are present, tense sequencing is correct, results are presented with appropriate precision, and implications are hedged appropriately.'
+        ]
+      }
+    ]
+  }
+};
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function badge(t,c){ return `<span class="t-badge" style="background:${c}">${esc(t)}</span>`; }
+function rubricHTML(arr){
+  if(!arr) return '';
+  return '<span class="rub-toggle" onclick="togRub(this)">Show rubric ▾</span><div class="rub-panel">'+
+    arr.map(r=>`<div class="rub-row"><div><div>${esc(r.criterion)}</div><div class="rub-desc">${esc(r.desc)}</div></div><div class="rub-max">${r.max} pt${r.max>1?'s':''}</div></div>`).join('')+
+  '</div>';
+}
+function togRub(el){
+  const p=el.nextElementSibling;
+  const open=p.style.display==='block';
+  p.style.display=open?'none':'block';
+  el.textContent=open?'Show rubric ▾':'Hide rubric ▴';
+}
+function progHTML(id){ return `<div class="prog-bar-wrap"><div class="prog-bar" id="pb_${esc(id)}" style="width:0%"></div></div><div class="prog-label" id="pl_${esc(id)}">0 / 0 answered</div>`; }
+function updProg(secId, done, total){
+  const pb=document.getElementById('pb_'+secId);
+  const pl=document.getElementById('pl_'+secId);
+  if(pb) pb.style.width=(total?Math.round(done/total*100):0)+'%';
+  if(pl) pl.textContent=done+' / '+total+' answered';
+}
+function scoreBadge(score, max){
+  const pct = max ? score/max : 0;
+  const col = pct>=0.8?'#2D6A4F':pct>=0.5?'#1A4A7A':'#8B1A1A';
+  return `<span class="score-badge" style="background:${col};color:#fff">${score}/${max}</span>`;
+}
+
+// ── Init ───────────────────────────────────────────────────────────────────
+function init(){
+  document.title = 'Daily Drills 15';
+  const app = document.getElementById('app');
+  app.innerHTML = '<div id="lv-tabs-wrap"></div><div id="lv-content"></div>';
+  buildLvTabs();
+  switchLv('a2b1');
+}
+
+function buildLvTabs(){
+  const wrap = document.getElementById('lv-tabs-wrap');
+  wrap.innerHTML = '<div class="lv-tabs">'+
+    Object.entries(LEVELS).map(([k,v])=>
+      `<div class="lv-tab${k===AL?' active':''}" style="${k===AL?'':'border-color:'+v.color+';color:'+v.color}" onclick="switchLv('${k}')">${esc(v.label)}</div>`
+    ).join('')+
+  '</div>';
+}
+
+function switchLv(lv){
+  AL = lv;
+  AS = 0;
+  buildLvTabs();
+  applyLevel();
+}
+
+function applyLevel(){
+  const lv = LEVELS[AL];
+  document.documentElement.style.setProperty('--lc', lv.color);
+  document.documentElement.style.setProperty('--ll', lv.light);
+  const cont = document.getElementById('lv-content');
+  cont.innerHTML = `
+    <div class="lv-header" style="background:${lv.color}">
+      <h2>${esc(lv.label)} · ${esc(lv.theme)}</h2>
+      <p>${esc(lv.tagline)}</p>
+      <div class="lv-meta">
+        <span>🎯 ${esc(lv.goal)}</span>
+        <span>⏱ ${esc(lv.time)}</span>
+      </div>
+    </div>
+    <div id="sec-nav-wrap"></div>
+    <div id="sec-content"></div>
+  `;
+  buildSecNav();
+  navSec(0);
+}
+
+function buildSecNav(){
+  const lv = LEVELS[AL];
+  const wrap = document.getElementById('sec-nav-wrap');
+  wrap.innerHTML = '<div class="sec-nav">'+
+    lv.sections.map((s,i)=>
+      `<div class="sec-btn${i===AS?' active':''}" onclick="navSec(${i})">${esc(s.title)}</div>`
+    ).join('')+
+  '</div>';
+}
+
+function navSec(i){
+  AS = i;
+  buildSecNav();
+  renderSec();
+}
+
+function renderSec(){
+  const sec = LEVELS[AL].sections[AS];
+  const cont = document.getElementById('sec-content');
+  let html = '';
+  if(sec.type==='theory') html = rTheory(sec);
+  else if(sec.type==='theory2') html = rTheory2(sec);
+  else if(sec.type==='theory3') html = rTheory3(sec);
+  else if(sec.type==='theory4') html = rTheory4(sec);
+  else if(sec.type==='spot') html = rSpot(sec);
+  else if(sec.type==='fill') html = rFill(sec);
+  else if(sec.type==='transform') html = rTransform(sec);
+  else if(sec.type==='log') html = rLog(sec);
+  cont.innerHTML = html;
+}
+
+// ── Renderers ──────────────────────────────────────────────────────────────
+function rTheory(sec){
+  return `<div class="card"><h3>${esc(sec.title)}</h3><div class="theory-grid">`+
+    sec.cards.map(c=>`
+      <div class="t-card" style="background:${esc(c.light||LEVELS[AL].light)};border-left:4px solid ${esc(c.color)}">
+        <div class="t-label" style="color:${esc(c.color)}">${esc(c.label)} ${badge(c.badge,c.color)}</div>
+        <div class="t-ex">${esc(c.examples)}</div>
+        <div class="t-rule">${esc(c.rule)}</div>
+      </div>`).join('')+
+  '</div></div>';
+}
+
+function rTheory2(sec){
+  const lv = LEVELS[AL];
+  return `<div class="card"><h3>${esc(sec.title)}</h3>`+
+    sec.groups.map(g=>`
+      <div class="t2-card" style="background:${esc(lv.light)};border-left:4px solid ${esc(g.color)}">
+        <div class="t2-label" style="color:${esc(g.color)}">${esc(g.label)}</div>
+        <div class="t2-verbs">${g.verbs.map(v=>`<span class="t2-verb" style="color:${esc(g.color)};border:1px solid ${esc(g.color)}">${esc(v)}</span>`).join('')}</div>
+        <div class="t2-mem">💡 ${esc(g.memory)}</div>
+        <div class="t2-ex">${esc(g.example)}</div>
+      </div>`).join('')+
+  '</div>';
+}
+
+function rTheory3(sec){
+  const lv = LEVELS[AL];
+  return `<div class="card"><h3>${esc(sec.title)}</h3>`+
+    sec.pairs.map((p,i)=>`
+      <div class="t3-pair">
+        <div style="font-weight:700;font-size:.78rem;color:${esc(lv.color)};margin-bottom:8px">Pair ${i+1}</div>
+        <div class="t3-row">
+          <div class="t3-box spoken"><label>Spoken / Informal</label><p>${esc(p.spoken)}</p></div>
+          <div class="t3-box acad"><label>Academic</label><p>${esc(p.academic)}</p></div>
+        </div>
+        <div class="t3-change">🔄 ${esc(p.change)}</div>
+      </div>`).join('')+
+    `<div class="t3-insight"><strong>Key Insight:</strong> ${esc(sec.insight)}</div></div>`;
+}
+
+function rTheory4(sec){
+  return `<div class="card"><h3>${esc(sec.title)}</h3><div class="t4-grid">`+
+    sec.cards.map(c=>`
+      <div class="t4-card" style="background:${esc(c.color)}">
+        <div class="t4-label">${esc(c.label)}</div>
+        <div class="t4-desc">${esc(c.desc)}</div>
+        <div class="t4-fix">${esc(c.fix)}</div>
+      </div>`).join('')+
+  '</div></div>';
+}
+
+function rSpot(sec){
+  const rubric = RUBRICS[AL][sec.rubricKey];
+  const sid = AL+'_'+sec.id;
+  let html = `<div class="card"><h3>${esc(sec.title)}</h3>${progHTML(sid)}`+rubricHTML(rubric);
+  sec.items.forEach((item,i)=>{
+    const key = sid+'_'+i;
+    const ch = ST.choices[key];
+    const cls = ch==null?'':ch===item.correctWord?'correct':'wrong';
+    html += `<div class="spot-item ${cls}" id="si_${esc(key)}">
+      <div class="spot-sentence">${esc(item.sentence).replace(esc(item.underlined),'<u>'+esc(item.underlined)+'</u>')}</div>
+      <div style="font-size:.74rem;color:#888;margin-bottom:6px">Which version is correct?</div>
+      <div class="spot-opts">
+        <div class="spot-opt${ch===item.wrongWord?' selected':''}${ch!=null?(item.wrongWord===item.correctWord?' right':' bad'):''}" onclick="spotPick('${esc(key)}',${i},'wrong')">${esc(item.wrongWord)}</div>
+        <div class="spot-opt${ch===item.correctWord?' selected':''}${ch!=null?' right':''}" onclick="spotPick('${esc(key)}',${i},'correct')">${esc(item.correctWord)}</div>
+      </div>
+      <div class="spot-fb" id="sfb_${esc(key)}" style="${ch!=null?'display:block':''}">
+        <div class="rule">📖 <strong>${esc(item.wrongType)} → ${esc(item.correctType)}:</strong> ${esc(item.rule)}</div>
+        <div class="tip">💡 Tip: ${esc(item.tip)}</div>
+      </div>
+    </div>`;
+  });
+  html += `<button class="btn-calc" onclick="calcSpot('${esc(sid)}')">Calculate score</button></div>`;
+  setTimeout(()=>{ const done=sec.items.filter((_,i)=>ST.choices[sid+'_'+i]!=null).length; updProg(sid,done,sec.items.length); },0);
+  return html;
+}
+
+function rFill(sec){
+  const rubric = RUBRICS[AL][sec.rubricKey];
+  const sid = AL+'_'+sec.id;
+  let html = `<div class="card"><h3>${esc(sec.title)}</h3>${progHTML(sid)}`+rubricHTML(rubric);
+  sec.items.forEach((item,i)=>{
+    const key = sid+'_'+i;
+    const saved = ST.inputs[key]||'';
+    const chkd = ST.checked[key];
+    const cls = chkd==null?'':chkd?'correct':'wrong';
+    html += `<div class="fill-item ${cls}" id="fi_${esc(key)}">
+      <div class="fill-template">${esc(item.template)}</div>
+      <div class="fill-meta">Word bank hint: <strong>${esc(item.baseWord)}</strong> · ${esc(item.targetType)}</div>
+      <div class="fill-row">
+        <input class="fill-inp${chkd==null?'':chkd?' ok':' err'}" id="finp_${esc(key)}" value="${esc(saved)}" placeholder="${esc(item.hint)}" oninput="ST.inputs['${esc(key)}']=this.value">
+        <button class="btn-check" onclick="fillChk('${esc(key)}',${i})">Check</button>
+      </div>
+      <div class="fill-fb" id="ffb_${esc(key)}" style="${chkd!=null?'display:block':''}">
+        ${chkd!=null?(chkd?'✅ Correct! ':'❌ The answer is <strong>'+esc(item.answer)+'</strong>. ')+esc(item.explanation):''}
+      </div>
+    </div>`;
+  });
+  html += `<button class="btn-calc" onclick="calcFill('${esc(sid)}')">Calculate score</button></div>`;
+  setTimeout(()=>{ const done=sec.items.filter((_,i)=>ST.checked[sid+'_'+i]!=null).length; updProg(sid,done,sec.items.length); },0);
+  return html;
+}
+
+function rTransform(sec){
+  const rubric = RUBRICS[AL][sec.rubricKey];
+  const sid = AL+'_'+sec.id;
+  let html = `<div class="card"><h3>${esc(sec.title)}</h3>`+rubricHTML(rubric);
+  sec.items.forEach((item,i)=>{
+    const key = sid+'_'+i;
+    const saved = ST.inputs[key]||'';
+    html += `<div class="tr-item">
+      <div style="font-size:.75rem;font-weight:700;color:#888;margin-bottom:4px">Sentence ${i+1}</div>
+      <div class="tr-spoken">🗣 ${esc(item.spoken)}</div>
+      <div class="tr-hint">Key vocabulary / structures: <strong>${esc(item.hint)}</strong></div>
+      <textarea class="tr-ta" id="trta_${esc(key)}" placeholder="Write your academic version here…" oninput="ST.inputs['${esc(key)}']=this.value">${esc(saved)}</textarea>
+      <div class="tr-actions">
+        <button class="btn-save" onclick="saveTr('${esc(key)}')">Save</button>
+        <button class="btn-reveal" onclick="revealTr('${esc(key)}',${i})">Reveal model answer</button>
+      </div>
+      <div class="tr-model" id="trm_${esc(key)}">
+        <div class="ans">📝 Model: ${esc(item.answer)}</div>
+        <div class="kc">🔄 Key change: ${esc(item.keyChange)}</div>
+        <div class="pr">📐 Principle: ${esc(item.principle)}</div>
+      </div>
+    </div>`;
+  });
+  return html+'</div>';
+}
+
+function rLog(sec){
+  const rubric = RUBRICS[AL][sec.rubricKey];
+  const sid = AL+'_'+sec.id;
+  let html = `<div class="card"><h3>${esc(sec.title)}</h3>`+rubricHTML(rubric);
+  sec.prompts.forEach((p,i)=>{
+    const key = sid+'_'+i;
+    const saved = ST.logs[key]||'';
+    html += `<div class="log-item">
+      <div class="log-label">${i+1}. ${esc(p)}</div>
+      <textarea class="log-ta" id="lta_${esc(key)}" placeholder="Write your response here…" oninput="ST.logs['${esc(key)}']=this.value">${esc(saved)}</textarea>
+    </div>`;
+  });
+  html += `<div class="log-actions"><button class="btn-save-all" onclick="saveLogAll('${esc(sid)}')">Save all entries</button></div></div>`;
+  return html;
+}
+
+// ── Interaction ────────────────────────────────────────────────────────────
+function spotPick(key, idx, which){
+  const sec = LEVELS[AL].sections[AS];
+  const item = sec.items[idx];
+  const chosen = which==='correct' ? item.correctWord : item.wrongWord;
+  ST.choices[key] = chosen;
+  const isRight = chosen === item.correctWord;
+  const el = document.getElementById('si_'+key);
+  el.className = 'spot-item '+(isRight?'correct':'wrong');
+  const opts = el.querySelectorAll('.spot-opt');
+  opts[0].className = 'spot-opt'+(which==='wrong'?' selected':'')+(!isRight&&which==='wrong'?' bad':which!=='wrong'&&item.wrongWord===item.correctWord?' right':'');
+  opts[0].className = 'spot-opt'+(which==='wrong'?' selected':'')+(item.wrongWord===item.correctWord?' right':which==='wrong'?' bad':'');
+  opts[1].className = 'spot-opt'+(which==='correct'?' selected':'')+' right';
+  const fb = document.getElementById('sfb_'+key);
+  if(fb) fb.style.display='block';
+  const sid = AL+'_'+sec.id;
+  const done = sec.items.filter((_,i)=>ST.choices[sid+'_'+i]!=null).length;
+  updProg(sid, done, sec.items.length);
+}
+
+function calcSpot(sid){
+  const sec = LEVELS[AL].sections.find(s=>AL+'_'+s.id===sid);
+  if(!sec) return;
+  let score=0, max=0;
+  const rubric = RUBRICS[AL][sec.rubricKey]||[];
+  rubric.forEach(r=>max+=r.max);
+  const perItem = max / (sec.items.length||1);
+  sec.items.forEach((_,i)=>{
+    const key = sid+'_'+i;
+    const item = sec.items[i];
+    if(ST.choices[key]===item.correctWord) score += perItem;
+  });
+  score = Math.round(score);
+  const card = document.querySelector(`#sec-content .card`);
+  let badge_el = card.querySelector('.score-result');
+  if(!badge_el){ badge_el=document.createElement('div'); badge_el.className='score-result'; badge_el.style.marginTop='8px'; card.appendChild(badge_el); }
+  badge_el.innerHTML = 'Score: '+scoreBadge(score, max);
+}
+
+function fillChk(key, idx){
+  const sec = LEVELS[AL].sections[AS];
+  const item = sec.items[idx];
+  const inp = document.getElementById('finp_'+key);
+  const val = (inp.value||'').trim().toLowerCase();
+  const correct = item.answer.split('/').map(a=>a.trim().toLowerCase());
+  const isRight = correct.some(c=>val===c);
+  ST.inputs[key] = inp.value;
+  ST.checked[key] = isRight;
+  const el = document.getElementById('fi_'+key);
+  el.className = 'fill-item '+(isRight?'correct':'wrong');
+  inp.className = 'fill-inp '+(isRight?'ok':'err');
+  const fb = document.getElementById('ffb_'+key);
+  if(fb){ fb.style.display='block'; fb.innerHTML=(isRight?'✅ Correct! ':'❌ The answer is <strong>'+esc(item.answer)+'</strong>. ')+esc(item.explanation); }
+  const sid = AL+'_'+sec.id;
+  const done = sec.items.filter((_,i)=>ST.checked[sid+'_'+i]!=null).length;
+  updProg(sid, done, sec.items.length);
+}
+
+function calcFill(sid){
+  const sec = LEVELS[AL].sections.find(s=>AL+'_'+s.id===sid);
+  if(!sec) return;
+  let score=0, max=0;
+  const rubric = RUBRICS[AL][sec.rubricKey]||[];
+  rubric.forEach(r=>max+=r.max);
+  const perItem = max / (sec.items.length||1);
+  sec.items.forEach((_,i)=>{
+    const key = sid+'_'+i;
+    if(ST.checked[key]===true) score += perItem;
+  });
+  score = Math.round(score);
+  const card = document.querySelector(`#sec-content .card`);
+  let badge_el = card.querySelector('.score-result');
+  if(!badge_el){ badge_el=document.createElement('div'); badge_el.className='score-result'; badge_el.style.marginTop='8px'; card.appendChild(badge_el); }
+  badge_el.innerHTML = 'Score: '+scoreBadge(score, max);
+}
+
+function saveTr(key){
+  const ta = document.getElementById('trta_'+key);
+  if(ta){ ST.inputs[key]=ta.value; alert('Saved ✓'); }
+}
+function revealTr(key, idx){
+  const m = document.getElementById('trm_'+key);
+  if(m) m.style.display = m.style.display==='block'?'none':'block';
+}
+function saveLog(key){
+  const ta = document.getElementById('lta_'+key);
+  if(ta) ST.logs[key]=ta.value;
+}
+function saveLogAll(sid){
+  const sec = LEVELS[AL].sections.find(s=>AL+'_'+s.id===sid);
+  if(!sec) return;
+  sec.prompts.forEach((_,i)=>{
+    const key=sid+'_'+i;
+    const ta=document.getElementById('lta_'+key);
+    if(ta) ST.logs[key]=ta.value;
+  });
+  alert('All entries saved ✓');
+}
+
+// ── Download ───────────────────────────────────────────────────────────────
+function handleDownload(){
+  const lv = LEVELS[AL];
+  const now = new Date();
+  let txt = 'HUONG STELLA PARADIGM — Daily Drills Day 15\n';
+  txt += 'Level: '+lv.label+' · '+lv.theme+'\n';
+  txt += 'Date: '+now.toISOString().slice(0,10)+'\n';
+  txt += '═'.repeat(60)+'\n\n';
+  lv.sections.forEach(sec=>{
+    txt += '── '+sec.title+' ──\n';
+    const sid = AL+'_'+sec.id;
+    if(sec.type==='spot'){
+      sec.items.forEach((item,i)=>{
+        const key=sid+'_'+i;
+        const ch=ST.choices[key];
+        txt += `  Q${i+1}: ${item.sentence}\n  Your answer: ${ch||'(not attempted)'}\n  Correct: ${item.correctWord}\n  Result: ${ch===item.correctWord?'✓':'✗'}\n\n`;
+      });
+    } else if(sec.type==='fill'){
+      sec.items.forEach((item,i)=>{
+        const key=sid+'_'+i;
+        const inp=ST.inputs[key]||'';
+        const chkd=ST.checked[key];
+        txt += `  Q${i+1}: ${item.template}\n  Your answer: ${inp||'(not attempted)'}\n  Correct: ${item.answer}\n  Result: ${chkd==null?'—':chkd?'✓':'✗'}\n\n`;
+      });
+    } else if(sec.type==='transform'){
+      sec.items.forEach((item,i)=>{
+        const key=sid+'_'+i;
+        const inp=ST.inputs[key]||'';
+        txt += `  T${i+1}: ${item.spoken}\n  Your version: ${inp||'(not attempted)'}\n  Model: ${item.answer}\n\n`;
+      });
+    } else if(sec.type==='log'){
+      sec.prompts.forEach((p,i)=>{
+        const key=sid+'_'+i;
+        txt += `  Prompt ${i+1}: ${p}\n  Response: ${ST.logs[key]||'(not written)'}\n\n`;
+      });
+    }
+  });
+  const blob=new Blob([txt],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='HuongStella_DailyDrill_Day15_'+AL+'_'+now.toISOString().slice(0,10)+'.txt';
+  a.click();
+}
+
+document.addEventListener('DOMContentLoaded', ()=>{
+  init();
+  document.getElementById('app').insertAdjacentHTML('beforeend',`
+    <div class="dl-section">
+      <h3>Download Your Session Report</h3>
+      <p>Save all your answers, scores, and error log entries as a .txt file.</p>
+      <button class="btn-dl" onclick="handleDownload()">⬇ Download Report</button>
+    </div>
+  `);
+});
+</script>
+</body>
+</html>

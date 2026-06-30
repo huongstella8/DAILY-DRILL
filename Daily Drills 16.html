@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Daily Drills 16</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F4F2EF;--ink:#111;--muted:#555;--border:#D8D5D0;--card:#fff;--lc:#2D6A4F;--ll:#D8F3DC;--r:10px}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh}
+header{background:var(--ink);color:#fff;padding:18px 28px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+header .brand{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;opacity:.55;white-space:nowrap}
+header h1{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
+header .day-label{margin-left:auto;font-size:.75rem;background:rgba(255,255,255,.12);border-radius:6px;padding:4px 10px;white-space:nowrap}
+.lv-bar{background:#fff;border-bottom:1px solid var(--border);display:flex;overflow-x:auto;gap:0}
+.lv-tab{padding:10px 22px;font-size:.78rem;font-weight:600;cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;color:var(--muted);transition:all .2s;letter-spacing:.02em}
+.lv-tab.active{border-bottom-color:var(--lc);color:var(--lc)}
+.lv-tab:hover:not(.active){background:#F8F7F5}
+.container{max-width:860px;margin:0 auto;padding:24px 16px 80px}
+.lv-header{background:var(--lc);color:#fff;border-radius:var(--r);padding:20px 24px;margin-bottom:20px}
+.lv-header .lh-top{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.lv-header .lh-badge{background:rgba(255,255,255,.2);border-radius:20px;padding:3px 12px;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.lv-header h2{font-size:1.2rem;font-weight:700}
+.lv-header .lh-goal{font-size:.82rem;opacity:.85;margin-top:6px;line-height:1.5}
+.lv-header .lh-meta{display:flex;gap:16px;margin-top:10px;font-size:.75rem;opacity:.7}
+.sec-nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.sec-btn{padding:6px 14px;border:1.5px solid var(--border);border-radius:20px;font-size:.76rem;font-weight:600;cursor:pointer;background:#fff;color:var(--muted);transition:all .18s}
+.sec-btn.active{background:var(--lc);color:#fff;border-color:var(--lc)}
+.sec-btn:hover:not(.active){border-color:var(--lc);color:var(--lc)}
+.section-title{font-size:1rem;font-weight:700;margin-bottom:14px;color:var(--ink)}
+/* THEORY */
+.theory-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+.theory-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;border-top:3px solid var(--lc)}
+.theory-card .tc-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.theory-card .tc-label{font-weight:700;font-size:.88rem}
+.theory-card .tc-badge{font-size:.66rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:2px 8px;border-radius:10px;background:var(--ll);color:var(--lc)}
+.theory-card .tc-ex{font-family:'JetBrains Mono',monospace;font-size:.78rem;background:#F8F7F5;border-radius:6px;padding:8px 10px;margin-bottom:8px;line-height:1.6;white-space:pre-wrap}
+.theory-card .tc-rule{font-size:.79rem;color:#333;line-height:1.55}
+/* THEORY2 */
+.t2-group{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:12px;border-left:4px solid var(--lc)}
+.t2-group h3{font-size:.9rem;font-weight:700;margin-bottom:8px;color:var(--lc)}
+.t2-verbs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.t2-verb{background:var(--ll);color:var(--lc);border-radius:6px;padding:3px 10px;font-size:.78rem;font-weight:600;font-family:'JetBrains Mono',monospace}
+.t2-memory{font-size:.78rem;font-style:italic;color:var(--muted);margin-bottom:6px}
+.t2-example{font-family:'JetBrains Mono',monospace;font-size:.77rem;background:#F8F7F5;border-radius:6px;padding:8px 10px;line-height:1.6;white-space:pre-wrap}
+/* THEORY3 */
+.t3-pair{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.t3-spoken{font-size:.82rem;color:var(--muted);margin-bottom:6px}
+.t3-spoken span{font-weight:600;color:#555}
+.t3-arrow{text-align:center;font-size:1.1rem;color:var(--lc);margin:6px 0}
+.t3-academic{font-family:'JetBrains Mono',monospace;font-size:.8rem;background:var(--ll);border-radius:6px;padding:8px 10px;margin-bottom:8px;line-height:1.5;white-space:pre-wrap;color:var(--lc)}
+.t3-change{font-size:.76rem;color:#444;line-height:1.5}
+.t3-insight{background:var(--ll);border-left:3px solid var(--lc);border-radius:0 8px 8px 0;padding:12px 16px;margin-top:14px;font-size:.8rem;line-height:1.6;color:#2a2a2a}
+/* THEORY4 */
+.t4-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:12px;border-top:3px solid var(--lc)}
+.t4-card h3{font-size:.9rem;font-weight:700;margin-bottom:8px}
+.t4-card .t4-desc{font-size:.8rem;color:#444;line-height:1.55;margin-bottom:8px}
+.t4-card .t4-fix{font-family:'JetBrains Mono',monospace;font-size:.76rem;background:#F8F7F5;border-radius:6px;padding:8px 10px;line-height:1.65;white-space:pre-wrap}
+/* SPOT */
+.spot-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.spot-sentence{font-size:.9rem;line-height:1.6;margin-bottom:10px}
+.spot-sentence u{text-decoration:underline;text-decoration-color:var(--lc);font-weight:600}
+.spot-choices{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.spot-btn{padding:7px 16px;border:1.5px solid var(--border);border-radius:8px;font-size:.8rem;cursor:pointer;background:#fff;transition:all .18s;font-weight:500}
+.spot-btn:hover:not([disabled]){border-color:var(--lc)}
+.spot-btn.correct{background:#D8F3DC;border-color:#2D6A4F;color:#1A4A2A}
+.spot-btn.wrong{background:#FFE5E5;border-color:#C00;color:#800}
+.spot-btn[disabled]{cursor:default}
+.spot-reveal{display:none;margin-top:8px;font-size:.8rem;background:#F8F7F5;border-radius:8px;padding:10px 12px;line-height:1.6}
+.spot-reveal.show{display:block}
+.spot-reveal .sr-type{font-weight:700;color:var(--lc);font-size:.75rem;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px}
+.spot-reveal .sr-rule{color:#333;margin-bottom:4px}
+.spot-reveal .sr-tip{color:#555;font-style:italic;font-size:.77rem}
+/* FILL */
+.fill-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:12px}
+.fill-template{font-size:.9rem;line-height:1.6;margin-bottom:6px}
+.fill-base{font-size:.76rem;color:var(--muted);margin-bottom:8px;font-family:'JetBrains Mono',monospace}
+.fill-row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.fill-input{border:1.5px solid var(--border);border-radius:8px;padding:7px 12px;font-size:.85rem;font-family:'Inter',sans-serif;outline:none;min-width:160px;transition:border-color .18s}
+.fill-input:focus{border-color:var(--lc)}
+.fill-input.correct{border-color:#2D6A4F;background:#D8F3DC}
+.fill-input.wrong{border-color:#C00;background:#FFE5E5}
+.fill-btn{padding:7px 16px;background:var(--lc);color:#fff;border:none;border-radius:8px;font-size:.8rem;cursor:pointer;font-weight:600;white-space:nowrap}
+.fill-btn:hover{opacity:.88}
+.fill-reveal{display:none;margin-top:8px;font-size:.79rem;background:#F8F7F5;border-radius:8px;padding:9px 12px;line-height:1.55}
+.fill-reveal.show{display:block}
+.fill-reveal .fr-ans{font-weight:700;color:var(--lc);margin-bottom:2px;font-family:'JetBrains Mono',monospace}
+.fill-reveal .fr-exp{color:#333}
+/* TRANSFORM */
+.tr-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:18px;margin-bottom:12px}
+.tr-spoken{font-size:.85rem;color:#444;background:#F8F7F5;border-radius:7px;padding:9px 12px;margin-bottom:10px;line-height:1.55}
+.tr-spoken span{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);display:block;margin-bottom:3px}
+.tr-hint{font-size:.75rem;color:var(--muted);margin-bottom:8px;font-style:italic}
+.tr-hint b{color:var(--lc);font-style:normal}
+.tr-textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:9px 12px;font-size:.83rem;font-family:'Inter',sans-serif;min-height:70px;resize:vertical;outline:none;transition:border-color .18s;line-height:1.5}
+.tr-textarea:focus{border-color:var(--lc)}
+.tr-actions{display:flex;gap:8px;margin-top:8px}
+.tr-save-btn{padding:6px 14px;background:var(--lc);color:#fff;border:none;border-radius:7px;font-size:.77rem;cursor:pointer;font-weight:600}
+.tr-reveal-btn{padding:6px 14px;background:#fff;color:var(--lc);border:1.5px solid var(--lc);border-radius:7px;font-size:.77rem;cursor:pointer;font-weight:600}
+.tr-save-btn:hover,.tr-reveal-btn:hover{opacity:.85}
+.tr-reveal{display:none;margin-top:10px;font-size:.79rem;background:var(--ll);border-radius:8px;padding:11px 14px;line-height:1.6}
+.tr-reveal.show{display:block}
+.tr-reveal .trr-ans{font-family:'JetBrains Mono',monospace;font-size:.77rem;color:var(--lc);font-weight:600;margin-bottom:6px;white-space:pre-wrap}
+.tr-reveal .trr-key{color:#333;margin-bottom:3px;font-size:.78rem}
+.tr-reveal .trr-prin{color:var(--muted);font-style:italic;font-size:.76rem}
+/* LOG */
+.log-item{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px;margin-bottom:10px}
+.log-prompt{font-size:.84rem;line-height:1.55;font-weight:600;color:var(--ink);margin-bottom:8px}
+.log-textarea{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:8px 12px;font-size:.83rem;font-family:'Inter',sans-serif;min-height:80px;resize:vertical;outline:none;transition:border-color .18s}
+.log-textarea:focus{border-color:var(--lc)}
+.log-save-btn{margin-top:6px;padding:5px 14px;background:var(--lc);color:#fff;border:none;border-radius:7px;font-size:.76rem;cursor:pointer;font-weight:600}
+.log-save-btn:hover{opacity:.87}
+.log-actions-bar{margin-top:14px;text-align:right}
+.log-save-all-btn{padding:8px 20px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-size:.8rem;cursor:pointer;font-weight:600;letter-spacing:.03em}
+.log-save-all-btn:hover{opacity:.85}
+/* RUBRIC */
+.rubric-toggle{margin-top:16px;padding:6px 14px;background:#fff;border:1.5px solid var(--border);border-radius:20px;font-size:.75rem;cursor:pointer;color:var(--muted);font-weight:600}
+.rubric-toggle:hover{border-color:var(--lc);color:var(--lc)}
+.rubric-box{display:none;margin-top:10px;background:#F8F7F5;border-radius:8px;padding:12px 14px}
+.rubric-box.show{display:block}
+.rubric-row{display:flex;gap:10px;align-items:baseline;padding:4px 0;border-bottom:1px solid #eee;font-size:.78rem}
+.rubric-row:last-child{border-bottom:none}
+.rubric-crit{flex:1;color:#333}
+.rubric-max{color:var(--lc);font-weight:700;white-space:nowrap}
+.rubric-desc{color:var(--muted);font-size:.72rem;flex:1.5}
+/* PROGRESS */
+.prog-bar-wrap{background:rgba(255,255,255,.2);border-radius:20px;height:6px;margin-top:10px;overflow:hidden}
+.prog-bar{height:100%;border-radius:20px;background:#fff;transition:width .4s ease;width:0%}
+.prog-label{font-size:.7rem;opacity:.75;margin-top:4px}
+/* SCORE */
+.score-badge{display:inline-block;padding:2px 10px;border-radius:12px;font-size:.72rem;font-weight:700;margin-left:8px}
+/* DOWNLOAD */
+.dl-bar{position:fixed;bottom:0;left:0;right:0;background:var(--ink);display:flex;align-items:center;justify-content:space-between;padding:10px 20px;z-index:100}
+.dl-bar span{color:#aaa;font-size:.76rem}
+.dl-btn{padding:8px 20px;background:#fff;color:var(--ink);border:none;border-radius:8px;font-size:.8rem;cursor:pointer;font-weight:700;letter-spacing:.02em}
+.dl-btn:hover{background:#f0f0f0}
+/* SAVE INDICATOR */
+.saved-dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#4CAF50;margin-left:6px;animation:pulse 1s ease-out forwards}
+@keyframes pulse{0%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(2)}}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="brand">Huong Stella Paradigm</div>
+    <h1>Daily Drills — Grammar Programme</h1>
+  </div>
+  <div class="day-label">Day 16 · Interactive Practice</div>
+</header>
+<div class="lv-bar" id="lvBar"></div>
+<div class="container">
+  <div id="lvHeader" class="lv-header"></div>
+  <div class="sec-nav" id="secNav"></div>
+  <div id="secContent"></div>
+</div>
+<div class="dl-bar">
+  <span id="dlInfo">Complete sections to generate your report</span>
+  <button class="dl-btn" onclick="handleDownload()">⬇ Download Report</button>
+</div>
+<script>
+const DAY = 16;
+const THEME = "Gerunds, Infinitives & Participles";
+
+const RUBRICS = {
+  a2b1: {
+    spot: [
+      {criterion:"Error identified",max:1,desc:"Correctly selected the underlined wrong phrase"},
+      {criterion:"Correct form applied",max:2,desc:"Chose the right gerund or infinitive replacement"},
+      {criterion:"Rule understood",max:1,desc:"Can name which verb triggers which pattern"}
+    ],
+    fill: [
+      {criterion:"Correct verb form",max:2,desc:"Gerund or infinitive used as required by the trigger verb"},
+      {criterion:"Spelling accuracy",max:1,desc:"Target form spelled correctly (-ing or to + base)"},
+      {criterion:"Context fit",max:1,desc:"Form suits the sentence meaning and register"}
+    ],
+    log: [
+      {criterion:"Error recorded",max:2,desc:"Documented a genuine error from today's session"},
+      {criterion:"Rule stated",max:2,desc:"Explained which verb takes which pattern and why"},
+      {criterion:"Original sentence",max:2,desc:"Wrote a new correct sentence with the target pattern"}
+    ]
+  },
+  b1b2: {
+    spot: [
+      {criterion:"Error identified",max:1,desc:"Located the exact wrong segment"},
+      {criterion:"Correct replacement",max:2,desc:"Supplied the precise correct form"},
+      {criterion:"Pattern named",max:1,desc:"Named the specific verb pattern violated"}
+    ],
+    fill: [
+      {criterion:"Correct pattern",max:2,desc:"Right form selected for the trigger context"},
+      {criterion:"Form accuracy",max:1,desc:"Base form, gerund, or infinitive spelled correctly"},
+      {criterion:"Semantic fit",max:1,desc:"Meaning preserved or correctly differentiated"}
+    ],
+    log: [
+      {criterion:"Error logged",max:2,desc:"Real error from today's session documented"},
+      {criterion:"Contrast explained",max:2,desc:"Explained why meaning shifts or pattern applies"},
+      {criterion:"Sentence produced",max:2,desc:"Original sentence demonstrating the target pattern"}
+    ]
+  },
+  b2c1: {
+    spot: [
+      {criterion:"Error located",max:1,desc:"Identified the participle clause error"},
+      {criterion:"Correction supplied",max:2,desc:"Correct participle form or structure given"},
+      {criterion:"Type named",max:1,desc:"Identified dangling modifier, wrong participle type, etc."}
+    ],
+    fill: [
+      {criterion:"Correct participle",max:2,desc:"Present, past, or perfect participle used correctly"},
+      {criterion:"Subject consistency",max:1,desc:"Participle clause shares subject with main clause"},
+      {criterion:"Register",max:1,desc:"Academic tone and concision maintained"}
+    ],
+    transform: [
+      {criterion:"Participle clause formed",max:2,desc:"Correct type selected and formed accurately"},
+      {criterion:"Subject consistency",max:1,desc:"Participle clause shares subject with main clause"},
+      {criterion:"Academic register",max:1,desc:"Formal vocabulary and concision achieved"}
+    ],
+    log: [
+      {criterion:"Error documented",max:2,desc:"Participle clause error from today noted precisely"},
+      {criterion:"Rule explained",max:2,desc:"Stated the subject-sharing rule or tense logic"},
+      {criterion:"Revision produced",max:2,desc:"Rewrote a sentence using a participle clause"}
+    ]
+  },
+  c1c2: {
+    spot: [
+      {criterion:"Error detected",max:1,desc:"Located the infinitive construction error"},
+      {criterion:"Academic fix",max:2,desc:"Supplied the precise academic infinitive structure"},
+      {criterion:"Register awareness",max:1,desc:"Explained the formal or rhetorical implication"}
+    ],
+    fill: [
+      {criterion:"Correct construction",max:2,desc:"Right infinitive type for the context"},
+      {criterion:"Hedging calibration",max:1,desc:"Epistemic strength appropriate to the claim"},
+      {criterion:"Concision",max:1,desc:"No redundant words added"}
+    ],
+    transform: [
+      {criterion:"Construction deployed",max:2,desc:"Infinitive structure integrated correctly"},
+      {criterion:"Hedging/stance",max:1,desc:"Appropriate epistemic modulation achieved"},
+      {criterion:"Prose quality",max:1,desc:"Sentence reads as genuine academic writing"}
+    ],
+    log: [
+      {criterion:"Construction logged",max:2,desc:"Specific infinitive error or discovery recorded"},
+      {criterion:"Rhetorical function",max:2,desc:"Explained why this construction serves the argument"},
+      {criterion:"Academic sentence",max:2,desc:"Original sentence using the target construction"}
+    ]
+  }
+};
+
+const LEVELS = {
+  a2b1: {
+    label:"A2–B1", color:"#2D6A4F", light:"#D8F3DC",
+    theme:"Verb Patterns II",
+    tagline:"Gerunds and infinitives after common verbs",
+    goal:"Today you will: identify verbs that take gerunds vs infinitives, correct verb-pattern errors, and practise the forms in context.",
+    time:"10–15 min",
+    sections:[
+      {
+        type:"theory", title:"Warmup: Verb Pattern Cards",
+        cards:[
+          {label:"Gerund as Subject",badge:"noun role",color:"#2D6A4F",
+           examples:"Swimming every day improves your health.\nReading widely builds vocabulary.",
+           rule:"When a verb acts as the subject of a sentence, use the -ing form (gerund). Never use the infinitive here: ✘ 'To swim is good.' ✔ 'Swimming is good.'"},
+          {label:"Verb + Gerund",badge:"V + -ing",color:"#1E5C3A",
+           examples:"I enjoy cooking Italian food.\nShe avoids taking the bus.",
+           rule:"After enjoy, avoid, finish, keep, miss, practise, mind, admit, deny, suggest — always use gerund (-ing). No 'to' between the main verb and -ing."},
+          {label:"Verb + Infinitive",badge:"V + to",color:"#164D2F",
+           examples:"He decided to study medicine.\nThey need to leave now.",
+           rule:"After want, need, hope, plan, decide, refuse, agree, manage, promise, seem — always use 'to + base verb'. Never use -ing directly after these verbs."},
+          {label:"Preposition + Gerund",badge:"prep + -ing",color:"#0D3D22",
+           examples:"She is good at solving problems.\nI look forward to hearing from you.",
+           rule:"After any preposition (at, in, of, about, for, and 'to' in 'look forward to') — always use gerund. The 'to' in 'look forward to' is a preposition, not part of an infinitive."}
+        ]
+      },
+      {
+        type:"spot", title:"Spot the Error", rubricKey:"spot",
+        items:[
+          {sentence:"My brother enjoys to play football at weekends.",underlined:"to play",wrongWord:"to play",correctWord:"playing",wrongType:"infinitive after enjoy",correctType:"gerund after enjoy",rule:"'Enjoy' always takes a gerund (-ing), never an infinitive. The pattern is: enjoy + V-ing.",tip:"Ask yourself: does this verb describe a feeling or attitude toward an activity? If so, it almost certainly takes -ing. Enjoy, love, hate, mind, avoid — all -ing."},
+          {sentence:"She is interested in to learn about different cultures.",underlined:"to learn",wrongWord:"to learn",correctWord:"learning",wrongType:"infinitive after preposition",correctType:"gerund after preposition",rule:"After any preposition — including 'in' — you must use a gerund (-ing), never an infinitive. 'Interested in doing', never 'interested in to do'.",tip:"Find the preposition before the verb. If there is one, the verb must be -ing. Test: remove 'in' — does it read 'interested to learn'? That only works with a different meaning."},
+          {sentence:"They decided going to the cinema instead of studying.",underlined:"going",wrongWord:"going",correctWord:"to go",wrongType:"gerund after decide",correctType:"infinitive after decide",rule:"'Decide' takes an infinitive (to + base verb), not a gerund. The pattern is: decide + to + verb.",tip:"'Decide' is about a future plan or choice — it points forward. Verbs that point to future actions tend to take infinitives (decide, plan, hope, promise, agree)."},
+          {sentence:"I am looking forward to meet you at the conference.",underlined:"to meet",wrongWord:"to meet",correctWord:"meeting",wrongType:"infinitive after 'look forward to'",correctType:"gerund after preposition 'to'",rule:"In 'look forward to', the 'to' is a preposition, not part of an infinitive. Therefore the next verb must be a gerund (-ing): 'looking forward to meeting'.",tip:"Cover the 'look forward' part and just read 'to meet' — sounds fine as an infinitive, right? That's the trap. Always ask: is this 'to' a preposition or part of 'to + verb'? If you can say 'I look forward to it', the 'to' is a preposition → use -ing."},
+          {sentence:"He managed finishing the report before the deadline.",underlined:"finishing",wrongWord:"finishing",correctWord:"to finish",wrongType:"gerund after manage",correctType:"infinitive after manage",rule:"'Manage' always takes an infinitive: manage + to + verb. It expresses successful completion of a difficult task.",tip:"'Manage' implies effort and success — it looks forward to the outcome. Infinitive verbs often follow verbs of effort or achievement: manage, decide, fail, refuse, attempt."},
+          {sentence:"I always practise to speak English with my foreign colleagues.",underlined:"to speak",wrongWord:"to speak",correctWord:"speaking",wrongType:"infinitive after practise",correctType:"gerund after practise",rule:"'Practise' always takes a gerund: practise + V-ing. This applies to the British spelling 'practise' (verb) and American 'practice' (verb).",tip:"'Practise' = repeated action on a skill. Skills you practise are ongoing activities — ongoing activities use -ing. Practise swimming, practise speaking, practise writing."}
+        ]
+      },
+      {
+        type:"fill", title:"Fill in the Blank", rubricKey:"fill",
+        items:[
+          {template:"The students enjoyed ___ the new grammar rules together in class.",baseWord:"discuss",answer:"discussing",targetType:"gerund after enjoy",hint:"V-ing form",explanation:"'Enjoy' is always followed by a gerund (-ing). The pattern enjoy + V-ing applies in all tenses and with all subjects."},
+          {template:"My parents decided ___ a larger house when my sister was born.",baseWord:"buy",answer:"to buy",targetType:"infinitive after decide",hint:"to + base verb",explanation:"'Decide' is followed by an infinitive (to + base verb). It signals a choice or plan pointing to a future action."},
+          {template:"She is very good at ___ complicated problems under pressure.",baseWord:"solve",answer:"solving",targetType:"gerund after preposition",hint:"V-ing form",explanation:"After the preposition 'at', use a gerund. Good at doing, bad at doing — always -ing after the preposition."},
+          {template:"He managed ___ all the exam questions within the time limit.",baseWord:"answer",answer:"to answer",targetType:"infinitive after manage",hint:"to + base verb",explanation:"'Manage' is followed by an infinitive. It implies that completing the action was an achievement requiring effort."},
+          {template:"I really miss ___ my grandparents every Sunday back in my hometown.",baseWord:"visit",answer:"visiting",targetType:"gerund after miss",hint:"V-ing form",explanation:"'Miss' takes a gerund when referring to something you no longer do and feel sad about. Miss + V-ing = absence of a past habit."}
+        ]
+      },
+      {
+        type:"log", title:"Error Log & Reflection", rubricKey:"log",
+        prompts:["Write down one verb + gerund or verb + infinitive mistake you made today. Example: 'I wrote enjoy to read → it should be enjoy reading.' Which verb triggered the error, and why?","Choose one verb that takes a gerund and one that takes an infinitive. Write a correct sentence with each. Then write what would happen if you swapped the forms — is it grammatically wrong, or does the meaning change?","Write three true sentences about your daily habits or plans using: (1) enjoy/avoid + gerund, (2) want/decide + infinitive, (3) good at/interested in + gerund."]
+      }
+    ]
+  },
+
+  b1b2: {
+    label:"B1+–B2", color:"#1A4A7A", light:"#D6E8F7",
+    theme:"Verb Patterns III Advanced",
+    tagline:"Causative verbs, meaning-changing patterns, and preposition + gerund",
+    goal:"Today you will: master causative verbs with base forms, distinguish meaning-changing verb pairs (stop/remember/forget/try), and use preposition + gerund phrases correctly.",
+    time:"15–20 min",
+    sections:[
+      {
+        type:"theory2", title:"Warmup: Advanced Verb Pattern Groups",
+        groups:[
+          {label:"Causative Verbs + Base Form",color:"#1A4A7A",
+           verbs:["make","let","have","help"],
+           memory:"These verbs express causing or allowing someone to do something — the second verb loses its 'to'.",
+           example:"The teacher made us rewrite the essay. / My parents let me stay out late. / She had the technician fix her laptop. / He helped me carry the boxes."},
+          {label:"Meaning-Changing Verbs",color:"#0D3D6E",
+           verbs:["stop","remember","forget","try","regret","mean"],
+           memory:"With -ing = about the past or an ongoing habit. With to-infinitive = a future action, intention, or task.",
+           example:"I stopped smoking. (quit) vs I stopped to smoke. (paused for a cigarette) / Remember to lock the door. (future task) vs I remember locking it. (past memory) / She tried calling him. (attempted as experiment) vs She tried to call him. (made an effort)"},
+          {label:"Preposition + Gerund Phrases",color:"#163560",
+           verbs:["interested in","responsible for","succeed in","capable of","instead of","despite","good at"],
+           memory:"Any word that is a preposition — including in, for, of, at — must be followed by a gerund, not an infinitive.",
+           example:"She is responsible for submitting the report. / He succeeded in passing the exam. / Despite failing twice, she kept trying. / They are capable of producing excellent work."}
+        ]
+      },
+      {
+        type:"spot", title:"Spot the Error", rubricKey:"spot",
+        items:[
+          {sentence:"The coach made the players to run extra laps as punishment.",underlined:"to run",wrongWord:"to run",correctWord:"run",wrongType:"infinitive after causative make",correctType:"base form after causative make",rule:"After causative 'make', use the bare infinitive (base form), never 'to + verb'. The same applies to 'let' and 'have'.",tip:"Make/let/have are the 'no-to' causatives. If you can replace the verb with 'do it', the 'to' disappears: 'made them do it' → 'made them run'."},
+          {sentence:"I remember to meet her at the airport last year — she looked so tired.",underlined:"to meet",wrongWord:"to meet",correctWord:"meeting",wrongType:"infinitive for past memory",correctType:"gerund for past memory",rule:"'Remember + gerund' refers to a past memory — you recall something that already happened. 'Remember + infinitive' refers to a future task you must not forget.",tip:"Time test: is this event in the past or future? Past memory → -ing. Future task → to. 'I remember meeting her' (past) vs 'Remember to meet her' (future reminder)."},
+          {sentence:"He suggested to go to the new Italian restaurant for dinner.",underlined:"to go",wrongWord:"to go",correctWord:"going",wrongType:"infinitive after suggest",correctType:"gerund after suggest",rule:"'Suggest' always takes a gerund: suggest + V-ing. It never takes a to-infinitive directly. Alternatives: suggest + that + clause, or suggest + V-ing.",tip:"'Suggest' belongs to a group of 'recommendation' verbs that use -ing: suggest, recommend, propose, advise (advise can also take object + to). Think: 'I suggest going' = I put the idea forward as an option."},
+          {sentence:"She is capable to solve complex equations quickly in her head.",underlined:"to solve",wrongWord:"to solve",correctWord:"of solving",wrongType:"infinitive after capable",correctType:"preposition + gerund after capable",rule:"'Capable' is always followed by the preposition 'of', which then requires a gerund: capable of + V-ing.",tip:"Adjective + preposition collocations are fixed. Test: can you say 'She is capable of it'? Yes → the 'of' is a preposition → use -ing after it: 'capable of solving'."},
+          {sentence:"Let me to help you carry those bags — they look very heavy.",underlined:"to help",wrongWord:"to help",correctWord:"help",wrongType:"infinitive after let",correctType:"base form after let",rule:"After 'let', use the bare infinitive (base form), not 'to + verb'. 'Let me do', 'let her speak', 'let them decide'.",tip:"'Let' never uses 'to'. A quick check: replace with 'allow' — 'allow me to help' (correct with to) vs 'let me help' (correct without to). Different verbs, different patterns."},
+          {sentence:"Despite to study all night, she failed the mathematics examination.",underlined:"to study",wrongWord:"to study",correctWord:"studying",wrongType:"infinitive after despite",correctType:"gerund after despite",rule:"'Despite' is a preposition and must be followed by a noun or gerund (-ing), never a to-infinitive.",tip:"Despite = in spite of. Can you say 'despite of it'? No, just 'despite it'. But 'it' is a noun/pronoun, so the verb form must also be nominal → use gerund: 'despite studying'."}
+        ]
+      },
+      {
+        type:"fill", title:"Fill in the Blank", rubricKey:"fill",
+        items:[
+          {template:"The manager had the entire team ___ the proposal from scratch after the client rejected it.",baseWord:"rewrite",answer:"rewrite",targetType:"causative have + base form",hint:"base verb (no 'to')",explanation:"After causative 'have + object', use the bare infinitive (base form). 'Have them do', 'had them rewrite' — no 'to'."},
+          {template:"I'll never forget ___ my first day at university — I was so nervous I could barely speak.",baseWord:"experience",answer:"experiencing",targetType:"forget + gerund (past memory)",hint:"V-ing form",explanation:"'Forget + gerund' refers to a past event you cannot forget. 'Forget + infinitive' means to fail to do a future task. Since this is a memory, use -ing."},
+          {template:"Instead of ___ more time on social media, she decided to read academic journals.",baseWord:"spend",answer:"spending",targetType:"instead of + gerund",hint:"V-ing form",explanation:"'Instead of' is a preposition phrase. Prepositions must be followed by gerunds: instead of doing, instead of spending."},
+          {template:"She tried ___ the essay earlier but kept getting distracted by notifications.",baseWord:"write",answer:"to write",targetType:"try + infinitive (attempt with effort)",hint:"to + base verb",explanation:"'Try + infinitive' means to make an effort to do something (it may be hard). 'Try + gerund' means to experiment with doing something. Here, attempting is the meaning → to write."},
+          {template:"The project leader is responsible for ___ all deliverables on schedule.",baseWord:"deliver",answer:"delivering",targetType:"responsible for + gerund",hint:"V-ing form",explanation:"'Responsible for' is a fixed adjective + preposition collocation. 'For' is a preposition → must be followed by a gerund."}
+        ]
+      },
+      {
+        type:"log", title:"Error Log & Reflection", rubricKey:"log",
+        prompts:["Write down one meaning-changing verb (stop, remember, forget, try, or regret) that confused you today. Write both sentence versions (-ing and to) and explain what the meaning difference is in your own words.","Choose a causative verb (make, let, have, or help) and write two sentences: one correct (no 'to') and one showing the common Vietnamese learner error (with 'to'). Label which is wrong.","Use three different preposition + gerund phrases from today's lesson (e.g. responsible for, instead of, capable of, despite) in original sentences about your work, study, or daily life."]
+      }
+    ]
+  },
+
+  b2c1: {
+    label:"B2+–C1", color:"#5A1A8A", light:"#EAD6F7",
+    theme:"Participle Clauses",
+    tagline:"Compressing clauses with present, past, and perfect participles",
+    goal:"Today you will: form and identify the three types of participle clauses, avoid dangling modifiers and wrong participle types, and transform full clauses into academic participle constructions.",
+    time:"20–25 min",
+    sections:[
+      {
+        type:"theory3", title:"Warmup: Spoken → Academic Transformations",
+        pairs:[
+          {spoken:"Because the data was collected over five years, the findings are more reliable.",
+           academic:"Collected over five years, the data lend greater reliability to the findings.",
+           change:"The because-clause becomes a past participle clause; the passive auxiliary 'was' is dropped; 'collected' moves to the front; the subject is promoted to the main clause."},
+          {spoken:"After the researchers had finished analysing the results, they wrote the discussion section.",
+           academic:"Having analysed the results, the researchers proceeded to write the discussion section.",
+           change:"After + past perfect becomes 'Having + past participle' (perfect participle clause), expressing that the analysis was completed before the writing began."},
+          {spoken:"The model, which was proposed in 2019, has since been revised by several scholars.",
+           academic:"The model, proposed in 2019, has since undergone substantial scholarly revision.",
+           change:"Defining relative clause with passive verb reduced to past participle phrase; 'been revised by' nominalised to 'undergone revision'; structure is more concise."}
+        ],
+        insight:"Participle clauses compress information by removing the subordinator and auxiliary. Use past participle for passive/completed meaning; -ing for active/simultaneous meaning; having + past participle for an event completed before the main clause action. The participle clause subject must always match the main clause subject."
+      },
+      {
+        type:"spot", title:"Spot the Error", rubricKey:"spot",
+        items:[
+          {sentence:"Conducting in three phases, the study yielded robust longitudinal data.",underlined:"Conducting",wrongWord:"Conducting",correctWord:"Conducted",wrongType:"active participle for passive meaning",correctType:"past participle for passive meaning",rule:"The study did not conduct itself — it was conducted. A past participle ('Conducted') expresses passive meaning. Present participle (-ing) implies the subject is actively doing the action.",tip:"Ask: is the subject doing the action, or receiving it? Receiving → past participle. Doing → -ing. 'Conducted in three phases' = it was conducted. 'Conducting the experiment' = the team did it."},
+          {sentence:"Having been examined the samples, the laboratory team submitted their report.",underlined:"Having been examined",wrongWord:"Having been examined",correctWord:"Having examined",wrongType:"passive perfect participle with active subject",correctType:"active perfect participle",rule:"The lab team examined the samples — they are the active agent. Use 'Having examined' (active perfect participle). 'Having been examined' would mean the team itself was examined.",tip:"Who did the action? The lab team (agent). Agents use active participles: 'Having examined.' Patients (things done to) use passive: 'Having been examined, the samples were stored.'"},
+          {sentence:"The policy, revising last year, has produced mixed outcomes across the country.",underlined:"revising",wrongWord:"revising",correctWord:"revised",wrongType:"present participle for past passive meaning",correctType:"past participle for past passive",rule:"The policy was revised (passive, past). Use the past participle 'revised' to reduce the relative clause 'which was revised last year'.",tip:"Test: expand it back. 'The policy which was revising last year'? No — 'which was revised'. Past passive relative clause → past participle in the reduced form."},
+          {sentence:"While analysing the data, several anomalies were noticed by the team.",underlined:"While analysing the data",wrongWord:"While analysing the data",correctWord:"While analysing the data, the team noticed...",wrongType:"dangling participle (subject mismatch)",correctType:"participle clause shares subject with main clause",rule:"The participle clause implies 'while the team was analysing', but the main clause subject is 'several anomalies'. Anomalies cannot analyse data. Fix: make 'the team' the subject of the main clause.",tip:"Cover the main clause and ask: who is doing the -ing action? That person/thing must be the subject of the main clause. If it isn't, you have a dangling modifier."},
+          {sentence:"Comparing to previous models, this framework shows greater predictive validity.",underlined:"Comparing",wrongWord:"Comparing",correctWord:"Compared",wrongType:"active participle for passive comparison",correctType:"past participle in passive sense",rule:"The framework is being compared (by researchers). 'Compared to' = when it is compared. 'Comparing to' would mean the framework is doing the comparing.",tip:"'Compared to' and 'compared with' are fixed expressions using the past participle. Test: 'when compared to previous models' → remove 'when' and 'is' → 'Compared to'. Never 'Comparing to' unless the subject is the one doing the comparing."},
+          {sentence:"The participants, completing the survey, were asked to submit it online.",underlined:"completing the survey",wrongWord:"completing the survey",correctWord:"having completed the survey",wrongType:"present participle suggesting simultaneous action",correctType:"perfect participle for prior action",rule:"The participants completed the survey first, then were asked to submit it — these are not simultaneous actions. Use 'having completed' (perfect participle) to show the first action was done before the second.",tip:"Timeline test: did the -ing action happen at the same time as the main verb, or before it? Same time → -ing. Before → having + past participle."}
+        ]
+      },
+      {
+        type:"fill", title:"Fill in the Blank", rubricKey:"fill",
+        items:[
+          {template:"___ (establish) in 1995, the institute has produced significant research in renewable energy.",baseWord:"establish",answer:"Established",targetType:"past participle clause (passive, prior to main)",hint:"Past participle",explanation:"The institute was established (passive). A past participle clause at the start expresses this compressed passive meaning: 'Established in 1995' = which was established in 1995."},
+          {template:"___ (analyse) the results carefully, the authors identified three key patterns in the data.",baseWord:"analyse",answer:"Having analysed",targetType:"perfect participle clause (completion before main action)",hint:"Having + past participle",explanation:"The authors analysed the results first, then identified patterns. Use the perfect participle 'Having analysed' to show the analysis preceded the main clause action."},
+          {template:"The report, ___ (publish) in 2023, challenged several long-held assumptions about urban migration.",baseWord:"publish",answer:"published",targetType:"reduced relative clause (past participle, passive)",hint:"Past participle",explanation:"'Which was published in 2023' reduces to 'published in 2023'. The past participle replaces the passive relative clause, placed between commas as a non-defining modifier."},
+          {template:"___ (use) a mixed-methods approach, the researchers were able to triangulate their findings effectively.",baseWord:"use",answer:"Using",targetType:"present participle clause (active, method/means)",hint:"-ing form",explanation:"The researchers were using the approach (active, simultaneous with the main action). Present participle '-ing' expresses an active action simultaneous with or explaining the means for the main clause action."},
+          {template:"The hypothesis, ___ (test) across four independent studies, was ultimately confirmed by the evidence.",baseWord:"test",answer:"tested",targetType:"reduced relative clause (past participle, passive)",hint:"Past participle",explanation:"'Which was tested across four independent studies' reduces to 'tested across four independent studies'. Past participle for the passive reduced relative clause."}
+        ]
+      },
+      {
+        type:"transform", title:"Transform the Sentence", rubricKey:"transform",
+        items:[
+          {spoken:"Because the government had invested heavily in infrastructure, economic growth accelerated significantly.",
+           hint:"Having invested / Prior investment in infrastructure",
+           answer:"Having invested heavily in infrastructure, the government saw economic growth accelerate significantly. / Prior heavy investment in infrastructure having been undertaken, economic growth accelerated markedly.",
+           keyChange:"Causal because-clause with past perfect → perfect participle clause (Having invested); subject of both clauses must match (the government).",
+           principle:"Participle clauses compress causal relationships; the subject of the participle clause must be identical to the subject of the main clause. Mismatching creates a dangling modifier."},
+          {spoken:"The article, which was written by three leading experts in the field, offers a comprehensive review.",
+           hint:"written by / authored by",
+           answer:"The article, written by three leading experts in the field, offers a comprehensive review of current scholarship. / Authored by three leading experts, the article provides a comprehensive overview of the field.",
+           keyChange:"Non-defining relative clause 'which was written' → past participle phrase 'written'; passive meaning retained; 'offers a comprehensive review' elevated.",
+           principle:"Non-defining relative clauses with passive verbs reduce cleanly to past participle phrases, compressing the sentence without losing information. The result is more economical academic prose."},
+          {spoken:"When we compare the two studies, we can see several important methodological differences.",
+           hint:"Comparing / When compared",
+           answer:"Comparing the two studies, one observes several significant methodological differences. / When compared, the two studies reveal notable methodological divergences.",
+           keyChange:"Active 'when we compare' → present participle 'Comparing'; impersonal 'one' replaces 'we'; passive alternative 'when compared' foregrounds the studies as objects of analysis.",
+           principle:"Impersonal participle clauses foreground the analytical action and suppress the agent, a standard move in academic writing to achieve objectivity and concision."}
+        ]
+      },
+      {
+        type:"log", title:"Error Log & Reflection", rubricKey:"log",
+        prompts:["Identify one sentence from today's exercises where you used the wrong type of participle (present, past, or perfect). Rewrite it correctly and state the precise rule: why is that particular type required here?","Write a past participle clause and a 'having + past participle' clause about the same topic. Explain what temporal relationship each one expresses and what would change if you swapped them.","Find a participle clause in any text you are reading (academic, journalistic, or literary). Copy it, label the type (present/past/perfect), identify its subject, and explain why the author chose a participle clause instead of a full subordinate clause."]
+      }
+    ]
+  },
+
+  c1c2: {
+    label:"C1+–C2", color:"#8B1A1A", light:"#F5DADA",
+    theme:"Infinitive Constructions in Academic Prose",
+    tagline:"Raising predicates, purpose infinitives, and perfect infinitives for epistemic precision",
+    goal:"Today you will: deploy raising predicates with simple and perfect infinitives, distinguish subject-control from object-control verbs, and use purpose infinitives with precise negative and formal forms.",
+    time:"20–25 min",
+    sections:[
+      {
+        type:"theory4", title:"Warmup: Advanced Infinitive Strategy Cards",
+        cards:[
+          {label:"Raising Predicates",color:"#8B1A1A",
+           desc:"Seem, appear, tend, prove, turn out + infinitive allow the writer to attribute a property to the subject with built-in epistemic caution. They 'raise' an embedded subject-predicate relationship to surface subject position, avoiding the heavier 'It seems that…' expletive construction.",
+           fix:"Weak: 'It seems that this approach is more efficient.' → Strong: 'This approach appears to be more efficient.' / Perfect infinitive for past evidence: 'She seems to have overlooked the data.' = evidence visible now, act located in the past."},
+          {label:"Purpose Infinitives & Their Limits",color:"#7A1515",
+           desc:"The bare to-infinitive of purpose is the most concise way to express aim, but it is blocked after nouns. Use 'in order to' for negative infinitives and heightened formality; use 'so as to' in methodological writing to signal careful design intent.",
+           fix:"'The study was designed to examine X.' (standard) / 'In order not to bias results, participants were not informed.' (negative purpose) / 'Samples were separated so as to prevent cross-contamination.' (method precision) / ✘ 'The aim to reduce costs' → ✔ 'The aim of reducing costs'"},
+          {label:"Subject-Control vs Object-Control",color:"#6B1212",
+           desc:"With subject-control verbs (try, manage, decide, refuse, fail), the infinitive subject equals the main subject. With object-control verbs (persuade, allow, force, enable, encourage), the infinitive subject equals the main object. Confusing these creates subtle but real errors.",
+           fix:"✔ She managed to submit the paper. (she submitted) ✔ The evidence persuaded reviewers to reconsider. (reviewers reconsidered) ✘ The data enabled to draw conclusions. (missing object: 'enabled researchers to draw')"},
+          {label:"Perfect Infinitive for Temporal Displacement",color:"#5C1010",
+           desc:"To have + past participle as infinitive signals an action prior to the main verb time. This is essential for hedged past claims under raising predicates and for academic expectation/regret structures.",
+           fix:"'The model appears to have underestimated long-term effects.' (past underestimation, present appearance) / 'The authors were expected to have addressed this limitation.' (expectation about a past action) / Contrast: 'appears to underestimate' = present/ongoing underestimation."}
+        ]
+      },
+      {
+        type:"spot", title:"Spot the Error", rubricKey:"spot",
+        items:[
+          {sentence:"The data enables to draw several significant conclusions about consumer behaviour.",underlined:"enables to draw",wrongWord:"enables to draw",correctWord:"enables researchers to draw",wrongType:"object-control verb without object",correctType:"enable + object + infinitive",rule:"'Enable' is an object-control verb: enable + object + infinitive. The subject of the infinitive (who draws conclusions) must be stated as the object of 'enable'.",tip:"Object-control test: can you say 'The data enabled it to happen'? Yes → it needs an object. Missing the object is the error: 'enables [researchers] to draw'."},
+          {sentence:"The framework appears having been developed without adequate empirical grounding.",underlined:"appears having been",wrongWord:"appears having been",correctWord:"appears to have been",wrongType:"participle after raising predicate",correctType:"perfect infinitive after raising predicate",rule:"After raising predicates (appear, seem, tend), use infinitive forms, not participles. For past reference, use 'to have been + past participle' (perfect passive infinitive).",tip:"Raising predicates take to + infinitive, always. For past: 'appears to have done' / 'appears to have been done'. Never 'appears having done' — that blends participle and raising construction incorrectly."},
+          {sentence:"In order to not bias the sample, participants were randomly assigned to conditions.",underlined:"to not bias",wrongWord:"to not bias",correctWord:"not to bias",wrongType:"split negative infinitive in formal purpose clause",correctType:"not to + base verb (negative infinitive)",rule:"In formal and academic English, the negator 'not' precedes 'to' in negative infinitives, especially in purpose clauses: 'in order not to', 'so as not to'. Splitting 'to not' is avoided in formal registers.",tip:"The formal rule: NOT precedes TO. 'In order not to bias', 'so as not to confuse'. Informal speech splits freely, but academic prose keeps 'not to' together as the negative infinitive marker."},
+          {sentence:"The study seems that it underestimates the role of socioeconomic factors in educational outcomes.",underlined:"seems that it underestimates",wrongWord:"seems that it underestimates",correctWord:"seems to underestimate",wrongType:"expletive that-clause instead of raising construction",correctType:"raising predicate + infinitive",rule:"With raising verbs (seem, appear, tend, prove), the subject is raised to the main clause and followed by an infinitive. 'The study seems to underestimate' is more economical and grammatically integrated.",tip:"Test with extraposition: 'It seems that the study underestimates' → raise the subject: 'The study seems to underestimate'. If you can perform this raising, the raising construction is preferred in academic prose."},
+          {sentence:"She was the first researcher identifying this correlation in a clinical population.",underlined:"identifying",wrongWord:"identifying",correctWord:"to identify",wrongType:"participle after ordinal superlative",correctType:"infinitive after first/last/only",rule:"After ordinal superlative expressions (the first, the last, the only), use a to-infinitive, not a participle: 'the first to identify', 'the last to submit'.",tip:"'First/last/only + to-infinitive' is a fixed English pattern. Test: 'She was the first one to do it' → replace 'one' with 'researcher' → 'the first researcher to identify'. The infinitive marks the unique achievement."},
+          {sentence:"The authors claim to discover a new mechanism of resistance in the 2021 study.",underlined:"to discover",wrongWord:"to discover",correctWord:"to have discovered",wrongType:"simple infinitive for past reference",correctType:"perfect infinitive for past action",rule:"The discovery was made in the past (2021), but the claiming is in the present. Use the perfect infinitive 'to have discovered' to locate the action before the time of the main verb.",tip:"Timeline check: when did the claimed action happen relative to the claiming? Past → perfect infinitive (to have done). Present/ongoing → simple infinitive (to do). 'Claim to discover' implies they are discovering now."}
+        ]
+      },
+      {
+        type:"fill", title:"Fill in the Blank", rubricKey:"fill",
+        items:[
+          {template:"The results appear ___ (contradict) the central predictions of the theoretical model.",baseWord:"contradict",answer:"to contradict",targetType:"raising predicate + simple infinitive (present reference)",hint:"to + base verb",explanation:"'Appear' is a raising predicate followed by an infinitive. Since the contradiction is ongoing/present, use the simple infinitive 'to contradict', not the perfect."},
+          {template:"The methodology was designed ___ (eliminate) potential sources of measurement bias.",baseWord:"eliminate",answer:"to eliminate / so as to eliminate",targetType:"purpose infinitive in academic methodological prose",hint:"to + base verb or so as to + base verb",explanation:"Purpose is expressed by to-infinitive or 'so as to' (more explicit about design intent). Both are correct; 'so as to eliminate' is slightly more formal and signals deliberate methodological choice."},
+          {template:"She was the last doctoral candidate ___ (defend) her thesis under the previous examination format.",baseWord:"defend",answer:"to defend",targetType:"to-infinitive after ordinal (last)",hint:"to + base verb",explanation:"'The last + noun + to-infinitive' is a fixed pattern. The infinitive specifies the unique act performed by the final person in a sequence."},
+          {template:"The initial findings appear ___ (overstate) the effect size before the data were corrected for outliers.",baseWord:"overstate",answer:"to have overstated",targetType:"perfect infinitive after raising predicate (past reference)",hint:"to have + past participle",explanation:"The overstating happened in the past (before data correction); the appearing/seeming is current. Use 'to have overstated' (perfect infinitive) to place the action before the main verb time."},
+          {template:"The intervention enabled participants ___ (maintain) measurable progress over the twelve-month follow-up.",baseWord:"maintain",answer:"to maintain",targetType:"object-control: enable + object + infinitive",hint:"[object already present] + to + base verb",explanation:"'Enable' is an object-control verb: it needs an object (participants) between it and the infinitive. The structure is: enable + object + to-infinitive. No object = error."}
+        ]
+      },
+      {
+        type:"transform", title:"Transform the Sentence", rubricKey:"transform",
+        items:[
+          {spoken:"It seems that the previous studies completely ignored this crucial variable.",
+           hint:"appear/seem + to have + past participle; 'overlooked' / 'systematically disregarded'",
+           answer:"The previous studies appear to have overlooked this crucial variable entirely. / This variable seems to have been systematically disregarded in prior scholarship.",
+           keyChange:"Expletive 'It seems that' + past tense → raising construction with perfect infinitive ('appear to have overlooked'); 'ignored' → 'overlooked'/'disregarded' for academic register.",
+           principle:"Raising predicates with perfect infinitives are more concise and grammatically integrated than expletive it-clauses, while preserving the epistemic hedging. The subject is foregrounded, improving cohesion with the surrounding text."},
+          {spoken:"We designed the trial very carefully so that we wouldn't introduce any confounding variables.",
+           hint:"so as not to / in order not to; passive; precise vocabulary",
+           answer:"The trial was designed so as not to introduce confounding variables. / Rigorous procedural controls were implemented in order not to compromise internal validity.",
+           keyChange:"Active → passive (impersonal academic voice); purposive 'so that + negated clause' → negative purpose infinitive ('so as not to' / 'in order not to'); specific academic vocabulary replaces casual language.",
+           principle:"Purpose infinitives (so as not to, in order not to) integrate the negative aim into the main clause structure, eliminating the cumbersome 'so that + subject + negated verb' construction while achieving greater concision."},
+          {spoken:"She tried very hard and eventually she was able to get her article published in a major journal.",
+           hint:"managed to / having managed / succeeded in; upgrade 'major journal'",
+           answer:"She eventually managed to publish her article in a leading peer-reviewed journal. / After sustained effort, she succeeded in having her article published in a top-ranked journal.",
+           keyChange:"Compound sentence → single clause; 'tried hard' absorbed by 'eventually managed' (effort + success in one construction); 'major journal' → 'leading peer-reviewed journal'; passive 'was able to get published' → active or controlled passive.",
+           principle:"'Manage to + infinitive' encodes both effort and success in a single construction, eliminating compound structures that state what is already implied. Economy of expression is a mark of C2-level prose."}
+        ]
+      },
+      {
+        type:"log", title:"Error Log & Reflection", rubricKey:"log",
+        prompts:["Identify one infinitive construction from today's exercises — raising predicate, purpose infinitive, or perfect infinitive — that you used incorrectly. Write the error, the correction, and a precise rule that goes beyond 'use to + verb'. What specifically determines which infinitive form is required here?","Write two sentences using the same raising predicate (seem or appear): one with a simple infinitive (present/ongoing reference) and one with a perfect infinitive (past reference). Explain what the temporal shift does to the meaning of the claim and why this distinction matters for academic argumentation.","Find or construct a sentence using an object-control verb (enable, persuade, allow, force, encourage) and write it correctly. Then rewrite the same information using a subject-control verb (manage, decide, choose). Note what changes structurally and what, if anything, changes in meaning or emphasis."]
+      }
+    ]
+  }
+};
+
+let AL='a2b1', AS=0;
+const ST={choices:{},inputs:{},checked:{},logs:{}};
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')}
+function badge(txt,bg,fg){return`<span class="score-badge" style="background:${bg};color:${fg}">${esc(txt)}</span>`}
+
+function init(){
+  document.title='Daily Drills 16';
+  buildLvTabs();
+  applyLevel();
+}
+
+function buildLvTabs(){
+  const bar=document.getElementById('lvBar');
+  bar.innerHTML=Object.entries(LEVELS).map(([k,lv])=>
+    `<div class="lv-tab${k===AL?' active':''}" style="${k===AL?'--lc:'+lv.color+';border-bottom-color:'+lv.color+';color:'+lv.color:''}" onclick="switchLv('${k}')">${lv.label}</div>`
+  ).join('');
+}
+
+function switchLv(k){
+  AL=k; AS=0;
+  buildLvTabs();
+  applyLevel();
+}
+
+function applyLevel(){
+  const lv=LEVELS[AL];
+  document.documentElement.style.setProperty('--lc',lv.color);
+  document.documentElement.style.setProperty('--ll',lv.light);
+  const hdr=document.getElementById('lvHeader');
+  hdr.style.background=lv.color;
+  hdr.innerHTML=`
+    <div class="lh-top">
+      <div class="lh-badge">${lv.label}</div>
+      <div style="font-size:.8rem;opacity:.8">${lv.time}</div>
+    </div>
+    <h2>${lv.theme}</h2>
+    <div class="lh-goal">${esc(lv.goal)}</div>
+    ${progHTML()}
+  `;
+  buildSecNav();
+  navSec(AS);
+}
+
+function progHTML(){
+  const lv=LEVELS[AL]; const n=lv.sections.length;
+  const done=lv.sections.filter((_,i)=>ST.checked[AL+'_'+i]).length;
+  const pct=n?Math.round(done/n*100):0;
+  return`<div class="prog-bar-wrap"><div class="prog-bar" id="progBar" style="width:${pct}%"></div></div>
+<div class="prog-label">${done}/${n} sections complete</div>`;
+}
+
+function updProg(){
+  const lv=LEVELS[AL]; const n=lv.sections.length;
+  const done=lv.sections.filter((_,i)=>ST.checked[AL+'_'+i]).length;
+  const pct=n?Math.round(done/n*100):0;
+  const pb=document.getElementById('progBar');
+  if(pb){pb.style.width=pct+'%';pb.closest('.lv-header').querySelector('.prog-label').textContent=`${done}/${n} sections complete`;}
+  document.getElementById('dlInfo').textContent=pct===100?'All sections complete — ready to download!':pct>0?`${pct}% complete across sections`:'Complete sections to generate your report';
+}
+
+function buildSecNav(){
+  const lv=LEVELS[AL];
+  const nav=document.getElementById('secNav');
+  nav.innerHTML=lv.sections.map((s,i)=>{
+    const done=ST.checked[AL+'_'+i]?'✓ ':'';
+    return`<button class="sec-btn${i===AS?' active':''}" onclick="navSec(${i})">${done}${s.title}</button>`;
+  }).join('');
+}
+
+function navSec(i){
+  AS=i;
+  buildSecNav();
+  renderSec();
+}
+
+function renderSec(){
+  const s=LEVELS[AL].sections[AS];
+  const el=document.getElementById('secContent');
+  if(!s){el.innerHTML='';return;}
+  const map={theory:rTheory,theory2:rTheory2,theory3:rTheory3,theory4:rTheory4,spot:rSpot,fill:rFill,transform:rTransform,log:rLog};
+  el.innerHTML=`<div class="section-title">${esc(s.title)}</div>`+(map[s.type]?map[s.type](s,AS):'');
+}
+
+/* ---- RENDERERS ---- */
+function rTheory(s,si){
+  return`<div class="theory-grid">${s.cards.map(c=>`
+    <div class="theory-card" style="border-top-color:${c.color}">
+      <div class="tc-head">
+        <div class="tc-label">${esc(c.label)}</div>
+        <div class="tc-badge" style="background:var(--ll);color:var(--lc)">${esc(c.badge)}</div>
+      </div>
+      <div class="tc-ex">${esc(c.examples)}</div>
+      <div class="tc-rule">${esc(c.rule)}</div>
+    </div>`).join('')}</div>
+  <button class="rubric-toggle" onclick="togRub('th${si}')">📋 Learning Targets</button>
+  <div class="rubric-box" id="rub_th${si}">
+    <div style="font-size:.78rem;line-height:1.6;color:#333">Study each card. For each verb or preposition listed, write one example sentence from your own experience. Aim to internalise the pattern, not just recognise it.</div>
+  </div>
+  <button style="margin-top:12px;margin-left:8px;padding:6px 16px;background:var(--lc);color:#fff;border:none;border-radius:8px;font-size:.77rem;cursor:pointer;font-weight:600" onclick="markDone(${si})">Mark as Studied ✓</button>`;
+}
+
+function rTheory2(s,si){
+  return`${s.groups.map(g=>`
+    <div class="t2-group" style="border-left-color:${g.color}">
+      <h3 style="color:${g.color}">${esc(g.label)}</h3>
+      <div class="t2-verbs">${g.verbs.map(v=>`<span class="t2-verb" style="background:var(--ll);color:${g.color}">${esc(v)}</span>`).join('')}</div>
+      <div class="t2-memory">💡 ${esc(g.memory)}</div>
+      <div class="t2-example">${esc(g.example)}</div>
+    </div>`).join('')}
+  <button class="rubric-toggle" onclick="togRub('th${si}')">📋 Learning Targets</button>
+  <div class="rubric-box" id="rub_th${si}">
+    <div style="font-size:.78rem;line-height:1.6;color:#333">For each verb group, write one original sentence. For meaning-changing verbs, write both the -ing and to-infinitive version and state how the meaning differs.</div>
+  </div>
+  <button style="margin-top:12px;margin-left:8px;padding:6px 16px;background:var(--lc);color:#fff;border:none;border-radius:8px;font-size:.77rem;cursor:pointer;font-weight:600" onclick="markDone(${si})">Mark as Studied ✓</button>`;
+}
+
+function rTheory3(s,si){
+  return`${s.pairs.map(p=>`
+    <div class="t3-pair">
+      <div class="t3-spoken"><span>Spoken / Informal</span>${esc(p.spoken)}</div>
+      <div class="t3-arrow">↓</div>
+      <div class="t3-academic">${esc(p.academic)}</div>
+      <div class="t3-change">🔍 <strong>What changed:</strong> ${esc(p.change)}</div>
+    </div>`).join('')}
+  <div class="t3-insight">📌 <strong>Principle:</strong> ${esc(s.insight)}</div>
+  <button style="margin-top:14px;padding:6px 16px;background:var(--lc);color:#fff;border:none;border-radius:8px;font-size:.77rem;cursor:pointer;font-weight:600" onclick="markDone(${si})">Mark as Studied ✓</button>`;
+}
+
+function rTheory4(s,si){
+  return`${s.cards.map(c=>`
+    <div class="t4-card" style="border-top-color:${c.color}">
+      <h3 style="color:${c.color}">${esc(c.label)}</h3>
+      <div class="t4-desc">${esc(c.desc)}</div>
+      <div class="t4-fix">${esc(c.fix)}</div>
+    </div>`).join('')}
+  <button style="margin-top:12px;padding:6px 16px;background:var(--lc);color:#fff;border:none;border-radius:8px;font-size:.77rem;cursor:pointer;font-weight:600" onclick="markDone(${si})">Mark as Studied ✓</button>`;
+}
+
+function rSpot(s,si){
+  const key=AL+'_spot_'+si;
+  if(!ST.choices[key])ST.choices[key]={};
+  return`${s.items.map((it,ii)=>{
+    const ch=ST.choices[key][ii];
+    const done=ch!==undefined;
+    const correct=done&&ch==='correct';
+    const cLabel=`✔ ${it.correctWord}`;
+    const wLabel=`✘ ${it.wrongWord}`;
+    const opts=[[cLabel,'correct'],[wLabel,'wrong']].sort(()=>Math.random()-.5);
+    return`<div class="spot-item" id="spot_${si}_${ii}">
+      <div class="spot-sentence">${renderUnderlined(it.sentence,it.underlined)}</div>
+      <div class="spot-choices">
+        ${opts.map(([lbl,val])=>`<button class="spot-btn${done?(val===ch?(correct&&val==='correct'?' correct':(!correct&&val==='wrong'?' correct':val===ch?' wrong':'')):'')+(done&&val==='correct'&&ch!=='correct'?' correct':''):''}" 
+          ${done?'disabled':''} onclick="spotPick(${si},${ii},'${val}')">${esc(lbl)}</button>`).join('')}
+      </div>
+      <div class="spot-reveal${done?' show':''}" id="sr_${si}_${ii}">
+        <div class="sr-type">Error → ${esc(it.wrongType)} | Fix → ${esc(it.correctType)}</div>
+        <div class="sr-rule">${esc(it.rule)}</div>
+        <div class="sr-tip">💡 ${esc(it.tip)}</div>
+      </div>
+    </div>`}).join('')}
+  <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
+    <button class="rubric-toggle" onclick="togRub('spot${si}')">📋 Rubric</button>
+    <span id="spotScore_${si}"></span>
+  </div>
+  ${rubricHTML('spot'+si,RUBRICS[AL].spot)}`;
+}
+
+function renderUnderlined(sentence,underlined){
+  if(!underlined)return esc(sentence);
+  const idx=sentence.indexOf(underlined);
+  if(idx<0)return esc(sentence);
+  return esc(sentence.slice(0,idx))+'<u>'+esc(underlined)+'</u>'+esc(sentence.slice(idx+underlined.length));
+}
+
+function spotPick(si,ii,val){
+  const key=AL+'_spot_'+si;
+  if(!ST.choices[key])ST.choices[key]={};
+  ST.choices[key][ii]=val;
+  renderSec();
+  calcSpot(si);
+}
+
+function calcSpot(si){
+  const s=LEVELS[AL].sections[si];
+  const key=AL+'_spot_'+si;
+  const ch=ST.choices[key]||{};
+  const total=s.items.length;
+  const correct=Object.values(ch).filter(v=>v==='correct').length;
+  if(Object.keys(ch).length===total){
+    const pct=Math.round(correct/total*100);
+    document.getElementById('spotScore_'+si).innerHTML=badge(`${correct}/${total} correct (${pct}%)`,pct>=80?'#D8F3DC':pct>=50?'#FFF3CD':'#FFE5E5',pct>=80?'#1A4A2A':pct>=50?'#7A5A00':'#800');
+    ST.checked[AL+'_'+si]=true;
+    buildSecNav();
+    updProg();
+  }
+}
+
+function rFill(s,si){
+  return`${s.items.map((it,ii)=>{
+    const saved=ST.inputs[AL+'_fill_'+si+'_'+ii];
+    const checked=ST.checked[AL+'_fill_chk_'+si+'_'+ii];
+    const correct=checked&&saved&&saved.trim().toLowerCase()===it.answer.toLowerCase().trim();
+    const wrong=checked&&!correct;
+    return`<div class="fill-item">
+      <div class="fill-template">${esc(it.template).replace('___','<span style="background:var(--ll);padding:1px 6px;border-radius:4px;font-weight:700;color:var(--lc)">___</span>')}</div>
+      <div class="fill-base">Base form: <strong>${esc(it.baseWord)}</strong> · Type: ${esc(it.targetType)}</div>
+      <div class="fill-row">
+        <input class="fill-input${correct?' correct':wrong?' wrong':''}" id="fill_${si}_${ii}" placeholder="${esc(it.hint)}" value="${esc(saved||'')}" oninput="ST.inputs['${AL}_fill_${si}_${ii}']=this.value" ${checked?'disabled':''}>
+        ${!checked?`<button class="fill-btn" onclick="fillChk(${si},${ii})">Check</button>`:''}
+      </div>
+      <div class="fill-reveal${checked?' show':''}" id="fr_${si}_${ii}">
+        <div class="fr-ans">✔ ${esc(it.answer)}</div>
+        <div class="fr-exp">${esc(it.explanation)}</div>
+      </div>
+    </div>`}).join('')}
+  <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
+    <button class="rubric-toggle" onclick="togRub('fill${si}')">📋 Rubric</button>
+    <span id="fillScore_${si}"></span>
+  </div>
+  ${rubricHTML('fill'+si,RUBRICS[AL].fill)}`;
+}
+
+function fillChk(si,ii){
+  ST.checked[AL+'_fill_chk_'+si+'_'+ii]=true;
+  renderSec();
+  calcFill(si);
+}
+
+function calcFill(si){
+  const s=LEVELS[AL].sections[si];
+  const total=s.items.length;
+  const correct=s.items.filter((_,ii)=>ST.checked[AL+'_fill_chk_'+si+'_'+ii]&&
+    ST.inputs[AL+'_fill_'+si+'_'+ii]&&
+    ST.inputs[AL+'_fill_'+si+'_'+ii].trim().toLowerCase()===s.items[ii].answer.toLowerCase().trim()).length;
+  const done=s.items.filter((_,ii)=>ST.checked[AL+'_fill_chk_'+si+'_'+ii]).length;
+  if(done===total){
+    const pct=Math.round(correct/total*100);
+    document.getElementById('fillScore_'+si).innerHTML=badge(`${correct}/${total} correct (${pct}%)`,pct>=80?'#D8F3DC':pct>=50?'#FFF3CD':'#FFE5E5',pct>=80?'#1A4A2A':pct>=50?'#7A5A00':'#800');
+    ST.checked[AL+'_'+si]=true;
+    buildSecNav();
+    updProg();
+  }
+}
+
+function rTransform(s,si){
+  return`${s.items.map((it,ii)=>{
+    const saved=ST.inputs[AL+'_tr_'+si+'_'+ii]||'';
+    const revealed=ST.checked[AL+'_tr_rev_'+si+'_'+ii];
+    return`<div class="tr-item">
+      <div class="tr-spoken"><span>Original (spoken/informal)</span>${esc(it.spoken)}</div>
+      <div class="tr-hint">💡 Key structures to use: <b>${esc(it.hint)}</b></div>
+      <textarea class="tr-textarea" id="tr_${si}_${ii}" placeholder="Write your academic version here…" oninput="ST.inputs['${AL}_tr_${si}_${ii}']=this.value">${esc(saved)}</textarea>
+      <div class="tr-actions">
+        <button class="tr-save-btn" onclick="saveTr(${si},${ii})">Save</button>
+        <button class="tr-reveal-btn" onclick="revealTr(${si},${ii})">Show Model Answer</button>
+      </div>
+      <div class="tr-reveal${revealed?' show':''}" id="trr_${si}_${ii}">
+        <div class="trr-ans">${esc(it.answer)}</div>
+        <div class="trr-key"><strong>What changed:</strong> ${esc(it.keyChange)}</div>
+        <div class="trr-prin"><strong>Principle:</strong> ${esc(it.principle)}</div>
+      </div>
+    </div>`}).join('')}
+  <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
+    <button class="rubric-toggle" onclick="togRub('tr${si}')">📋 Rubric</button>
+  </div>
+  ${rubricHTML('tr'+si,RUBRICS[AL].transform)}`;
+}
+
+function saveTr(si,ii){
+  const el=document.getElementById('tr_'+si+'_'+ii);
+  if(el)ST.inputs[AL+'_tr_'+si+'_'+ii]=el.value;
+  el.style.borderColor='#2D6A4F';
+  ST.checked[AL+'_'+si]=true;
+  buildSecNav();
+  updProg();
+}
+
+function revealTr(si,ii){
+  ST.checked[AL+'_tr_rev_'+si+'_'+ii]=true;
+  const el=document.getElementById('trr_'+si+'_'+ii);
+  if(el){el.classList.add('show');}
+}
+
+function rLog(s,si){
+  return`${s.prompts.map((p,ii)=>{
+    const saved=ST.logs[AL+'_log_'+si+'_'+ii]||'';
+    return`<div class="log-item">
+      <div class="log-prompt">${ii+1}. ${esc(p)}</div>
+      <textarea class="log-textarea" id="log_${si}_${ii}" placeholder="Write your response here…" oninput="ST.logs['${AL}_log_${si}_${ii}']=this.value">${esc(saved)}</textarea>
+      <button class="log-save-btn" onclick="saveLog(${si},${ii})">Save ✓</button>
+    </div>`}).join('')}
+  <div class="log-actions-bar">
+    <button class="log-save-all-btn" onclick="saveLogAll(${si})">Save All Reflections ✓</button>
+  </div>
+  <div style="margin-top:10px">
+    <button class="rubric-toggle" onclick="togRub('log${si}')">📋 Rubric</button>
+  </div>
+  ${rubricHTML('log'+si,RUBRICS[AL].log)}`;
+}
+
+function saveLog(si,ii){
+  const el=document.getElementById('log_'+si+'_'+ii);
+  if(el)ST.logs[AL+'_log_'+si+'_'+ii]=el.value;
+  el.style.borderColor='#2D6A4F';
+}
+
+function saveLogAll(si){
+  const s=LEVELS[AL].sections[si];
+  s.prompts.forEach((_,ii)=>{
+    const el=document.getElementById('log_'+si+'_'+ii);
+    if(el)ST.logs[AL+'_log_'+si+'_'+ii]=el.value;
+  });
+  ST.checked[AL+'_'+si]=true;
+  buildSecNav();
+  updProg();
+  const btns=document.querySelectorAll('.log-textarea');
+  btns.forEach(b=>{b.style.borderColor='#2D6A4F';});
+}
+
+function rubricHTML(key,rubric){
+  if(!rubric)return'';
+  return`<div class="rubric-box" id="rub_${key}">
+    ${rubric.map(r=>`<div class="rubric-row">
+      <div class="rubric-crit">${esc(r.criterion)}</div>
+      <div class="rubric-max">${r.max} pt${r.max>1?'s':''}</div>
+      <div class="rubric-desc">${esc(r.desc)}</div>
+    </div>`).join('')}
+    <div style="margin-top:6px;font-size:.75rem;color:var(--muted);font-weight:600">Total: ${rubric.reduce((a,r)=>a+r.max,0)} points</div>
+  </div>`;
+}
+
+function togRub(key){
+  const el=document.getElementById('rub_'+key);
+  if(el)el.classList.toggle('show');
+}
+
+function markDone(si){
+  ST.checked[AL+'_'+si]=true;
+  buildSecNav();
+  updProg();
+}
+
+function handleDownload(){
+  const lv=LEVELS[AL];
+  const now=new Date();
+  let txt=`HUONG STELLA PARADIGM — Daily Drills Report\n`;
+  txt+=`Day 16 · ${THEME}\n`;
+  txt+=`Level: ${lv.label} · ${lv.theme}\n`;
+  txt+=`Generated: ${now.toLocaleString()}\n`;
+  txt+=`${'='.repeat(60)}\n\n`;
+  lv.sections.forEach((s,si)=>{
+    txt+=`SECTION: ${s.title}\n${'-'.repeat(40)}\n`;
+    if(s.type==='spot'){
+      const key=AL+'_spot_'+si;
+      const ch=ST.choices[key]||{};
+      s.items.forEach((it,ii)=>{
+        const ans=ch[ii];
+        txt+=`Q${ii+1}: ${it.sentence}\n  Your answer: ${ans||'(not answered)'} | Correct: ${it.correctWord}\n  Rule: ${it.rule}\n`;
+      });
+    } else if(s.type==='fill'){
+      s.items.forEach((it,ii)=>{
+        const val=ST.inputs[AL+'_fill_'+si+'_'+ii]||'(blank)';
+        txt+=`Q${ii+1}: ${it.template}\n  Your answer: ${val} | Correct: ${it.answer}\n  ${it.explanation}\n`;
+      });
+    } else if(s.type==='transform'){
+      s.items.forEach((it,ii)=>{
+        const val=ST.inputs[AL+'_tr_'+si+'_'+ii]||'(no response)';
+        txt+=`Q${ii+1}: ${it.spoken}\n  Your version: ${val}\n  Model: ${it.answer}\n  Principle: ${it.principle}\n`;
+      });
+    } else if(s.type==='log'){
+      s.prompts.forEach((p,ii)=>{
+        const val=ST.logs[AL+'_log_'+si+'_'+ii]||'(no response)';
+        txt+=`Prompt ${ii+1}: ${p}\n  Response: ${val}\n`;
+      });
+    }
+    txt+='\n';
+  });
+  txt+=`${'='.repeat(60)}\nEnd of report\n`;
+  const blob=new Blob([txt],{type:'text/plain'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`HuongStella_DailyDrill_Day16_${AL}_${now.toISOString().slice(0,10)}.txt`;
+  a.click();
+}
+
+init();
+</script></body></html>
